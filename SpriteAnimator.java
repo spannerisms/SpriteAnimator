@@ -3,6 +3,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -124,11 +126,11 @@ public class SpriteAnimator extends Component {
 				"A1{0,0}{F}{0}:S5{0,8}{F}{M};" +
 				"A1{0,0}{F}{0}:S6{0,8}{F}{M}",
 			// bonk - F3
-			"F3{0,0}{F}{0}:G3{0,8}{T}{0}",
+			"F3{0,0}{F}{0}:G3{0,16}{T}{0}",
 			// bonkUp - F4
-			"F4{0,0}{F}{0}:G4{0,8}{T}{0}",
+			"F4{0,0}{F}{0}:G4{0,16}{T}{0}",
 			// bonkDown - F2
-			"F2{0,0}{F}{0}:G2{0,8}{T}{0}",
+			"F2{0,0}{F}{0}:G2{0,16}{T}{0}",
 			// swim - H5:I7,H6:J0,H5:I7,H7:J1
 			"H5{0,0}{F}{0}:I7{0,8}{F}{0};" +
 				"H6{0,0}{F}{0}:J0{0,8}{F}{0};" +
@@ -516,7 +518,7 @@ public class SpriteAnimator extends Component {
 			// hookshotDown - A1:D0
 			"A1{0,0}{F}{0}:D0{0,8}{F}{0}",
 			// zap - R0,S0
-			"R0{0,0}{F}{0}:S0{0,8}{T}{0};" +
+			"R0{0,0}{F}{0}:S0{0,16}{T}{0};" +
 				"S0{0,0}{B}{0}:T0{0,8}{F}{0}",
 			// bunnyStand - α4:α5
 			"α4{0,0}{F}{0}:α5{0,8}{F}{0}",
@@ -701,6 +703,7 @@ public class SpriteAnimator extends Component {
 	private int frame;
 	private int maxFrame;
 	private boolean running;
+	private int zoom = 3;
 	private Sprite[][] frames = null;
 	private Timer tick;
 	private static final int MAXSPEED = 3; // maximum speed magnitude
@@ -730,7 +733,7 @@ public class SpriteAnimator extends Component {
 	}
 	
 	public int maxFrame() {
-		return maxFrame();
+		return maxFrame;
 	}
 	/**
 	 * Set image to animate.
@@ -870,6 +873,27 @@ public class SpriteAnimator extends Component {
 	}
 	
 	/**
+	 * Zooms in by 1x.
+	 * @return <b>true</b> if we're really big.
+	 */
+	public boolean embiggen() {
+		if (zoom < 5)
+			zoom++;
+		repaint();
+		return (zoom >= 5);
+	}
+	
+	/**
+	 * Zooms out by 1x.
+	 * @return <b>true</b> if we're vanilla size.
+	 */
+	public boolean ensmallen() {
+		if (zoom > 0)
+			zoom--;
+		repaint();
+		return (zoom <= 1);
+	}
+	/**
 	 * Adjusts timer based on speed
 	 */
 	public void adjustTimer() {
@@ -1003,7 +1027,7 @@ public class SpriteAnimator extends Component {
 		if (frames==null || frames[frame] == null)
 			return;
 		Graphics2D g2 = (Graphics2D) g;
-		g2.scale(3.0, 3.0);
+		g2.scale(zoom, zoom);
 		for(Sprite s : frames[frame])
 			if (s!=null)
 				s.draw(g2);
@@ -1035,21 +1059,64 @@ public class SpriteAnimator extends Component {
 		final JButton stepBtn = new JButton("Step");
 		final JButton fasterBtn = new JButton("Speed+");
 		final JButton slowerBtn = new JButton("Speed-");
+		final JButton bigBtn = new JButton("Zoom+");
+		final JButton lilBtn = new JButton("Zoom-");
 		final JButton resetBtn = new JButton("Reset");
+		final JLabel frameCur = new JLabel("0 / 0");
 		final JPanel loadWrap = new JPanel(new BorderLayout());
-		final JPanel controls = new JPanel(new BorderLayout());
-		final JPanel controls1 = new JPanel(new BorderLayout());
-		final JPanel controls2 = new JPanel(new BorderLayout());
-		controls1.add(animOptions,BorderLayout.NORTH);
-		controls1.add(modeOptions,BorderLayout.SOUTH);
-		
-		controls2.add(stepBtn,BorderLayout.SOUTH);
-		controls2.add(fasterBtn,BorderLayout.EAST);
-		controls2.add(slowerBtn,BorderLayout.WEST);
-		controls2.add(resetBtn,BorderLayout.CENTER);
-		controls.add(controls1,BorderLayout.NORTH);
-		controls.add(controls2,BorderLayout.SOUTH);
+		final JPanel controls = new JPanel(new GridBagLayout());
+		final JPanel controlsWrap = new JPanel(new BorderLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		// row 1 and 2 : comboboxes
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 0;
+		controls.add(animOptions,c);
+		c.gridy++;
+		controls.add(modeOptions,c);
 
+		// row 3 : zoom
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(lilBtn,c);
+		c.gridx = 1;
+		controls.add(new JPanel(), c); // filler
+		c.gridx = 2;
+		controls.add(bigBtn,c);
+		
+		// speed
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(slowerBtn,c);
+		c.gridx = 1;
+		controls.add(new JPanel(), c); // filler
+		c.gridx = 2;
+		controls.add(fasterBtn,c);
+		
+		// step
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(stepBtn,c);
+		
+		// reset
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(resetBtn,c);
+		
+		// frame counter
+		c.gridwidth = 2;
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(new JLabel("Frame:"),c);
+
+		c.gridwidth = 1;
+		c.gridx = 2;
+		controls.add(frameCur,c);
+		
 		final JPanel bottomStuffWrap = new JPanel(new BorderLayout());
 		final JPanel bottomStuff = new JPanel(new BorderLayout());
 		stepBtn.setEnabled(false);
@@ -1058,15 +1125,6 @@ public class SpriteAnimator extends Component {
 		final SpriteAnimator run = imageArea; // just a shorter name
 
 		bottomStuffWrap.add(imageArea,BorderLayout.CENTER);
-		bottomStuff.add(controls,BorderLayout.EAST);
-		
-		final JPanel frameCounter = new JPanel(new BorderLayout());
-		final JLabel frameWord = new JLabel("Frame:");
-		final JLabel frameCur = new JLabel("0");
-		frameCur.setVerticalAlignment(JLabel.EAST);
-		frameCounter.add(frameWord,BorderLayout.WEST);
-		frameCounter.add(frameCur,BorderLayout.EAST);
-		bottomStuff.add(frameCounter,BorderLayout.SOUTH);
 		bottomStuffWrap.add(bottomStuff,BorderLayout.EAST);
 		loadWrap.add(loadBtn,BorderLayout.EAST);
 		loadWrap.add(fileName,BorderLayout.CENTER);
@@ -1111,6 +1169,8 @@ public class SpriteAnimator extends Component {
 		// end credits
 
 		frame.add(bottomStuffWrap, BorderLayout.CENTER);
+		controlsWrap.add(controls,BorderLayout.NORTH);
+		frame.add(controlsWrap,BorderLayout.EAST);
 		frame.add(loadWrap,BorderLayout.NORTH);
 		frame.setSize(d);
 		frame.setMinimumSize(d);
@@ -1130,7 +1190,7 @@ public class SpriteAnimator extends Component {
 		Timer tock = run.getTimer();
 		tock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frameCur.setText("" + run.getFrame());
+				frameCur.setText((run.getFrame()+1) + " / " + run.maxFrame());
 			}
 		});
 		// load sprite file
@@ -1231,6 +1291,20 @@ public class SpriteAnimator extends Component {
 						break;
 				}
 				run.reset();
+			}});
+		
+		bigBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lilBtn.setEnabled(true);
+				if (run.embiggen())
+					bigBtn.setEnabled(false);
+			}});
+		
+		lilBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				bigBtn.setEnabled(true);
+				if (run.ensmallen())
+					lilBtn.setEnabled(false);
 			}});
 		
 		fasterBtn.addActionListener(new ActionListener() {
