@@ -676,7 +676,6 @@ public class SpriteAnimator extends Component {
 		for (int i = 0; i < ALLFRAMES.length; i++) {
 			String r = ALLFRAMES[i];
 			String[] animDataX = r.split("[\\[\\]]");
-			System.out.println(animDataX.length + " " + r);
 			ret[i] = animDataX[1];
 		}
 		return ret;
