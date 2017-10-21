@@ -24,6 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -639,11 +640,11 @@ public class SpriteAnimator extends Component {
 			"A0{0,0}{F}{0}:F6{0,8}{F}{0}",
 		// pokeUp - E4:D2,E4:F7,E4:L4
 		"[pokeUp][100]E4{0,0}{F}{0}:D2{0,8}{F}{0};" +
-			"E4{0,0}{F}{0}:F7{0,8}{F}{0};" +
-			"E4{0,0}{F}{0}:L4{0,8}{F}{0}",
+			"E4{0,1}{F}{0}:F7{0,8}{F}{0};" +
+			"E4{0,1}{F}{0}:L4{0,8}{F}{0}",
 		// pokeDown - A1:N1,E3:G7
-		"[pokeDown][100]A1{0,0}{F}{0}:N1{0,8}{F}{0};" +
-			"E3{0,0}{F}{0}:G7{0,8}{F}{0}",
+		"[pokeDown][100]A1{0,1}{F}{0}:N1{0,8}{F}{0};" +
+			"E3{0,2}{F}{0}:G7{0,8}{F}{0}",
 		// tallGrass - A0:B0,A0:V1,A0:V2
 		"[tallGrass][100]A0{-1,0}{F}{0}:B0{0,8}{F}{0};" +
 			"A0{-1,1}{F}{0}:V1{0,8}{F}{0};" +
@@ -731,6 +732,9 @@ public class SpriteAnimator extends Component {
 		return frame;
 	}
 	
+	public String frameDis() {
+		return "" + (frame + 1);
+	}
 	public int maxFrame() {
 		return maxFrame;
 	}
@@ -1019,13 +1023,14 @@ public class SpriteAnimator extends Component {
 				drawX += drawXoffset;
 				drawY += drawYoffset;
 				BufferedImage spreet;
+				// blank sprite frame
 				if (sprSize.equals("E"))
 					spreet = new BufferedImage(16, 16, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 				else
 					spreet = img.getSubimage(drawX, drawY, width, height);
 				
 				// put it in backwards to preserve draw order
-				frames[i][spriteCount-1-j] = new Sprite(spreet, xpos, ypos, j);
+				frames[i][spriteCount-1-j] = new Sprite(spreet, xpos, ypos);
 			}
 		}
 	}
@@ -1121,10 +1126,17 @@ public class SpriteAnimator extends Component {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
+		c.weightx = 9;
 		controls.add(new JLabel("Frame:"),c);
-
+		c.weightx = 0;
 		c.gridx = 1;
+		c.fill = GridBagConstraints.NONE;
 		
+		Dimension dd = new Dimension(20,20);
+		frameCur.setPreferredSize(dd);
+		frameCur.setMaximumSize(dd);
+		frameCur.setMinimumSize(dd);
+
 		controls.add(frameCur,c);
 		c.gridx = 2;
 		controls.add(frameMax,c);
@@ -1197,11 +1209,12 @@ public class SpriteAnimator extends Component {
 		// can't clear text due to wonky code
 		// have to set a blank file instead
 		final File EEE = new File("");
-
+		// TODO: uncomment this for exports
+		//explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 		Timer tock = run.getTimer();
 		tock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frameCur.setText((run.getFrame()+1) + "");
+				frameCur.setText(run.frameDis());
 			}
 		});
 		// load sprite file
@@ -1351,13 +1364,13 @@ public class SpriteAnimator extends Component {
 						// nothing
 						break;
 				}
-				frameCur.setText((run.getFrame()+1) + "");
+				frameCur.setText(run.frameDis());
 			}});
 		
 		stepBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.step();
-				frameCur.setText((run.getFrame()+1) + "");
+				frameCur.setText(run.frameDis());
 			}});
 		// turn on
 		frame.setVisible(true);
@@ -1597,18 +1610,16 @@ public class SpriteAnimator extends Component {
 
 /**
  * Sprite class to handle drawing better
- * TODO: z field for when to draw and methods (above) for reordering based on z
  */
 class Sprite {
 	int x;
 	int y;
 	int z;
 	BufferedImage img;
-	public Sprite(BufferedImage image, int xpos, int ypos, int zindex) {
+	public Sprite(BufferedImage image, int xpos, int ypos) {
 		img = image;
 		x = xpos;
 		y = ypos;
-		z = zindex;
 	}
 	
 	/**
