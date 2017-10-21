@@ -43,7 +43,9 @@ public class SpriteAnimator extends Component {
 	public static final int FPS = 16;
 	
 	// used for parsing frame data
-	static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZαβ".toUpperCase(); // to uppercase to distinguish alpha/beta
+	static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZαβ"
+			.toUpperCase(); // toUppercase to visually distinguish alpha/beta
+
 	// format of snes 4bpp {row (r), bit plane (b)}
 	// bit plane 0 indexed such that 1011 corresponds to 0123
 	static final int BPPI[][] = {
@@ -105,7 +107,7 @@ public class SpriteAnimator extends Component {
 			"A2{0,0}{F}{0}:T5{0,8}{F}{0} @ 3 ;" +
 			"A2{0,0}{F}{0}:T6{0,8}{F}{0} @ 3 ",
 		// walkDown
-		"[walkDown][100]A1{0,0}{F}{0}:B4{0,8}{F}{0} @ 2 ;" +
+		"[walkDown][100]A1{0,0}{F}{0}:B4{0,8}{F}{0} @ 20 ;" +
 			"A1{0,-1}{F}{0}:B5{0,8}{F}{0} @ 3 ;" +
 			"A1{0,-2}{F}{0}:S5{0,8}{F}{0} @ 3 ;" +
 			"A1{0,0}{F}{0}:S6{0,8}{F}{0} @ 2 ;" +
@@ -704,8 +706,8 @@ public class SpriteAnimator extends Component {
 	private int zoom = 3;
 	private Anime[] frames = null;
 	private Timer tick;
-	private static final int MAXSPEED = 3; // maximum speed magnitude
-	private static final int MAXZOOM = 10;
+	private static final int MAXSPEED = 6; // maximum speed magnitude
+	private static final int MAXZOOM = 7;
 	// default initialization
 	public SpriteAnimator() {
 		anime = 0;
@@ -714,17 +716,13 @@ public class SpriteAnimator extends Component {
 		frame = 0;
 		maxFrame = 0;
 		running = true;
-		tick = new Timer(1000, new ActionListener() {
+		tick = new Timer(100, new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (isRunning())
+				if (isRunning()) {
 					step();
+				}
 			}
 		});
-	}
-
-	public void stop() {
-		running = false;
-		tick.stop();
 	}
 	
 	public int getFrame() {
@@ -775,7 +773,6 @@ public class SpriteAnimator extends Component {
 	public void setMode(int m) {
 		mode = m;
 		reset();
-		repaint();
 	}
 	
 	/**
@@ -814,28 +811,27 @@ public class SpriteAnimator extends Component {
 				setRunning(true);
 				break;
 		}
-		adjustTimer();
+		repaint();
 	}
 	
 	/**
 	 * Reset speed to 0.
 	 */
-	public void resetSpeed() {
+	private void resetSpeed() {
 		speed = 0;
 	}
 	
 	/**
 	 * Resets frame to 0.
 	 */
-	public void resetFrame() {
+	private void resetFrame() {
 		frame = 0;
-		repaint();
 	}
 	
 	/**
 	 * Control self-animation permission.
 	 */
-	public void setRunning(boolean r) {
+	private void setRunning(boolean r) {
 		running = r;
 		if (r)
 			tick.start();
@@ -862,7 +858,6 @@ public class SpriteAnimator extends Component {
 	public boolean faster() {
 		if (speed < MAXSPEED)
 			speed++;
-		adjustTimer();
 		return atMaxSpeed();
 	}
 	
@@ -873,7 +868,6 @@ public class SpriteAnimator extends Component {
 	public boolean slower() {
 		if (speed > (MAXSPEED * -1))
 			speed--;
-		adjustTimer();
 		return atMinSpeed();
 	}
 	
@@ -901,7 +895,7 @@ public class SpriteAnimator extends Component {
 	/**
 	 * Adjusts timer based on speed
 	 */
-	public void adjustTimer() {
+	private void adjustTimer() {
 		double speedM = Math.pow(1.5, speed * -1);
 		frames[frame].setNextTick(tick, speedM);
 	}
@@ -935,7 +929,7 @@ public class SpriteAnimator extends Component {
 	/**
 	 * Makes an array of {@link Sprite}s based on the frame data.
 	 */
-	public void makeAnimationFrames() {
+	private void makeAnimationFrames() {
 		if (img == null)
 			return;
 		String animData = ALLFRAMES[anime].toUpperCase().replace(" ", ""); // CAPS and remove all whitespace
@@ -1247,6 +1241,7 @@ public class SpriteAnimator extends Component {
 				explorer.setSelectedFile(EEE);
 				explorer.setFileFilter(sprFilter);
 				int option = explorer.showOpenDialog(loadBtn);
+				explorer.removeChoosableFileFilter(sprFilter);
 				if (option == JFileChooser.CANCEL_OPTION)
 					return;
 				String n = "";
@@ -1260,7 +1255,6 @@ public class SpriteAnimator extends Component {
 					else
 						return;
 				}
-				explorer.removeChoosableFileFilter(sprFilter);
 
 				byte[] sprite;
 				try {
@@ -1308,7 +1302,6 @@ public class SpriteAnimator extends Component {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				run.reset();
 				resetBtn.getActionListeners()[0].actionPerformed(
 						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"",0,0));
 				frameMax.setText("/ " + run.maxFrame());
@@ -1339,6 +1332,7 @@ public class SpriteAnimator extends Component {
 						stepBtn.setEnabled(false);
 						break;
 				}
+				frameCur.setText(run.frameDis());
 				run.reset();
 			}});
 		
