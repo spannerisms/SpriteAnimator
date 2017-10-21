@@ -37,6 +37,10 @@ public class SpriteAnimator extends Component {
 	static final int PALETTESIZE = 0x78; // not simplified to understand the numbers
 	static final int RASTERSIZE = 128 * 448 * 4;
 
+	// Almost the length of a frame at 60 FPS
+	// 1/60 approx. 16.66666...
+	static final int FPS = 16;
+	
 	// used for parsing frame data
 	static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZαβ".toUpperCase(); // to uppercase to distinguish alpha/beta
 	// format of snes 4bpp {row (r), bit plane (b)}
@@ -47,7 +51,6 @@ public class SpriteAnimator extends Component {
 			{0,2},{0,3},{1,2},{1,3},{2,2},{2,3},{3,2},{3,3},
 			{4,2},{4,3},{5,2},{5,3},{6,2},{6,3},{7,2},{7,3}
 	};
-
 	/* taken and modified from
 	 * http://alttp.mymm1.com/sprites/includes/animations.txt
 	 * credit: mike trethewey
@@ -77,20 +80,20 @@ public class SpriteAnimator extends Component {
 	 */
 	static final String[] ALLFRAMES = {
 		// stand - A0:B0
-		"[stand][100]A0{-1,0}{F}{0}:B0{0,8}{F}{0}", 
+		"[stand][100]A0{0,0}{F}{0}:B0{1,8}{F}{0}", 
 		// standUp - A2:C1
 		"[standUp][100]A2{0,0}{F}{0}:C1{0,8}{F}{0}",
 		// standDown - A1:B3
 		"[standDown][100]A1{0,0}{F}{0}:B3{0,8}{F}{0}", // 
 		// walk - A0:B0,A0:B1,K3:B2,K4:Q7,A0:S4,A0:R6,K3:R7,K4:S3
 		"[walk][100]A0{-1,0}{F}{0}:B0{0,8}{F}{0};" +
-		"A0{-1,0}{F}{0}:B1{0,8}{F}{0};" +
-		"K3{-1,0}{F}{0}:B2{0,8}{F}{0};" +
-		"K4{-1,0}{F}{0}:Q7{0,8}{F}{0};" +
-		"A0{-1,0}{F}{0}:S4{0,8}{F}{0};" +
-		"A0{-1,0}{F}{0}:R6{0,8}{F}{0};" +
-		"K3{-1,0}{F}{0}:R7{0,8}{F}{0};" +
-		"K4{-1,0}{F}{0}:S3{0,8}{F}{0};",
+			"A0{0,0}{F}{0}:B1{1,8}{F}{0};" +
+			"K3{0,0}{F}{0}:B2{1,8}{F}{0};" +
+			"K4{0,0}{F}{0}:Q7{1,8}{F}{0};" +
+			"A0{0,0}{F}{0}:S4{1,8}{F}{0};" +
+			"A0{0,0}{F}{0}:R6{1,8}{F}{0};" +
+			"K3{0,0}{F}{0}:R7{1,8}{F}{0};" +
+			"K4{0,0}{F}{0}:S3{1,8}{F}{0};",
 		// walkUp - A2:B6,A2:C0,A2:S7,A2:T3,A2:T7,A2:T4,A2:T5,A2:T6
 		"[walkUp][100]A2{0,0}{F}{0}:B6{0,8}{F}{0};" +
 			"A2{0,0}{F}{0}:C0{0,8}{F}{0};" +
@@ -302,9 +305,9 @@ public class SpriteAnimator extends Component {
 		// readBook - K5:K6
 		"[readBook][100]K5{0,0}{F}{0}:K6{0,8}{F}{0};",
 		// prayer R1,A5:Q1,A5:Q0,S1
-		"[prayer]R1{0,0}{F}{0}:S1{0,8}{T}{0};" +
-			"A5{0,0}{F}{0}:Q1{0,8}{T}{0};" +
-			"A5{0,0}{F}{0}:Q0{0,8}{T}{0};" +
+		"[prayer][1000]R1{0,0}{F}{0}:S1{0,16}{T}{0};" +
+			"A5{0,1}{F}{0}:Q1{0,8}{F}{0};" +
+			"A5{0,1}{F}{0}:Q0{0,8}{F}{0};" +
 			"S1{0,0}{B}{0}:T1{0,8}{F}{0}",
 		// fall - G0,E5,E6,H4-T,H4-B,G4-B
 		"[fall][100]G0{0,0}{F}{0};" +
@@ -366,35 +369,35 @@ public class SpriteAnimator extends Component {
 			"A1{0,0}{F}{0}:B3{0,8}{F}{0}",
 		// push - U1:X2,U1:X3,U1:X4,U1:X2,U1:X3,U1:X2,U1:X3,U1:X4
 		"[push][100]U1{0,0}{F}{0}:X2{0,8}{F}{0};" +
-			"U1{0,0}{F}{0}:X3{0,8}{F}{0};" +
-			"U1{0,0}{F}{0}:X4{0,8}{F}{0};" +
+			"U1{0,1}{F}{0}:X3{0,8}{F}{0};" +
+			"U1{0,2}{F}{0}:X4{0,8}{F}{0};" +
 			"U1{0,0}{F}{0}:X2{0,8}{F}{0};" +
-			"U1{0,0}{F}{0}:X3{0,8}{F}{0};" +
+			"U1{0,1}{F}{0}:X3{0,8}{F}{0};" +
 			"U1{0,0}{F}{0}:X2{0,8}{F}{0};" +
-			"U1{0,0}{F}{0}:X3{0,8}{F}{0};" +
-			"U1{0,0}{F}{0}:X4{0,8}{F}{0}",
+			"U1{0,1}{F}{0}:X3{0,8}{F}{0};" +
+			"U1{0,2}{F}{0}:X4{0,8}{F}{0}",
 		// pushUp - U2:M3,U2:M4,U2:M5,U2:M3,U2:M4-M,U2:M3,U2:M4,U2:M5
 		"[pushUp][100]U2{0,0}{F}{0}:M3{0,8}{F}{0};" +
-			"U2{0,0}{F}{0}:M4{0,8}{F}{0};" +
-			"U2{0,0}{F}{0}:M5{0,8}{F}{0};" +
+			"U2{0,1}{F}{0}:M4{0,8}{F}{0};" +
+			"U2{0,2}{F}{0}:M5{0,8}{F}{0};" +
 			"U2{0,0}{F}{0}:M3{0,8}{F}{0};" +
-			"U2{0,0}{F}{0}:M4{0,8}{F}{M};" +
+			"U2{0,1}{F}{0}:M4{0,8}{F}{M};" +
 			"U2{0,0}{F}{0}:M3{0,8}{F}{0};" +
-			"U2{0,0}{F}{0}:M4{0,8}{F}{0};" +
-			"U2{0,0}{F}{0}:M5{0,8}{F}{0}",
+			"U2{0,1}{F}{0}:M4{0,8}{F}{0};" +
+			"U2{0,2}{F}{0}:M5{0,8}{F}{0}",
 		// pushDown - U0:X5,U0:X6,U0:X7,U0:X5,U0:X6-M,U0:X5,U0:X6,U0:X7
-		"[pushDown][100]U0{0,0}{F}{0}:X5{0,8}{F}{0};" +
-			"U0{0,0}{F}{0}:X6{0,8}{F}{0};" +
-			"U0{0,0}{F}{0}:X7{0,8}{F}{0};" +
-			"U0{0,0}{F}{0}:X5{0,8}{F}{0};" +
-			"U0{0,0}{F}{0}:X6{0,8}{F}{M};" +
-			"U0{0,0}{F}{0}:X5{0,8}{F}{0};" +
-			"U0{0,0}{F}{0}:X6{0,8}{F}{0};" +
-			"U0{0,0}{F}{0}:X7{0,8}{F}{0}",
+		"[pushDown][100]U0{0,3}{F}{0}:X5{0,8}{F}{0};" +
+			"U0{0,4}{F}{0}:X6{0,8}{F}{0};" +
+			"U0{0,5}{F}{0}:X7{0,8}{F}{0};" +
+			"U0{0,3}{F}{0}:X5{0,8}{F}{0};" +
+			"U0{0,4}{F}{0}:X6{0,8}{F}{M};" +
+			"U0{0,3}{F}{0}:X5{0,8}{F}{0};" +
+			"U0{0,4}{F}{0}:X6{0,8}{F}{0};" +
+			"U0{0,5}{F}{0}:X7{0,8}{F}{0}",
 		// shovel - B7:D7,A0:F5,A0:C7
-		"[shovel][100]B7{0,0}{F}{0}:D7{0,8}{F}{0};" +
+		"[shovel][400]B7{0,-1}{F}{0}:D7{0,8}{F}{0};" +
 			"A0{0,0}{F}{0}:F5{0,8}{F}{0};" +
-			"A0{0,0}{F}{0}:C7{0,8}{F}{0}",
+			"A0{-1,0}{F}{0}:C7{0,8}{F}{0}",
 		// boomerang - S2,A0:C4,A0:B0
 		"[boomerang][100]S2{0,0}{F}{0};" +
 			"A0{0,0}{F}{0}:C4{0,8}{F}{0};" +
@@ -518,7 +521,7 @@ public class SpriteAnimator extends Component {
 		"[bunnyWalkUp][100]α1{0,0}{F}{0}:α2{0,8}{F}{0};" +
 			"α1{0,0}{F}{0}:α3{0,8}{F}{0}",
 		// bunnyWalkDown - Z5:α0,Z5:Z7
-		"[bunnyWalkDown][100]Z5{0,0}{F}{0}:α0{0,8}{F}{0}l" +
+		"[bunnyWalkDown][100]Z5{0,0}{F}{0}:α0{0,8}{F}{0};" +
 			"Z5{0,1}{F}{0}:Z7{0,8}{F}{0}",
 		// walkDownstairs2F - A2:C1,A2:V5,A2:V6,A2:C1,A2:D4,A2:M5-M,A2:C1,A2:V5,X1-M:Y4-M,X1-M:Y5-M,X1-M:Y3-M,X1-M:Y4-M,X1-M:Y5-M,X1-M:Y3-M,X1-M:Y4-M,X1-M:Y5-M,X1-M:Y3-M,A0-M:B0-M,A0-M:V1-M,A0-M:V2-M,A0-M:B0-M,A0-M:V1-M,A0-M:V2-M,A0-M:B0-M,A0-M:V1-M,A0-M:V2-M,A0-M:B0-M,A0-M:V1-M,A0-M:V2-M,A0-M:B0-M
 		"[walkDownstairs2F][100]A2{0,0}{F}{0}:C1{0,8}{F}{0};" +
@@ -668,8 +671,8 @@ public class SpriteAnimator extends Component {
 	/*
 	 * GUI stuff
 	 */
-	static String dddd[] = getAnimNames();
-	private static final JComboBox<String> animOptions = new JComboBox<String>(dddd);
+	private static final JComboBox<String> animOptions =
+			new JComboBox<String>(getAnimNames());
 
 	public static String[] getAnimNames() {
 		String[] ret = new String[ALLFRAMES.length];
@@ -1068,7 +1071,8 @@ public class SpriteAnimator extends Component {
 		final JButton bigBtn = new JButton("Zoom+");
 		final JButton lilBtn = new JButton("Zoom-");
 		final JButton resetBtn = new JButton("Reset");
-		final JLabel frameCur = new JLabel("1 / 1");
+		final JLabel frameCur = new JLabel("1");
+		final JLabel frameMax = new JLabel("/ 1");
 		final JPanel loadWrap = new JPanel(new BorderLayout());
 		final JPanel controls = new JPanel(new GridBagLayout());
 		final JPanel controlsWrap = new JPanel(new BorderLayout());
@@ -1114,14 +1118,16 @@ public class SpriteAnimator extends Component {
 		controls.add(resetBtn,c);
 		
 		// frame counter
-		c.gridwidth = 2;
+		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
 		controls.add(new JLabel("Frame:"),c);
 
-		c.gridwidth = 1;
-		c.gridx = 2;
+		c.gridx = 1;
+		
 		controls.add(frameCur,c);
+		c.gridx = 2;
+		controls.add(frameMax,c);
 		
 		final JPanel bottomStuffWrap = new JPanel(new BorderLayout());
 		final JPanel bottomStuff = new JPanel(new BorderLayout());
@@ -1195,7 +1201,7 @@ public class SpriteAnimator extends Component {
 		Timer tock = run.getTimer();
 		tock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frameCur.setText((run.getFrame()+1) + " / " + run.maxFrame());
+				frameCur.setText((run.getFrame()+1) + "");
 			}
 		});
 		// load sprite file
@@ -1268,6 +1274,7 @@ public class SpriteAnimator extends Component {
 				run.reset();
 				resetBtn.getActionListeners()[0].actionPerformed(
 						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"",0,0));
+				frameMax.setText("/ " + run.maxFrame());
 			}});
 		
 		modeOptions.addActionListener(new ActionListener() {
@@ -1344,13 +1351,13 @@ public class SpriteAnimator extends Component {
 						// nothing
 						break;
 				}
-				frameCur.setText((run.getFrame()+1) + " / " + run.maxFrame());
+				frameCur.setText((run.getFrame()+1) + "");
 			}});
 		
 		stepBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.step();
-				frameCur.setText((run.getFrame()+1) + " / " + run.maxFrame());
+				frameCur.setText((run.getFrame()+1) + "");
 			}});
 		// turn on
 		frame.setVisible(true);
