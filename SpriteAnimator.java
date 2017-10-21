@@ -942,24 +942,21 @@ public class SpriteAnimator extends Component {
 		// split into sections
 
 		String[] animDataX = animData.split("[\\[\\]]+");
-		String[] animDataZ = animDataX[3].split("@");
-		String[] eachFrame = animDataZ[0].split(";"); // split by frame
-		System.out.println(animDataZ[0]);
+		String[] eachFrame = animDataX[3].split(";"); // split by frame
 		// get duration
-		int animSpeed;
-		try {
-			animSpeed = Integer.parseInt(animDataZ[1]);
-		} catch (Exception e) {
-			animSpeed = 100;
-		}
+
 		maxFrame = eachFrame.length;
 		frames = new Anime[maxFrame];
 		// each frame
 		for (int i = 0; i < maxFrame; i++) {
-			// repeat last frame
-			if (eachFrame[i].equals("//"))
-				eachFrame[i] = eachFrame[i-1];
-			String[] eachSprite = eachFrame[i].split(":");
+			String[] wholeFrame = eachFrame[i].split("@");
+			int animSpeed;
+			try {
+				animSpeed = Integer.parseInt(wholeFrame[1]);
+			} catch (Exception e) {
+				animSpeed = 100;
+			}
+			String[] eachSprite = wholeFrame[0].split(":");
 			int spriteCount = eachSprite.length;
 			// each sprite in frame
 			Sprite[] sprList = new Sprite[spriteCount];
