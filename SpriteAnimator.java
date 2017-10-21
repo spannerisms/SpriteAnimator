@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +25,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -55,9 +55,7 @@ public class SpriteAnimator extends Component {
 	/* taken and modified from
 	 * http://alttp.mymm1.com/sprites/includes/animations.txt
 	 * credit: mike trethewey
-	 */
-
-	/* 
+	 * 
 	 * format:
 	 * [<ANIMNAME>][<ANIMSPEED>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>}{<TRANSFORM>}
 	 * : delimits sprites in the same frame
@@ -142,12 +140,12 @@ public class SpriteAnimator extends Component {
 		// treadingWaterDown - A1:J2,A1:J2-M
 		"[treadingWaterDown][100]A1{0,0}{F}{0}:J2{0,8}{F}{0};" +
 			"A1{0,0}{F}{0}:J2{0,8}{F}{M}",
-		// attack - A0:C2,A0:C3,A0:C4,A0:α7,ZZ100:Z6,A0:C4,A0:C5
+		// attack - A0:C2,A0:C3,A0:C4,A0:α7,Z6,A0:C4,A0:C5
 		"[attack][100]A0{0,0}{F}{0}:C2{0,8}{F}{0};" +
 			"A0{0,0}{F}{0}:C3{0,8}{F}{0};" +
 			"A0{0,0}{F}{0}:C4{0,8}{F}{0};" +
 			"A0{0,0}{F}{0}:α7{0,8}{F}{0};" +
-			"ZZ100:Z6{0,8}{F}{0};" +
+			"Z6{0,8}{F}{0};" +
 			"A0{0,0}{F}{0}:C4{0,8}{F}{0};" +
 			"A0{0,0}{F}{0}:C5{0,8}{F}{0}",
 		// attackUp - F1,A2:D1,A2:D2,A2:β1,A2:D2,A2:L4
@@ -311,12 +309,13 @@ public class SpriteAnimator extends Component {
 			"A5{0,1}{F}{0}:Q0{0,8}{F}{0};" +
 			"S1{0,0}{B}{0}:T1{0,8}{F}{0}",
 		// fall - G0,E5,E6,H4-T,H4-B,G4-B
-		"[fall][100]G0{0,0}{F}{0};" +
+		"[fall][100]G0{0,0}{B}{0}:G1{16,0}{BL}{0}:H0{0,8}{F}{0}:H1{16,8}{L}{0};" +
 			"E5{0,0}{F}{0};" +
 			"E6{0,0}{F}{0};" +
-			"H4-T;" +
-			"H4-B;" +
-			"G4-B",
+			"H4{0,0}{TR}{0};" +
+			"H4{0,0}{BR}{0};" +
+			"G4{0,0}{BR}{0};" +
+			"G4{0,0}{E}{0}",
 		// grab - A0:X2,Z3:Z4
 		"[grab][100]A0{0,0}{F}{0}:X2{0,8}{F}{0};" +
 			"Z3{0,0}{F}{0}:Z4{0,8}{F}{0}",
@@ -412,32 +411,31 @@ public class SpriteAnimator extends Component {
 			"A1{0,0}{F}{0}:D0{0,8}{F}{0};" +
 			"A1{0,0}{F}{0}:B3{0,8}{F}{0}",
 		// rod - G2-R,A0:C4,A0:N4
-		"[rod][100]G2-R;" +
-			"A0{0,0}{F}{0}:C4{0,8}{F}{0};" +
+		"[rod][100]G2{0,0}{BR}{0}:G3{8,0}{BL}{0}:H2{0,8}{R}{0}:H3{8,8}{L}{0};" +
 			"A0{0,0}{F}{0}:N4{0,8}{F}{0}",
 		// rodUp - G3-R,A2:D2,A2:N5
-		"[rodUp][100]G3-R;" +
+		"[rodUp][100]G1{0,0}{BR}{0}:G2{8,0}{BL}{0}:H1{0,8}{R}{0}:H2{8,8}{L}{0};" +
 			"A2{0,0}{F}{0}:D2{0,8}{F}{0};" +
 			"A2{0,0}{F}{0}:N5{0,8}{F}{0}",
 		// rodDown - G1-R,A1:N6,A1:D0
-		"[rodDown][100]G1-R;" +
+		"[rodDown][100]G3{0,0}{BR}{0}:G4{8,0}{BL}{0}:H3{0,8}{R}{0}:H4{8,8}{L}{0};" +
 			"A1{0,0}{F}{0}:N6{0,8}{F}{0};" +
 			"A1{0,0}{F}{0}:D0{0,8}{F}{0}",
 		// powder - A0:C2,A0:C3,A0:C4,A0:C5
-		"[powder][100]A0{0,0}{F}{0}:C2{0,8}{F}{0};" +
-			"A0{0,0}{F}{0}:C3{0,8}{F}{0};" +
-			"A0{0,0}{F}{0}:C4{0,8}{F}{0};" +
-			"A0{0,0}{F}{0}:C5{0,8}{F}{0}",
+		"[powder][100]A0{0,1}{F}{0}:C2{0,8}{F}{0};" +
+			"A0{0,1}{F}{0}:C3{0,8}{F}{0};" +
+			"A0{0,1}{F}{0}:C4{0,8}{F}{0};" +
+			"A0{0,1}{F}{0}:C5{0,8}{F}{0}",
 		// powderUp - F1,A2:D1,A2:D2,A2:L4
-		"[powderUp][100]F1{0,0}{F}{0};" +
+		"[powderUp][100]F1{0,0}{F}{0}:G1{0,16}{T}{0};" +
 			"A2{0,0}{F}{0}:D1{0,8}{F}{0};" +
-			"A2{0,0}{F}{0}:D2{0,8}{F}{0};" +
+			"A2{0,-1}{F}{0}:D2{0,8}{F}{0};" +
 			"A2{0,0}{F}{0}:L4{0,8}{F}{0}",
 		// powderDown - F0,A1:C6,A3:D0,A3:L3
-		"[powderDown][100]F0{0,0}{F}{0};" +
-			"A1{0,0}{F}{0}:C6{0,8}{F}{0};" +
-			"A3{0,0}{F}{0}:D0{0,8}{F}{0};" +
-			"A3{0,0}{F}{0}:L3{0,8}{F}{0}",
+		"[powderDown][100]F0{0,0}{F}{0}:G0{0,16}{T}{0};" +
+			"A1{0,1}{F}{0}:C6{0,8}{F}{0};" +
+			"A3{0,1}{F}{0}:D0{0,8}{F}{0};" +
+			"A3{0,1}{F}{0}:L3{0,8}{F}{0}",
 		// cane - A0:I2-M,L1:O2,A0:C4
 		"[cane][100]A0{0,0}{F}{0}:I2{0,8}{F}{M};" +
 			"L1{0,0}{F}{0}:O2{0,8}{F}{0};" +
@@ -618,22 +616,23 @@ public class SpriteAnimator extends Component {
 			"A1{0,0}{F}{0}:B3{0,8}{F}{0}",
 		// deathSpin - A1:B3,A0-M:B0-M,A2:C1,A0:B0,A1:B3,A0-M:B0-M,A2:C1,A0:B0,A1:B3,A0-M:B0-M,A2:C1,A0:B0,E2:J6,J7
 		"[deathSpin][100]A1{0,0}{F}{0}:B3{0,8}{F}{0};" +
-			"A0{0,0}{F}{M}:B0{0,8}{F}{M};" +
+			"A0{1,0}{F}{M}:B0{0,8}{F}{M};" +
 			"A2{0,0}{F}{0}:C1{0,8}{F}{0};" +
-			"A0{0,0}{F}{0}:B0{0,8}{F}{0};" +
+			"A0{-1,0}{F}{0}:B0{0,8}{F}{0};" +
 			"A1{0,0}{F}{0}:B3{0,8}{F}{0};" +
-			"A0{0,0}{F}{M}:B0{0,8}{F}{M};" +
+			"A0{1,0}{F}{M}:B0{0,8}{F}{M};" +
 			"A2{0,0}{F}{0}:C1{0,8}{F}{0};" +
-			"A0{0,0}{F}{0}:B0{0,8}{F}{0};" +
+			"A0{-1,0}{F}{0}:B0{0,8}{F}{0};" +
 			"A1{0,0}{F}{0}:B3{0,8}{F}{0};" +
-			"A0{0,0}{F}{M}:B0{0,8}{F}{M};" +
+			"A0{1,0}{F}{M}:B0{0,8}{F}{M};" +
 			"A2{0,0}{F}{0}:C1{0,8}{F}{0};" +
-			"A0{0,0}{F}{0}:B0{0,8}{F}{0};" +
-			"E2{0,0}{F}{0}:J6{0,8}{F}{0};" +
-			"J7{0,0}{F}{0}",
+			"A0{-1,0}{F}{0}:B0{0,8}{F}{0};" +
+			"E2{2,0}{F}{0}:J5{0,8}{R}{0}:J6{8,8}{L}{0};" +
+			"J6{8,8}{R}{0}:J7{16,8}{F}{0}" +
+			"//;//;//;//;//;//;//;//;//",
 		// deathSplat - E2:J6,J7
-		"[deathSplat][100]E2{0,0}{F}{0}:J6{0,8}{F}{0};" +
-			"J7{0,0}{F}{0}",
+		"[deathSplat][100]E2{2,0}{F}{0}:J5{0,8}{R}{0}:J6{8,8}{L}{0};" +
+			"J6{8,8}{R}{0}:J7{16,8}{F}{0}",
 		// poke - A0:N3,A0:N2,A0:F6
 		"[poke][100]A0{0,0}{F}{0}:N3{0,8}{F}{0};" +
 			"A0{0,0}{F}{0}:N2{0,8}{F}{0};" +
@@ -664,7 +663,7 @@ public class SpriteAnimator extends Component {
 		// mapWorld - Y7
 		"[mapWorld][500]Y7{0,0}{F}{0};Y7{0,0}{E}{0}",
 		// sleep - A6:D3
-		"[sleep][100]A6{0,0}{F}{0}:D3{0,8}{F}{0}",
+		"[sleep][100]A6{0,0}{F}{0}:D3{0,5}{F}{0}",
 		// awake - E3:D3
 		"[awake][100]E3{0,0}{F}{0}:D3{0,7}{F}{0}"
 	};
@@ -939,6 +938,9 @@ public class SpriteAnimator extends Component {
 		baseSpeed = animSpeed;
 		// each frame
 		for (int i = 0; i < maxFrame; i++) {
+			// repeat last frame
+			if (eachFrame[i].equals("//"))
+				eachFrame[i] = eachFrame[i-1];
 			String[] eachSprite = eachFrame[i].split(":");
 			int spriteCount = eachSprite.length;
 			// each sprite in frame
@@ -1029,6 +1031,22 @@ public class SpriteAnimator extends Component {
 				else
 					spreet = img.getSubimage(drawX, drawY, width, height);
 				
+				// transformations
+				switch (sprTrans) {
+					case "M" :
+						spreet = flipH(spreet);
+						break;
+					case "U" :
+						spreet = flipV(spreet);
+						break;
+					case "UM" :
+						spreet = flipH(spreet);
+						spreet = flipV(spreet);
+						break;
+					default :
+						// nothing
+						break;
+				}
 				// put it in backwards to preserve draw order
 				frames[i][spriteCount-1-j] = new Sprite(spreet, xpos, ypos);
 			}
@@ -1605,7 +1623,34 @@ public class SpriteAnimator extends Component {
 	public static int unsignByte(byte b) {
 		int ret = (b + 256) % 256;
 		return ret;
-	}	
+	}
+	
+	// transformations
+	public static BufferedImage flipV(BufferedImage image){
+		return flip(image, true);
+	}
+	
+	public static BufferedImage flipH(BufferedImage image){
+		return flip(image, false);
+	}
+	
+	public static BufferedImage flip(BufferedImage image, boolean vertical) {
+		AffineTransform at = new AffineTransform();
+		if (vertical) {
+			at.concatenate(AffineTransform.getScaleInstance(1, -1));
+			at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
+		} else {
+			at.concatenate(AffineTransform.getScaleInstance(-1, 1));
+			at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
+		}
+		BufferedImage newImage =
+				new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = newImage.createGraphics();
+		g.transform(at);
+		g.drawImage(image, 0, 0, null);
+		g.dispose();
+		return newImage;
+	}
 }
 
 /**
