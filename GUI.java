@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,7 +23,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -52,6 +52,14 @@ public class GUI {
 			"Red shield",
 			"Mirror shield"
 	};
+
+	static final String[] MAILLEVELS = {
+			"Green mail",
+			"Blue mail",
+			"Red mail",
+			"Bunny"
+	};
+
 	// use func
 	public void printGUI(String[] args) throws IOException {
 		//try to set LaF
@@ -113,17 +121,21 @@ public class GUI {
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
-		// sword and shield levels
+		// mail, sword, and shield levels
 		c.fill = GridBagConstraints.HORIZONTAL;
 		final JComboBox<String> swordLevel = new JComboBox<String>(SWORDLEVELS);
 		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELDLEVELS);
+		final JComboBox<String> mailLevel = new JComboBox<String>(MAILLEVELS);
 
 		c.gridwidth = 3;
-		c.gridy++;
 		c.gridx = 0;
+		c.gridy++;
+		controls.add(mailLevel, c);
+		c.gridy++;
 		controls.add(swordLevel, c);
 		c.gridy++;
 		controls.add(shieldLevel, c);
+
 
 		// other equipment
 		final JButton equipBtn = new JButton("Toggle");
@@ -137,7 +149,7 @@ public class GUI {
 		controls.add(equipStatus, c);
 		c.gridx = 2;
 		controls.add(equipBtn, c);
-		
+
 		// shadows
 		final JButton shadowBtn = new JButton("Toggle");
 		final JLabel theWordShadowsWithAColon = new JLabel("Shadows:", SwingConstants.RIGHT);
@@ -416,9 +428,8 @@ public class GUI {
 				try {
 					byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
 					byte[][] palette = SpriteManipulator.getPal(sprite);
-					byte[] src = SpriteManipulator.makeRaster(ebe,palette);
-
-					run.setImage(SpriteManipulator.makeSheet(src));
+					BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
+					run.setImage(mails);
 				} catch(Exception e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error converting sprite",
@@ -511,6 +522,23 @@ public class GUI {
 				shadowStatus.setText(run.shadowOn() ? "ON" : "OFF");
 			}});
 
+		mailLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int level = mailLevel.getSelectedIndex();
+				run.setMail(level);
+			}});
+
+		swordLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int level = swordLevel.getSelectedIndex();
+				run.setSword(level);
+			}});
+
+		shieldLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int level = shieldLevel.getSelectedIndex();
+				run.setShield(level);
+			}});
 		// turn on
 		frame.setVisible(true);
 	}

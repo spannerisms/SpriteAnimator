@@ -88,24 +88,25 @@ public abstract class SpriteManipulator {
 	 * Automatically makes first index black.
 	 */
 	public static byte[][] getPal(byte[] sprite) {
-		byte[][] ret = new byte[16][3];
-		for (int i = 1; i < 16; i++) {
-			short color = 0;
-			int pos = SPRITESIZE + (i * 2) - 2;
-			color = (short) unsignByte(sprite[pos+1]);
-			color <<= 8;
-			color |= (short) unsignByte(sprite[pos]);
-			
-			ret[i][0] = (byte) (((color >> 0) & 0x1F) << 3);
-			ret[i][1] = (byte) (((color >> 5) & 0x1F) << 3);
-			ret[i][2] = (byte) (((color >> 10) & 0x1F) << 3);
-		}
+		byte[][] ret = new byte[64][3];
+		int byteLoc = 1;
+		for (int i = 0; i < 64; i++) {
+			if (i % 16 == 0) {
+				ret[0][0] = 0;
+				ret[0][1] = 0;
+				ret[0][2] = 0;
+			} else {
+				short color = 0;
+				int pos = SPRITESIZE + (byteLoc++ * 2) - 2;
+				color = (short) unsignByte(sprite[pos+1]);
+				color <<= 8;
+				color |= (short) unsignByte(sprite[pos]);
 
-		// make black;
-		// separate operation just in case I don't wanna change pal's values
-		ret[0][0] = 0;
-		ret[0][1] = 0;
-		ret[0][2] = 0;
+				ret[i][0] = (byte) (((color >> 0) & 0x1F) << 3);
+				ret[i][1] = (byte) (((color >> 5) & 0x1F) << 3);
+				ret[i][2] = (byte) (((color >> 10) & 0x1F) << 3);
+			}
+		}
 
 		return ret;
 	}
@@ -180,8 +181,29 @@ public abstract class SpriteManipulator {
 			rgb[i] = (a << 24) | (r << 16) | (g << 8) | b;
 		}
 		image.setRGB(0, 0, 128, 448, rgb, 0, 128);
-		
+
 		return image;
+	}
+
+	public static BufferedImage[] makeAllMails(byte[][][] eightbyeight, byte[][] pal) {
+		BufferedImage[] ret = new BufferedImage[4];
+		byte[][] subpal;
+		byte[] raster;
+		for (int i = 0; i < 4; i++) {
+			subpal = getSubpal(pal, i);
+			raster = makeRaster(eightbyeight,subpal);
+			ret[i] = makeSheet(raster);
+		}
+		return ret;
+	}
+
+	public static byte[][] getSubpal(byte[][] pal, int palIndex) {
+		byte[][] ret = new byte[16][3];
+		int offset = palIndex * 16;
+		for (int i = 0; i < 16; i++) {
+				ret[i] = pal[i+offset];
+		}
+		return ret;
 	}
 
 	private static int unsignByte(byte b) {
