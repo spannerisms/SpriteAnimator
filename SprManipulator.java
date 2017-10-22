@@ -7,11 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SprManipulator {
-	static final GuiHelpers GH = new GuiHelpers();
-
 	static final int SPRITESIZE = 896 * 32; // invariable lengths
 	static final int RASTERSIZE = 128 * 448 * 4;
-	
+
 	// format of snes 4bpp {row (r), bit plane (b)}
 	// bit plane 0 indexed such that 1011 corresponds to 0123
 	static final int BPPI[][] = {
@@ -94,9 +92,9 @@ public class SprManipulator {
 		for (int i = 1; i < 16; i++) {
 			short color = 0;
 			int pos = SPRITESIZE + (i * 2) - 2;
-			color = (short) GH.unsignByte(sprite[pos+1]);
+			color = (short) unsignByte(sprite[pos+1]);
 			color <<= 8;
-			color |= (short) GH.unsignByte(sprite[pos]);
+			color |= (short) unsignByte(sprite[pos]);
 			
 			ret[i][0] = (byte) (((color >> 0) & 0x1F) << 3);
 			ret[i][1] = (byte) (((color >> 5) & 0x1F) << 3);
@@ -184,5 +182,10 @@ public class SprManipulator {
 		image.setRGB(0, 0, 128, 448, rgb, 0, 128);
 		
 		return image;
+	}
+
+	private int unsignByte(byte b) {
+		int ret = (b + 256) % 256;
+		return ret;
 	}
 }

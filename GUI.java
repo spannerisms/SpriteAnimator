@@ -20,7 +20,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -215,9 +214,8 @@ public class GUI {
 		final File EEE = new File("");
 		// TODO: uncomment this for exports
 		//explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
-		Timer tock = run.getTimer();
-		tock.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		run.addStepListener(new StepListener() {
+			public void eventReceived(StepEvent arg0) {
 				frameCur.setText(run.frameDis());
 			}
 		});
@@ -272,6 +270,7 @@ public class GUI {
 				try {
 					run.setAnimation(0);
 					animOptions.setSelectedIndex(0);
+					run.reset();
 				} catch(Exception e) {
 
 				}
@@ -321,7 +320,6 @@ public class GUI {
 						stepBtn.setEnabled(false);
 						break;
 				}
-				frameCur.setText(run.frameDis());
 				run.reset();
 			}});
 
@@ -376,14 +374,13 @@ public class GUI {
 						// nothing
 						break;
 				}
-				frameCur.setText(run.frameDis());
 			}});
 
 		stepBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.step();
-				frameCur.setText(run.frameDis());
 			}});
+
 		// turn on
 		frame.setVisible(true);
 	}

@@ -45,7 +45,7 @@ public class GuiHelpers {
 	public boolean testFileType(String s, String type) {
 		return testFileType(s, new String[] { type });
 	}
-	
+
 	/**
 	 * Join array of strings together with a delimiter.
 	 * @param s - array of strings
@@ -60,16 +60,6 @@ public class GuiHelpers {
 				ret += c;
 			}
 		}
-		return ret;
-	}
-
-	/**
-	 * 
-	 * @param b
-	 * @return
-	 */
-	public int unsignByte(byte b) {
-		int ret = (b + 256) % 256;
 		return ret;
 	}
 }

@@ -1,43 +1,20 @@
 package SpriteAnimator;
 
-//import java.awt.BorderLayout;
 import java.awt.Component;
-//import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-//import java.awt.GridBagConstraints;
-//import java.awt.GridBagLayout;
-//import java.awt.TextArea;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-//import javax.swing.JButton;
-//import javax.swing.JComboBox;
-//import javax.swing.JFileChooser;
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
-//import javax.swing.JMenuBar;
-//import javax.swing.JMenuItem;
-//import javax.swing.JOptionPane;
-//import javax.swing.JPanel;
-//import javax.swing.JTextField;
-import javax.swing.Timer;
-//import javax.swing.UIManager;
-//import javax.swing.UnsupportedLookAndFeelException;
-//import javax.swing.filechooser.FileNameExtensionFilter;
-//import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-
-public class SpriteAnimator extends Component {
+public class SpriteAnimator extends Component{
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 	private static final long serialVersionUID = 2114886855236406900L;
-
-	static final int PALETTESIZE = 0x78; // not simplified to understand the numbers
 
 	// Almost the length of a frame at 60 FPS
 	// 1/60 approx. 16.66666...
@@ -60,8 +37,11 @@ public class SpriteAnimator extends Component {
 	private int zoom = 3;
 	private Anime[] frames = null;
 	private Timer tick;
+	private TimerTask next;;
 	private static final int MAXSPEED = 6; // maximum speed magnitude
 	private static final int MAXZOOM = 7;
+	
+	private List<StepListener> listeners = new ArrayList<StepListener>();
 	// default initialization
 	public SpriteAnimator() {
 		anime = 0;
@@ -69,14 +49,9 @@ public class SpriteAnimator extends Component {
 		mode = 0;
 		frame = 0;
 		maxFrame = 0;
+		makeAnimationFrames();
 		running = true;
-		tick = new Timer(100, new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (isRunning()) {
-					step();
-				}
-			}
-		});
+		tick = new Timer();
 	}
 	
 	public int getFrame() {
@@ -145,12 +120,18 @@ public class SpriteAnimator extends Component {
 			}
 		}
 		repaint();
+		fireEvent();
+		adjustTimer();
 	}
 
 	/**
 	 * Reset based on mode.
 	 */
 	public void reset() {
+		try {
+			tick.cancel();
+			tick = new Timer();
+		} catch(Exception e) {};
 		switch (mode) {
 			case 0 :
 				resetFrame();
@@ -181,7 +162,9 @@ public class SpriteAnimator extends Component {
 	 * Resets frame to 0.
 	 */
 	private void resetFrame() {
-		frame = 0;
+		// force a step
+		frame = -1;
+		step();
 	}
 	
 	/**
@@ -189,10 +172,10 @@ public class SpriteAnimator extends Component {
 	 */
 	private void setRunning(boolean r) {
 		running = r;
-		if (r)
+		/*if (r)
 			tick.start();
 		else
-			tick.stop();
+			tick.stop();*/
 	}
 	
 	/**
@@ -256,8 +239,12 @@ public class SpriteAnimator extends Component {
 	 * Adjusts timer based on speed
 	 */
 	private void adjustTimer() {
+		if (!running)
+			return;
 		double speedM = Math.pow(1.5, speed * -1);
-		frames[frame].setNextTick(tick, speedM);
+		long wait = frames[frame].nextTick(speedM);
+		next = new SpriteTask(this);
+		tick.schedule(next, wait);
 	}
 	/**
 	 * Compares current step speed to maximum speed allowed.
@@ -283,9 +270,23 @@ public class SpriteAnimator extends Component {
 		g2.scale(zoom, zoom);
 		Anime t = frames[frame];
 		t.draw(g2);
-		adjustTimer();
 	}
 
+	public synchronized void addStepListener(StepListener s) {
+		listeners.add(s);
+	}
+	
+	public synchronized void removeStepListener(StepListener s) {
+		listeners.remove(s);
+	}
+	
+	public synchronized void fireEvent() {
+		StepEvent s = new StepEvent(this);
+		Iterator<StepListener> listening = listeners.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
+	}
 	// @link Sprite - lol get it?
 	/**
 	 * Makes an array of {@link Sprite}s based on the frame data.
@@ -424,11 +425,6 @@ public class SpriteAnimator extends Component {
 			}
 		}
 	}
-
-
-	// error controller
-	static final SpriteAnimator controller = new SpriteAnimator();
-	
 	
 	// transformations
 	public static BufferedImage flipV(BufferedImage image){
@@ -438,7 +434,7 @@ public class SpriteAnimator extends Component {
 	public static BufferedImage flipH(BufferedImage image){
 		return flip(image, false);
 	}
-	
+
 	public static BufferedImage flip(BufferedImage image, boolean vertical) {
 		AffineTransform at = new AffineTransform();
 		if (vertical) {
@@ -456,7 +452,7 @@ public class SpriteAnimator extends Component {
 		g.dispose();
 		return newImage;
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		GUI G = new GUI();
 		G.printGUI(args);
