@@ -81,7 +81,7 @@ public class GUI {
 		} // end Nimbus
 		final JFrame frame = new JFrame("Sprite Animator");
 		final Dimension d = new Dimension(600, 400);
-		final Dimension minD = new Dimension(400, 300);
+		final Dimension minD = new Dimension(400, 400);
 		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
 		Dimension textDimension = new Dimension(50,20);

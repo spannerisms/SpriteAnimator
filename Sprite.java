@@ -21,7 +21,7 @@ public class Sprite {
 	 * Attaches itself to a {@link Graphics2D} object and draws itself accordingly.
 	 * @param g - Graphics2D object
 	 */
-	public void draw(Graphics2D g) {
-		g.drawImage(img, x + 10, y + 10, null);
+	public void draw(Graphics2D g, int xoffset, int yoffset) {
+		g.drawImage(img, x + xoffset, y + yoffset, null);
 	}
 }

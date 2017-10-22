@@ -7,15 +7,26 @@ import java.awt.Graphics2D;
 public class Anime {
 	private int d; // duration
 	private Sprite[] l; // list of sprites in frame
-
+	private int xOffset;
+	private int yOffset;
 	public Anime(Sprite[] spriteList, int duration) {
 		d = duration;
 		l = spriteList;
+		xOffset = 0;
+		yOffset = 0;
+	}
+	
+	public Anime(Sprite[] spriteList, int duration, int x, int y) {
+		d = duration;
+		l = spriteList;
+		xOffset = x;
+		yOffset = y;
 	}
 
-	public void draw(Graphics2D g) {
-		for (Sprite s : l)
-			s.draw(g);
+	public void draw(Graphics2D g, int scaleOffset) {
+		for (Sprite s : l) {
+			s.draw(g, xOffset + scaleOffset, yOffset + scaleOffset);
+		}
 	}
 
 	/**
