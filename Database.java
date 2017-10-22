@@ -4,9 +4,10 @@ public class Database {
 	/* taken and modified from
 	 * http://alttp.mymm1.com/sprites/includes/animations.txt
 	 * credit: mike trethewey
-	 * 
+	 *         TWRoxas
+	 * Frame counts by: RyuTech
 	 * format:
-	 * [<ANIMNAME>][<ANIMSPEED>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>}{<TRANSFORM>}
+	 * [<ANIMNAME>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>}{<TRANSFORM>}
 	 * : delimits sprites in the same frame
 	 * ; delimits entire frames
 	 * @ at the end of each frame denotes how long it lasts
