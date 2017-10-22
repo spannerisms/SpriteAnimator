@@ -412,7 +412,7 @@ public class SpriteAnimator extends Component {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom);
 		// TODO : Reenable background maybe
-		 g2.drawImage(BG, 0, 0, null);
+		// g2.drawImage(BG, 0, 0, null);
 		Anime t = frames[frame];
 		int scaleOffset = (8 - zoom) * 7;
 		t.draw(g2, scaleOffset);
