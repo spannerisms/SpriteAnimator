@@ -17,10 +17,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -72,26 +74,28 @@ public class GUI {
 		final JFrame frame = new JFrame("Sprite Animator");
 		final Dimension d = new Dimension(600, 400);
 		final Dimension minD = new Dimension(400, 300);
-		final JTextField fileName = new JTextField("");
 		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
+		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
 		Dimension textDimension = new Dimension(50,20);
 		Dimension textDimensionBig = new Dimension(100,20);
 
-		final JButton loadBtn = new JButton("Load Sprite");
-		final JButton stepBtn = new JButton("Step");
-
-		final JButton resetBtn = new JButton("Reset");
-
+		// image loading
 		final JPanel loadWrap = new JPanel(new BorderLayout());
+		loadWrap.setBorder(fullPad);
+		final JTextField fileName = new JTextField("");
+		final JButton loadBtn = new JButton("Load Sprite");
+
+		loadWrap.add(loadBtn,BorderLayout.EAST);
+		loadWrap.add(fileName,BorderLayout.CENTER);
+
+		// controls panel
 		final JPanel controls = new JPanel(new GridBagLayout());
 		final JPanel controlsWrap = new JPanel(new BorderLayout());
+		controls.setBorder(fullPad);
 		GridBagConstraints c = new GridBagConstraints();
 		
-		// blank row
-		c.gridy = 0;
-		c.ipady = 5;
-		controls.add(new JLabel(),c);
-		c.ipady = 0;
+		// negative so everything can just ++
+		c.gridy = -1;
 		// animation playing
 		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
 		final JComboBox<String> animOptions = new JComboBox<String>(getAnimNames());
@@ -205,6 +209,8 @@ public class GUI {
 		controls.add(frameMax,c);
 		
 		// step
+		final JButton stepBtn = new JButton("Step");
+		stepBtn.setEnabled(false);
 		c.gridwidth = 3;
 		c.gridy++;
 		c.gridx = 0;
@@ -214,20 +220,17 @@ public class GUI {
 		c.gridwidth = 3;
 		c.gridy++;
 		c.gridx = 0;
+		final JButton resetBtn = new JButton("Reset");
 		controls.add(resetBtn,c);
 		// control panel done
 
 		final JPanel bottomStuffWrap = new JPanel(new BorderLayout());
 		final JPanel bottomStuff = new JPanel(new BorderLayout());
-		stepBtn.setEnabled(false);
-
+		
 		final SpriteAnimator imageArea = new SpriteAnimator();
 		final SpriteAnimator run = imageArea; // just a shorter name
-
 		bottomStuffWrap.add(imageArea,BorderLayout.CENTER);
 		bottomStuffWrap.add(bottomStuff,BorderLayout.EAST);
-		loadWrap.add(loadBtn,BorderLayout.EAST);
-		loadWrap.add(fileName,BorderLayout.CENTER);
 
 		// Credits
 		final JFrame aboutFrame = new JFrame("About");
@@ -258,8 +261,7 @@ public class GUI {
 				"Jighart",
 				}, ", "));
 		aboutFrame.add(peepsList);
-		final JMenuBar menu = new JMenuBar();
-		menu.add(peeps);
+
 		peeps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				aboutFrame.setVisible(true);
@@ -269,6 +271,20 @@ public class GUI {
 		aboutFrame.setResizable(false);
 		// end credits
 
+		// menu
+		final JMenuBar menu = new JMenuBar();
+		final JMenu aboutMenu = new JMenu("About");
+		aboutMenu.add(peeps);
+		menu.add(aboutMenu);
+		
+		final JMenuItem exit = new JMenuItem("Exit");
+		exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}});
+		aboutMenu.add(exit);
+
+		// other frame organization
 		frame.add(bottomStuffWrap, BorderLayout.CENTER);
 		controlsWrap.add(controls,BorderLayout.NORTH);
 		frame.add(controlsWrap,BorderLayout.EAST);
@@ -276,7 +292,6 @@ public class GUI {
 		frame.setSize(d);
 		frame.setMinimumSize(minD);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		frame.setLocation(200,200);
 		frame.setJMenuBar(menu);
 
@@ -299,6 +314,13 @@ public class GUI {
 				comp.setFocusable(false);
 			}
 		}
+
+		/*
+		 * 
+		 * Action listeners
+		 * 
+		 * 
+		 */
 		// read steps and count them
 		run.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
