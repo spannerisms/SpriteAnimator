@@ -37,9 +37,9 @@ public class SpriteAnimator extends Component {
 	private int zoom = 3;
 	private Anime[] frames = null;
 	private Timer tick;
-	private TimerTask next;;
-	private static final int MAXSPEED = 6; // maximum speed magnitude
-	private static final int MAXZOOM = 7;
+	private TimerTask next;
+	private static final int MAXSPEED = 5; // maximum speed magnitude
+	private static final int MAXZOOM = 7; // maximum zoom level
 
 	private List<StepListener> stepListen = new ArrayList<StepListener>();
 	private List<ModeListener> modeListen = new ArrayList<ModeListener>();
@@ -292,7 +292,7 @@ public class SpriteAnimator extends Component {
 		return zoom;
 	}
 	public boolean tooBig() {
-		return zoom == MAXZOOM;
+		return zoom >= MAXZOOM;
 	}
 	
 	public boolean vanillaSize() {

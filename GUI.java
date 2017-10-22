@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -20,8 +21,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
@@ -77,10 +80,10 @@ public class GUI {
 		final JButton bigBtn = new JButton("Zoom+");
 		final JButton lilBtn = new JButton("Zoom-");
 		final JButton resetBtn = new JButton("Reset");
-		final JLabel frameCur = new JLabel("1");
+		final JLabel frameCur = new JLabel("1", SwingConstants.RIGHT);
 		final JLabel frameMax = new JLabel("/ 1");
-		final JLabel zoomLevel = new JLabel("x3");
-		final JLabel speedLevel = new JLabel("100%");
+		final JLabel zoomLevel = new JLabel("x3", SwingConstants.RIGHT);
+		final JLabel speedLevel = new JLabel("100%", SwingConstants.RIGHT);
 		final JPanel loadWrap = new JPanel(new BorderLayout());
 		final JPanel controls = new JPanel(new GridBagLayout());
 		final JPanel controlsWrap = new JPanel(new BorderLayout());
@@ -136,17 +139,21 @@ public class GUI {
 		c.fill = GridBagConstraints.NONE;
 
 		// text box sizing
-		Dimension dd = new Dimension(20,20);
+		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,10);
+		Dimension dd = new Dimension(50,20);
+		
 		frameCur.setPreferredSize(dd);
 		frameCur.setMaximumSize(dd);
 		frameCur.setMinimumSize(dd);
 		zoomLevel.setPreferredSize(dd);
 		zoomLevel.setMaximumSize(dd);
 		zoomLevel.setMinimumSize(dd);
+		zoomLevel.setBorder(rightPad);
 		speedLevel.setPreferredSize(dd);
 		speedLevel.setMaximumSize(dd);
 		speedLevel.setMinimumSize(dd);
-
+		speedLevel.setBorder(rightPad);
+		
 		controls.add(frameCur,c);
 		c.gridx = 2;
 		controls.add(frameMax,c);
