@@ -3,8 +3,9 @@ package SpriteAnimator;
 public class Database {
 	/* taken and modified from
 	 * http://alttp.mymm1.com/sprites/includes/animations.txt
-	 * credit: mike trethewey
-	 *         TWRoxas
+	 * credit:
+	 * Mike Trethewey
+	 * TWRoxas
 	 * Frame counts by: RyuTech
 	 * format:
 	 * [<ANIMNAME>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>}{<TRANSFORM>}
@@ -55,7 +56,7 @@ public class Database {
 				"A2{0,0}{F}{0}:T5{0,8}{F}{0} @ 3 ;" +
 				"A2{0,0}{F}{0}:T6{0,8}{F}{0} @ 3 ",
 			// walkDown
-			"[walkDown]A1{0,0}{F}{0}:B4{0,8}{F}{0} @ 20 ;" +
+			"[walkDown]A1{0,0}{F}{0}:B4{0,8}{F}{0} @ 2 ;" +
 				"A1{0,-1}{F}{0}:B5{0,8}{F}{0} @ 3 ;" +
 				"A1{0,-2}{F}{0}:S5{0,8}{F}{0} @ 3 ;" +
 				"A1{0,0}{F}{0}:S6{0,8}{F}{0} @ 2 ;" +

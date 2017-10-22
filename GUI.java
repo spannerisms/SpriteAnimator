@@ -27,7 +27,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class GUI {
 	static final GuiHelpers GH = new GuiHelpers();
-	static final SprManipulator SprManip = new SprManipulator();
+	static final SprManipulator SPRMANIP = new SprManipulator();
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 	static final String[] MODES = {
 			"Normal play",
@@ -79,6 +79,8 @@ public class GUI {
 		final JButton resetBtn = new JButton("Reset");
 		final JLabel frameCur = new JLabel("1");
 		final JLabel frameMax = new JLabel("/ 1");
+		final JLabel zoomLevel = new JLabel("x3");
+		final JLabel speedLevel = new JLabel("100%");
 		final JPanel loadWrap = new JPanel(new BorderLayout());
 		final JPanel controls = new JPanel(new GridBagLayout());
 		final JPanel controlsWrap = new JPanel(new BorderLayout());
@@ -96,18 +98,18 @@ public class GUI {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(lilBtn,c);
+		controls.add(zoomLevel,c);
 		c.gridx = 1;
-		controls.add(new JPanel(), c); // filler
+		controls.add(lilBtn, c); // filler
 		c.gridx = 2;
 		controls.add(bigBtn,c);
 
 		// speed
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(slowerBtn,c);
+		controls.add(speedLevel,c);
 		c.gridx = 1;
-		controls.add(new JPanel(), c); // filler
+		controls.add(slowerBtn, c); // filler
 		c.gridx = 2;
 		controls.add(fasterBtn,c);
 
@@ -133,10 +135,17 @@ public class GUI {
 		c.gridx = 1;
 		c.fill = GridBagConstraints.NONE;
 
+		// text box sizing
 		Dimension dd = new Dimension(20,20);
 		frameCur.setPreferredSize(dd);
 		frameCur.setMaximumSize(dd);
 		frameCur.setMinimumSize(dd);
+		zoomLevel.setPreferredSize(dd);
+		zoomLevel.setMaximumSize(dd);
+		zoomLevel.setMinimumSize(dd);
+		speedLevel.setPreferredSize(dd);
+		speedLevel.setMaximumSize(dd);
+		speedLevel.setMinimumSize(dd);
 
 		controls.add(frameCur,c);
 		c.gridx = 2;
@@ -211,12 +220,50 @@ public class GUI {
 				new FileNameExtensionFilter("ALttP Sprite files", new String[] { "spr" });
 		// can't clear text due to wonky code
 		// have to set a blank file instead
+
 		final File EEE = new File("");
 		// TODO: uncomment this for exports
 		//explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
+		
+		// read steps and count them
 		run.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
 				frameCur.setText(run.frameDis());
+			}
+		});
+		
+		// listen for speed changes
+		run.addSpeedListener(new SpeedListener() {
+			public void eventReceived(SpeedEvent arg0) {
+				if (btnAllowed("speed", run.getMode())) {
+					fasterBtn.setEnabled(!run.atMaxSpeed());
+					slowerBtn.setEnabled(!run.atMinSpeed());
+					speedLevel.setText(run.getSpeedPercent());
+				} else {
+					speedLevel.setText("");
+					fasterBtn.setEnabled(false);
+					slowerBtn.setEnabled(false);
+				}
+			}
+		});
+		
+		// listen for mode changes
+		run.addModeListener(new ModeListener() {
+			public void eventReceived(ModeEvent arg0) {
+				stepBtn.setEnabled(btnAllowed("step", run.getMode()));
+				slowerBtn.setEnabled(btnAllowed("speed", run.getMode()));
+				fasterBtn.setEnabled(btnAllowed("speed", run.getMode()));
+				if (!btnAllowed("speed", run.getMode())) {
+					speedLevel.setText("");
+				}
+			}
+		});
+		// listen for Zoom changes
+		run.addZoomListener(new ZoomListener() {
+			public void eventReceived(ZoomEvent arg0) {
+				bigBtn.setEnabled(!run.tooBig());
+				lilBtn.setEnabled(!run.vanillaSize());
+				zoomLevel.setText("x" + run.getZoom());
 			}
 		});
 		// load sprite file
@@ -245,7 +292,7 @@ public class GUI {
 
 				byte[] sprite;
 				try {
-					sprite = SprManip.readSprite(fileName.getText());
+					sprite = SPRMANIP.readSprite(fileName.getText());
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
@@ -255,11 +302,11 @@ public class GUI {
 				}
 
 				try {
-					byte[][][] ebe = SprManip.sprTo8x8(sprite);
-					byte[][] palette = SprManip.getPal(sprite);
-					byte[] src = SprManip.makeRaster(ebe,palette);
+					byte[][][] ebe = SPRMANIP.sprTo8x8(sprite);
+					byte[][] palette = SPRMANIP.getPal(sprite);
+					byte[] src = SPRMANIP.makeRaster(ebe,palette);
 
-					run.setImage(SprManip.makeSheet(src));
+					run.setImage(SPRMANIP.makeSheet(src));
 				} catch(Exception e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error converting sprite",
@@ -297,91 +344,41 @@ public class GUI {
 
 		modeOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int animMode;
 				try {
 					run.setMode(modeOptions.getSelectedIndex());
-					animMode = run.getMode();
 					run.reset();
 				} catch (Exception e) {
-					animMode = modeOptions.getSelectedIndex();
-				}
-				// button disabling
-				switch(animMode) {
-					case 0 :
-						fasterBtn.setEnabled(true);
-						slowerBtn.setEnabled(true);
-						resetBtn.setEnabled(true);
-						stepBtn.setEnabled(false);
-						break;
-					case 1 :
-						fasterBtn.setEnabled(false);
-						slowerBtn.setEnabled(false);
-						resetBtn.setEnabled(true);
-						stepBtn.setEnabled(true);
-						break;
-					case 2 :
-						fasterBtn.setEnabled(false);
-						slowerBtn.setEnabled(false);
-						resetBtn.setEnabled(true);
-						stepBtn.setEnabled(false);
-						break;
+					// do nothing
 				}
 			}});
 
 		bigBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lilBtn.setEnabled(true);
-				if (run.embiggen()) {
-					bigBtn.setEnabled(false);
-				}
+				run.embiggen();
 			}});
 
 		lilBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				bigBtn.setEnabled(true);
-				if (run.ensmallen()) {
-					lilBtn.setEnabled(
-							false);
-				}
+				run.ensmallen();
 			}});
 
 		fasterBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				slowerBtn.setEnabled(true);
-				if (run.faster()) {
-					fasterBtn.setEnabled(false);
-				}
+				run.faster();
 			}});
 
 		slowerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				fasterBtn.setEnabled(true);
-				if (run.slower()) {
-					slowerBtn.setEnabled(false);
-				}
+				run.slower();
 			}});
 
 		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int animMode = run.getMode();
 				try {
 					run.repaint();
 					run.reset();
 				} catch (Exception e) {
 					// do nothing
-				}
-				// button disabling
-				switch (animMode) {
-					case 0 :
-						fasterBtn.setEnabled(true);
-						slowerBtn.setEnabled(true);
-						break;
-					case 1 :
-						// nothing
-						break;
-					case 2 :
-						// nothing
-						break;
 				}
 			}});
 
@@ -392,5 +389,50 @@ public class GUI {
 
 		// turn on
 		frame.setVisible(true);
+	}
+	
+	/**
+	 * See what buttons are allowed for what modes
+	 */
+	private static boolean btnAllowed(String n, int mode) {
+		boolean allowed = false;
+		n = n.toLowerCase();
+		switch (n) {
+			// both speed buttons
+			case "speed" : {
+				switch (mode) {
+					case 0 :
+					case 2 :
+						allowed = true;
+						break;
+					case 1 :
+						allowed = false;
+						break;
+				} // end mode switch
+				break;
+			} // end speed case
+			// step button
+			case "step" : {
+				switch (mode) {
+					case 0 :
+					case 2 :
+						allowed = false;
+						break;
+					case 1 :
+						allowed = true;
+						break;
+				} // end mode switch
+				break;
+			} // end step case
+			// other buttons (currently all are allowed)
+			case "reset" :
+			case "zoom" :
+				allowed = true;
+				break;
+			default :
+				allowed = false;
+				break;
+		}
+		return allowed;
 	}
 }

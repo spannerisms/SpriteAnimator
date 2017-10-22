@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SpriteAnimator extends Component{
+public class SpriteAnimator extends Component {
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 	private static final long serialVersionUID = 2114886855236406900L;
 
@@ -40,8 +40,12 @@ public class SpriteAnimator extends Component{
 	private TimerTask next;;
 	private static final int MAXSPEED = 6; // maximum speed magnitude
 	private static final int MAXZOOM = 7;
-	
-	private List<StepListener> listeners = new ArrayList<StepListener>();
+
+	private List<StepListener> stepListen = new ArrayList<StepListener>();
+	private List<ModeListener> modeListen = new ArrayList<ModeListener>();
+	private List<SpeedListener> speedListen = new ArrayList<SpeedListener>();
+	private List<ZoomListener> zoomListen = new ArrayList<ZoomListener>();
+
 	// default initialization
 	public SpriteAnimator() {
 		anime = 0;
@@ -122,7 +126,7 @@ public class SpriteAnimator extends Component{
 			}
 		}
 		repaint();
-		fireEvent();
+		fireStepEvent();
 		adjustTimer();
 	}
 
@@ -150,6 +154,7 @@ public class SpriteAnimator extends Component{
 				resetSpeed();
 				break;
 		}
+		fireModeEvent();
 		repaint();
 	}
 	
@@ -157,7 +162,7 @@ public class SpriteAnimator extends Component{
 	 * Reset speed to 0.
 	 */
 	private void resetSpeed() {
-		speed = 0;
+		setSpeed(0);
 	}
 	
 	/**
@@ -174,18 +179,8 @@ public class SpriteAnimator extends Component{
 	 */
 	private void setRunning(boolean r) {
 		running = r;
-		/*if (r)
-			tick.start();
-		else
-			tick.stop();*/
 	}
-	
-	/**
-	 * @return <b>true</b> if active.
-	 */
-	public boolean isRunning() {
-		return running;
-	}
+
 	/**
 	 * @return Timer object
 	 */
@@ -196,58 +191,49 @@ public class SpriteAnimator extends Component{
 	 * Increments step speed by 1.
 	 * @return <b>true</b> if speed reaches max.
 	 */
-	public boolean faster() {
-		if (speed < MAXSPEED) {
-			speed++;
-		}
-		return atMaxSpeed();
+	public void faster() {
+		setSpeed(speed+1);
 	}
 	
 	/**
 	 * Decrements step speed by 1.
 	 * @return <b>true</b> if speed reaches min.
 	 */
-	public boolean slower() {
-		if (speed > (MAXSPEED * -1)) {
-			speed--;
+	public void slower() {
+		setSpeed(speed-1);
+	}
+
+	public void setSpeed(int s) {
+		if (s == speed) {
+			// do nothing
+		} else if (s < speed) {
+			if (atMinSpeed()) {
+				// do nothing
+			} else {
+				speed = s;
+			}
+		} else if (s > speed) {
+			if (atMaxSpeed()) {
+				// do nothing
+			} else {
+				speed = s;
+			}
+		} else { // should never hit this
+			speed = 0; // but if we do, reset the speed
 		}
-		return atMinSpeed();
+		fireSpeedEvent();
 	}
 	
-	/**
-	 * Zooms in by 1x.
-	 * @return <b>true</b> if we're really big.
-	 */
-	public boolean embiggen() {
-		if (zoom < MAXZOOM) {
-			zoom++;
-		}
-		repaint();
-		return (zoom >= MAXZOOM);
+	public int getSpeed() {
+		return speed;
 	}
 	
-	/**
-	 * Zooms out by 1x.
-	 * @return <b>true</b> if we're vanilla size.
-	 */
-	public boolean ensmallen() {
-		if (zoom > 1) {
-			zoom--;
-		}
-		repaint();
-		return (zoom <= 1);
-	}
-	/**
-	 * Adjusts timer based on speed
-	 */
-	private void adjustTimer() {
-		if (!running)
-			return;
+	public String getSpeedPercent() {
 		double speedM = Math.pow(1.5, speed * -1);
-		long wait = frames[frame].nextTick(speedM);
-		next = new SpriteTask(this);
-		tick.schedule(next, wait);
+		int s = (int) (100 / speedM);
+		return s + "%";
 	}
+
 	/**
 	 * Compares current step speed to maximum speed allowed.
 	 */
@@ -258,7 +244,73 @@ public class SpriteAnimator extends Component{
 	 * Compares current step speed to minimum speed allowed.
 	 */
 	public boolean atMinSpeed() {
-		return speed == (-1 * MAXSPEED);
+		return (speed * -1) == MAXSPEED;
+	}
+	
+	/*
+	 * Zoom functions
+	 */
+	/**
+	 * Zooms in by 1x.
+	 * @return <b>true</b> if we're really big.
+	 */
+	public void embiggen() {
+		setZoom(zoom+1);
+	}
+	
+	/**
+	 * Zooms out by 1x.
+	 * @return <b>true</b> if we're vanilla size.
+	 */
+	public void ensmallen() {
+		setZoom(zoom-1);
+	}
+
+	public void setZoom(int z) {
+		if (z == zoom) {
+			// do nothing
+		} else if (z < zoom) {
+			if (vanillaSize()) {
+				// do nothing
+			} else {
+				zoom = z;
+			}
+		} else if (z > zoom) {
+			if (tooBig()) {
+				// do nothing
+			} else {
+				zoom = z;
+			}
+		} else { // should never hit this
+			zoom = 0; // but if we do, reset the speed
+		}
+		fireZoomEvent();
+		repaint();
+	}
+
+	public int getZoom() {
+		return zoom;
+	}
+	public boolean tooBig() {
+		return zoom == MAXZOOM;
+	}
+	
+	public boolean vanillaSize() {
+		return zoom == 1;
+	}
+
+	/**
+	 * Adjusts timer based on speed
+	 */
+	private void adjustTimer() {
+		if (!running) {
+			tick.cancel();
+			return;
+		}
+		double speedM = Math.pow(1.5, speed * -1);
+		long wait = frames[frame].nextTick(speedM);
+		next = new SpriteTask(this);
+		tick.schedule(next, wait);
 	}
 
 	/**
@@ -274,17 +326,72 @@ public class SpriteAnimator extends Component{
 		t.draw(g2);
 	}
 
+	/*
+	 * Change listeners
+	 */
+	// Step
 	public synchronized void addStepListener(StepListener s) {
-		listeners.add(s);
+		stepListen.add(s);
 	}
 	
 	public synchronized void removeStepListener(StepListener s) {
-		listeners.remove(s);
+		stepListen.remove(s);
 	}
 	
-	public synchronized void fireEvent() {
+	public synchronized void fireStepEvent() {
 		StepEvent s = new StepEvent(this);
-		Iterator<StepListener> listening = listeners.iterator();
+		Iterator<StepListener> listening = stepListen.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
+	}
+
+	// Speed
+	public synchronized void addSpeedListener(SpeedListener s) {
+		speedListen.add(s);
+	}
+	
+	public synchronized void removeSpeedListener(SpeedListener s) {
+		speedListen.remove(s);
+	}
+	
+	public synchronized void fireSpeedEvent() {
+		SpeedEvent s = new SpeedEvent(this);
+		Iterator<SpeedListener> listening = speedListen.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
+	}
+
+	// mode
+	public synchronized void addModeListener(ModeListener s) {
+		modeListen.add(s);
+	}
+	
+	public synchronized void removeModeListener(ModeListener s) {
+		modeListen.remove(s);
+	}
+	
+	public synchronized void fireModeEvent() {
+		ModeEvent s = new ModeEvent(this);
+		Iterator<ModeListener> listening = modeListen.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
+	}
+	
+	// zoom
+	public synchronized void addZoomListener(ZoomListener s) {
+		zoomListen.add(s);
+	}
+	
+	public synchronized void removeZoomListener(ZoomListener s) {
+		zoomListen.remove(s);
+	}
+	
+	public synchronized void fireZoomEvent() {
+		ZoomEvent s = new ZoomEvent(this);
+		Iterator<ZoomListener> listening = zoomListen.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
