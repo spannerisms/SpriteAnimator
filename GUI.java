@@ -297,8 +297,14 @@ public class GUI {
 
 		modeOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				run.setMode(modeOptions.getSelectedIndex());
-				int animMode = run.getMode();
+				int animMode;
+				try {
+					run.setMode(modeOptions.getSelectedIndex());
+					animMode = run.getMode();
+					run.reset();
+				} catch (Exception e) {
+					animMode = modeOptions.getSelectedIndex();
+				}
 				// button disabling
 				switch(animMode) {
 					case 0 :
@@ -320,7 +326,6 @@ public class GUI {
 						stepBtn.setEnabled(false);
 						break;
 				}
-				run.reset();
 			}});
 
 		bigBtn.addActionListener(new ActionListener() {
@@ -359,8 +364,12 @@ public class GUI {
 		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int animMode = run.getMode();
-				run.repaint();
-				run.reset();
+				try {
+					run.repaint();
+					run.reset();
+				} catch (Exception e) {
+					// do nothing
+				}
 				// button disabling
 				switch (animMode) {
 					case 0 :

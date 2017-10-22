@@ -114,9 +114,11 @@ public class SpriteAnimator extends Component{
 	public void step() {
 		frame++;
 		if (frame >= maxFrame) {
-			frame = 0;
 			if (mode == 2) {
+				frame = maxFrame-1;
 				setRunning(false);
+			} else {
+				frame = 0;
 			}
 		}
 		repaint();
@@ -134,18 +136,18 @@ public class SpriteAnimator extends Component{
 		} catch(Exception e) {};
 		switch (mode) {
 			case 0 :
+				setRunning(true);
 				resetFrame();
 				resetSpeed();
-				setRunning(true);
 				break;
 			case 1 :
-				resetFrame();
 				setRunning(false);
+				resetFrame();
 				break;
 			case 2 :
+				setRunning(true);
 				resetFrame();
 				resetSpeed();
-				setRunning(true);
 				break;
 		}
 		repaint();
