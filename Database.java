@@ -32,7 +32,7 @@ public abstract class Database {
 	 */
 	public static final String[] ALLFRAMES = {
 			// stand TODO: 100% confirm ; A0:B0
-			"[stand]A0{0,0}{F}{0}:B0{1,8}{F}{0} @ 3 ",
+			"[stand]A0{0,0}{F}{0}:B0{1,8}{F}{0}:SHADOW0{2,8}{F}{0} @ 3 ",
 			// standUp TODO: 100% confirm ; A2:C1
 			"[standUp]A2{0,0}{F}{0}:C1{0,8}{F}{0} @ 3 ",
 			// standDown TODO: 100% confirm ; A1:B3

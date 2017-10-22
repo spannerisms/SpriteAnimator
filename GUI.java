@@ -26,14 +26,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class GUI {
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 	static final String[] MODES = {
 			"Normal play",
 			"Step-by-step",
-			"All frames"
+			//"All frames" disabled for now
 	};
 
 	private static final JComboBox<String> modeOptions =
@@ -53,11 +52,13 @@ public class GUI {
 	}
 
 	public void printGUI(String[] args) throws IOException {
-		//try to set Nimbus
+		//try to set LaF
 		try {
-			NimbusLookAndFeel lookAndFeel = new NimbusLookAndFeel();
-			UIManager.setLookAndFeel(lookAndFeel);
-		} catch (UnsupportedLookAndFeelException e) {
+			UIManager.setLookAndFeel("metal");
+		} catch (UnsupportedLookAndFeelException
+				| ClassNotFoundException
+				| InstantiationException
+				| IllegalAccessException e) {
 			// try to set System default
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -69,9 +70,10 @@ public class GUI {
 			} //end System
 		} // end Nimbus
 		final JFrame frame = new JFrame("Sprite Animator");
-		final Dimension d = new Dimension(400,282);
+		final Dimension d = new Dimension(600, 400);
+		final Dimension minD = new Dimension(400, 300);
 		final JTextField fileName = new JTextField("");
-		final JButton loadBtn = new JButton("Load SPR");
+		final JButton loadBtn = new JButton("Load Sprite");
 		final JButton stepBtn = new JButton("Step");
 		final JButton fasterBtn = new JButton("Speed+");
 		final JButton slowerBtn = new JButton("Speed-");
@@ -137,7 +139,7 @@ public class GUI {
 		c.fill = GridBagConstraints.NONE;
 
 		// text box sizing
-		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,10);
+		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 		Dimension dd = new Dimension(50,20);
 		
 		frameCur.setPreferredSize(dd);
@@ -213,10 +215,10 @@ public class GUI {
 		frame.add(controlsWrap,BorderLayout.EAST);
 		frame.add(loadWrap,BorderLayout.NORTH);
 		frame.setSize(d);
-		frame.setMinimumSize(d);
+		frame.setMinimumSize(minD);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.setLocation(300,300);
+		frame.setLocation(200,200);
 		frame.setJMenuBar(menu);
 
 		// file explorer

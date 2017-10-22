@@ -12,7 +12,20 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
+
 public class SpriteAnimator extends Component {
+	private BufferedImage BG; {
+		try {
+			BG = ImageIO.read(this.getClass().getResource("Grass.png"));
+		} catch (IOException e) {
+	}};
+	private BufferedImage EQUIPMENT; {
+		try {
+			EQUIPMENT = ImageIO.read(this.getClass().getResource("Equipment.png"));
+		} catch (IOException e) {
+	}};
+
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 	private static final long serialVersionUID = 2114886855236406900L;
 
@@ -23,7 +36,6 @@ public class SpriteAnimator extends Component {
 	// used for parsing frame data
 	static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZαβ"
 			.toUpperCase(); // toUppercase to visually distinguish alpha/beta
-
 	/*
 	 * Image controller
 	 */
@@ -322,6 +334,8 @@ public class SpriteAnimator extends Component {
 		}
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom);
+		// TODO : Reenable background maybe
+		// g2.drawImage(BG, 0, 0, null);
 		Anime t = frames[frame];
 		t.draw(g2);
 	}
@@ -404,6 +418,7 @@ public class SpriteAnimator extends Component {
 		if (img == null) {
 			return;
 		}
+		BufferedImage sheet;
 		String animData = ALLFRAMES[anime].toUpperCase().replace(" ", ""); // CAPS and remove all whitespace
 		// split into sections
 
@@ -430,17 +445,32 @@ public class SpriteAnimator extends Component {
 			for (int j = 0; j < spriteCount; j++) {
 				// split into info sections
 				String[] spriteSplit = eachSprite[j].split("[\\{\\}]{1,2}");
-				char[] sprIndex = spriteSplit[0].toCharArray();
-				String[] pos = spriteSplit[1].split(",");
-				String sprSize = spriteSplit[2];
-				String sprTrans = spriteSplit[3];
+				
+				// sprite sheet and index
+				String sprIndex = spriteSplit[0];
+				String sprIndexRow = sprIndex.substring(0, sprIndex.length()-1);
+				int sprIndexRowVal = getIndexRow(sprIndexRow);
+				char sprIndexCol = sprIndex.charAt(sprIndex.length()-1);
+
+				// assume 1 character rows are always link
+				// and all equipment is named longer than 0
+				if (sprIndexRow.length() == 1) {
+					sheet = img;
+				} else {
+					sheet = EQUIPMENT;
+				}
 				// sprite position
+				String[] pos = spriteSplit[1].split(",");
 				int xpos = Integer.parseInt(pos[0]);
 				int ypos = Integer.parseInt(pos[1]);
-				int drawY = ALPHA.indexOf(sprIndex[0]) * 16;
-				int drawX = Integer.parseInt((sprIndex[1] + "")) * 16;
+				int drawY = sprIndexRowVal * 16;
+				int drawX = Integer.parseInt((sprIndexCol + "")) * 16;
 				int drawYoffset, drawXoffset, width, height;
-				
+
+				// sprite size and transformation
+				String sprSize = spriteSplit[2];
+				String sprTrans = spriteSplit[3];
+
 				// determine offset from initial position
 				switch (sprSize) {
 					case "F" :
@@ -511,7 +541,7 @@ public class SpriteAnimator extends Component {
 				if (sprSize.equals("E"))
 					spreet = new BufferedImage(16, 16, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 				else
-					spreet = img.getSubimage(drawX, drawY, width, height);
+					spreet = sheet.getSubimage(drawX, drawY, width, height);
 				
 				// transformations
 				switch (sprTrans) {
@@ -565,5 +595,41 @@ public class SpriteAnimator extends Component {
 	public static void main(String[] args) throws IOException {
 		GUI G = new GUI();
 		G.printGUI(args);
+	}
+	
+	private static int getIndexRow(String row) {
+		int ret = 0;
+		if (row.length() == 1) {
+			ret = ALPHA.indexOf(row);
+		} else {
+			switch (row) {
+				case "FSWORD" : // fighter's sword
+					ret = 0;
+					break;
+				case "MSWORD" : // master sword
+					ret = 1;
+					break;
+				case "TSWORD" : // tempered sword
+					ret = 2;
+					break;
+				case "BSWORD" : // butter sword
+					ret = 3;
+					break;
+				case "FSHIELD" : // figher's shield
+					ret = 4;
+					break;
+				case "RSHIELD" : // red shield
+					ret = 5;
+					break;
+				case "MSHIELD" : // mirror shield
+					ret = 6;
+					break;
+				case "SHADOW" :
+					ret = 7;
+					break;
+			}
+		}
+		
+		return ret;
 	}
 }
