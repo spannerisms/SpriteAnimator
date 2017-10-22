@@ -36,11 +36,9 @@ public class GUI {
 			"All frames"
 	};
 
-	private static final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
+	private static final JComboBox<String> modeOptions =
+			new JComboBox<String>(MODES);
 
-	/*
-	 * GUI stuff
-	 */
 	private static final JComboBox<String> animOptions =
 			new JComboBox<String>(getAnimNames());
 
@@ -104,7 +102,7 @@ public class GUI {
 		controls.add(new JPanel(), c); // filler
 		c.gridx = 2;
 		controls.add(bigBtn,c);
-		
+
 		// speed
 		c.gridx = 0;
 		c.gridy++;
@@ -113,19 +111,19 @@ public class GUI {
 		controls.add(new JPanel(), c); // filler
 		c.gridx = 2;
 		controls.add(fasterBtn,c);
-		
+
 		// step
 		c.gridwidth = 3;
 		c.gridx = 0;
 		c.gridy++;
 		controls.add(stepBtn,c);
-		
+
 		// reset
 		c.gridwidth = 3;
 		c.gridx = 0;
 		c.gridy++;
 		controls.add(resetBtn,c);
-		
+
 		// frame counter
 		c.gridwidth = 1;
 		c.gridx = 0;
@@ -135,7 +133,7 @@ public class GUI {
 		c.weightx = 0;
 		c.gridx = 1;
 		c.fill = GridBagConstraints.NONE;
-		
+
 		Dimension dd = new Dimension(20,20);
 		frameCur.setPreferredSize(dd);
 		frameCur.setMaximumSize(dd);
@@ -144,7 +142,7 @@ public class GUI {
 		controls.add(frameCur,c);
 		c.gridx = 2;
 		controls.add(frameMax,c);
-		
+
 		final JPanel bottomStuffWrap = new JPanel(new BorderLayout());
 		final JPanel bottomStuff = new JPanel(new BorderLayout());
 		stepBtn.setEnabled(false);
@@ -172,6 +170,7 @@ public class GUI {
 		peepsList.append("\n\nAnimation research:\n\tRyuTech");
 		peepsList.append("\n\nCode contribution:\n");
 		peepsList.append(GH.join(new String[]{
+				"MikeTretheway", // God dammit, so being so helpful
 				"Zarby89", // spr conversion
 				}, ", "));
 		peepsList.append("\n\nResources and development:\n");
@@ -206,7 +205,7 @@ public class GUI {
 
 		frame.setLocation(300,300);
 		frame.setJMenuBar(menu);
-		
+
 		// file explorer
 		final JFileChooser explorer = new JFileChooser();
 		FileNameExtensionFilter sprFilter =
@@ -261,7 +260,7 @@ public class GUI {
 					byte[][][] ebe = SprManip.sprTo8x8(sprite);
 					byte[][] palette = SprManip.getPal(sprite);
 					byte[] src = SprManip.makeRaster(ebe,palette);
-					
+
 					run.setImage(SprManip.makeSheet(src));
 				} catch(Exception e) {
 					JOptionPane.showMessageDialog(frame,
@@ -274,10 +273,10 @@ public class GUI {
 					run.setAnimation(0);
 					animOptions.setSelectedIndex(0);
 				} catch(Exception e) {
-						
+
 				}
 			}});
-		
+
 		// 
 		animOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -296,7 +295,7 @@ public class GUI {
 						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"",0,0));
 				frameMax.setText("/ " + run.maxFrame());
 			}});
-		
+
 		modeOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.setMode(modeOptions.getSelectedIndex());
@@ -325,7 +324,7 @@ public class GUI {
 				frameCur.setText(run.frameDis());
 				run.reset();
 			}});
-		
+
 		bigBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lilBtn.setEnabled(true);
@@ -333,7 +332,7 @@ public class GUI {
 					bigBtn.setEnabled(false);
 				}
 			}});
-		
+
 		lilBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				bigBtn.setEnabled(true);
@@ -342,7 +341,7 @@ public class GUI {
 							false);
 				}
 			}});
-		
+
 		fasterBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				slowerBtn.setEnabled(true);
@@ -350,7 +349,7 @@ public class GUI {
 					fasterBtn.setEnabled(false);
 				}
 			}});
-		
+
 		slowerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				fasterBtn.setEnabled(true);
@@ -358,7 +357,7 @@ public class GUI {
 					slowerBtn.setEnabled(false);
 				}
 			}});
-		
+
 		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int animMode = run.getMode();
@@ -379,7 +378,7 @@ public class GUI {
 				}
 				frameCur.setText(run.frameDis());
 			}});
-		
+
 		stepBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.step();
