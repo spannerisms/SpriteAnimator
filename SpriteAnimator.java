@@ -298,7 +298,7 @@ public class SpriteAnimator extends Component {
 		// split into sections
 
 		String[] animDataX = animData.split("[\\[\\]]+");
-		String[] eachFrame = animDataX[3].split(";"); // split by frame
+		String[] eachFrame = animDataX[2].split(";"); // split by frame
 		// get duration
 
 		maxFrame = eachFrame.length;
