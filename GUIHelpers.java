@@ -1,9 +1,6 @@
 package SpriteAnimator;
 
-public class GuiHelpers {
-	/*
-	 * GUI related functions
-	 */
+public abstract class GUIHelpers {
 	/**
 	 * gives file extension name from a string
 	 * @param s - test case
@@ -42,7 +39,7 @@ public class GuiHelpers {
 	 * @param type - extension
 	 * @return <tt>true</tt> if extension is matched
 	 */
-	public boolean testFileType(String s, String type) {
+	public static boolean testFileType(String s, String type) {
 		return testFileType(s, new String[] { type });
 	}
 
@@ -52,7 +49,7 @@ public class GuiHelpers {
 	 * @param c - delimiter
 	 * @return A single <tt>String</tt>.
 	 */
-	public String join(String[] s, String c) {
+	public static String join(String[] s, String c) {
 		String ret = "";
 		for (int i = 0; i < s.length; i++) {
 			ret += s[i];

@@ -29,8 +29,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class GUI {
-	static final GuiHelpers GH = new GuiHelpers();
-	static final SprManipulator SPRMANIP = new SprManipulator();
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 	static final String[] MODES = {
 			"Normal play",
@@ -178,24 +176,24 @@ public class GUI {
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
 		peepsList.append("\n\nFrame resources:\n");
 		peepsList.append("http://alttp.mymm1.com/sprites/includes/animations.txt\n");
-		peepsList.append(GH.join(new String[]{
+		peepsList.append(GUIHelpers.join(new String[]{
 				"\tMikeTrethewey", // it's mike
 				"TWRoxas", // provided most valuable documentation
 				}, ", "));// forced me to do this and falls in every category
 		peepsList.append("\n\nAnimation research:\n\tRyuTech");
 		peepsList.append("\n\nCode contribution:\n");
-		peepsList.append(GH.join(new String[]{
+		peepsList.append(GUIHelpers.join(new String[]{
 				"MikeTretheway", // God dammit, so being so helpful
 				"Zarby89", // spr conversion
 				}, ", "));
 		peepsList.append("\n\nResources and development:\n");
-		peepsList.append(GH.join(new String[]{
+		peepsList.append(GUIHelpers.join(new String[]{
 				"Veetorp", // provided most valuable documentation
 				"Zarby89", // various documentation and answers
 				"Sosuke3" // various snes code answers
 				}, ", "));
 		peepsList.append("\n\nTesting and feedback:\n");
-		peepsList.append(GH.join(new String[]{
+		peepsList.append(GUIHelpers.join(new String[]{
 				"Jighart",
 				}, ", "));
 		aboutFrame.add(peepsList);
@@ -289,7 +287,7 @@ public class GUI {
 				} catch (NullPointerException e) {
 					// do nothing
 				} finally {
-					if (GH.testFileType(n,"spr")) {
+					if (GUIHelpers.testFileType(n,"spr")) {
 						fileName.setText(n);
 					}
 					else {
@@ -299,7 +297,7 @@ public class GUI {
 
 				byte[] sprite;
 				try {
-					sprite = SPRMANIP.readSprite(fileName.getText());
+					sprite = SpriteManipulator.readSprite(fileName.getText());
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
@@ -309,11 +307,11 @@ public class GUI {
 				}
 
 				try {
-					byte[][][] ebe = SPRMANIP.sprTo8x8(sprite);
-					byte[][] palette = SPRMANIP.getPal(sprite);
-					byte[] src = SPRMANIP.makeRaster(ebe,palette);
+					byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
+					byte[][] palette = SpriteManipulator.getPal(sprite);
+					byte[] src = SpriteManipulator.makeRaster(ebe,palette);
 
-					run.setImage(SPRMANIP.makeSheet(src));
+					run.setImage(SpriteManipulator.makeSheet(src));
 				} catch(Exception e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error converting sprite",

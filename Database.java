@@ -1,6 +1,6 @@
 package SpriteAnimator;
 
-public class Database {
+public abstract class Database {
 	/* taken and modified from
 	 * http://alttp.mymm1.com/sprites/includes/animations.txt
 	 * credit:
@@ -30,7 +30,7 @@ public class Database {
 	 *		M  : Mirror along y-axis
 	 *		UM : Mirror along both axes
 	 */
-	static final String[] ALLFRAMES = {
+	public static final String[] ALLFRAMES = {
 			// stand TODO: 100% confirm ; A0:B0
 			"[stand]A0{0,0}{F}{0}:B0{1,8}{F}{0} @ 3 ",
 			// standUp TODO: 100% confirm ; A2:C1

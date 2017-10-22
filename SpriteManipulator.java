@@ -6,9 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class SprManipulator {
-	static final int SPRITESIZE = 896 * 32; // invariable lengths
-	static final int RASTERSIZE = 128 * 448 * 4;
+public abstract class SpriteManipulator {
+	public static final int SPRITESIZE = 896 * 32; // invariable lengths
+	public static final int RASTERSIZE = 128 * 448 * 4;
 
 	// format of snes 4bpp {row (r), bit plane (b)}
 	// bit plane 0 indexed such that 1011 corresponds to 0123
@@ -23,7 +23,7 @@ public class SprManipulator {
 	 * Reads a sprite file
 	 * @throws IOException
 	 */
-	public byte[] readSprite(String path) throws IOException {
+	public static byte[] readSprite(String path) throws IOException {
 		File file = new File(path);
 		byte[] ret = new byte[(int) file.length()];
 		FileInputStream s;
@@ -46,7 +46,7 @@ public class SprManipulator {
 	 * Takes a sprite and turns it into 896 blocks of 8x8 pixels
 	 * @param sprite
 	 */
-	public byte[][][] sprTo8x8(byte[] sprite) {
+	public static byte[][][] sprTo8x8(byte[] sprite) {
 		byte[][][] ret = new byte[896][8][8];
 
 		// current block we're working on, each sized 32
@@ -87,7 +87,7 @@ public class SprManipulator {
 	 * Only uses the first 16 colors.
 	 * Automatically makes first index black.
 	 */
-	public byte[][] getPal(byte[] sprite) {
+	public static byte[][] getPal(byte[] sprite) {
 		byte[][] ret = new byte[16][3];
 		for (int i = 1; i < 16; i++) {
 			short color = 0;
@@ -113,7 +113,7 @@ public class SprManipulator {
 	/**
 	 * Turn index map in 8x8 format into an array of ABGR values
 	 */
-	public byte[] makeRaster(byte[][][] ebe, byte[][] palette) {
+	public static byte[] makeRaster(byte[][][] ebe, byte[][] palette) {
 		byte[] ret = new byte[RASTERSIZE];
 		int largeCol = 0;
 		int intRow = 0;
@@ -169,7 +169,7 @@ public class SprManipulator {
 	 * @param raster
 	 * @return
 	 */
-	public BufferedImage makeSheet(byte[] raster) {
+	public static BufferedImage makeSheet(byte[] raster) {
 		BufferedImage image = new BufferedImage(128, 448, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 		int[] rgb = new int[128 * 448];
 		for (int i = 0, j = 0; i < rgb.length; i++) {
@@ -184,7 +184,7 @@ public class SprManipulator {
 		return image;
 	}
 
-	private int unsignByte(byte b) {
+	private static int unsignByte(byte b) {
 		int ret = (b + 256) % 256;
 		return ret;
 	}
