@@ -1,3 +1,5 @@
+package SpriteAnimator;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -144,26 +146,26 @@ public class SpriteAnimator extends Component {
 		// treadingWaterDown TODO: 100% confirm ; A1:J2,A1:J2-M
 		"[treadingWaterDown][100]A1{0,0}{F}{0}:J2{0,7}{F}{0} @ 3 ;" +
 			"A1{0,0}{F}{0}:J2{0,7}{F}{M} @ 3 ",
-		// attack TODO: 100% confirm ; A0:C2,A0:C3,A0:C4,A0:α7,Z6,A0:C4,A0:C5
+		// attack TODO: 100% confirm ; A0:C2,A0:C3,A0:C4,A0:Î±7,Z6,A0:C4,A0:C5
 		"[attack][100]A0{0,0}{F}{0}:C2{0,8}{F}{0} @ 3 ;" +
 			"A0{0,0}{F}{0}:C3{0,8}{F}{0} @ 3 ;" +
 			"A0{0,0}{F}{0}:C4{0,8}{F}{0} @ 3 ;" +
-			"A0{0,0}{F}{0}:α7{0,8}{F}{0} @ 3 ;" +
+			"A0{0,0}{F}{0}:Î±7{0,8}{F}{0} @ 3 ;" +
 			"Z6{0,8}{F}{0} @ 3 ;" +
 			"A0{0,0}{F}{0}:C4{0,8}{F}{0} @ 3 ;" +
 			"A0{0,0}{F}{0}:C5{0,8}{F}{0} @ 3 ",
-		// attackUp TODO: 100% confirm ; F1,A2:D1,A2:D2,A2:β1,A2:D2,A2:L4
+		// attackUp TODO: 100% confirm ; F1,A2:D1,A2:D2,A2:Î²1,A2:D2,A2:L4
 		"[attackUp][100]F1{0,0}{F}{0} @ 3 ;" +
 			"A2{0,0}{F}{0}:D1{0,8}{F}{0} @ 3 ;" +
 			"A2{0,0}{F}{0}:D2{0,8}{F}{0} @ 3 ;" +
-			"A2{0,0}{F}{0}:β1{0,8}{F}{0} @ 3 ;" +
+			"A2{0,0}{F}{0}:Î²1{0,8}{F}{0} @ 3 ;" +
 			"A2{0,0}{F}{0}:D2{0,8}{F}{0} @ 3 ;" +
 			"A2{0,0}{F}{0}:L4{0,8}{F}{0} @ 3 ",
-		// attackDown TODO: 100% confirm ; F0,A1:C6,A4:D0,A4:β0,A4:D0,A3:L3
+		// attackDown TODO: 100% confirm ; F0,A1:C6,A4:D0,A4:Î²0,A4:D0,A3:L3
 		"[attackDown][100]F0{0,0}{F}{0} @ 3 ;" +
 			"A1{0,0}{F}{0}:C6{0,8}{F}{0} @ 3 ;" +
 			"A4{0,0}{F}{0}:D0{0,8}{F}{0} @ 3 ;" +
-			"A4{0,0}{F}{0}:β0{0,8}{F}{0} @ 3 ;" +
+			"A4{0,0}{F}{0}:Î²0{0,8}{F}{0} @ 3 ;" +
 			"A4{0,0}{F}{0}:D0{0,8}{F}{0} @ 3 ;" +
 			"A3{0,0}{F}{0}:L3{0,8}{F}{0} @ 3 ",
 		// dashRelease TODO: 100% confirm ; A0:M6,K3:V1,A0:M6,K4:M7
@@ -179,13 +181,13 @@ public class SpriteAnimator extends Component {
 			"A2{0,0}{F}{0}:M4{0,8}{F}{M} @ 3 ;" +
 			"A2{0,0}{F}{0}:M5{0,8}{F}{M} @ 3 ;" +
 			"A2{0,0}{F}{0}:M3{0,8}{F}{M} @ 3 ",
-		// dashReleaseDown TODO: 100% confirm ; A1:M0,A1:M1,A1:M2,A1:M0,A1:β2,A1:β3,A1:M0
+		// dashReleaseDown TODO: 100% confirm ; A1:M0,A1:M1,A1:M2,A1:M0,A1:Î²2,A1:Î²3,A1:M0
 		"[dashReleaseDown][100]A1{0,0}{F}{0}:M0{0,8}{F}{0} @ 3 ;" +
 			"A1{0,0}{F}{0}:M1{0,8}{F}{0} @ 3 ;" +
 			"A1{0,0}{F}{0}:M2{0,8}{F}{0} @ 3 ;" +
 			"A1{0,0}{F}{0}:M0{0,8}{F}{0} @ 3 ;" +
-			"A1{0,0}{F}{0}:β2{0,8}{F}{0} @ 3 ;" +
-			"A1{0,0}{F}{0}:β3{0,8}{F}{0} @ 3 ;" +
+			"A1{0,0}{F}{0}:Î²2{0,8}{F}{0} @ 3 ;" +
+			"A1{0,0}{F}{0}:Î²3{0,8}{F}{0} @ 3 ;" +
 			"A1{0,0}{F}{0}:M0{0,8}{F}{0} @ 3 ",
 		// spinAttack TODO: 100% confirm ; A0:I0,A0:P1,A0-M:I0,A0:B0,A1:P3,A0-M:B0-M,A2:P2,A0:I0
 		"[spinAttack][100]A0{0,0}{F}{0}:I0{0,8}{F}{0} @ 3 ;" +
@@ -303,8 +305,8 @@ public class SpriteAnimator extends Component {
 		"[salute][100]A3{0,0}{F}{0}:P4{0,8}{F}{M} @ 3 ",
 		// itemGet TODO: 100% confirm ; L1:L2
 		"[itemGet][100]L1{0,0}{F}{0}:L2{0,8}{F}{0} @ 3 ",
-		// triforceGet TODO: 100% confirm ; Z2:β4
-		"[triforceGet][100]Z2{0,0}{F}{0}:β4{0,8}{F}{0} @ 3 ",
+		// triforceGet TODO: 100% confirm ; Z2:Î²4
+		"[triforceGet][100]Z2{0,0}{F}{0}:Î²4{0,8}{F}{0} @ 3 ",
 		// readBook TODO: 100% confirm ; K5:K6
 		"[readBook][100]K5{0,0}{F}{0}:K6{0,8}{F}{0} @ 3 ;",
 		// prayer R1,A5:Q1,A5:Q0,S1
@@ -511,20 +513,20 @@ public class SpriteAnimator extends Component {
 		// zap TODO: 100% confirm ; R0,S0
 		"[zap][100]R0{0,0}{F}{0}:S0{0,16}{T}{0} @ 3 ;" +
 			"S0{0,0}{B}{0}:T0{0,8}{F}{0} @ 3 ",
-		// bunnyStand TODO: 100% confirm ; α4:α5
-		"[bunnyStand][100]α4{0,0}{F}{0}:α5{0,8}{F}{0} @ 3 ",
-		// bunnyStandUp TODO: 100% confirm ; α1:α2
-		"[bunnyStandUp][100]α1{0,0}{F}{0}:α2{0,8}{F}{0} @ 3 ",
-		// bunnyStandDown TODO: 100% confirm ; Z5:α0
-		"[bunnyStandDown][100]Z5{0,0}{F}{0}:α0{0,8}{F}{0} @ 3 ",
-		// bunnyWalk TODO: 100% confirm ; α4:α5,α4:α6
-		"[bunnyWalk][100]α4{0,0}{F}{0}:α5{0,8}{F}{0} @ 3 ;" +
-			"α4{0,0}{F}{0}:α6{0,8}{F}{0} @ 3 ",
-		// bunnyWalkUp TODO: 100% confirm ; α1:α2,α1:α3
-		"[bunnyWalkUp][100]α1{0,0}{F}{0}:α2{0,8}{F}{0} @ 3 ;" +
-			"α1{0,0}{F}{0}:α3{0,8}{F}{0} @ 3 ",
-		// bunnyWalkDown TODO: 100% confirm ; Z5:α0,Z5:Z7
-		"[bunnyWalkDown][100]Z5{0,0}{F}{0}:α0{0,8}{F}{0} @ 3 ;" +
+		// bunnyStand TODO: 100% confirm ; Î±4:Î±5
+		"[bunnyStand][100]Î±4{0,0}{F}{0}:Î±5{0,8}{F}{0} @ 3 ",
+		// bunnyStandUp TODO: 100% confirm ; Î±1:Î±2
+		"[bunnyStandUp][100]Î±1{0,0}{F}{0}:Î±2{0,8}{F}{0} @ 3 ",
+		// bunnyStandDown TODO: 100% confirm ; Z5:Î±0
+		"[bunnyStandDown][100]Z5{0,0}{F}{0}:Î±0{0,8}{F}{0} @ 3 ",
+		// bunnyWalk TODO: 100% confirm ; Î±4:Î±5,Î±4:Î±6
+		"[bunnyWalk][100]Î±4{0,0}{F}{0}:Î±5{0,8}{F}{0} @ 3 ;" +
+			"Î±4{0,0}{F}{0}:Î±6{0,8}{F}{0} @ 3 ",
+		// bunnyWalkUp TODO: 100% confirm ; Î±1:Î±2,Î±1:Î±3
+		"[bunnyWalkUp][100]Î±1{0,0}{F}{0}:Î±2{0,8}{F}{0} @ 3 ;" +
+			"Î±1{0,0}{F}{0}:Î±3{0,8}{F}{0} @ 3 ",
+		// bunnyWalkDown TODO: 100% confirm ; Z5:Î±0,Z5:Z7
+		"[bunnyWalkDown][100]Z5{0,0}{F}{0}:Î±0{0,8}{F}{0} @ 3 ;" +
 			"Z5{0,1}{F}{0}:Z7{0,8}{F}{0} @ 3 ",
 		// walkUpstairs1F TODO: 100% confirm ; A2:V5,A2:V6,A2:C1,X1:Y3,X1:Y4,X1:Y5,X1:Y3,X1:Y4,X1:Y5,X1:Y3,X1:Y4,A0:V2,A0:B0,A0:V2,A0:B0,A0:V2,A0:B0,A0:V2,A0:B0
 		"[walkUpstairs1F][100]A2{0,1}{F}{0}:V5{0,8}{F}{0} @ 3 ;" +
@@ -748,8 +750,9 @@ public class SpriteAnimator extends Component {
 	 * @param id
 	 */
 	public void setAnimation(int id) {
-		if (img == null)
+		if (img == null) {
 			return;
+		}
 		anime = id;
 		makeAnimationFrames();
 		reset();
@@ -785,8 +788,9 @@ public class SpriteAnimator extends Component {
 		frame++;
 		if (frame >= maxFrame) {
 			frame = 0;
-			if (mode == 2)
+			if (mode == 2) {
 				setRunning(false);
+			}
 		}
 		repaint();
 	}
@@ -856,8 +860,9 @@ public class SpriteAnimator extends Component {
 	 * @return <b>true</b> if speed reaches max.
 	 */
 	public boolean faster() {
-		if (speed < MAXSPEED)
+		if (speed < MAXSPEED) {
 			speed++;
+		}
 		return atMaxSpeed();
 	}
 	
@@ -866,8 +871,9 @@ public class SpriteAnimator extends Component {
 	 * @return <b>true</b> if speed reaches min.
 	 */
 	public boolean slower() {
-		if (speed > (MAXSPEED * -1))
+		if (speed > (MAXSPEED * -1)) {
 			speed--;
+		}
 		return atMinSpeed();
 	}
 	
@@ -876,8 +882,9 @@ public class SpriteAnimator extends Component {
 	 * @return <b>true</b> if we're really big.
 	 */
 	public boolean embiggen() {
-		if (zoom < MAXZOOM)
+		if (zoom < MAXZOOM) {
 			zoom++;
+		}
 		repaint();
 		return (zoom >= MAXZOOM);
 	}
@@ -887,8 +894,9 @@ public class SpriteAnimator extends Component {
 	 * @return <b>true</b> if we're vanilla size.
 	 */
 	public boolean ensmallen() {
-		if (zoom > 1)
+		if (zoom > 1) {
 			zoom--;
+		}
 		repaint();
 		return (zoom <= 1);
 	}
@@ -916,8 +924,9 @@ public class SpriteAnimator extends Component {
 	 * Draw every sprite
 	 */
 	public void paint(Graphics g) {
-		if (frames==null || frames[frame] == null)
+		if (frames==null || frames[frame] == null) {
 			return;
+		}
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom);
 		Anime t = frames[frame];
@@ -930,8 +939,9 @@ public class SpriteAnimator extends Component {
 	 * Makes an array of {@link Sprite}s based on the frame data.
 	 */
 	private void makeAnimationFrames() {
-		if (img == null)
+		if (img == null) {
 			return;
+		}
 		String animData = ALLFRAMES[anime].toUpperCase().replace(" ", ""); // CAPS and remove all whitespace
 		// split into sections
 
@@ -1086,7 +1096,7 @@ public class SpriteAnimator extends Component {
 		final JFrame frame = new JFrame("Sprite Animator");
 		final Dimension d = new Dimension(400,282);
 		final JTextField fileName = new JTextField("");
-		final JButton loadBtn = new JButton("Load file");
+		final JButton loadBtn = new JButton("Load SPR");
 		final JButton stepBtn = new JButton("Step");
 		final JButton fasterBtn = new JButton("Speed+");
 		final JButton slowerBtn = new JButton("Speed-");
@@ -1223,7 +1233,7 @@ public class SpriteAnimator extends Component {
 		// file explorer
 		final JFileChooser explorer = new JFileChooser();
 		FileNameExtensionFilter sprFilter =
-				new FileNameExtensionFilter("Sprite files", new String[] { "spr" });
+				new FileNameExtensionFilter("ALttP Sprite files", new String[] { "spr" });
 		// can't clear text due to wonky code
 		// have to set a blank file instead
 		final File EEE = new File("");
@@ -1242,18 +1252,21 @@ public class SpriteAnimator extends Component {
 				explorer.setFileFilter(sprFilter);
 				int option = explorer.showOpenDialog(loadBtn);
 				explorer.removeChoosableFileFilter(sprFilter);
-				if (option == JFileChooser.CANCEL_OPTION)
+				if (option == JFileChooser.CANCEL_OPTION) {
 					return;
+				}
 				String n = "";
 				try {
 					n = explorer.getSelectedFile().getPath();
 				} catch (NullPointerException e) {
 					// do nothing
 				} finally {
-					if (testFileType(n,"spr"))
+					if (testFileType(n,"spr")) {
 						fileName.setText(n);
-					else
+					}
+					else {
 						return;
+					}
 				}
 
 				byte[] sprite;
@@ -1339,29 +1352,34 @@ public class SpriteAnimator extends Component {
 		bigBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lilBtn.setEnabled(true);
-				if (run.embiggen())
+				if (run.embiggen()) {
 					bigBtn.setEnabled(false);
+				}
 			}});
 		
 		lilBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				bigBtn.setEnabled(true);
-				if (run.ensmallen())
-					lilBtn.setEnabled(false);
+				if (run.ensmallen()) {
+					lilBtn.setEnabled(
+							false);
+				}
 			}});
 		
 		fasterBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				slowerBtn.setEnabled(true);
-				if (run.faster())
+				if (run.faster()) {
 					fasterBtn.setEnabled(false);
+				}
 			}});
 		
 		slowerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				fasterBtn.setEnabled(true);
-				if (run.slower())
+				if (run.slower()) {
 					slowerBtn.setEnabled(false);
+				}
 			}});
 		
 		resetBtn.addActionListener(new ActionListener() {
@@ -1432,8 +1450,9 @@ public class SpriteAnimator extends Component {
 			// find interlacing index
 			g = i%32;
 			// increment at 0th index
-			if (g == 0)
+			if (g == 0) {
 				b++;
+			}
 			// row to look at
 			int r = BPPI[g][0];
 			// bit plane of byte
@@ -1447,8 +1466,9 @@ public class SpriteAnimator extends Component {
 				// AND with 1 shifted to the correct plane
 				boolean bitOn = (q & (1 << (7-c))) != 0;
 				// if true, OR with that plane in index map
-				if (bitOn)
+				if (bitOn) {
 					ret[b][r][c] |= (1 << (p));
+				}
 			}
 		}
 		return ret;
@@ -1499,10 +1519,12 @@ public class SpriteAnimator extends Component {
 			// get palette color
 			color = palette[coli];
 			// index 0 = trans
-			if (coli == 0)
+			if (coli == 0) {
 				ret[i*4] = 0;
-			else
+			}
+			else {
 				ret[i*4] = (byte) 255;
+			}
 
 			// BGR
 			ret[i*4+1] = color[2];
@@ -1609,8 +1631,9 @@ public class SpriteAnimator extends Component {
 		String ret = "";
 		for (int i = 0; i < s.length; i++) {
 			ret += s[i];
-			if (i != s.length-1)
+			if (i != s.length-1) {
 				ret += c;
+			}
 		}
 		return ret;
 	}
