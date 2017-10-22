@@ -191,6 +191,13 @@ public class SpriteAnimator extends Component {
 	}
 	
 	/**
+	 * When we need to add new images to the sprite
+	 */
+	public void hardReset() {
+		makeAnimationFrames();
+		reset();
+	}
+	/**
 	 * Reset speed to 0.
 	 */
 	private void resetSpeed() {
@@ -345,6 +352,44 @@ public class SpriteAnimator extends Component {
 		tick.schedule(next, wait);
 	}
 
+	/*
+	 * Equipment changing
+	 */
+	public void switchEquipment() {
+		toggleEquipment(!showEquipment);
+	}
+
+	public void toggleEquipment(boolean et) {
+		showEquipment = et;
+		fireEquipEvent();
+	}
+	
+	public boolean equipmentOn() {
+		return showEquipment;
+	}
+
+	public void switchShadow() {
+		toggleShadow(!showShadow);
+	}
+
+	public void toggleShadow(boolean st) {
+		showShadow = st;
+		fireEquipEvent();
+	}
+	
+	public boolean shadowOn() {
+		return showShadow;
+	}
+
+	public void setSword(int sl) {
+		swordLevel = sl;
+		fireEquipEvent();
+	}
+	
+	public void setShield(int sl) {
+		shieldLevel = sl;
+		fireEquipEvent();
+	}
 	/**
 	 * Draw every sprite
 	 */
@@ -430,6 +475,24 @@ public class SpriteAnimator extends Component {
 			(listening.next()).eventReceived(s);
 		}
 	}
+
+	// Equip
+	public synchronized void addEquipListener(EquipListener s) {
+		equipListen.add(s);
+	}
+	
+	public synchronized void removeEquipListener(EquipListener s) {
+		equipListen.remove(s);
+	}
+
+	public synchronized void fireEquipEvent() {
+		EquipEvent s = new EquipEvent(this);
+		Iterator<EquipListener> listening = equipListen.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
+	}
+
 	// @link Sprite - lol get it?
 	/**
 	 * Makes an array of {@link Sprite}s based on the frame data.

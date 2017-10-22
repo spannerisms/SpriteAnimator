@@ -1,6 +1,7 @@
 package SpriteAnimator;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -35,22 +36,21 @@ public class GUI {
 			//"All frames" disabled for now
 	};
 
-	private static final JComboBox<String> modeOptions =
-			new JComboBox<String>(MODES);
+	static final String[] SWORDLEVELS = {
+			"No sword",
+			"Fighter's sword",
+			"Master sword",
+			"Tempered sword",
+			"Butter sword"
+	};
 
-	private static final JComboBox<String> animOptions =
-			new JComboBox<String>(getAnimNames());
-
-	public static String[] getAnimNames() {
-		String[] ret = new String[ALLFRAMES.length];
-		for (int i = 0; i < ALLFRAMES.length; i++) {
-			String r = ALLFRAMES[i];
-			String[] animDataX = r.split("[\\[\\]]");
-			ret[i] = animDataX[1];
-		}
-		return ret;
-	}
-
+	static final String[] SHIELDLEVELS = {
+			"No shield",
+			"Fighter's shield",
+			"Red shield",
+			"Mirror shield"
+	};
+	// use func
 	public void printGUI(String[] args) throws IOException {
 		//try to set LaF
 		try {
@@ -73,90 +73,149 @@ public class GUI {
 		final Dimension d = new Dimension(600, 400);
 		final Dimension minD = new Dimension(400, 300);
 		final JTextField fileName = new JTextField("");
+		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
+		Dimension textDimension = new Dimension(50,20);
+		Dimension textDimensionBig = new Dimension(100,20);
+
 		final JButton loadBtn = new JButton("Load Sprite");
 		final JButton stepBtn = new JButton("Step");
-		final JButton fasterBtn = new JButton("Speed+");
-		final JButton slowerBtn = new JButton("Speed-");
-		final JButton bigBtn = new JButton("Zoom+");
-		final JButton lilBtn = new JButton("Zoom-");
+
 		final JButton resetBtn = new JButton("Reset");
-		final JLabel frameCur = new JLabel("1", SwingConstants.RIGHT);
-		final JLabel frameMax = new JLabel("/ 1");
-		final JLabel zoomLevel = new JLabel("x3", SwingConstants.RIGHT);
-		final JLabel speedLevel = new JLabel("100%", SwingConstants.RIGHT);
+
 		final JPanel loadWrap = new JPanel(new BorderLayout());
 		final JPanel controls = new JPanel(new GridBagLayout());
 		final JPanel controlsWrap = new JPanel(new BorderLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		// row 1 and 2 : comboboxes
+		
+		// blank row
+		c.gridy = 0;
+		c.ipady = 5;
+		controls.add(new JLabel(),c);
+		c.ipady = 0;
+		// animation playing
+		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
+		final JComboBox<String> animOptions = new JComboBox<String>(getAnimNames());
+
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridy++;
 		c.gridwidth = 3;
 		c.gridx = 0;
-		c.gridy = 0;
 		controls.add(animOptions,c);
 		c.gridy++;
 		controls.add(modeOptions,c);
 
-		// row 3 : zoom
+		// blank
+		c.gridy++;
+		c.ipady = 10;
+		controls.add(new JLabel(),c);
+		c.ipady = 0;
+		
+		// sword and shield levels
+		c.fill = GridBagConstraints.HORIZONTAL;
+		final JComboBox<String> swordLevel = new JComboBox<String>(SWORDLEVELS);
+		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELDLEVELS);
+
+		c.gridwidth = 3;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(swordLevel,c);
+		c.gridy++;
+		controls.add(shieldLevel,c);
+		
+		// other equipment
+		final JButton equipBtn = new JButton("Toggle");
+		final JLabel equipText = new JLabel("Equipment: OFF", SwingConstants.LEFT);
+		setAllSizes(equipText,textDimensionBig);
+		c.gridwidth = 2;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(equipText,c);
+		c.gridwidth = 1;
+		c.gridx = 2;
+		controls.add(equipBtn,c);
+		
+		// shadows
+		final JButton shadowBtn = new JButton("Toggle");
+		final JLabel shadowText = new JLabel("Shadows: OFF", SwingConstants.LEFT);
+		setAllSizes(shadowText,textDimensionBig);
+		c.gridwidth = 2;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(shadowText,c);
+		c.gridwidth = 1;
+		c.gridx = 2;
+		controls.add(shadowBtn,c);
+
+		// blank
+		c.gridy++;
+		c.ipady = 20;
+		controls.add(new JLabel(),c);
+		c.ipady = 0;
+		
+		// zoom
+		final JLabel zoomLevel = new JLabel("x3", SwingConstants.RIGHT);
+		final JButton bigBtn = new JButton("Zoom+");
+		final JButton lilBtn = new JButton("Zoom-");
+		setAllSizes(zoomLevel,textDimension);
+		zoomLevel.setBorder(rightPad);
+		c.gridy++;
 		c.gridwidth = 1;
 		c.gridx = 0;
-		c.gridy++;
 		controls.add(zoomLevel,c);
 		c.gridx = 1;
-		controls.add(lilBtn, c); // filler
+		controls.add(lilBtn, c);
 		c.gridx = 2;
 		controls.add(bigBtn,c);
 
 		// speed
-		c.gridx = 0;
+		final JButton fasterBtn = new JButton("Speed+");
+		final JButton slowerBtn = new JButton("Speed-");
+		final JLabel speedLevel = new JLabel("100%", SwingConstants.RIGHT);
+		setAllSizes(speedLevel,textDimension);
+		speedLevel.setBorder(rightPad);
 		c.gridy++;
+		c.gridx = 0;
 		controls.add(speedLevel,c);
 		c.gridx = 1;
-		controls.add(slowerBtn, c); // filler
+		controls.add(slowerBtn, c);
 		c.gridx = 2;
 		controls.add(fasterBtn,c);
-
-		// step
-		c.gridwidth = 3;
-		c.gridx = 0;
+		
+		// blank
 		c.gridy++;
-		controls.add(stepBtn,c);
-
-		// reset
-		c.gridwidth = 3;
-		c.gridx = 0;
-		c.gridy++;
-		controls.add(resetBtn,c);
+		c.ipady = 20;
+		controls.add(new JLabel(),c);
+		c.ipady = 0;
 
 		// frame counter
+		final JLabel frameCur = new JLabel("1", SwingConstants.RIGHT);
+		final JLabel frameMax = new JLabel("/ 1");
+		frameCur.setBorder(rightPad);
+		frameMax.setBorder(rightPad);
+		setAllSizes(frameCur,textDimension);
 		c.gridwidth = 1;
-		c.gridx = 0;
 		c.gridy++;
+		c.gridx = 0;
 		c.weightx = 9;
 		controls.add(new JLabel("Frame:"),c);
 		c.weightx = 0;
 		c.gridx = 1;
-		c.fill = GridBagConstraints.NONE;
-
-		// text box sizing
-		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
-		Dimension dd = new Dimension(50,20);
-		
-		frameCur.setPreferredSize(dd);
-		frameCur.setMaximumSize(dd);
-		frameCur.setMinimumSize(dd);
-		zoomLevel.setPreferredSize(dd);
-		zoomLevel.setMaximumSize(dd);
-		zoomLevel.setMinimumSize(dd);
-		zoomLevel.setBorder(rightPad);
-		speedLevel.setPreferredSize(dd);
-		speedLevel.setMaximumSize(dd);
-		speedLevel.setMinimumSize(dd);
-		speedLevel.setBorder(rightPad);
-		
 		controls.add(frameCur,c);
 		c.gridx = 2;
 		controls.add(frameMax,c);
+		
+		// step
+		c.gridwidth = 3;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(stepBtn,c);
+
+		// reset
+		c.gridwidth = 3;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(resetBtn,c);
+		// control panel done
 
 		final JPanel bottomStuffWrap = new JPanel(new BorderLayout());
 		final JPanel bottomStuff = new JPanel(new BorderLayout());
@@ -231,7 +290,15 @@ public class GUI {
 		final File EEE = new File("");
 		// TODO: uncomment this for exports
 		//explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
-		
+
+		// clear focusability of all components
+		for (Component comp : controls.getComponents()) {
+			if (comp instanceof JLabel ||
+					comp instanceof JButton ||
+					comp instanceof JComboBox) {
+				comp.setFocusable(false);
+			}
+		}
 		// read steps and count them
 		run.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
@@ -265,6 +332,7 @@ public class GUI {
 				}
 			}
 		});
+
 		// listen for Zoom changes
 		run.addZoomListener(new ZoomListener() {
 			public void eventReceived(ZoomEvent arg0) {
@@ -273,6 +341,19 @@ public class GUI {
 				zoomLevel.setText("x" + run.getZoom());
 			}
 		});
+		
+		// listen for display changes
+		// read steps and count them
+		run.addEquipListener(new EquipListener() {
+			public void eventReceived(EquipEvent arg0) {
+				try {
+					run.hardReset();
+				} catch (Exception e) {
+					// do nothing
+				}
+			}
+		});
+
 		// load sprite file
 		loadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -394,6 +475,22 @@ public class GUI {
 				run.step();
 			}});
 
+		equipBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				run.switchEquipment();
+				equipText.setText("Equipment: " +
+						(run.equipmentOn() ? "ON" : "OFF")
+						);
+			}});
+
+		shadowBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				run.switchShadow();
+				shadowText.setText("Shadows: " +
+						(run.shadowOn() ? "ON" : "OFF")
+						);
+			}});
+
 		// turn on
 		frame.setVisible(true);
 	}
@@ -441,5 +538,21 @@ public class GUI {
 				break;
 		}
 		return allowed;
+	}
+
+	public static String[] getAnimNames() {
+		String[] ret = new String[ALLFRAMES.length];
+		for (int i = 0; i < ALLFRAMES.length; i++) {
+			String r = ALLFRAMES[i];
+			String[] animDataX = r.split("[\\[\\]]");
+			ret[i] = animDataX[1];
+		}
+		return ret;
+	}
+	
+	private void setAllSizes(Component c, Dimension d) {
+		c.setPreferredSize(d);
+		c.setMaximumSize(d);
+		c.setMinimumSize(d);
 	}
 }
