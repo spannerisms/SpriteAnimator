@@ -36,9 +36,23 @@ public class SpriteAnimator extends Component {
 	// used for parsing frame data
 	static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZαβ"
 			.toUpperCase(); // toUppercase to visually distinguish alpha/beta
-	/*
-	 * Image controller
-	 */
+
+	// equipment names and prefixes
+	static final String[] EQUIPNAMES = {
+			"BYRNA", "SOMARIA", "HAMMER", "NET", "BLOCK", "BOOMERANG",
+			"BOW", "BOOK", "PENDANT", "POWDER", "SHOVEL", "HOOKSHOT"
+	};
+
+	// fighter, fighter, master, tempered, butter
+	static final String[] SWORDPREFIX = { "F", "F", "M", "T", "B" }; // default to fighter
+	// fighter, fighter, red, mirror
+	static final String[] SHIELDPREFIX = { "F", "F", "R", "M" }; // default to fighter
+
+	// maximums
+	private static final int MAXSPEED = 5; // maximum speed magnitude
+	private static final int MAXZOOM = 7; // maximum zoom level
+
+	// locals
 	private BufferedImage img = null; // sprite sheet
 	private int anime; // animation id
 	private int speed; // speed; 0 = normal; positive = faster; negative = slower
@@ -50,13 +64,19 @@ public class SpriteAnimator extends Component {
 	private Anime[] frames = null;
 	private Timer tick;
 	private TimerTask next;
-	private static final int MAXSPEED = 5; // maximum speed magnitude
-	private static final int MAXZOOM = 7; // maximum zoom level
 
+	// equipment
+	private int swordLevel = 0;
+	private int shieldLevel = 0;
+	private boolean showShadow = false;
+	private boolean showEquipment = false;
+
+	// change listeners
 	private List<StepListener> stepListen = new ArrayList<StepListener>();
 	private List<ModeListener> modeListen = new ArrayList<ModeListener>();
 	private List<SpeedListener> speedListen = new ArrayList<SpeedListener>();
 	private List<ZoomListener> zoomListen = new ArrayList<ZoomListener>();
+	private List<EquipListener> equipListen = new ArrayList<EquipListener>();
 
 	// default initialization
 	public SpriteAnimator() {
@@ -437,8 +457,59 @@ public class SpriteAnimator extends Component {
 			} catch (Exception e) {
 				animSpeed = 100;
 			}
-			String[] eachSprite = wholeFrame[0].split(":");
-			int spriteCount = eachSprite.length;
+			String[] eachSpriteRaw = wholeFrame[0].split(":");
+			String[] eachSprite = new String[eachSpriteRaw.length];
+			// remove sprites we don't want
+			// change equipment names
+			int spriteCount = 0;
+			String indexName;
+			for (String fs : eachSpriteRaw) {
+				indexName = stopAtNumber(fs);
+				// check for shadow
+				if (indexName.equalsIgnoreCase("SHADOW")) {
+					if (showShadow) {
+						eachSprite[spriteCount] = fs;
+						spriteCount++;
+					} // otherwise do nothing
+				// check for equipment
+				} else if (isEquipment(indexName)) {
+					if (showEquipment) {
+						eachSprite[spriteCount] = fs;
+						spriteCount++;
+					} // otherwise do nothing
+				// check and replace for sword
+				} else if (indexName.equalsIgnoreCase("SWORD")) {
+					switch (swordLevel) {
+						default : // catch all
+						case 0 : // no sword
+							// do nothing and skip adding a sprite;
+							break;
+						case 1 : // fighter sword
+						case 2 : // master sword
+						case 3 : // tempered sword
+						case 4 : // butter sword
+							eachSprite[spriteCount] = SWORDPREFIX[swordLevel] + fs;
+							spriteCount++;
+							break;
+					}
+				} else if (indexName.equalsIgnoreCase("SHIELD")) {
+					switch (shieldLevel) {
+						default : // catch all
+						case 0 : // no shield
+							// do nothing and skip adding a sprite;
+							break;
+						case 1 : // fighter shield
+						case 2 : // red shield
+						case 3 : // mirror shield
+							eachSprite[spriteCount] = SHIELDPREFIX[shieldLevel] + fs;
+							spriteCount++;
+							break;
+					}
+				} else { // everything else can be added
+					eachSprite[spriteCount] = fs;
+					spriteCount++;
+				}
+			}
 			// each sprite in frame
 			Sprite[] sprList = new Sprite[spriteCount];
 			frames[i] = new Anime(sprList, animSpeed);
@@ -630,6 +701,30 @@ public class SpriteAnimator extends Component {
 			}
 		}
 		
+		return ret;
+	}
+	
+	private static String stopAtNumber(String n) {
+		String ret = "";
+		char[] split = n.toCharArray();
+		for (char c : split) {
+			if (Character.getType(c) == Character.DECIMAL_DIGIT_NUMBER) {
+				break;
+			} else {
+				ret += c;
+			}
+		}
+		return ret;
+	}
+
+	private static boolean isEquipment(String item) {
+		boolean ret = false;
+		for (String s : EQUIPNAMES) {
+			if (item.equalsIgnoreCase(s)) {
+				ret = true;
+				break;
+			}
+		}
 		return ret;
 	}
 }
