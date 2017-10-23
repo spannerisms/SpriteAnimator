@@ -20,6 +20,7 @@ public class SpriteAnimator extends Component {
 			BG = ImageIO.read(this.getClass().getResource("Grass.png"));
 		} catch (IOException e) {
 	}};
+
 	private BufferedImage EQUIPMENT; {
 		try {
 			EQUIPMENT = ImageIO.read(this.getClass().getResource("Equipment.png"));
@@ -354,10 +355,15 @@ public class SpriteAnimator extends Component {
 			tick.cancel();
 			return;
 		}
-		double speedM = speedFactor();
-		long wait = frames[frame].nextTick(speedM);
-		next = new SpriteTask(this);
-		tick.schedule(next, wait);
+		try {
+			double speedM = speedFactor();
+			long wait = frames[frame].nextTick(speedM);
+			next = new SpriteTask(this);
+			tick.schedule(next, wait);
+		} catch (Exception e) {
+			// do nothing
+			// most errors seem to just let it keep going
+		}
 	}
 
 	/*
@@ -522,13 +528,133 @@ public class SpriteAnimator extends Component {
 		// split into sections
 
 		String[] animDataX = animData.split("[\\[\\]]+");
-		String[] eachFrame = animDataX[2].split(";"); // split by frame
-		// get duration
+		String[] eachFrameRaw = animDataX[2].split(";"); // split by frame
+		
+		maxFrame = eachFrameRaw.length;
+		String[] eachFrameBuilt = new String[maxFrame+1]; // +1 for a ghost
+		String[] eachFrameRebuilt = new String[maxFrame+1];
+		String[] eachFrame;
 
+		// remove unnecessary sprites from each frame
+		for (int i = 0; i < maxFrame; i++) {
+			String[] wholeFrame = eachFrameRaw[i].split("@");
+			String frameBuilt;
+			String[] eachSprite = wholeFrame[0].split(":");
+			String[] frameSprites = new String[eachSprite.length];
+			int sprct = 0;
+			// remove sprites we don't want
+			// change equipment names
+			String indexName;
+			for (String fs : eachSprite) {
+				indexName = stopAtNumber(fs);
+				// check for shadow
+				if (indexName.equalsIgnoreCase("SHADOW")) {
+					if (showShadow) {
+						frameSprites[sprct] = fs;
+						sprct++;
+					} // otherwise do nothing
+				// check for equipment
+				} else if (isEquipment(indexName)) {
+					if (showEquipment) {
+						frameSprites[sprct] = fs;
+						sprct++;
+					} // otherwise do nothing
+				// check and replace for sword
+				} else if (indexName.equalsIgnoreCase("SWORD")) {
+					switch (swordLevel) {
+						default : // catch all
+						case 0 : // no sword
+							// do nothing
+							break;
+						case 1 : // fighter sword
+						case 2 : // master sword
+						case 3 : // tempered sword
+						case 4 : // butter sword
+							frameSprites[sprct] = (SWORDPREFIX[swordLevel] + fs);
+							sprct++;
+							break;
+					}
+				} else if (indexName.equalsIgnoreCase("SHIELD")) {
+					switch (shieldLevel) {
+						default : // catch all
+						case 0 : // no shield
+							// do nothing
+							break;
+						case 1 : // fighter shield
+						case 2 : // red shield
+						case 3 : // mirror shield
+							frameSprites[sprct] = (SHIELDPREFIX[shieldLevel] + fs);
+							sprct++;
+							break;
+					}
+				} else { // everything else can be added
+					frameSprites[sprct] = fs;
+					sprct++;
+				}
+			} // end of each sprite
+			// add duration to frame raw
+			String[] usedSprites = new String[sprct];
+			for (int h = 0; h < sprct; h++) {
+				usedSprites[h] = frameSprites[h];
+			}
+			frameBuilt = GUIHelpers.join(usedSprites, ":");
+			frameBuilt += ("@" + wholeFrame[1]);
+			eachFrameBuilt[i] = frameBuilt;
+		}
+
+		// add a ghost frame to halt duplicate process (it won't be added)
+		eachFrameBuilt[maxFrame] = "GARBAGE0@0";
+		// try to remove duplicates by comparing frames
+		// only do it for > 1 frame
+		if (maxFrame == 1) { // for 1 frame animations, just copy the frame over
+			eachFrame = new String[1];
+			eachFrame[0] = eachFrameBuilt[0];
+		} else {
+			String addFrame, curFrame;
+			String addFrameData, curFrameData;
+			int addFrameLength, curFrameLength;
+			addFrame = eachFrameBuilt[0];
+			addFrameData = addFrame.substring(0, addFrame.indexOf('@'));
+			addFrameLength = Integer.parseInt(
+					addFrame.substring(addFrame.indexOf('@') + 1)
+					);
+			int builtFramesCount = 0;
+
+			for (int n = 1; n < maxFrame+1; n++) {
+				curFrame = eachFrameBuilt[n];
+				curFrameData = curFrame.substring(0, curFrame.indexOf('@'));
+				curFrameLength = Integer.parseInt(
+						curFrame.substring(curFrame.indexOf('@') + 1)
+						);
+				// compare the frames
+				// if the data is the same
+				// just increase the length of the frame to add
+				if (curFrameData.equalsIgnoreCase(addFrameData)) {
+					addFrameLength += curFrameLength;
+				
+				// if different
+				// replace add with cur
+				// add the frame to be added in
+				} else {
+					eachFrameRebuilt[builtFramesCount] = addFrameData + "@" + addFrameLength;
+					addFrameData = curFrameData;
+					addFrameLength = curFrameLength;
+					builtFramesCount++;
+				}
+			} // end loop
+			// build a final list of frames with removed dupes
+			eachFrame = new String[builtFramesCount];
+			for (int x = 0; x < builtFramesCount; x++) {
+				eachFrame[x] = eachFrameRebuilt[x];
+			}
+		}
+
+		// build each frame with sprites
 		maxFrame = eachFrame.length;
 		frames = new Anime[maxFrame];
-		// each frame
+		int spriteCount = 0;
 		for (int i = 0; i < maxFrame; i++) {
+			// each sprite in frame
 			String[] wholeFrame = eachFrame[i].split("@");
 			int animSpeed;
 			try {
@@ -536,60 +662,9 @@ public class SpriteAnimator extends Component {
 			} catch (Exception e) {
 				animSpeed = 100;
 			}
-			String[] eachSpriteRaw = wholeFrame[0].split(":");
-			String[] eachSprite = new String[eachSpriteRaw.length];
-			// remove sprites we don't want
-			// change equipment names
-			int spriteCount = 0;
-			String indexName;
-			for (String fs : eachSpriteRaw) {
-				indexName = stopAtNumber(fs);
-				// check for shadow
-				if (indexName.equalsIgnoreCase("SHADOW")) {
-					if (showShadow) {
-						eachSprite[spriteCount] = fs;
-						spriteCount++;
-					} // otherwise do nothing
-				// check for equipment
-				} else if (isEquipment(indexName)) {
-					if (showEquipment) {
-						eachSprite[spriteCount] = fs;
-						spriteCount++;
-					} // otherwise do nothing
-				// check and replace for sword
-				} else if (indexName.equalsIgnoreCase("SWORD")) {
-					switch (swordLevel) {
-						default : // catch all
-						case 0 : // no sword
-							// do nothing and skip adding a sprite;
-							break;
-						case 1 : // fighter sword
-						case 2 : // master sword
-						case 3 : // tempered sword
-						case 4 : // butter sword
-							eachSprite[spriteCount] = SWORDPREFIX[swordLevel] + fs;
-							spriteCount++;
-							break;
-					}
-				} else if (indexName.equalsIgnoreCase("SHIELD")) {
-					switch (shieldLevel) {
-						default : // catch all
-						case 0 : // no shield
-							// do nothing and skip adding a sprite;
-							break;
-						case 1 : // fighter shield
-						case 2 : // red shield
-						case 3 : // mirror shield
-							eachSprite[spriteCount] = SHIELDPREFIX[shieldLevel] + fs;
-							spriteCount++;
-							break;
-					}
-				} else { // everything else can be added
-					eachSprite[spriteCount] = fs;
-					spriteCount++;
-				}
-			}
-			// each sprite in frame
+			
+			String[] eachSprite = wholeFrame[0].split(":");
+			spriteCount = eachSprite.length;
 			Sprite[] sprList = new Sprite[spriteCount];
 			frames[i] = new Anime(sprList, animSpeed);
 			for (int j = 0; j < spriteCount; j++) {
