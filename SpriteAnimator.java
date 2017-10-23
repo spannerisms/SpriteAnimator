@@ -95,6 +95,7 @@ public class SpriteAnimator extends Component {
 		double m = Math.pow(1.5, speed * -1);
 		return m;
 	}
+
 	public int getFrame() {
 		return frame;
 	}
@@ -284,6 +285,7 @@ public class SpriteAnimator extends Component {
 	public boolean atMaxSpeed() {
 		return speed == MAXSPEED;
 	}
+
 	/**
 	 * Compares current step speed to minimum speed allowed.
 	 */
@@ -335,6 +337,7 @@ public class SpriteAnimator extends Component {
 	public int getZoom() {
 		return zoom;
 	}
+
 	public boolean tooBig() {
 		return zoom >= MAXZOOM;
 	}

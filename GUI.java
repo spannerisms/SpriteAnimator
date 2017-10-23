@@ -323,8 +323,7 @@ public class GUI {
 		// clear focusability of all components
 		for (Component comp : controls.getComponents()) {
 			if (comp instanceof JLabel ||
-					comp instanceof JButton ||
-					comp instanceof JComboBox) {
+					comp instanceof JButton) {
 				comp.setFocusable(false);
 			}
 		}
