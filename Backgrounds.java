@@ -10,12 +10,15 @@ public abstract class Backgrounds {
 		"Empty",
 		"House",
 		"Grass",
-		"Desert",
 		"Cave",
 		"Eastern Palace",
+		"Desert Palace",
 		"Ice Palace",
+		"Misery Mire",
+		"Turtle Rock",
 		"Moldorm",
 		"Mothula",
+		"Houlihan",
 		"Tile room",
 		"Spike cave"
 	};
