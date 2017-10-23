@@ -40,8 +40,9 @@ public class SpriteAnimator extends Component {
 
 	// equipment names and prefixes
 	static final String[] EQUIPNAMES = {
-			"BYRNA", "SOMARIA", "HAMMER", "NET", "BLOCK", "BOOMERANG",
-			"BOW", "BOOK", "PENDANT", "POWDER", "SHOVEL", "HOOKSHOT"
+			"BYRNA", "SOMARIA", "BLOCK", "HAMMER", "SPARKLE", "NET",
+			"BOW", "BOOK", "PENDANT", "POWDER", "SHOVEL", "BOOMERANG",
+			"POT", "HOOKSHOT"
 	};
 
 	// fighter, fighter, master, tempered, butter
@@ -201,6 +202,7 @@ public class SpriteAnimator extends Component {
 	 * When we need to add new images to the sprite
 	 */
 	public void hardReset() {
+		tick.cancel();
 		makeAnimationFrames();
 		reset();
 	}
@@ -384,6 +386,7 @@ public class SpriteAnimator extends Component {
 
 	public void switchShadow() {
 		toggleShadow(!showShadow);
+		fireEquipEvent();
 	}
 
 	public void toggleShadow(boolean st) {
@@ -420,8 +423,7 @@ public class SpriteAnimator extends Component {
 		}
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom);
-		// TODO : Reenable background maybe
-		// g2.drawImage(BG, 0, 0, null);
+		g2.drawImage(BG, 0, 0, null);
 		Anime t = frames[frame];
 		int scaleOffset = (8 - zoom) * 7;
 		t.draw(g2, scaleOffset);
@@ -850,7 +852,19 @@ public class SpriteAnimator extends Component {
 					ret = 6;
 					break;
 				case "SHADOW" :
+				case "POT" :
+				case "BLOCK" :
+				case "BOOMERANG" :
 					ret = 7;
+					break;
+				case "BOW" :
+					ret = 8;
+					break;
+				case "HOOKSHOT" :
+					ret = 9;
+					break;
+				case "CANE" :
+					ret = 10;
 					break;
 			}
 		}

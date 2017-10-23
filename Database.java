@@ -32,38 +32,38 @@ public abstract class Database {
 	 */
 	public static final String[] ALLFRAMES = {
 			// stand TODO: 100% confirm ; A0:B0
-			"[stand]A0{-1,0}{F}{0}:B0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 0",
+			"[stand]A0{-1,0}{F}{0}:B0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 4",
 			// standUp
-			"[standUp]A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 0",
+			"[standUp]A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 4",
 			// standDown
-			"[standDown]A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 0",
+			"[standDown]A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 4",
 			// walk TODO: 100% confirm ; A0:B0,A0:B1,K3:B2,K4:Q7,A0:S4,A0:R6,K3:R7,K4:S3
 			"[walk]A0{-1,0}{F}{0}:B0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A0{0,-3}{F}{0}:B1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"A0{0,1}{F}{0}:B1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"K3{0,-3}{F}{0}:B2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"K4{0,-3}{F}{0}:Q7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A0{0,-3}{F}{0}:S4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A0{0,0}{F}{0}:R6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"K3{0,-3}{F}{0}:R7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"K4{0,-3}{F}{0}:S3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
-			// walkUp TODO: 100% confirm ; A2:B6,A2:C0,A2:S7,A2:T3,A2:T7,A2:T4,A2:T5,A2:T6
-			"[walkUp]A2{0,-1}{F}{0}:B6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-2}{F}{0}:C0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:S7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-1}{F}{0}:T3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-1}{F}{0}:T7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-2}{F}{0}:T4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:T5{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-1}{F}{0}:T6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
-			// walkDown
-			"[walkDown]A1{0,0}{F}{0}:B4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
-				"A1{0,-1}{F}{0}:B5{0,8}{F}{0}:SHADOW0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A1{0,-2}{F}{0}:S5{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A1{0,0}{F}{0}:S6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
-				"A1{0,0}{F}{0}:B4{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 2 ;" +
-				"A1{0,-1}{F}{0}:B5{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 2 ;" +
-				"A1{0,-2}{F}{0}:S5{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 2 ;" +
-				"A1{0,0}{F}{0}:S6{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 1 ",
+			// walkUp
+			"[walkUp]A2{0,0}{F}{0}:B6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"A2{0,-1}{F}{0}:C0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"A2{0,-2}{F}{0}:S7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"A2{0,0}{F}{0}:T3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"A2{0,0}{F}{0}:T7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"A2{0,-1}{F}{0}:T4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"A2{0,-2}{F}{0}:T5{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"A2{0,0}{F}{0}:T6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 1 ",
+			// walkDown TODO : Check shield
+			"[walkDown]SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,7}{F}{0}:A1{0,-1}{F}{0}:B5{0,8}{F}{0}:SHADOW0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"SHIELD0{-4,6}{F}{0}:A1{0,-2}{F}{0}:S5{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:S6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:B4{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,7}{F}{0}:A1{0,-1}{F}{0}:B5{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,6}{F}{0}:A1{0,-2}{F}{0}:S5{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:S6{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 1 ",
 			// bonk TODO: 100% confirm ; F3
 			"[bonk]F3{0,0}{F}{0}:G3{0,16}{T}{0}:SHADOW0{0,16}{F}{0} @ 3 ",
 			// bonkUp TODO: 100% confirm ; F4
@@ -249,13 +249,13 @@ public abstract class Database {
 				"A1{0,-3}{F}{0}:S5{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A1{0,-3}{F}{0}:S6{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// salute TODO: 100% confirm ; A3:P4-M
-			"[salute]A3{0,0}{F}{0}:P4{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 3 ",
+			"[salute]SWORD1{9,-6}{F}{M}:SHIELD0{-5,9}{F}{0}:A3{0,0}{F}{0}:P4{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// itemGet TODO: 100% confirm ; L1:L2
 			"[itemGet]L1{0,0}{F}{0}:L2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// triforceGet TODO: 100% confirm ; Z2:β4
 			"[triforceGet]Z2{0,0}{F}{0}:β4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// readBook TODO: 100% confirm ; K5:K6
-			"[readBook]K5{0,0}{F}{0}:K6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;",
+			"[readBook]K5{0,0}{F}{0}:K6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// prayer R1,A5:Q1,A5:Q0,S1
 			"[prayer]R1{0,0}{F}{0}:S1{0,16}{T}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A5{0,1}{F}{0}:Q1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
@@ -284,7 +284,7 @@ public abstract class Database {
 				"L6{-1,0}{F}{0}:O2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// liftUp TODO: 100% confirm ; U2:U7,A2:V0,L7:O5
 			"[liftUp]U2{0,-3}{F}{0}:U7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{-,-3}{F}{0}:V0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"A2{0,-3}{F}{0}:V0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"L7{0,-3}{F}{0}:O5{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// liftDown TODO: 100% confirm ; U0:U4,U0:U3,L5:N7
 			"[liftDown]U0{0,-3}{F}{0}:U4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
