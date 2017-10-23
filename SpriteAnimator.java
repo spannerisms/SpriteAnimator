@@ -17,13 +17,13 @@ import javax.imageio.ImageIO;
 public class SpriteAnimator extends Component {
 	private BufferedImage BG; {
 		try {
-			BG = ImageIO.read(this.getClass().getResource("Grass.png"));
+			BG = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/SpriteAnimator/Grass.png"));
 		} catch (IOException e) {
 	}};
 
 	private BufferedImage EQUIPMENT; {
 		try {
-			EQUIPMENT = ImageIO.read(this.getClass().getResource("Equipment.png"));
+			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/SpriteAnimator/equipment.png"));
 		} catch (IOException e) {
 	}};
 
