@@ -15,12 +15,8 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
 public class SpriteAnimator extends Component {
-	private BufferedImage BG; {
-		try {
-			BG = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/SpriteAnimator/Grass.png"));
-		} catch (IOException e) {
-	}};
 
+	private BufferedImage[] BGS = Backgrounds.getBackgrounds();
 	private BufferedImage EQUIPMENT; {
 		try {
 			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/SpriteAnimator/equipment.png"));
@@ -68,6 +64,7 @@ public class SpriteAnimator extends Component {
 	private TimerTask next;
 
 	// equipment
+	private int bg = 0;
 	private int mailLevel = 0;
 	private int swordLevel = 0;
 	private int shieldLevel = 0;
@@ -412,6 +409,10 @@ public class SpriteAnimator extends Component {
 		fireEquipEvent();
 	}
 
+	public void setBackground(int b) {
+		bg = b;
+		repaint(); // shouldn't need a new event
+	}
 	// end of equipment
 
 	/**
@@ -421,11 +422,12 @@ public class SpriteAnimator extends Component {
 		if (frames==null || frames[frame] == null) {
 			return;
 		}
+		int scaleOffset = (8 - zoom) * 7;
+		int bgOffset = (zoom-1) * -7;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom);
-		g2.drawImage(BG, 0, 0, null);
+		g2.drawImage(BGS[bg], bgOffset, bgOffset, null);
 		Anime t = frames[frame];
-		int scaleOffset = (8 - zoom) * 7;
 		t.draw(g2, scaleOffset);
 	}
 
@@ -853,7 +855,6 @@ public class SpriteAnimator extends Component {
 					break;
 				case "SHADOW" :
 				case "POT" :
-				case "BLOCK" :
 				case "BOOMERANG" :
 					ret = 7;
 					break;
@@ -864,6 +865,7 @@ public class SpriteAnimator extends Component {
 					ret = 9;
 					break;
 				case "CANE" :
+				case "BLOCK" :
 					ret = 10;
 					break;
 			}

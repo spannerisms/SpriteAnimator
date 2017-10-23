@@ -32,13 +32,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GUI {
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
-	static final String[] MODES = {
+	private static final String[] MODES = {
 			"Normal play",
 			"Step-by-step",
 			//"All frames" disabled for now
 	};
 
-	static final String[] SWORDLEVELS = {
+	private static final String[] SWORDLEVELS = {
 			"No sword",
 			"Fighter's sword",
 			"Master sword",
@@ -46,19 +46,21 @@ public class GUI {
 			"Butter sword"
 	};
 
-	static final String[] SHIELDLEVELS = {
+	private static final String[] SHIELDLEVELS = {
 			"No shield",
 			"Fighter's shield",
 			"Red shield",
 			"Mirror shield"
 	};
 
-	static final String[] MAILLEVELS = {
+	private static final String[] MAILLEVELS = {
 			"Green mail",
 			"Blue mail",
 			"Red mail",
 			"Bunny"
 	};
+	
+	private static final String[] BACKGROUNDS = Backgrounds.BACKGROUNDNAMES;
 
 	// use func
 	public void printGUI(String[] args) throws IOException {
@@ -103,17 +105,51 @@ public class GUI {
 
 		// negative so everything can just ++
 		c.gridy = -1;
-		// animation playing
-		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
-		final JComboBox<String> animOptions = new JComboBox<String>(getAnimNames());
 
+		// animation playing
+		final JComboBox<String> animOptions = new JComboBox<String>(getAnimNames());
+		final JLabel theWordAnimation = new JLabel("Animation:", SwingConstants.RIGHT);
+		theWordAnimation.setBorder(rightPad);
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridy++;
-		c.gridwidth = 3;
+		c.gridwidth = 1;
 		c.gridx = 0;
-		controls.add(animOptions, c);
 		c.gridy++;
+		controls.add(theWordAnimation,c);
+		c.gridwidth = 2;
+		c.gridx = 1;
+		controls.add(animOptions, c);
+		
+		// animation mode
+		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
+		final JLabel theWordMode = new JLabel(" ", SwingConstants.RIGHT);
+		theWordMode.setBorder(rightPad);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(theWordMode,c);
+		c.gridwidth = 2;
+		c.gridx = 1;
 		controls.add(modeOptions, c);
+		
+		// blank
+		c.gridy++;
+		c.ipady = 10;
+		controls.add(new JLabel(), c);
+		c.ipady = 0;
+
+		// background
+		final JComboBox<String> bgDisp = new JComboBox<String>(BACKGROUNDS);
+		final JLabel theWordBackground = new JLabel("Background:", SwingConstants.RIGHT);
+		theWordBackground.setBorder(rightPad);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(theWordBackground,c);
+		c.gridwidth = 2;
+		c.gridx = 1;
+		controls.add(bgDisp, c);
 
 		// blank
 		c.gridy++;
@@ -121,21 +157,44 @@ public class GUI {
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
-		// mail, sword, and shield levels
-		c.fill = GridBagConstraints.HORIZONTAL;
+		// sword level
 		final JComboBox<String> swordLevel = new JComboBox<String>(SWORDLEVELS);
-		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELDLEVELS);
-		final JComboBox<String> mailLevel = new JComboBox<String>(MAILLEVELS);
-
-		c.gridwidth = 3;
+		final JLabel theWordSword = new JLabel("", SwingConstants.RIGHT);
+		theWordSword.setBorder(rightPad);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(mailLevel, c);
-		c.gridy++;
+		controls.add(theWordSword,c);
+		c.gridwidth = 2;
+		c.gridx = 1;
 		controls.add(swordLevel, c);
+		
+		// shield level
+		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELDLEVELS);
+		final JLabel theWordShield = new JLabel("", SwingConstants.RIGHT);
+		theWordShield.setBorder(rightPad);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.gridx = 0;
 		c.gridy++;
+		controls.add(theWordShield,c);
+		c.gridwidth = 2;
+		c.gridx = 1;
 		controls.add(shieldLevel, c);
-
+		
+		// mail level
+		final JComboBox<String> mailLevel = new JComboBox<String>(MAILLEVELS);
+		final JLabel theWordMail = new JLabel("", SwingConstants.RIGHT);
+		theWordMail.setBorder(rightPad);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy++;
+		controls.add(theWordMail,c);
+		c.gridwidth = 2;
+		c.gridx = 1;
+		controls.add(mailLevel, c);
 
 		// other equipment
 		final JButton equipBtn = new JButton("Toggle");
@@ -537,6 +596,12 @@ public class GUI {
 			public void actionPerformed(ActionEvent arg0) {
 				int level = shieldLevel.getSelectedIndex();
 				run.setShield(level);
+			}});
+		
+		bgDisp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int bg = bgDisp.getSelectedIndex();
+				run.setBackground(bg);
 			}});
 		// turn on
 		frame.setVisible(true);
