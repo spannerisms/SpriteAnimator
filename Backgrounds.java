@@ -28,7 +28,6 @@ public abstract class Backgrounds {
 		BufferedImage[] ret = new BufferedImage[BACKGROUNDNAMES.length];
 		for (int i = 0; i < ret.length; i++) {
 			try {
-				System.out.println(BACKGROUNDNAMES[i]);
 				ret[i] = ImageIO.read(Backgrounds.class.getResourceAsStream(
 						"/SpriteAnimator/" + BACKGROUNDNAMES[i] + " BG.png"));
 			} catch (IOException e) {
