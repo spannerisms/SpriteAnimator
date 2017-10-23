@@ -430,7 +430,7 @@ public class SpriteAnimator extends Component {
 		}
 		// catch other errors
 		try {
-			int scaleOffset = (8 - zoom) * 7;
+			int scaleOffset = (8 - zoom) * 7 + 10;
 			Anime t = frames[frame];
 			t.draw(g2, scaleOffset);
 		} catch (Exception e) {
