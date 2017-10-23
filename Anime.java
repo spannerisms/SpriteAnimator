@@ -1,21 +1,20 @@
 package SpriteAnimator;
 
 import java.awt.Graphics2D;
-/**
- * Frame class to handle drawing even more better
-*/
+
 public class Anime {
 	private int d; // duration
 	private Sprite[] l; // list of sprites in frame
 	private int xOffset;
 	private int yOffset;
+
 	public Anime(Sprite[] spriteList, int duration) {
 		d = duration;
 		l = spriteList;
 		xOffset = 0;
 		yOffset = 0;
 	}
-	
+
 	public Anime(Sprite[] spriteList, int duration, int x, int y) {
 		d = duration;
 		l = spriteList;
