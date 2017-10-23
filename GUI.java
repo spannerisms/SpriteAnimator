@@ -59,7 +59,7 @@ public class GUI {
 			"Red mail",
 			"Bunny"
 	};
-	
+
 	private static final String[] BACKGROUNDS = Backgrounds.BACKGROUNDNAMES;
 
 	// use func
@@ -82,8 +82,8 @@ public class GUI {
 			} //end System
 		} // end Nimbus
 		final JFrame frame = new JFrame("Sprite Animator");
-		final Dimension d = new Dimension(600, 400);
-		final Dimension minD = new Dimension(400, 400);
+		final Dimension d = new Dimension(600, 440);
+		final Dimension minD = new Dimension(400, 440);
 		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
 		Dimension textDimension = new Dimension(50,20);
@@ -118,7 +118,7 @@ public class GUI {
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(animOptions, c);
-		
+
 		// animation mode
 		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
 		final JLabel theWordMode = new JLabel(" ", SwingConstants.RIGHT);
@@ -131,7 +131,7 @@ public class GUI {
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(modeOptions, c);
-		
+
 		// blank
 		c.gridy++;
 		c.ipady = 10;
@@ -169,7 +169,7 @@ public class GUI {
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(swordLevel, c);
-		
+
 		// shield level
 		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELDLEVELS);
 		final JLabel theWordShield = new JLabel("", SwingConstants.RIGHT);
@@ -182,7 +182,7 @@ public class GUI {
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(shieldLevel, c);
-		
+
 		// mail level
 		final JComboBox<String> mailLevel = new JComboBox<String>(MAILLEVELS);
 		final JLabel theWordMail = new JLabel("", SwingConstants.RIGHT);
@@ -297,14 +297,6 @@ public class GUI {
 		controls.add(resetBtn, c);
 		// control panel done
 
-		final JPanel bottomStuffWrap = new JPanel(new BorderLayout());
-		final JPanel bottomStuff = new JPanel(new BorderLayout());
-
-		final SpriteAnimator imageArea = new SpriteAnimator();
-		final SpriteAnimator run = imageArea; // just a shorter name
-		bottomStuffWrap.add(imageArea,BorderLayout.CENTER);
-		bottomStuffWrap.add(bottomStuff,BorderLayout.EAST);
-
 		// Credits
 		final JFrame aboutFrame = new JFrame("Acknowledgements");
 		final JMenuItem peeps = new JMenuItem("About");
@@ -358,7 +350,14 @@ public class GUI {
 		aboutMenu.add(exit);
 
 		// other frame organization
-		frame.add(bottomStuffWrap, BorderLayout.CENTER);
+		final SpriteAnimator imageArea = new SpriteAnimator();
+		final SpriteAnimator run = imageArea; // just a shorter name
+		// need to wrap it for a border
+		final JPanel imageWrap = new JPanel(new BorderLayout());
+		imageWrap.setBorder(fullPad);
+		imageWrap.add(imageArea,BorderLayout.CENTER);
+		frame.add(imageWrap, BorderLayout.CENTER);
+
 		controlsWrap.add(controls,BorderLayout.NORTH);
 		frame.add(controlsWrap,BorderLayout.EAST);
 		frame.add(loadWrap,BorderLayout.NORTH);
@@ -597,7 +596,7 @@ public class GUI {
 				int level = shieldLevel.getSelectedIndex();
 				run.setShield(level);
 			}});
-		
+
 		bgDisp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int bg = bgDisp.getSelectedIndex();

@@ -419,16 +419,23 @@ public class SpriteAnimator extends Component {
 	 * Draw every sprite
 	 */
 	public void paint(Graphics g) {
-		if (frames==null || frames[frame] == null) {
-			return;
-		}
-		int scaleOffset = (8 - zoom) * 7;
+		// draw background
 		int bgOffset = (zoom-1) * -7;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom);
 		g2.drawImage(BGS[bg], bgOffset, bgOffset, null);
-		Anime t = frames[frame];
-		t.draw(g2, scaleOffset);
+		// Catch null frames
+		if (frames==null || frames[frame] == null) {
+			return;
+		}
+		// catch other errors
+		try {
+			int scaleOffset = (8 - zoom) * 7;
+			Anime t = frames[frame];
+			t.draw(g2, scaleOffset);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
