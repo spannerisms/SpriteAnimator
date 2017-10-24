@@ -517,7 +517,7 @@ public class GUI {
 
 				// reset animator, forcing it to update
 				try {
-					run.reset();
+					run.setAnimation(animOptions.getSelectedIndex());
 				} catch(Exception e) {
 					// nothing
 				}
