@@ -1,5 +1,5 @@
 package SpriteAnimator.Listeners;
 
-public interface EquipListener {
-	void eventReceived(EquipEvent arg0);
+public interface RebuildListener {
+	void eventReceived(RebuildEvent arg0);
 }
