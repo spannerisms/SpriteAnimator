@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.util.ArrayList;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -159,7 +162,7 @@ public class GUI {
 
 		// sword level
 		final JComboBox<String> swordLevel = new JComboBox<String>(SWORDLEVELS);
-		final JLabel theWordSword = new JLabel("", SwingConstants.RIGHT);
+		final JLabel theWordSword = new JLabel("Gear:", SwingConstants.RIGHT); // not actually the word "Sword"
 		theWordSword.setBorder(rightPad);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
@@ -200,6 +203,7 @@ public class GUI {
 		final JButton equipBtn = new JButton("Toggle");
 		final JLabel theWordEquipmentWithAColon = new JLabel("Equipment:", SwingConstants.RIGHT);
 		final JLabel equipStatus = new JLabel("OFF", SwingConstants.CENTER);
+		theWordEquipmentWithAColon.setBorder(rightPad);
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -213,6 +217,7 @@ public class GUI {
 		final JButton shadowBtn = new JButton("Toggle");
 		final JLabel theWordShadowsWithAColon = new JLabel("Shadows:", SwingConstants.RIGHT);
 		final JLabel shadowStatus = new JLabel("OFF", SwingConstants.CENTER);
+		theWordShadowsWithAColon.setBorder(rightPad);
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -348,6 +353,18 @@ public class GUI {
 				System.exit(0);
 			}});
 		aboutMenu.add(exit);
+
+		// But what if Ganon dabs back?
+		ImageIcon ico = new ImageIcon(
+				getClass().getResource("/SpriteAnimator/DABSMALL.png")
+			);
+		ImageIcon icoTask = new ImageIcon(
+				getClass().getResource("/SpriteAnimator/DAB.png")
+			);
+		ArrayList<Image> icons = new ArrayList<Image>();
+		icons.add(ico.getImage());
+		icons.add(icoTask.getImage());
+		frame.setIconImages(icons);
 
 		// other frame organization
 		final SpriteAnimator imageArea = new SpriteAnimator();
@@ -495,15 +512,15 @@ public class GUI {
 					return;
 				}
 				try {
-					run.setAnimation(0);
-					animOptions.setSelectedIndex(0);
+
+					run.setAnimation(animOptions.getSelectedIndex());
 					run.reset();
 				} catch(Exception e) {
 
 				}
 			}});
 
-		// 
+		// animation select
 		animOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -522,6 +539,7 @@ public class GUI {
 				frameMax.setText("/ " + run.maxFrame());
 			}});
 
+		// mode select
 		modeOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -532,6 +550,7 @@ public class GUI {
 				}
 			}});
 
+		// zoom buttons
 		bigBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.embiggen();
@@ -542,6 +561,7 @@ public class GUI {
 				run.ensmallen();
 			}});
 
+		// speed buttons
 		fasterBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.faster();
@@ -552,6 +572,7 @@ public class GUI {
 				run.slower();
 			}});
 
+		// reset button
 		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -562,23 +583,27 @@ public class GUI {
 				}
 			}});
 
+		// step button
 		stepBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.step();
 			}});
 
+		// item toggle
 		equipBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.switchEquipment();
 				equipStatus.setText(run.equipmentOn() ? "ON" : "OFF");
 			}});
 
+		// shadow toggle
 		shadowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.switchShadow();
 				shadowStatus.setText(run.shadowOn() ? "ON" : "OFF");
 			}});
 
+		// gear settings
 		mailLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int level = mailLevel.getSelectedIndex();
@@ -597,11 +622,13 @@ public class GUI {
 				run.setShield(level);
 			}});
 
+		// background display
 		bgDisp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int bg = bgDisp.getSelectedIndex();
 				run.setBackground(bg);
 			}});
+
 		// turn on
 		frame.setVisible(true);
 	}
