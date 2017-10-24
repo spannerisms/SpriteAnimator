@@ -253,10 +253,10 @@ public abstract class Database {
 			"[salute]SWORD1{9,-6}{F}{M}:SHIELD0{-5,9}{F}{0}:A3{0,0}{F}{0}:P4{0,8}{F}{M}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// itemGet TODO: 100% confirm
 			"[itemGet]L1{0,0}{F}{0}:L2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
-			// triforceGet TODO: 100% confirm
+			// triforceGet
 			"[triforceGet]Z2{0,0}{F}{0}:β4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
-			// readBook TODO: 100% confirm
-			"[readBook]K5{0,0}{F}{0}:K6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
+			// readBook
+			"[readBook]A2{1,1}{F}{0}:K6{0,9}{F}{0}:BOOK1{-4,1}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// prayer R1,A5:Q1,A5:Q0,S1
 			"[prayer]R1{0,0}{F}{0}:S1{0,16}{T}{0}:SHADOW0{0,8}{F}{0} @ 157 ;" +
 				"A5{0,1}{F}{0}:Q1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 47 ;" +
@@ -465,7 +465,7 @@ public abstract class Database {
 				"L5{0,0}{F}{0}:N7{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A1{0,1}{F}{0}:Q1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 30 ",
 			// hookshot TODO: 100% confirm
-			"[hookshot]A0{0,-3}{F}{0}:C4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
+			"[hookshot]HOOKSHOT1{15,8}{R}{0}:A0{-1,1}{F}{0}:C4{-1,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// hookshotUp TODO: 100% confirm
 			"[hookshotUp]A2{0,-3}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// hookshotDown TODO: 100% confirm
@@ -623,9 +623,9 @@ public abstract class Database {
 			"[tallGrassDown]A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A1{0,1}{F}{0}:V3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A1{0,2}{F}{0}:V4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
-			// mapDungeon TODO: 100% confirm
+			// mapDungeon
 			"[mapDungeon]K7{0,0}{F}{0} @ 3 ",
-			// mapWorld TODO: 100% confirm
+			// mapWorld
 			"[mapWorld]Y7{0,0}{F}{0} @ 17; " +
 				"Y7{0,0}{E}{0} @ 17 ",
 			// sleep TODO: 100% confirm

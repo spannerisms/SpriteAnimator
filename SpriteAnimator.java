@@ -61,7 +61,7 @@ public class SpriteAnimator extends Component {
 	private int frame;
 	private int maxFrame;
 	private boolean running;
-	private int zoom = 3;
+	private int zoom = 5;
 	private Anime[] frames = null;
 	private Timer tick;
 	private TimerTask next;
@@ -79,7 +79,7 @@ public class SpriteAnimator extends Component {
 	private List<ModeListener> modeListen = new ArrayList<ModeListener>();
 	private List<SpeedListener> speedListen = new ArrayList<SpeedListener>();
 	private List<ZoomListener> zoomListen = new ArrayList<ZoomListener>();
-	private List<EquipListener> equipListen = new ArrayList<EquipListener>();
+	private List<RebuildListener> rebuildListen = new ArrayList<RebuildListener>();
 
 	// default initialization
 	public SpriteAnimator() {
@@ -212,6 +212,17 @@ public class SpriteAnimator extends Component {
 		tick.cancel();
 		makeAnimationFrames();
 		reset();
+	}
+	
+	/**
+	 * Fires every event to refresh the GUI.
+	 */
+	public void firePurge() {
+		fireStepEvent();
+		fireSpeedEvent();
+		fireModeEvent();
+		fireZoomEvent();
+		fireRebuildEvent();
 	}
 	/**
 	 * Reset speed to 0
@@ -383,7 +394,7 @@ public class SpriteAnimator extends Component {
 	 */
 	public void switchEquipment() {
 		showEquipment = !showEquipment;
-		fireEquipEvent();
+		fireRebuildEvent();
 	}
 
 	/**
@@ -398,7 +409,7 @@ public class SpriteAnimator extends Component {
 	 */
 	public void switchShadow() {
 		showShadow = !showShadow;
-		fireEquipEvent();
+		fireRebuildEvent();
 	}
 
 	/**
@@ -414,7 +425,7 @@ public class SpriteAnimator extends Component {
 	 */
 	public void setMail(int ml) {
 		mailLevel = ml;
-		fireEquipEvent();
+		fireRebuildEvent();
 	}
 
 	/**
@@ -423,7 +434,7 @@ public class SpriteAnimator extends Component {
 	 */
 	public void setSword(int sl) {
 		swordLevel = sl;
-		fireEquipEvent();
+		fireRebuildEvent();
 	}
 
 	/**
@@ -432,7 +443,7 @@ public class SpriteAnimator extends Component {
 	 */
 	public void setShield(int sl) {
 		shieldLevel = sl;
-		fireEquipEvent();
+		fireRebuildEvent();
 	}
 
 	/**
@@ -479,7 +490,7 @@ public class SpriteAnimator extends Component {
 		stepListen.add(s);
 	}
 
-	public synchronized void fireStepEvent() {
+	private synchronized void fireStepEvent() {
 		StepEvent s = new StepEvent(this);
 		Iterator<StepListener> listening = stepListen.iterator();
 		while(listening.hasNext()) {
@@ -495,7 +506,7 @@ public class SpriteAnimator extends Component {
 		speedListen.add(s);
 	}
 
-	public synchronized void fireSpeedEvent() {
+	private synchronized void fireSpeedEvent() {
 		SpeedEvent s = new SpeedEvent(this);
 		Iterator<SpeedListener> listening = speedListen.iterator();
 		while(listening.hasNext()) {
@@ -511,7 +522,7 @@ public class SpriteAnimator extends Component {
 		modeListen.add(s);
 	}
 
-	public synchronized void fireModeEvent() {
+	private synchronized void fireModeEvent() {
 		ModeEvent s = new ModeEvent(this);
 		Iterator<ModeListener> listening = modeListen.iterator();
 		while(listening.hasNext()) {
@@ -527,7 +538,7 @@ public class SpriteAnimator extends Component {
 		zoomListen.add(s);
 	}
 
-	public synchronized void fireZoomEvent() {
+	private synchronized void fireZoomEvent() {
 		ZoomEvent s = new ZoomEvent(this);
 		Iterator<ZoomListener> listening = zoomListen.iterator();
 		while(listening.hasNext()) {
@@ -536,8 +547,9 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Equipment listeners look for changes in display:
+	 * Rebuild listeners look for changes in display:
 	 * <ul>
+	 * <li>Animation change</li>
 	 * <li>Mail</li>
 	 * <li>Sword</li>
 	 * <li>Shield</li>
@@ -548,13 +560,13 @@ public class SpriteAnimator extends Component {
 	 * and as such should also prompt a "hard reset" from the listener.
 	 * @param s
 	 */
-	public synchronized void addEquipListener(EquipListener s) {
-		equipListen.add(s);
+	public synchronized void addRebuildListener(RebuildListener s) {
+		rebuildListen.add(s);
 	}
 
-	private synchronized void fireEquipEvent() {
-		EquipEvent s = new EquipEvent(this);
-		Iterator<EquipListener> listening = equipListen.iterator();
+	private synchronized void fireRebuildEvent() {
+		RebuildEvent s = new RebuildEvent(this);
+		Iterator<RebuildListener> listening = rebuildListen.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
@@ -967,7 +979,7 @@ public class SpriteAnimator extends Component {
 				case "HAMMER" : // hammer
 					ret = 13;
 					break;
-				case "HOOKSHOOOT" : // shooty shoots
+				case "HOOKSHOT" : // shooty shoots
 				case "BOOMERANG" :
 					ret = 14;
 					break;

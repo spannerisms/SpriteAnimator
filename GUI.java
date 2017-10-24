@@ -218,7 +218,7 @@ public class GUI {
 		// shadows
 		final JButton shadowBtn = new JButton("Toggle");
 		final JLabel theWordShadowsWithAColon = new JLabel("Shadows:", SwingConstants.RIGHT);
-		final JLabel shadowStatus = new JLabel("ON", SwingConstants.CENTER);
+		final JLabel shadowStatus = new JLabel("--", SwingConstants.CENTER);
 		theWordShadowsWithAColon.setBorder(rightPad);
 		c.gridwidth = 1;
 		c.gridy++;
@@ -236,7 +236,7 @@ public class GUI {
 		c.ipady = 0;
 
 		// zoom
-		final JLabel zoomLevel = new JLabel("x3", SwingConstants.RIGHT);
+		final JLabel zoomLevel = new JLabel("x-", SwingConstants.RIGHT);
 		final JButton bigBtn = new JButton("Zoom+");
 		final JButton lilBtn = new JButton("Zoom-");
 		setAllSizes(zoomLevel,textDimension);
@@ -253,7 +253,7 @@ public class GUI {
 		// speed
 		final JButton fasterBtn = new JButton("Speed+");
 		final JButton slowerBtn = new JButton("Speed-");
-		final JLabel speedLevel = new JLabel("100%", SwingConstants.RIGHT);
+		final JLabel speedLevel = new JLabel("--%", SwingConstants.RIGHT);
 		setAllSizes(speedLevel,textDimension);
 		speedLevel.setBorder(rightPad);
 		c.gridy++;
@@ -272,8 +272,8 @@ public class GUI {
 
 		// frame counter
 		final JLabel theWordFrameWithAColon = new JLabel("Frame:", SwingConstants.RIGHT);
-		final JLabel frameCur = new JLabel("1", SwingConstants.RIGHT);
-		final JLabel frameMax = new JLabel("/ 1");
+		final JLabel frameCur = new JLabel("-", SwingConstants.RIGHT);
+		final JLabel frameMax = new JLabel("/ -");
 		frameCur.setBorder(rightPad);
 		frameMax.setBorder(rightPad);
 		setAllSizes(frameCur,textDimension);
@@ -456,16 +456,21 @@ public class GUI {
 		});
 
 		// listen for display changes
-		// read steps and count them
-		run.addEquipListener(new EquipListener() {
-			public void eventReceived(EquipEvent arg0) {
+		run.addRebuildListener(new RebuildListener() {
+			public void eventReceived(RebuildEvent arg0) {
 				try {
 					run.hardReset();
 				} catch (Exception e) {
 					// do nothing
 				}
+				frameMax.setText("/ " + run.maxFrame());
+				equipStatus.setText(run.equipmentOn() ? "ON" : "OFF");
+				shadowStatus.setText(run.shadowOn() ? "ON" : "OFF");
 			}
 		});
+
+		// update GUI
+		run.firePurge();
 
 		// load sprite file
 		loadBtn.addActionListener(new ActionListener() {
@@ -541,7 +546,6 @@ public class GUI {
 				}
 				resetBtn.getActionListeners()[0].actionPerformed(
 						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"",0,0));
-				frameMax.setText("/ " + run.maxFrame());
 			}});
 
 		// mode select
@@ -598,14 +602,12 @@ public class GUI {
 		equipBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.switchEquipment();
-				equipStatus.setText(run.equipmentOn() ? "ON" : "OFF");
 			}});
 
 		// shadow toggle
 		shadowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.switchShadow();
-				shadowStatus.setText(run.shadowOn() ? "ON" : "OFF");
 			}});
 
 		// gear settings
