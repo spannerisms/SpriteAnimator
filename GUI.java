@@ -371,6 +371,7 @@ public class GUI {
 		final SpriteAnimator run = imageArea; // just a shorter name
 		// need to wrap it for a border
 		final JPanel imageWrap = new JPanel(new BorderLayout());
+
 		imageWrap.setBorder(fullPad);
 		imageWrap.add(imageArea,BorderLayout.CENTER);
 		frame.add(imageWrap, BorderLayout.CENTER);
@@ -388,10 +389,13 @@ public class GUI {
 		final JFileChooser explorer = new JFileChooser();
 		FileNameExtensionFilter sprFilter =
 				new FileNameExtensionFilter("ALttP Sprite files", new String[] { "spr" });
+		explorer.setAcceptAllFileFilterUsed(false);
+		explorer.setFileFilter(sprFilter);
+
 		// can't clear text due to wonky code
 		// have to set a blank file instead
-
 		final File EEE = new File("");
+
 		// TODO: uncomment this for exports
 		//explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
@@ -404,15 +408,12 @@ public class GUI {
 		}
 
 		/*
-		 * 
 		 * Action listeners
-		 * 
-		 * 
 		 */
 		// read steps and count them
 		run.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
-				frameCur.setText(run.frameDis());
+				frameCur.setText(run.getFrame());
 			}
 		});
 
@@ -468,13 +469,13 @@ public class GUI {
 		loadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				explorer.setSelectedFile(EEE);
-				explorer.setFileFilter(sprFilter);
 				int option = explorer.showOpenDialog(loadBtn);
-				explorer.removeChoosableFileFilter(sprFilter);
 				if (option == JFileChooser.CANCEL_OPTION) {
 					return;
 				}
 				String n = "";
+
+				// grab file name
 				try {
 					n = explorer.getSelectedFile().getPath();
 				} catch (NullPointerException e) {
@@ -488,6 +489,7 @@ public class GUI {
 					}
 				}
 
+				// read the file
 				byte[] sprite;
 				try {
 					sprite = SpriteManipulator.readSprite(fileName.getText());
@@ -499,6 +501,7 @@ public class GUI {
 					return;
 				}
 
+				// turn spr into useable images
 				try {
 					byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
 					byte[][] palette = SpriteManipulator.getPal(sprite);
@@ -511,12 +514,12 @@ public class GUI {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				try {
 
-					run.setAnimation(animOptions.getSelectedIndex());
+				// reset animator, forcing it to update
+				try {
 					run.reset();
 				} catch(Exception e) {
-
+					// nothing
 				}
 			}});
 

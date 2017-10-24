@@ -15,6 +15,7 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
 public class SpriteAnimator extends Component {
+	private static final long serialVersionUID = 2114886855236406900L;
 
 	private BufferedImage[] BGS = Backgrounds.getBackgrounds();
 	private BufferedImage EQUIPMENT; {
@@ -24,7 +25,6 @@ public class SpriteAnimator extends Component {
 	}};
 
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
-	private static final long serialVersionUID = 2114886855236406900L;
 
 	// Almost the length of a frame at 60 FPS
 	// 1/60 approx. 16.66666...
@@ -90,23 +90,30 @@ public class SpriteAnimator extends Component {
 		tick = new Timer();
 	}
 
+	/**
+	 * Multiplier that determines exactly how much faster animations move
+	 */
 	private double speedFactor() {
 		double m = Math.pow(1.5, speed * -1);
 		return m;
 	}
 
-	public int getFrame() {
-		return frame;
-	}
-
-	public String frameDis() {
+	/**
+	 * Current frame of current animation, not 0-indexed
+	 */
+	public String getFrame() {
 		return "" + (frame + 1);
 	}
+
+	/**
+	 * Highest frame of current animation, not 0-indexed
+	 */
 	public int maxFrame() {
 		return maxFrame;
 	}
+
 	/**
-	 * Set image to animate.
+	 * Set images to animate
 	 * @param image
 	 */
 	public void setImage(BufferedImage[] image) {
@@ -114,7 +121,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Set animation ID.
+	 * Set animation ID
 	 * @param id
 	 */
 	public void setAnimation(int id) {
@@ -127,11 +134,12 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Get animation mode ID#.
+	 * Get animation mode ID#
 	 */
 	public int getMode() {
 		return mode;
 	}
+
 	/**
 	 * Set image mode and reset.
 	 * <ul style="list-style:none">
@@ -150,7 +158,6 @@ public class SpriteAnimator extends Component {
 	 * Step forward 1 animation frame.
 	 * Resets frame to 0 if we reach the end in modes that loop.
 	 * Stops running if we reach the end of the animation in "All frames" mode.
-	 * @return Frame # painted
 	 */
 	public void step() {
 		frame++;
@@ -168,7 +175,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Reset based on mode.
+	 * Reset based on mode
 	 */
 	public void reset() {
 		try {
@@ -196,7 +203,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * When we need to add new images to the sprite
+	 * Remakes animation when we need to add new images to the sprite
 	 */
 	public void hardReset() {
 		tick.cancel();
@@ -204,14 +211,14 @@ public class SpriteAnimator extends Component {
 		reset();
 	}
 	/**
-	 * Reset speed to 0.
+	 * Reset speed to 0
 	 */
 	private void resetSpeed() {
 		setSpeed(0);
 	}
 
 	/**
-	 * Resets frame to 0.
+	 * Resets frame to 0
 	 */
 	private void resetFrame() {
 		// force a step
@@ -220,35 +227,31 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Control self-animation permission.
+	 * Control self-animation permission
 	 */
 	private void setRunning(boolean r) {
 		running = r;
 	}
 
 	/**
-	 * @return Timer object
-	 */
-	public Timer getTimer() {
-		return tick;
-	}
-	/**
 	 * Increments step speed by 1.
-	 * @return <b>true</b> if speed reaches max.
 	 */
 	public void faster() {
 		setSpeed(speed+1);
 	}
 
 	/**
-	 * Decrements step speed by 1.
-	 * @return <b>true</b> if speed reaches min.
+	 * Decrements step speed by 1
 	 */
 	public void slower() {
 		setSpeed(speed-1);
 	}
 
-	public void setSpeed(int s) {
+	/**
+	 * Sets speed based on defined bounds
+	 * @param s
+	 */
+	private void setSpeed(int s) {
 		if (s == speed) {
 			// do nothing
 		} else if (s < speed) {
@@ -269,10 +272,9 @@ public class SpriteAnimator extends Component {
 		fireSpeedEvent();
 	}
 
-	public int getSpeed() {
-		return speed;
-	}
-
+	/**
+	 * Get the speed multiplier as a percentage
+	 */
 	public String getSpeedPercent() {
 		double speedM = speedFactor();
 		int s = (int) (100 / speedM);
@@ -293,26 +295,25 @@ public class SpriteAnimator extends Component {
 		return (speed * -1) == MAXSPEED;
 	}
 
-	/*
-	 * Zoom functions
-	 */
 	/**
-	 * Zooms in by 1x.
-	 * @return <b>true</b> if we're really big.
+	 * Zooms in by 1x
 	 */
 	public void embiggen() {
 		setZoom(zoom+1);
 	}
 
 	/**
-	 * Zooms out by 1x.
-	 * @return <b>true</b> if we're vanilla size.
+	 * Zooms out by 1x
 	 */
 	public void ensmallen() {
 		setZoom(zoom-1);
 	}
 
-	public void setZoom(int z) {
+	/**
+	 * Sets zoom level based on defined bounds
+	 * @param z
+	 */
+	private void setZoom(int z) {
 		if (z == zoom) {
 			// do nothing
 		} else if (z < zoom) {
@@ -334,20 +335,29 @@ public class SpriteAnimator extends Component {
 		repaint();
 	}
 
+	/**
+	 * Zoom level
+	 */
 	public int getZoom() {
 		return zoom;
 	}
 
+	/**
+	 * Is Link too big?!
+	 */
 	public boolean tooBig() {
 		return zoom >= MAXZOOM;
 	}
 
+	/**
+	 * Is Link drawn at 100% size??? :thinking:
+	 */
 	public boolean vanillaSize() {
 		return zoom == 1;
 	}
 
 	/**
-	 * Adjusts timer based on speed
+	 * Adjust timer based on speed and current frame
 	 */
 	private void adjustTimer() {
 		if (!running) {
@@ -365,50 +375,67 @@ public class SpriteAnimator extends Component {
 		}
 	}
 
-	/*
-	 * Equipment changing
+	/**
+	 * Return equipment display status.
 	 */
 	public void switchEquipment() {
-		toggleEquipment(!showEquipment);
-	}
-
-	public void toggleEquipment(boolean et) {
-		showEquipment = et;
+		showEquipment = !showEquipment;
 		fireEquipEvent();
 	}
 
+	/**
+	 * Return equipment display status
+	 */
 	public boolean equipmentOn() {
 		return showEquipment;
 	}
 
+	/**
+	 * Switch shadow display status
+	 */
 	public void switchShadow() {
-		toggleShadow(!showShadow);
+		showShadow = !showShadow;
 		fireEquipEvent();
 	}
 
-	public void toggleShadow(boolean st) {
-		showShadow = st;
-		fireEquipEvent();
-	}
-
+	/**
+	 * Return shadow display status
+	 */
 	public boolean shadowOn() {
 		return showShadow;
 	}
 
+	/**
+	 * Set mail level
+	 * @param ml
+	 */
 	public void setMail(int ml) {
 		mailLevel = ml;
 		fireEquipEvent();
 	}
+
+	/**
+	 * Set sword level
+	 * @param sl
+	 */
 	public void setSword(int sl) {
 		swordLevel = sl;
 		fireEquipEvent();
 	}
 
+	/**
+	 * Set shield level
+	 * @param sl
+	 */
 	public void setShield(int sl) {
 		shieldLevel = sl;
 		fireEquipEvent();
 	}
 
+	/**
+	 * Set the background
+	 * @param b
+	 */
 	public void setBackground(int b) {
 		bg = b;
 		repaint(); // shouldn't need a new event
@@ -441,13 +468,12 @@ public class SpriteAnimator extends Component {
 	/*
 	 * Change listeners
 	 */
-	// Step
+	/**
+	 * Step listeners look for frame advances.
+	 * @param s
+	 */
 	public synchronized void addStepListener(StepListener s) {
 		stepListen.add(s);
-	}
-
-	public synchronized void removeStepListener(StepListener s) {
-		stepListen.remove(s);
 	}
 
 	public synchronized void fireStepEvent() {
@@ -458,13 +484,12 @@ public class SpriteAnimator extends Component {
 		}
 	}
 
-	// Speed
+	/**
+	 * Speed listeners look for changes in speed.
+	 * @param s
+	 */
 	public synchronized void addSpeedListener(SpeedListener s) {
 		speedListen.add(s);
-	}
-
-	public synchronized void removeSpeedListener(SpeedListener s) {
-		speedListen.remove(s);
 	}
 
 	public synchronized void fireSpeedEvent() {
@@ -475,13 +500,12 @@ public class SpriteAnimator extends Component {
 		}
 	}
 
-	// mode
+	/**
+	 * Mode listeners look for changes in animation mode.
+	 * @param s
+	 */
 	public synchronized void addModeListener(ModeListener s) {
 		modeListen.add(s);
-	}
-
-	public synchronized void removeModeListener(ModeListener s) {
-		modeListen.remove(s);
 	}
 
 	public synchronized void fireModeEvent() {
@@ -492,13 +516,12 @@ public class SpriteAnimator extends Component {
 		}
 	}
 
-	// zoom
+	/**
+	 * Zoom listeners look for changes in zoom level.
+	 * @param s
+	 */
 	public synchronized void addZoomListener(ZoomListener s) {
 		zoomListen.add(s);
-	}
-
-	public synchronized void removeZoomListener(ZoomListener s) {
-		zoomListen.remove(s);
 	}
 
 	public synchronized void fireZoomEvent() {
@@ -509,16 +532,24 @@ public class SpriteAnimator extends Component {
 		}
 	}
 
-	// Equip
+	/**
+	 * Equipment listeners look for changes in display:
+	 * <ul>
+	 * <li>Mail</li>
+	 * <li>Sword</li>
+	 * <li>Shield</li>
+	 * <li>Equipped item</li>
+	 * <li>Shadows</li>
+	 * </ul>
+	 * All these categories may require new sprites to be added to each frame,
+	 * and as such should also prompt a "hard reset" from the listener.
+	 * @param s
+	 */
 	public synchronized void addEquipListener(EquipListener s) {
 		equipListen.add(s);
 	}
 
-	public synchronized void removeEquipListener(EquipListener s) {
-		equipListen.remove(s);
-	}
-
-	public synchronized void fireEquipEvent() {
+	private synchronized void fireEquipEvent() {
 		EquipEvent s = new EquipEvent(this);
 		Iterator<EquipListener> listening = equipListen.iterator();
 		while(listening.hasNext()) {
@@ -526,21 +557,29 @@ public class SpriteAnimator extends Component {
 		}
 	}
 
-	// @link Sprite - lol get it?
 	/**
 	 * Makes an array of {@link Sprite}s based on the frame data.
+	 * <br><br>
+	 * Complex, pain in the ass function.
 	 */
+	// @link Sprite - lol get it?
 	private void makeAnimationFrames() {
+		// break if we have no images
 		if (mailImages == null) {
 			return;
 		}
-		BufferedImage sheet;
-		String animData = ALLFRAMES[anime].toUpperCase().replace(" ", ""); // CAPS and remove all whitespace
-		// split into sections
 
+		// find which sheet to use for image
+		BufferedImage sheet;
+
+		// Raw data, without spaces, capitalized for comparing
+		String animData = ALLFRAMES[anime].toUpperCase().replace(" ", ""); // CAPS and remove all whitespace
+
+		// split into sections
 		String[] animDataX = animData.split("[\\[\\]]+");
+
+		// for rebuilding and reorganizing frame data
 		String[] eachFrameRaw = animDataX[2].split(";"); // split by frame
-		
 		maxFrame = eachFrameRaw.length;
 		String[] eachFrameBuilt = new String[maxFrame+1]; // +1 for a ghost
 		String[] eachFrameRebuilt = new String[maxFrame+1];
@@ -585,6 +624,7 @@ public class SpriteAnimator extends Component {
 							sprct++;
 							break;
 					}
+				// check and replace for shield
 				} else if (indexName.equalsIgnoreCase("SHIELD")) {
 					switch (shieldLevel) {
 						default : // catch all
@@ -621,6 +661,7 @@ public class SpriteAnimator extends Component {
 			eachFrame = new String[1];
 			eachFrame[0] = eachFrameBuilt[0];
 		} else {
+			// for longer animations, prep the first frame
 			String addFrame, curFrame;
 			String addFrameData, curFrameData;
 			int addFrameLength, curFrameLength;
@@ -642,7 +683,7 @@ public class SpriteAnimator extends Component {
 				// just increase the length of the frame to add
 				if (curFrameData.equalsIgnoreCase(addFrameData)) {
 					addFrameLength += curFrameLength;
-				
+
 				// if different
 				// replace add with cur
 				// add the frame to be added in
@@ -673,7 +714,7 @@ public class SpriteAnimator extends Component {
 			} catch (Exception e) {
 				animSpeed = 100;
 			}
-			
+
 			String[] eachSprite = wholeFrame[0].split(":");
 			spriteCount = eachSprite.length;
 			Sprite[] sprList = new Sprite[spriteCount];
@@ -802,15 +843,28 @@ public class SpriteAnimator extends Component {
 	}
 
 	// transformations
-	public static BufferedImage flipV(BufferedImage image){
+	/**
+	 * Wrapper for flip()
+	 */
+	private static BufferedImage flipV(BufferedImage image){
 		return flip(image, true);
 	}
 
-	public static BufferedImage flipH(BufferedImage image){
+	/**
+	 * Wrapper for flip()
+	 */
+	private static BufferedImage flipH(BufferedImage image){
 		return flip(image, false);
 	}
 
-	public static BufferedImage flip(BufferedImage image, boolean vertical) {
+	/**
+	 * Flips an image vertically if the second argument is <b>true<b>
+	 * or horizontally if it is <b>false</b>
+	 * @param image
+	 * @param vertical - orientation
+	 * @return
+	 */
+	private static BufferedImage flip(BufferedImage image, boolean vertical) {
 		AffineTransform at = new AffineTransform();
 		if (vertical) {
 			at.concatenate(AffineTransform.getScaleInstance(1, -1));
@@ -828,17 +882,26 @@ public class SpriteAnimator extends Component {
 		return newImage;
 	}
 
+	/**
+	 * Perform
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		GUI G = new GUI();
 		G.printGUI(args);
 	}
 
-	private static int getIndexRow(String row) {
+	/**
+	 * Converts a named equipment index to a numbered row.
+	 * @param n
+	 */
+	private static int getIndexRow(String n) {
 		int ret = 0;
-		if (row.length() == 1) {
-			ret = ALPHA.indexOf(row);
+		if (n.length() == 1) {
+			ret = ALPHA.indexOf(n);
 		} else {
-			switch (row) {
+			switch (n) {
 				case "FSWORD" : // fighter's sword
 					ret = 0;
 					break;
@@ -881,6 +944,11 @@ public class SpriteAnimator extends Component {
 		return ret;
 	}
 
+	/**
+	 * Finds a substring that starts at index 0 and contains
+	 * all non-number characters up until the first number character.
+	 * @param n - Index name
+	 */
 	private static String stopAtNumber(String n) {
 		String ret = "";
 		char[] split = n.toCharArray();
@@ -894,6 +962,10 @@ public class SpriteAnimator extends Component {
 		return ret;
 	}
 
+	/**
+	 * Tests to see if the name passed is considered equipment.
+	 * @param item - test case
+	 */
 	private static boolean isEquipment(String item) {
 		boolean ret = false;
 		for (String s : EQUIPNAMES) {
