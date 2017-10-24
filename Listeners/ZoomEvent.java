@@ -1,6 +1,7 @@
-package SpriteAnimator;
+package SpriteAnimator.Listeners;
 
 import java.util.EventObject;
+import SpriteAnimator.SpriteAnimator;
 
 public class ZoomEvent extends EventObject {
 	private static final long serialVersionUID = -7292653834209301725L;
