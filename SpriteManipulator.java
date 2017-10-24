@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package SpriteAnimator.Sprite;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

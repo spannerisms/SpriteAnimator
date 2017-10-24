@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package SpriteAnimator.GUI;
 
 public abstract class GUIHelpers {
 	/**

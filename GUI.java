@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package SpriteAnimator.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -32,6 +32,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import SpriteAnimator.Database;
+import SpriteAnimator.SpriteAnimator;
+import SpriteAnimator.Events.*;
+import SpriteAnimator.Images.*;
+import SpriteAnimator.Listeners.*;
+import SpriteAnimator.Sprite.*;
 
 public class GUI {
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
@@ -356,10 +363,10 @@ public class GUI {
 
 		// But what if Ganon dabs back?
 		ImageIcon ico = new ImageIcon(
-				getClass().getResource("/SpriteAnimator/DABSMALL.png")
+//				getClass().getResource("/SpriteAnimator/DABSMALL.png")
 			);
 		ImageIcon icoTask = new ImageIcon(
-				getClass().getResource("/SpriteAnimator/DAB.png")
+//				getClass().getResource("/SpriteAnimator/DAB.png")
 			);
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());

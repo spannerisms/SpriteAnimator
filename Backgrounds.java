@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package SpriteAnimator.Images;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public abstract class Backgrounds {
 		for (int i = 0; i < ret.length; i++) {
 			try {
 				ret[i] = ImageIO.read(Backgrounds.class.getResourceAsStream(
-						"/SpriteAnimator/" + BACKGROUNDNAMES[i] + " BG.png"));
+						"/SpriteAnimator/Images/" + BACKGROUNDNAMES[i] + " BG.png"));
 			} catch (IOException e) {
 			};
 		}

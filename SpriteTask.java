@@ -1,8 +1,10 @@
-package SpriteAnimator;
+package SpriteAnimator.Sprite;
 
 import java.util.TimerTask;
 
-class SpriteTask extends TimerTask {
+import SpriteAnimator.SpriteAnimator;
+
+public class SpriteTask extends TimerTask {
 	private SpriteAnimator r;
 	public SpriteTask(SpriteAnimator run) {
 		r = run;
