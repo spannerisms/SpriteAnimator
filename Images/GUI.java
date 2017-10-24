@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package SpriteAnimator.Images;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -32,6 +32,12 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import SpriteAnimator.*;
+import SpriteAnimator.GUI.*;
+import SpriteAnimator.Events.*;
+import SpriteAnimator.Listeners.*;
+import SpriteAnimator.Sprite.*;
 
 public class GUI {
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
@@ -410,7 +416,7 @@ public class GUI {
 		// read steps and count them
 		run.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
-				frameCur.setText(run.frameDis());
+//				frameCur.setText(run.frameDis());
 			}
 		});
 

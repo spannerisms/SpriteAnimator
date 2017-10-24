@@ -1,6 +1,9 @@
-package SpriteAnimator;
+package SpriteAnimator.GUI;
 
 import java.awt.Graphics2D;
+
+import SpriteAnimator.SpriteAnimator;
+import SpriteAnimator.Sprite.*;
 
 public class Anime {
 	private int d; // duration

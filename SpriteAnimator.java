@@ -14,13 +14,20 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
+import SpriteAnimator.GUI.*;
+import SpriteAnimator.GUI.GUI;
+import SpriteAnimator.Events.*;
+import SpriteAnimator.Images.*;
+import SpriteAnimator.Listeners.*;
+import SpriteAnimator.Sprite.*;
+
 public class SpriteAnimator extends Component {
 	private static final long serialVersionUID = 2114886855236406900L;
 
 	private BufferedImage[] BGS = Backgrounds.getBackgrounds();
 	private BufferedImage EQUIPMENT; {
 		try {
-			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/SpriteAnimator/equipment.png"));
+			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/SpriteAnimator/Images/equipment.png"));
 		} catch (IOException e) {
 	}};
 
