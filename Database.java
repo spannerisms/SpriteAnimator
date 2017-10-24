@@ -258,10 +258,10 @@ public abstract class Database {
 			// readBook TODO: 100% confirm
 			"[readBook]K5{0,0}{F}{0}:K6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// prayer R1,A5:Q1,A5:Q0,S1
-			"[prayer]R1{0,0}{F}{0}:S1{0,16}{T}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A5{0,1}{F}{0}:Q1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A5{0,1}{F}{0}:Q0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"S1{0,0}{B}{0}:T1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
+			"[prayer]R1{0,0}{F}{0}:S1{0,16}{T}{0}:SHADOW0{0,8}{F}{0} @ 157 ;" +
+				"A5{0,1}{F}{0}:Q1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 47 ;" +
+				"A5{0,1}{F}{0}:Q0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 47 ;" +
+				"S1{0,0}{B}{0}:T1{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 60 ",
 			// fall TODO: 100% confirm
 			"[fall]G0{0,0}{B}{0}:G1{16,0}{BL}{0}:H0{0,8}{F}{0}:H1{16,8}{L}{0} @ 3 ;" +
 				"E5{0,0}{F}{0} @ 3 ;" +
@@ -365,17 +365,29 @@ public abstract class Database {
 				"A1{0,-3}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A1{0,-3}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// rod TODO: 100% confirm
-			"[rod]G2{0,-3}{BR}{0}:G3{8,0}{BL}{0}:H2{0,8}{R}{0}:H3{8,8}{L}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+			"[rod]G2{0,0}{BR}{0}:G3{8,0}{BL}{0}:H2{0,8}{R}{0}:H3{8,8}{L}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A0{0,-3}{F}{0}:N4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
 			// rodUp TODO: 100% confirm
-			"[rodUp]G1{0,-3}{BR}{0}:G2{8,0}{BL}{0}:H1{0,8}{R}{0}:H2{8,8}{L}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:N5{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
-			// rodDown TODO: 100% confirm
 			"[rodDown]G3{0,-3}{BR}{0}:G4{8,0}{BL}{0}:H3{0,8}{R}{0}:H4{8,8}{L}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A1{0,-3}{F}{0}:N6{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A1{0,-3}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
-			// powder TODO: 100% confirm
+			// rodDown TODO: 100% confirm
+			"[rodUp]G1{0,-3}{BR}{0}:G2{8,0}{BL}{0}:H1{0,8}{R}{0}:H2{8,8}{L}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"A2{0,-3}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"A2{0,-3}{F}{0}:N5{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ",
+			// hammer
+			"[hammer]HAMMER0{7,-3}{L}{0}:G2{0,0}{BR}{0}:G3{8,0}{BL}{0}:H2{0,8}{R}{0}:H3{8,8}{L}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
+				"HAMMER3{11,1}{F}{0}:A0{0,1}{F}{0}:C4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 4 ;" +
+				"HAMMER2{12,14}{T}{0}:A0{0,1}{F}{0}:N4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 18 ",
+			// hammerUp
+				"[hammerUp]HAMMER1{-2,-7}{L}{0}:G3{0,1}{BR}{0}:G4{8,1}{BL}{0}:H3{0,9}{R}{0}:H4{8,9}{L}{0}:SHIELD1{15,5}{R}{0}:SHADOW0{0,8}{F}{0} @ 4 ;" +
+				"A2{0,0}{F}{0}:D2{0,9}{F}{0}:HAMMER0{-2,-3}{R}{0}:SHIELD1{15,4}{R}{0}:SHADOW0{0,8}{F}{0} @ 5 ;" +
+				"A2{0,0}{F}{0}:N5{0,9}{F}{0}:HAMMER1{-2,0}{R}{0}:SHIELD1{15,4}{R}{0}:SHADOW0{0,8}{F}{0} @ 18",
+			// hammerDown
+			"[hammerDown]HAMMER0{10,-3}{R}{0}:SHIELD1{-8,6}{R}{M}:G1{0,1}{BR}{0}:G2{8,1}{BL}{0}:H1{0,9}{R}{0}:H2{8,9}{L}{0}:SHADOW0{0,8}{F}{0} @ 4 ;" +
+				"HAMMER2{10,11}{BL}{0}:SHIELD1{-8,6}{R}{M}:A3{0,2}{F}{0}:N6{0,9}{F}{0}:SHADOW0{0,8}{F}{0} @ 5 ;" +
+				"HAMMER1{9,19}{L}{U}:SHIELD1{-8,6}{R}{M}:A3{0,3}{F}{0}:D0{0,9}{F}{0}:SHADOW0{0,8}{F}{0} @ 18 ",
+			// powder TODO: 100% confirm0
 			"[powder]A0{0,1}{F}{0}:C2{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A0{0,1}{F}{0}:C3{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
 				"A0{0,1}{F}{0}:C4{0,8}{F}{0}:SHADOW0{0,8}{F}{0} @ 3 ;" +
@@ -614,8 +626,8 @@ public abstract class Database {
 			// mapDungeon TODO: 100% confirm
 			"[mapDungeon]K7{0,0}{F}{0} @ 3 ",
 			// mapWorld TODO: 100% confirm
-			"[mapWorld]Y7{0,0}{F}{0} @ 3; " +
-				"Y7{0,0}{E}{0} @ 3 ",
+			"[mapWorld]Y7{0,0}{F}{0} @ 17; " +
+				"Y7{0,0}{E}{0} @ 17 ",
 			// sleep TODO: 100% confirm
 			"[sleep]A6{0,0}{F}{0}:D3{0,5}{F}{0} @ 3 ",
 			// awake TODO: 100% confirm

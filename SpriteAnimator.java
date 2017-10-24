@@ -71,8 +71,8 @@ public class SpriteAnimator extends Component {
 	private int mailLevel = 0;
 	private int swordLevel = 0;
 	private int shieldLevel = 0;
-	private boolean showShadow = false;
-	private boolean showEquipment = false;
+	private boolean showShadow = true;
+	private boolean showEquipment = true;
 
 	// change listeners
 	private List<StepListener> stepListen = new ArrayList<StepListener>();

@@ -204,7 +204,7 @@ public class GUI {
 		// other equipment
 		final JButton equipBtn = new JButton("Toggle");
 		final JLabel theWordEquipmentWithAColon = new JLabel("Equipment:", SwingConstants.RIGHT);
-		final JLabel equipStatus = new JLabel("OFF", SwingConstants.CENTER);
+		final JLabel equipStatus = new JLabel("ON", SwingConstants.CENTER);
 		theWordEquipmentWithAColon.setBorder(rightPad);
 		c.gridwidth = 1;
 		c.gridy++;
@@ -218,7 +218,7 @@ public class GUI {
 		// shadows
 		final JButton shadowBtn = new JButton("Toggle");
 		final JLabel theWordShadowsWithAColon = new JLabel("Shadows:", SwingConstants.RIGHT);
-		final JLabel shadowStatus = new JLabel("OFF", SwingConstants.CENTER);
+		final JLabel shadowStatus = new JLabel("ON", SwingConstants.CENTER);
 		theWordShadowsWithAColon.setBorder(rightPad);
 		c.gridwidth = 1;
 		c.gridy++;
