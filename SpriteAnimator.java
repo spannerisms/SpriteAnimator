@@ -22,7 +22,7 @@ public class SpriteAnimator extends Component {
 	private BufferedImage EQUIPMENT; {
 		try {
 			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
-					"/SpriteAnimator/Images/equipment.png"));
+					"/SpriteAnimator/Images/Equipment sheet.png"));
 		} catch (IOException e) {
 	}};
 
@@ -38,9 +38,10 @@ public class SpriteAnimator extends Component {
 
 	// equipment names and prefixes
 	static final String[] EQUIPNAMES = {
-			"BYRNA", "SOMARIA", "BLOCK", "HAMMER", "SPARKLE", "NET",
-			"BOW", "BOOK", "PENDANT", "POWDER", "SHOVEL", "BOOMERANG",
-			"POT", "HOOKSHOT"
+			"CANE", "BYRNA", "SOMARIA", "BLOCK", "SPARKLE",
+			"ROD", "FIREROD", "ICEROD", "POWDER",
+			"HAMMER", "NET", "HOOKSHOT", "BOOMERANG",
+			"BOW", "BOOK", "PENDANT", "SHOVEL", "BED"
 	};
 
 	// fighter, fighter, master, tempered, butter
@@ -806,6 +807,30 @@ public class SpriteAnimator extends Component {
 						width = 8;
 						height = 8;
 						break;
+					case "XT" :
+						drawYoffset = 0;
+						drawXoffset = 0;
+						width = 8;
+						height = 24;
+						break;
+					case "XW" :
+						drawYoffset = 0;
+						drawXoffset = 0;
+						width = 24;
+						height = 8;
+						break;
+					case "XL" :
+						drawYoffset = 0;
+						drawXoffset = 0;
+						width = 16;
+						height = 24;
+						break;
+					case "XXL" :
+						drawYoffset = 0;
+						drawXoffset = 0;
+						width = 32;
+						height = 24;
+						break;
 					default :
 						drawYoffset = 0;
 						drawXoffset = 0;
@@ -908,37 +933,55 @@ public class SpriteAnimator extends Component {
 					ret = 0;
 					break;
 				case "MSWORD" : // master sword
-					ret = 1;
-					break;
-				case "TSWORD" : // tempered sword
 					ret = 2;
 					break;
-				case "BSWORD" : // butter sword
-					ret = 3;
-					break;
-				case "FSHIELD" : // figher's shield
+				case "TSWORD" : // tempered sword
 					ret = 4;
 					break;
-				case "RSHIELD" : // red shield
-					ret = 5;
-					break;
-				case "MSHIELD" : // mirror shield
+				case "BSWORD" : // butter sword
 					ret = 6;
 					break;
-				case "SHADOW" :
-				case "POT" :
-				case "BOOMERANG" :
+				case "SHADOW" : // right under butter
+				case "BOOK" :
 					ret = 7;
 					break;
-				case "BOW" :
+				case "FSHIELD" : // figher's shield
 					ret = 8;
 					break;
-				case "HOOKSHOT" :
+				case "RSHIELD" : // red shield
 					ret = 9;
 					break;
-				case "CANE" :
-				case "BLOCK" :
+				case "MSHIELD" : // mirror shield
 					ret = 10;
+					break;
+				case "SOMARIA" : // canes
+				case "BYRNA" :
+				case "CANE" :
+					ret = 11;
+					break;
+				case "FIREROD" : // rods
+				case "ICEROD" :
+				case "ROD" :
+					ret = 12;
+					break;
+				case "HAMMER" : // hammer
+					ret = 13;
+					break;
+				case "HOOKSHOOOT" : // shooty shoots
+				case "BOOMERANG" :
+					ret = 14;
+					break;
+				case "NET" : // aga's weakness
+					ret = 15;
+					break;
+				case "BOW" : // more shooty shoots
+					ret = 16;
+					break;
+				case "SHOVEL" : // *plays minigame music*
+					ret = 17;
+					break;
+				case "BED" : // this big fucker
+					ret = 18;
 					break;
 			}
 		}

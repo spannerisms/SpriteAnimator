@@ -14,21 +14,25 @@ public abstract class Database {
 	 * @ at the end of each frame denotes how long it lasts
 	 * Frames defined as "//" copy the previous frame
 	 * SPRITESIZE is a flag determining what part of the sprite to draw from
-	 *		F  : Full 16x16
-	 *		T  : Top 16x8
-	 *		B  : Bottom 16x8
-	 *		R  : Right 8x16
-	 *		L  : Left 8x16
-	 *		TR : Top-right 8x8 ; alias : turtle rock
-	 *		TL : Top-left 8x8
-	 *		BR : Bottom-right 8x8
-	 *		BL : Bottom-left 8x8
-	 *		E  : Empty frame 0x0
+	 *		F   : Full 16x16
+	 *		T   : Top 16x8
+	 *		B   : Bottom 16x8
+	 *		R   : Right 8x16
+	 *		L   : Left 8x16
+	 *		TR  : Top-right 8x8 ; alias : turtle rock
+	 *		TL  : Top-left 8x8
+	 *		BR  : Bottom-right 8x8
+	 *		BL  : Bottom-left 8x8
+	 *		XT  : 8x24
+	 *		XW  : 24x8
+	 *		XL  : 16x24
+	 *		XXL : 32x24
+	 *		E   : Empty frame 0x0
 	 * TRANSFORM is a flag determining how to flip the sprite
-	 *		0  : No transform
-	 *		U  : Mirror along X-axis
-	 *		M  : Mirror along y-axis
-	 *		UM : Mirror along both axes
+	 *		0   : No transform
+	 *		U   : Mirror along X-axis
+	 *		M   : Mirror along y-axis
+	 *		UM  : Mirror along both axes
 	 */
 	public static final String[] ALLFRAMES = {
 			// stand TODO: 100% confirm
