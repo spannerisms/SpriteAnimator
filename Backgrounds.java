@@ -6,6 +6,9 @@ import javax.imageio.ImageIO;
 
 public abstract class Backgrounds {
 
+	/**
+	 * Names of current backgrounds available
+	 */
 	public static final String[] BACKGROUNDNAMES = {
 		"Empty",
 		"House",
@@ -24,6 +27,10 @@ public abstract class Backgrounds {
 		"Spike cave"
 	};
 
+	/**
+	 * Looks for the resources <tt><<b></b>S>_BG.png</tt>
+	 * and puts them into a list of images for use.
+	 */
 	public static final BufferedImage[] getBackgrounds() {
 		BufferedImage[] ret = new BufferedImage[BACKGROUNDNAMES.length];
 		for (int i = 0; i < ret.length; i++) {
