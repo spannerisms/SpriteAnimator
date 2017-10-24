@@ -33,6 +33,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import SpriteAnimator.Listeners.*;
+
 public class GUI {
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 	private static final String[] MODES = {
@@ -356,10 +358,10 @@ public class GUI {
 
 		// But what if Ganon dabs back?
 		ImageIcon ico = new ImageIcon(
-				getClass().getResource("/SpriteAnimator/DABSMALL.png")
+				getClass().getResource("/SpriteAnimator/Images/DABSMALL.png")
 			);
 		ImageIcon icoTask = new ImageIcon(
-				getClass().getResource("/SpriteAnimator/DAB.png")
+				getClass().getResource("/SpriteAnimator/Images/DAB.png")
 			);
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());

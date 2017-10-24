@@ -11,8 +11,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.imageio.ImageIO;
+
+import SpriteAnimator.Listeners.*;
 
 public class SpriteAnimator extends Component {
 	private static final long serialVersionUID = 2114886855236406900L;
@@ -20,7 +21,8 @@ public class SpriteAnimator extends Component {
 	private BufferedImage[] BGS = Backgrounds.getBackgrounds();
 	private BufferedImage EQUIPMENT; {
 		try {
-			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/SpriteAnimator/equipment.png"));
+			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
+					"/SpriteAnimator/Images/equipment.png"));
 		} catch (IOException e) {
 	}};
 
