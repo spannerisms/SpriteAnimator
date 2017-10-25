@@ -133,6 +133,7 @@ public class SpriteAnimator extends Component {
 		}
 		anime = id;
 		makeAnimationFrames();
+		fireRebuildEvent();
 		reset();
 	}
 
@@ -748,6 +749,8 @@ public class SpriteAnimator extends Component {
 				// and all equipment is named longer than 0
 				if (sprIndexRow.length() == 1) {
 					sheet = mailImages[mailLevel];
+				} else if (sprIndexRow.indexOf("ZAP") == 0) {
+					sheet = mailImages[4];
 				} else {
 					sheet = EQUIPMENT;
 				}
@@ -939,6 +942,10 @@ public class SpriteAnimator extends Component {
 		int ret = 0;
 		if (n.length() == 1) {
 			ret = ALPHA.indexOf(n);
+		// look for zap palette
+		} else if (n.indexOf("ZAP") == 0) {
+			char nAfterZap = n.charAt(3);
+			ret = ALPHA.indexOf(nAfterZap);
 		} else {
 			switch (n) {
 				case "FSWORD" : // fighter's sword

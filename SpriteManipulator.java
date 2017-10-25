@@ -19,6 +19,24 @@ public abstract class SpriteManipulator {
 			{4,2},{4,3},{5,2},{5,3},{6,2},{6,3},{7,2},{7,3}
 	};
 
+	static final byte[][] ZAPPALETTE = {
+			{ 0, 0, 0},
+			{ 0, 0, 0},
+			{ -48, -72, 24},
+			{ -120, 112, -8},
+			{ 0, 0, 0},
+			{ -48, -64, -8},
+			{ 0, 0, 0},
+			{ -48, -64, -8},
+			{ 112, 88, -32},
+			{ -120, 112, -8},
+			{ 56, 40, -128},
+			{ -120, 112, -8},
+			{ 56, 40, -128},
+			{ 72, 56, -112},
+			{ 120, 48, -96},
+			{ -8, -8, -8}
+	};
 	/**
 	 * Reads a sprite file
 	 * @throws IOException
@@ -186,7 +204,7 @@ public abstract class SpriteManipulator {
 	}
 
 	public static BufferedImage[] makeAllMails(byte[][][] eightbyeight, byte[][] pal) {
-		BufferedImage[] ret = new BufferedImage[4];
+		BufferedImage[] ret = new BufferedImage[5];
 		byte[][] subpal;
 		byte[] raster;
 		for (int i = 0; i < 4; i++) {
@@ -194,6 +212,10 @@ public abstract class SpriteManipulator {
 			raster = makeRaster(eightbyeight,subpal);
 			ret[i] = makeSheet(raster);
 		}
+
+		raster = makeRaster(eightbyeight,ZAPPALETTE);
+		ret[4] = makeSheet(raster);
+
 		return ret;
 	}
 
@@ -206,7 +228,7 @@ public abstract class SpriteManipulator {
 		return ret;
 	}
 
-	private static int unsignByte(byte b) {
+	public static int unsignByte(byte b) {
 		int ret = (b + 256) % 256;
 		return ret;
 	}
