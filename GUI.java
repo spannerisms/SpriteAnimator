@@ -690,7 +690,25 @@ public class GUI {
 		for (int i = 0; i < ALLFRAMES.length; i++) {
 			String r = ALLFRAMES[i];
 			String[] animDataX = r.split("[\\[\\]]");
-			ret[i] = animDataX[1];
+			r = animDataX[1];
+			r = r.replaceAll("(Up|Down|Right|Left)$", "($1)");
+			char r2[] = r.toCharArray();
+			r = "";
+			r += Character.toUpperCase(r2[0]);
+
+			for (int j = 1; j < r2.length; j++) {
+				char c = r2[j];
+				if (Character.isUpperCase(c)) {
+					if (Character.isAlphabetic(r2[j-1])) {
+						r += " ";
+					}
+				} else if (Character.isDigit(c) || (c == '(')) {
+					r += " ";
+				}
+				c = Character.toLowerCase(c);
+				r += c;
+			}
+			ret[i] = r;
 		}
 		return ret;
 	}
