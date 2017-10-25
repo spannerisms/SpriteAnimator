@@ -319,7 +319,7 @@ public class GUI {
 		peepsList.append("\n\nAnimation research:\n\tRyuTech");
 		peepsList.append("\n\nCode contribution:\n");
 		peepsList.append(GUIHelpers.join(new String[]{
-				"MikeTretheway", // God dammit, so being so helpful
+				"MikeTrethewey", // God dammit, stop being so helpful
 				"Zarby89", // spr conversion
 				}, ", "));
 		peepsList.append("\n\nResources and development:\n");
