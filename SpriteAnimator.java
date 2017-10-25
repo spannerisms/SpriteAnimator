@@ -962,6 +962,7 @@ public class SpriteAnimator extends Component {
 					break;
 				case "SHADOW" : // right under butter
 				case "BOOK" :
+				case "PENDANT" :
 					ret = 7;
 					break;
 				case "FSHIELD" : // figher's shield

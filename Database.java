@@ -35,12 +35,12 @@ public abstract class Database {
 	 *		UM  : Mirror along both axes
 	 */
 	public static final String[] ALLFRAMES = {
-			// stand TODO: 100% confirm
-			"[stand]A0{-2,0}{F}{0}:B0{-1,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4",
+			// stand
+			"[stand]A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{5,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 4",
 			// standUp
-			"[standUp]A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4",
+			"[standUp]A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 4",
 			// standDown
-			"[standDown]A1{0,1}{F}{0}:B3{0,9}{F}{0}:SHADOW0{0,7}{F}{0} @ 4",
+			"[standDown]SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4",
 			// walk TODO: 100% confirm
 			"[walk]A0{-1,0}{F}{0}:B0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"A0{-1,-1}{F}{0}:B1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
@@ -60,14 +60,14 @@ public abstract class Database {
 				"A2{0,-2}{F}{0}:T5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
 				"A2{0,0}{F}{0}:T6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ",
 			// walkDown TODO : Check shield
-			"[walkDown]SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
-				"SHIELD0{-4,7}{F}{0}:A1{0,-1}{F}{0}:B5{0,8}{F}{0}:SHADOW0{0,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+			"[walkDown]SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:B4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,7}{F}{0}:A1{0,-1}{F}{0}:B5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
 				"SHIELD0{-4,6}{F}{0}:A1{0,-2}{F}{0}:S5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:S6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
-				"SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:B4{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:S6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
+				"SHIELD0{-4,10}{F}{0}:A1{0,0}{F}{0}:B4{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 2 ;" +
 				"SHIELD0{-4,7}{F}{0}:A1{0,-1}{F}{0}:B5{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 2 ;" +
 				"SHIELD0{-4,6}{F}{0}:A1{0,-2}{F}{0}:S5{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 2 ;" +
-				"SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:S6{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 1 ",
+				"SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:S6{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 1 ",
 			// bonk TODO: 100% confirm
 			"[bonk]F3{0,0}{F}{0}:G3{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
 			// bonkUp TODO: 100% confirm
@@ -249,10 +249,10 @@ public abstract class Database {
 				"A1{0,-3}{F}{0}:B5{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"A1{0,-3}{F}{0}:S5{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"A1{0,-3}{F}{0}:S6{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// salute TODO: 100% confirm
+			// salute
 			"[salute]SWORD1{9,-6}{F}{M}:SHIELD0{-5,9}{F}{0}:A3{0,0}{F}{0}:P4{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// itemGet TODO: 100% confirm
-			"[itemGet]L1{0,0}{F}{0}:L2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// itemGet
+			"[itemGet]PENDANT2{5,-15}{F}{0}:SHIELD1{-5,6}{R}{M}:L1{-1,-1}{F}{0}:L2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
 			// triforceGet
 			"[triforceGet]Z2{0,0}{F}{0}:β4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
 			// readBook
@@ -348,10 +348,10 @@ public abstract class Database {
 				"U0{0,3}{F}{0}:X5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"U0{0,4}{F}{0}:X6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"U0{0,5}{F}{0}:X7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// shovel TODO: 100% confirm
-			"[shovel]B7{0,-1}{F}{0}:D7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{0,0}{F}{0}:F5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{-1,0}{F}{0}:C7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// shovel
+			"[shovel]SHOVEL0{8,15}{F}{0}:B7{-1,-2}{F}{0}:D7{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 8 ;" +
+				"SHOVEL0{12,16}{F}{0}:A0{-1,-1}{F}{0}:F5{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 19 ;" +
+				"A0{-2,-1}{F}{0}:C7{-1,7}{F}{0}:SHOVEL1{-1,-5}{TL}{0}:SHADOW0{0,7}{F}{0} @ 17 ",
 			// boomerang TODO: 100% confirm
 			"[boomerang]S2{0,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"A0{0,-3}{F}{0}:C4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
@@ -479,7 +479,15 @@ public abstract class Database {
 			// hookshotUp TODO: 100% confirm
 			"[hookshotUp]A2{0,-3}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
 			// hookshotDown TODO: 100% confirm
-			"[hookshotDown]A1{0,-3}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			"[hookshotDown]HOOKSHOT0{0,24}{B}{U}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+			"HOOKSHOT0{0,28}{B}{U}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"HOOKSHOT0{0,32}{B}{U}:HOOKSHOT1{4,23}{BL}{0}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"HOOKSHOT0{0,36}{B}{U}:HOOKSHOT1{4,27}{BL}{0}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"HOOKSHOT0{0,32}{B}{U}:HOOKSHOT1{4,23}{BL}{M}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"HOOKSHOT0{0,28}{B}{U}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"HOOKSHOT0{0,24}{B}{U}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"HOOKSHOT0{0,20}{B}{U}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;",
 			// zap TODO: 100% confirm
 			"[zap]S0{0,0}{B}{0}:T0{0,8}{F}{0} @ 2 ;" +
 				"A0{0,0}{E}{0} @ 1 ;" +
