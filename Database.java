@@ -6,13 +6,13 @@ public abstract class Database {
 	 * credit:
 	 * Mike Trethewey
 	 * TWRoxas
-	 * Frame counts by: RyuTech
-	 * format:
+	 * RyuTech
+	 * 
+	 * Format:
 	 * [<ANIMNAME>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>}{<TRANSFORM>}
 	 * : delimits sprites in the same frame
 	 * ; delimits entire frames
 	 * @ at the end of each frame denotes how long it lasts
-	 * Frames defined as "//" copy the previous frame
 	 * SPRITESIZE is a flag determining what part of the sprite to draw from
 	 *		F   : Full 16x16
 	 *		T   : Top 16x8
@@ -68,12 +68,13 @@ public abstract class Database {
 				"SHIELD0{-4,7}{F}{0}:A1{0,-1}{F}{0}:B5{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"SHIELD0{-4,5}{F}{0}:A1{0,-2}{F}{0}:S5{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ = ;" +
 				"SHIELD0{-4,6}{F}{0}:A1{0,0}{F}{0}:S6{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ = ",
-			// bonk TODO: 100% confirm
-			"[bonk]F3{0,0}{F}{0}:G3{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// bonkUp TODO: 100% confirm
-			"[bonkUp]F4{0,0}{F}{0}:G4{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// bonkDown TODO: 100% confirm
-			"[bonkDown]F2{0,0}{F}{0}:G2{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// bonk
+			"[bonk]SWORD0{0,4}{R}{M}:F3{0,0}{F}{0}:G3{0,16}{T}{0}:SHIELD2{-3,5}{F}{0} @ 3 ",
+			// bonkUp
+			"[bonkUp]F4{0,0}{F}{0}:G4{0,16}{T}{0}:SWORD0{-4,0}{R}{M}:SHIELD2{8,3}{F}{0} @ 3 ",
+			// bonkDown
+			"[bonkDown]SHIELD0{-4,6}{F}{0}:F2{0,0}{F}{0}:G2{0,16}{T}{0}:SWORD0{12,1}{R}{0} @ 3 ",
+			// TODO ADD FLAPS
 			// swim
 			"[swim]I7{-3,5}{F}{0}:H5{0,0}{F}{0} @ 8 ;" +
 				"J0{-5,4}{F}{0}:H6{0,0}{F}{0} @ 8 ;" +
@@ -98,28 +99,36 @@ public abstract class Database {
 			// treadingWaterDown
 			"[treadingWaterDown]A1{0,0}{F}{0}:J2{0,7}{F}{0} @ 16 ;" +
 				"A1{0,1}{F}{0}:J2{0,7}{F}{M} @ 16 ",
-			// attack TODO FRAMES EQUIPMENT
-			"[attack]A0{-2,0}{F}{0}:C2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
-				"A0{-2,0}{F}{0}:C3{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"A0{0,0}{F}{0}:C3{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"Z6{10,11}{BL}{0}:A0{0,1}{F}{0}:C4{-1,7}{F}{0}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"Z6{14,11}{BL}{0}:A0{3,1}{F}{0}:Α7{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"Z6{10,11}{BL}{0}:A0{0,1}{F}{0}:C4{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"A0{-1,0}{F,1}{0}:C5{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// attackUp TODO FRAMES EQUIPMENT
-			"[attackUp]F1{0,0}{F}{0}:G1{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 2;" +
-				"A2{0,-1}{F}{0}:D1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
-				"A2{0,-2}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"A2{0,-5}{F}{0}:β1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"A2{0,-2}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"A2{0,0}{F}{0}:L4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// attackDown TODO FRAMES EQUIPMENT
-			"[attackDown]F0{0,0}{F}{0}:G0{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
-				"A1{0,2}{F}{0}:C6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
-				"A4{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"A4{0,4}{F}{0}:β0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"A4{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
-				"A3{0,1}{F}{0}:L3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// attack
+			"[attack]A0{-2,0}{F}{0}:C2{-1,7}{F}{0}:SWORD0{5,-4}{L}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A0{-2,0}{F}{0}:C2{-1,7}{F}{0}:SWORD0{9,-4}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A0{-2,0}{F}{0}:C3{-1,7}{F}{0}:SWORD1{11,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A0{0,0}{F}{0}:C3{-1,7}{F}{0}:SWORD2{14,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"Z6{10,11}{BL}{0}:A0{0,1}{F}{0}:C4{-1,7}{F}{0}{0}:SWORD2{17,0}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"Z6{14,11}{BL}{0}:A0{3,1}{F}{0}:Α7{-1,7}{F}{0}:SWORD3{20,10}{XW}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"Z6{10,11}{BL}{0}:A0{0,1}{F}{0}:C4{-1,7}{F}{0}:SWORD2{16,15}{F}{U}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD5{13,19}{F}{U}:A0{-1,0}{F,1}{0}:C5{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD6{8,20}{F}{U}:A0{-1,0}{F,1}{0}:C5{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ",
+			// attackUp
+			"[attackUp]F1{0,0}{F}{0}:G1{0,16}{T}{0}:SHIELD1{16,6}{R}{0}:SWORD3{12,8}{B}{0}:SHADOW0{0,7}{F}{0} @ 1;" +
+				"F1{0,0}{F}{0}:G1{0,16}{T}{0}:SHIELD1{16,6}{R}{0}:SWORD4{11,5}{B}{0}:SHADOW0{0,7}{F}{0} @ 1;" +
+				"A2{0,-1}{F}{0}:D1{0,8}{F}{0}:SHIELD1{16,4}{R}{0}:SWORD5{9,-7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A2{0,-1}{F}{0}:D1{0,8}{F}{0}:SHIELD1{16,4}{R}{0}:SWORD7{8,-19}{XL}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A2{0,-2}{F}{0}:D2{0,8}{F}{0}:SHIELD1{16,2}{R}{0}:SWORD7{3,-21}{XL}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A2{0,-5}{F}{0}:β1{0,8}{F}{0}:SHIELD1{16,0}{R}{0}:SWORD8{-1,-24}{XT}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"A2{0,-2}{F}{0}:D2{0,8}{F}{0}:SHIELD1{16,3}{R}{0}:SWORD7{-13,-19}{XL}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A2{0,0}{F}{0}:L4{0,8}{F}{0}:SHIELD1{16,4}{R}{0}:SWORD1{-15,-6}{F}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A2{0,0}{F}{0}:L4{0,8}{F}{0}:SHIELD1{16,4}{R}{0}:SWORD2{-16,-2}{F}{M}:SHADOW0{0,7}{F}{0} @ 2 ",
+			// attackDown
+			"[attackDown]SWORD3{-9,10}{B}{M}:F0{0,0}{F}{0}:G0{0,16}{T}{0}:SHIELD1{-7,-1}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD4{-9,14}{B}{UM}:SHIELD1{-7,-1}{R}{M}:F0{0,0}{F}{0}:G0{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD5{-8,17}{F}{UM}:SHIELD1{-7,2}{R}{M}:A1{0,1}{F}{0}:C6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD9{-7,19}{F}{UM}:SHIELD1{-7,2}{R}{M}:A1{0,1}{F}{0}:C6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD9{-3,21}{F}{UM}:SHIELD1{-8,4}{R}{M}:A4{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD8{8,24}{XT}{U}:SHIELD1{-8,6}{R}{M}:A4{0,5}{F}{0}:Β0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"SWORD9{12,19}{F}{U}:SHIELD1{-8,4}{R}{M}:A4{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD1{14,17}{F}{U}:SHIELD1{-8,4}{R}{M}:A3{0,1}{F}{0}:L3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SWORD10{16,7}{F}{U}:SHIELD1{-8,4}{R}{M}:A3{0,1}{F}{0}:L3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ",
 			// dashRelease TODO: 100% confirm
 			"[dashRelease]A0{0,0}{F}{0}:M6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"K3{0,1}{F}{0}:V1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
@@ -266,14 +275,15 @@ public abstract class Database {
 				"A5{0,1}{F}{0}:Q1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 47 ;" +
 				"A5{0,1}{F}{0}:Q0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 47 ;" +
 				"S1{0,0}{B}{0}:T1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 60 ",
-			// fall TODO: 100% confirm
-			"[fall]G0{0,0}{B}{0}:G1{16,0}{BL}{0}:H0{0,8}{F}{0}:H1{16,8}{L}{0} @ 3 ;" +
-				"E5{0,0}{F}{0} @ 3 ;" +
-				"E6{0,0}{F}{0} @ 3 ;" +
-				"H4{0,0}{TR}{0} @ 3 ;" +
-				"H4{0,0}{BR}{0} @ 3 ;" +
-				"G4{0,0}{BR}{0} @ 3 ;" +
-				"G4{0,0}{E}{0} @ 3 ",
+			// fall 
+			"[fall]G0{0,0}{B}{0}:G1{16,0}{BL}{0}:H0{0,8}{F}{0}:H1{16,8}{L}{0} @ 9 ;" +
+				"E5{8,4}{F}{0} @ 10 ;" +
+				"E6{8,4}{F}{0} @ 10 ;" +
+				"H4{12,8}{TR}{0} @ 10 ;" +
+				"H4{12,8}{BR}{0} @ 10 ;" +
+				"G4{12,8}{BR}{0} @ 10 ;" +
+				"G4{0,0}{E}{0} @ 10 ",
+			// TODO ADD PUFFS
 			// grab - Animation is based on input, so use 1 second loop
 			"[grab]A0{0,-1}{F}{0}:X2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 30 ;" +
 				"Z3{-5,0}{F}{0}:Z4{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 30 ",
@@ -283,10 +293,12 @@ public abstract class Database {
 			// grabDown - Animation is based on input, so use 1 second loop
 			"[grabDown]E3{0,3}{F}{0}:X5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 30 ;" +
 				"U0{0,2}{F}{0}:P7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 30 ",
-			// lift TODO: EQUIPMENT FRAMES 
-			"[lift]E2{1,1}{F}{0}:U5{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"U1{-2,1}{F}{0}:U6{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"L6{-2,-1}{F}{0}:O2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// lift
+			"[lift]BUSH3{12,-4}{F}{0}:ITEMSHADOW0{12,5}{F}{0}:E2{1,1}{F}{0}:U5{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 5 ;" +
+				"BUSH3{12,-4}{F}{0}:ITEMSHADOW0{12,5}{F}{0}:U1{-2,1}{F}{0}:U6{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 10 ;" +
+				"BUSH3{9,-7}{F}{0}:ITEMSHADOW0{9,5}{F}{0}:U1{-2,1}{F}{0}:U6{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{4,-10}{F}{0}:ITEMSHADOW0{4,5}{F}{0}:L6{-2,-1}{F}{0}:O2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{-1,12}{F}{0}:L6{-2,-1}{F}{0}:O2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ",
 			// liftUp TODO: 100% CONFIRM EQUIPMENT FRAMES 
 			"[liftUp]U2{0,-3}{F}{0}:U7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"A2{0,-3}{F}{0}:V0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
@@ -295,29 +307,38 @@ public abstract class Database {
 			"[liftDown]U0{0,-3}{F}{0}:U4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"U0{0,-3}{F}{0}:U3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"L5{0,-3}{F}{0}:N7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// carry TODO: EQUIPMENT AND FRAMES
-			"[carry]L6{-2,-1}{F}{0}:O2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"L6{-2,0}{F}{0}:O3{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"L6{-2,1}{F}{0}:O4{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// carryUp TODO: EQUIPMENT FRAMES MIRRORING SECOND HALF
-			"[carryUp]L7{0,0}{F}{0}:O5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"L7{0,1}{F}{0}:O6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"L7{0,2}{F}{0}:O7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// carryDown TODO: EQUIPMENT FRAMES MIRRORING SECOND HALF
-			"[carryDown]L5{0,0}{F}{0}:N7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"L5{0,1}{F}{0}:O0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"L5{0,2}{F}{0}:O1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// treePull TODO: 100% confirm
-			"[treePull]P7{0,-3}{F}{UM}:E7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"N0{0,-3}{F}{0}:A1{0,8}{F}{UM}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"K2{0,-3}{F}{0}:K0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"K1{0,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"F4{0,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"N0{0,-3}{F}{0}:A1{0,8}{F}{UM}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"K2{0,-3}{F}{0}:K0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"K1{0,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// carry
+			"[carry]BUSH3{-1,-12}{F}{0}:L6{-2,-1}{F}{0}:O2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{-1,-11}{F}{0}:L6{-2,0}{F}{0}:O3{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{-1,-10}{F}{0}:L6{-2,1}{F}{0}:O4{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ",
+			// carryUp
+			"[carryUp]BUSH3{0,-11}{F}{0}:L7{0,0}{F}{0}:O5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-10}{F}{0}:L7{0,1}{F}{0}:O6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-9}{F}{0}:L7{0,2}{F}{0}:O7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-11}{F}{0}:L7{0,0}{F}{0}:O5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-10}{F}{0}:L7{0,1}{F}{0}:O6{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-9}{F}{0}:L7{0,2}{F}{0}:O7{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 4 ",
+			// carryDown
+			"[carryDown]BUSH3{0,-11}{F}{0}:L5{0,0}{F}{0}:N7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-10}{F}{0}:L5{0,1}{F}{0}:O0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-9}{F}{0}:L5{0,2}{F}{0}:O1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-11}{F}{0}:L5{0,0}{F}{0}:N7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-10}{F}{0}:L5{0,1}{F}{0}:O0{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"BUSH3{0,-9}{F}{0}:L5{0,2}{F}{0}:O1{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 4 ;",
+			// treePull
+			"[treePull]Y6{0,0}{F}{0}:Z6{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 30 ; " +
+				"P7{0,8}{F}{UM}:E7{0,12}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
+				"N0{0,8}{F}{0}:A1{0,14}{F}{U}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"K2{0,8}{F}{0}:K0{0,12}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"K1{0,11}{F}{0}:β7{8,16}{BR}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"F4{0,0}{F}{0}:G4{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"P7{0,8}{F}{UM}:E7{0,12}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"N0{0,8}{F}{0}:A1{0,14}{F}{U}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"K2{0,8}{F}{0}:K0{0,12}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"K1{0,11}{F}{0}:β7{8,16}{BR}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
 			// throw  TODO: EQUIPMENT FRAMES
-			"[throw]A0{-2,-1}{F}{0}:M6{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+			"[throw]L6{-2,-1}{F}{0}:O2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"A0{-2,-1}{F}{0}:M6{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
 			// throwUp TODO: EQUIPMENT FRAMES
 			"[throwUp]A2{0,0}{F}{0}:M3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
@@ -356,33 +377,73 @@ public abstract class Database {
 			"[shovel]SHOVEL0{8,15}{F}{0}:B7{-1,-2}{F}{0}:D7{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 8 ;" +
 				"SHOVEL0{12,16}{F}{0}:A0{-1,-1}{F}{0}:F5{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 19 ;" +
 				"A0{-2,-1}{F}{0}:C7{-1,7}{F}{0}:SHOVEL1{-1,-5}{TL}{0}:SHADOW0{0,7}{F}{0} @ 17 ",
-			// boomerang TODO: 100% confirm
-			"[boomerang]S2{0,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{0,-3}{F}{0}:C4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{0,-3}{F}{0}:B0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// boomerangUp TODO: 100% confirm
-			"[boomerangUp]R2{0,-3}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:Q6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:C1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// boomerangDown TODO: 100% confirm
-			"[boomerangDown]A1{0,-3}{F}{0}:Q5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A1{0,-3}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A1{0,-3}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// rod TODO: 100% confirm
-			"[rod]G2{0,0}{BR}{0}:G3{8,0}{BL}{0}:H2{0,8}{R}{0}:H3{8,8}{L}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{0,-3}{F}{0}:N4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// rodUp TODO: 100% confirm
-			"[rodDown]G3{0,-3}{BR}{0}:G4{8,0}{BL}{0}:H3{0,8}{R}{0}:H4{8,8}{L}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A1{0,-3}{F}{0}:N6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A1{0,-3}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// rodDown TODO: 100% confirm
-			"[rodUp]G1{0,-3}{BR}{0}:G2{8,0}{BL}{0}:H1{0,8}{R}{0}:H2{8,8}{L}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,-3}{F}{0}:N5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// boomerang
+			"[boomerang]BOOMERANG2{-8,-3}{F}{0}:S2{-1,-1}{B}{0}:T2{-1,7}{F}{0}:SHIELD1{13,1}{R}{0}:SHADOW0{0,7}{F}{0} @ 8 ;" +
+				"BOOMERANG2{10,6}{F}{0}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,5}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{12,6}{F}{0}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,5}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{14,6}{F}{0}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,5}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{16,8}{F}{U}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,5}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{18,8}{F}{U}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,5}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{20,8}{F}{U}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,5}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{22,8}{F}{U}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{18,8}{F}{UM}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{16,8}{F}{UM}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{14,8}{F}{UM}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{12,8}{F}{UM}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{10,6}{F}{M}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{8,6}{F}{M}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{6,6}{F}{M}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{4,6}{F}{M}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{13,2}{R}{0}:SHADOW0{0,7}{F}{0} @ 1 ",
+			// boomerangUp
+			"[boomerangUp]BOOMERANG2{-9,-3}{F}{0}:R2{0,0}{F}{0}:S2{0,16}{T}{0}:SHIELD2{5,4}{F}{0}:SHADOW0{0,7}{F}{0} @ 7 ;" +
+				"BOOMERANG2{1,-11}{F}{0}:SHIELD1{15,4}{R}{0}:A2{0,0}{F}{0}:Q6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,-13}{F}{0}:SHIELD1{15,4}{R}{0}:A2{0,0}{F}{0}:Q6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,-15}{F}{0}:SHIELD1{15,4}{R}{0}:A2{0,0}{F}{0}:Q6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-17}{F}{M}:SHIELD1{15,4}{R}{0}:A2{0,0}{F}{0}:Q6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-19}{F}{M}:SHIELD1{15,4}{R}{0}:A2{0,0}{F}{0}:Q6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-21}{F}{M}:SHIELD1{15,4}{R}{0}:A2{0,0}{F}{0}:Q6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-19}{F}{M}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-15}{F}{UM}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-13}{F}{UM}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-11}{F}{UM}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,-9}{F}{UM}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,-7}{F}{U}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 " +
+				"A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,3}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ",
+			// boomerangDown
+			"[boomerangDown]BOOMERANG2{10,-1}{F}{M}:SHIELD0{-4,9}{F}{0}:A1{0,1}{F}{0}:Q5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 7 ;" +
+				"BOOMERANG2{-1,15}{F}{M}:SHIELD1{-8,5}{R}{M}:A1{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,17}{F}{M}:SHIELD1{-8,5}{R}{M}:A1{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,19}{F}{M}:SHIELD1{-8,5}{R}{M}:A1{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,23}{F}{UM}:SHIELD1{-8,5}{R}{M}:A1{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,25}{F}{UM}:SHIELD1{-8,5}{R}{M}:A1{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,27}{F}{UM}:SHIELD1{-8,5}{R}{M}:A1{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,29}{F}{UM}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,31}{F}{U}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,29}{F}{U}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,27}{F}{U}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,25}{F}{U}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,21}{F}{0}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,19}{F}{0}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{1,17}{F}{0}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"BOOMERANG2{-1,13}{F}{M}:SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
+				"SHIELD0{-4,7}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ",
+			// rod
+			"[rod]ROD0{6,-4}{L}{0}:G2{-1,-1}{BR}{0}:G3{7,-1}{BL}{0}:H2{-1,7}{R}{0}:H3{7,7}{L}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"ROD2{10,0}{F}{0}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"ROD1{10,13}{T}{0}:A0{-1,0}{F}{0}:N4{-1,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 6 ;",
+			// rodUp
+			"[rodUp]ROD0{-2,-9}{R}{0}:G3{0,0}{BR}{0}:G4{8,0}{BL}{0}:H3{0,8}{R}{0}:H4{8,8}{L}{0}:SHIELD1{15,4}{R}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"SHIELD1{15,3}{R}{0}:A2{0,-1}{F}{0}:D2{0,8}{F}{0}:ROD0{-2,-4}{L}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"SHIELD1{15,3}{R}{0}:A2{0,-1}{F}{0}:N5{0,8}{F}{0}:ROD3{-2,-2}{L}{0}:SHADOW0{0,7}{F}{0} @ 6 ",
+			// rodDown
+			"[rodDown]ROD0{10,-4}{L}{0}:SHIELD1{-8,5}{R}{M}:G1{0,0}{BR}{0}:G2{8,0}{BL}{0}:H1{0,8}{R}{0}:H2{8,8}{L}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"ROD1{10,10}{BL}{0}:SHIELD1{-8,5}{R}{M}:A3{0,1}{F}{0}:N6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"ROD0{9,19}{R}{U}:SHIELD1{-8,5}{R}{M}:A3{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 6 ",
 			// hammer
-			"[hammer]HAMMER0{7,-4}{L}{0}:G2{0,-1}{BR}{0}:G3{8,-1}{BL}{0}:H2{0,7}{R}{0}:H3{8,7}{L}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"HAMMER3{11,0}{F}{0}:A0{0,0}{F}{0}:C4{0,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"HAMMER2{12,13}{T}{0}:A0{0,0}{F}{0}:N4{0,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 18 ",
+			"[hammer]HAMMER0{7,-4}{L}{0}:G2{0,-1}{BR}{0}:G3{8,-1}{BL}{0}:H2{0,7}{R}{0}:H3{8,7}{L}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
+				"HAMMER3{11,0}{F}{0}:A0{0,0}{F}{0}:C4{0,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"HAMMER2{12,13}{T}{0}:A0{0,0}{F}{0}:N4{0,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 18 ",
 			// hammerUp
 				"[hammerUp]HAMMER1{-2,-8}{L}{0}:G3{0,0}{BR}{0}:G4{8,1}{BL}{0}:H3{0,8}{R}{0}:H4{8,8}{L}{0}:SHIELD1{15,4}{R}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
 				"A2{0,-1}{F}{0}:D2{0,8}{F}{0}:HAMMER0{-2,-4}{R}{0}:SHIELD1{15,3}{R}{0}:SHADOW0{0,7}{F}{0} @ 5 ;" +
@@ -391,21 +452,21 @@ public abstract class Database {
 			"[hammerDown]HAMMER0{10,-2}{R}{0}:SHIELD1{-8,5}{R}{M}:G1{0,0}{BR}{0}:G2{8,0}{BL}{0}:H1{0,8}{R}{0}:H2{8,8}{L}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
 				"HAMMER2{10,10}{BL}{0}:SHIELD1{-8,5}{R}{M}:A3{0,1}{F}{0}:N6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 5 ;" +
 				"HAMMER1{9,18}{L}{U}:SHIELD1{-8,5}{R}{M}:A3{0,2}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 18 ",
-			// powder TODO: 100% confirm0
-			"[powder]A0{0,1}{F}{0}:C2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{0,1}{F}{0}:C3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{0,1}{F}{0}:C4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{0,1}{F}{0}:C5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// powderUp TODO: 100% confirm
-			"[powderUp]F1{0,0}{F}{0}:G1{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,0}{F}{0}:D1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,-1}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,0}{F}{0}:L4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// powderDown TODO: 100% confirm
-			"[powderDown]F0{0,0}{F}{0}:G0{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A1{0,1}{F}{0}:C6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A3{0,1}{F}{0}:L3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// powder
+			"[powder]A0{-2,0}{F}{0}:C2{-1,7}{F}{0}:SHIELD2{-2,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 5 ;" +
+				"A0{-2,0}{F}{0}:C3{-1,7}{F}{0}:SHIELD2{-2,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 6 ;" +
+				"A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 6 ;" +
+				"A0{-2,0}{F}{0}:C5{-1,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 13 ",
+			// powderUp
+			"[powderUp]SHIELD0{6,10}{F}{0}:F1{0,0}{F}{0}:G1{0,16}{T}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"SHIELD0{8,6}{F}{0}:A2{0,0}{F}{0}:D1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 6 ;" +
+				"A2{0,-1}{F}{0}:D2{0,8}{F}{0}:SHIELD1{16,4}{R}{0}:SHADOW0{0,7}{F}{0} @ 6 ;" +
+				"A2{0,0}{F}{0}:L4{0,8}{F}{0}:SHIELD1{16,4}{R}{0}:SHADOW0{0,7}{F}{0} @ 13 ",
+			// powderDown
+			"[powderDown]F0{0,0}{F}{0}:G0{0,16}{T}{0}:SHIELD2{-5,-1}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"A1{0,1}{F}{0}:C6{0,8}{F}{0}:SHIELD2{-7,1}{F}{0}:SHADOW0{0,7}{F}{0} @ 6 ;" +
+				"A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 6 ;" +
+				"A3{0,1}{F}{0}:L3{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 13 ",
 			// cane TODO: 100% confirm
 			"[cane]A0{0,-3}{F}{0}:I2{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 3 ;" +
 				"L1{0,-3}{F}{0}:O2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
@@ -426,8 +487,8 @@ public abstract class Database {
 			// bowUp
 			"[bowUp]A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ; " +
 				"A2{0,0}{F}{0}:C1{0,8}{F}{0}:BOW0{-3,5}{L}{M}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,1}{F}{0}:M4{0,8}{F}{0}:BOW1{-5,8}{T}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"A2{0,0}{F}{0}:P5{0,8}{F}{0}:BOW1{-5,8}{T}{0}:SHADOW0{0,7}{F}{0} @ 9 ",
+				"A2{0,1}{F}{0}:M4{0,8}{F}{0}:BOW1{-5,2}{T}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"A2{0,0}{F}{0}:P5{0,8}{F}{0}:BOW1{-5,2}{T}{0}:SHADOW0{0,7}{F}{0} @ 9 ",
 			// bowDown
 			"[bowDown]A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ; " +
 				"BOW0{10,9}{L}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ; " +
@@ -442,10 +503,10 @@ public abstract class Database {
 				"SWORD4{-11,16}{B}{UM}:SHIELD1{-6,3}{R}{M}:A0{1,0}{F}{M}:M6{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 6 ;" +
 				"A2{0,0}{F}{0}:M3{0,8}{F}{0}:SHIELD2{5,2}{F}{0}:SWORD0{1,-6}{L}{0}:SHADOW0{0,7}{F}{0} @ 6 ;" +
 				"SHIELD1{14,3}{R}{0}:SWORD4{11,16}{B}{U}:A0{-1,0}{F}{0}:M6{0,8}{F}{0}SHADOW0{0,7}{F}{0} @ 6 ;" +
-				"SWORD0{14,-3}{R}{0}:SHIELD0{-5,8}{F}{0}:A1{0,0}{F}{0}:P3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"SHIELD0{-5,8}{F}{0}:A1{0,0}{F}{0}:P4{0,8}{F}{M}:SWORD0{12,-6}{L}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"SHIELD0{-5,8}{F}{0}:A1{0,0}{F}{0}:P4{0,8}{F}{M}:SWORD0{8,-7}{R}{M}:SHADOW0{0,7}{F}{0} @ 20 ;" +
-				"SWORD0{14,-3}{R}{0}:SHIELD0{-5,8}{F}{0}:A1{0,0}{F}{0}:P3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
+				"SWORD0{14,-3}{R}{0}:SHIELD0{-5,2}{F}{0}:A1{0,0}{F}{0}:P3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"SHIELD0{-5,2}{F}{0}:A1{0,0}{F}{0}:P4{0,8}{F}{M}:SWORD0{12,-6}{L}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"SHIELD0{-5,2}{F}{0}:A1{0,0}{F}{0}:P4{0,8}{F}{M}:SWORD0{8,-7}{R}{M}:SHADOW0{0,7}{F}{0} @ 20 ;" +
+				"SWORD0{14,-3}{R}{0}:SHIELD0{-5,2}{F}{0}:A1{0,0}{F}{0}:P3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
 				"SWORD3{16,10}{B}{0}:SHIELD1{-8,5}{R}{M}:A1{0,1}{F}{0}:L3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
 				"SWORD4{16,15}{B}{U}:SHIELD1{-8,5}{R}{M}:A1{0,1}{F}{0}:A1{0,1}{F}{0}:L3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
 				"SWORD5{14,17}{F}{U}:SHIELD1{-8,5}{R}{M}:A1{0,1}{F}{0}:L3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 2 ;" +
@@ -487,7 +548,7 @@ public abstract class Database {
 				"HOOKSHOT1{14,7}{R}{0}:HOOKSHOT0{14,11}{TL}{0}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
 				"HOOKSHOT1{10,7}{R}{0}:HOOKSHOT0{14,11}{TL}{0}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ;" +
 				"HOOKSHOT0{14,11}{TL}{0}:A0{-1,0}{F}{0}:C4{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 1 ",
-			// hookshotUp
+			// hookshotUp TODO: 100% CONFIRM
 			"[hookshotUp]A2{0,-3}{F}{0}:D2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
 			// hookshotDown
 			"[hookshotDown]HOOKSHOT0{0,24}{B}{U}:HOOKSHOT0{4,17}{TR}{0}:A3{0,1}{F}{0}:D0{0,8}{F}{0}:SHIELD1{-8,5}{R}{M}:SHADOW0{0,7}{F}{0} @ 1 ;" +
@@ -646,10 +707,10 @@ public abstract class Database {
 				"A0{-1,0}{F}{0}:B0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 6 ;" +
 				"E2{2,0}{F}{0}:J5{0,8}{R}{0}:J6{8,8}{L}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
 				"J6{1,8}{R}{0}:J7{9,8}{F}{0} @ 60 ",
-			// poke TODO: SHIELD?
-			"[poke]SWORD3{12,14}{B}{0}:A0{-2,0}{F}{0}:N2{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"SWORD3{16,11}{B}{0}:A0{0,1}{F}{0}:F6{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
-				"SWORD3{8,8}{B}{0}:A0{-2,0}{F}{0}:N3{-1,7}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ",
+			// poke
+			"[poke]SWORD3{12,13}{B}{0}:A0{-2,0}{F}{0}:N2{-1,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"SWORD3{16,11}{B}{0}:A0{0,1}{F}{0}:F6{-1,7}{F}{0}:SHIELD2{0,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
+				"SWORD3{8,8}{B}{0}:A0{-2,0}{F}{0}:N3{-1,7}{F}{0}:SHIELD2{-1,2}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ",
 			// pokeUp
 			"[pokeUp]A2{0,0}{F}{0}:L4{0,8}{F}{0}:SWORD0{-2,-4}{L}{0}:SHIELD1{16,5}{R}{0}:SHADOW0{0,7}{F}{0} @ 4; " +
 				"E4{0,0}{F}{0}:D2{0,8}{F}{0}:SWORD0{2,-8}{R}{0}:SHIELD1{16,3}{R}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
@@ -658,20 +719,24 @@ public abstract class Database {
 			"[pokeDown]SWORD0{11,13}{L}{U}:SHIELD1{-8,5}{R}{M}:A1{0,1}{F}{0}:N1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4 ;" +
 				"SWORD0{7,20}{R}{UM}:SHIELD1{-8,6}{R}{M}:E3{0,2}{F}{0}:G7{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4; " +
 				"SWORD0{11,17}{L}{U}:SHIELD1{-8,5}{R}{M}:A1{0,1}{F}{0}:N1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 4",
-			// tallGrass TODO: 100% confirm
-			"[tallGrass]A0{-1,0}{F}{0}:B0{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{-1,1}{F}{0}:V1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A0{-1,2}{F}{0}:V2{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// tallGrassUp TODO: 100% confirm
-			"[tallGrassUp]A2{0,1}{F}{0}:V5{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,2}{F}{0}:V6{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,1}{F}{0}:D4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A2{0,2}{F}{0}:M5{0,8}{F}{M}:SHADOW0{0,7}{F}{0} @ 3 ",
-			// tallGrassDown TODO: 100% confirm
-			"[tallGrassDown]A1{0,0}{F}{0}:B3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A1{0,1}{F}{0}:V3{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ;" +
-				"A1{0,2}{F}{0}:V4{0,8}{F}{0}:SHADOW0{0,7}{F}{0} @ 3 ",
+			// tallGrass
+			"[tallGrass]GRASS0{-1,15}{T}{0}:A0{-2,-1}{F}{0}:B0{-1,7}{F}{0}:SHIELD1{5,2}{F}{0} @ 3 ;" +
+				"GRASS0{-1,15}{B}{0}:A0{-2,0}{F}{0}:V1{-1,7}{F}{0}:SHIELD1{5,3}{F}{0} @ 3 ;" +
+				"GRASS1{-1,15}{T}{0}:A0{-2,1}{F}{0}:V2{-1,7}{F}{0}:SHIELD1{5,4}{F}{0} @ 3 ",
+			// tallGrassUp
+			"[tallGrassUp]GRASS0{0,16}{T}{0}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,2}{F}{0} @ 4 ;" +
+				"GRASS0{0,16}{B}{0}:A2{0,1}{F}{0}:V5{0,8}{F}{0}:SHIELD2{5,3}{F}{0} @ 4 ;" +
+				"GRASS1{0,16}{T}{0}:A2{0,2}{F}{0}:V6{0,8}{F}{0}:SHIELD2{5,4}{F}{0} @ 4 ;" +
+				"GRASS0{0,16}{T}{0}:A2{0,0}{F}{0}:C1{0,8}{F}{0}:SHIELD2{5,2}{F}{0} @ 4 ;" +
+				"GRASS0{0,16}{B}{0}:A2{0,1}{F}{0}:D4{0,8}{F}{0}:SHIELD2{5,3}{F}{0} @ 4 ;" +
+				"GRASS1{0,16}{T}{0}:A2{0,2}{F}{0}:M5{0,8}{F}{M}:SHIELD2{5,4}{F}{0} @ 4 ",
+			// tallGrassDown
+			"[tallGrassDown]GRASS0{0,16}{T}{0}:SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0} @ 4 ;" +
+				"GRASS0{0,16}{B}{0}:SHIELD0{-4,9}{F}{0}:A1{0,1}{F}{0}:V3{0,8}{F}{0} @ 4 ;" +
+				"GRASS0{0,16}{T}{0}:SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0} @ 4 ;" +
+				"GRASS0{0,16}{T}{0}:SHIELD0{-4,8}{F}{0}:A1{0,0}{F}{0}:B3{0,8}{F}{0} @ 4 ;" +
+				"GRASS0{0,16}{B}{0}:SHIELD0{-4,9}{F}{0}:A1{0,1}{F}{0}:V3{0,8}{F}{M} @ 4 ;" +
+				"GRASS1{0,16}{T}{0}:SHIELD0{-4,10}{F}{0}:A1{0,2}{F}{0}:V4{0,8}{F}{0M} @ 4 " +
 			// mapDungeon
 			"[mapDungeon]K7{0,0}{F}{0} @ 3 ",
 			// mapWorld
