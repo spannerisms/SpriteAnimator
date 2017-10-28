@@ -34,6 +34,7 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import SpriteAnimator.Listeners.*;
+import SpriteManipulator.SpriteManipulator;
 
 public class GUI {
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
@@ -288,20 +289,18 @@ public class GUI {
 		c.gridx = 2;
 		controls.add(frameMax, c);
 
-		// step
-		final JButton stepBtn = new JButton("Step");
-		stepBtn.setEnabled(false);
-		c.gridwidth = 3;
-		c.gridy++;
-		c.gridx = 0;
-		controls.add(stepBtn, c);
-
-		// reset
-		c.gridwidth = 3;
-		c.gridy++;
-		c.gridx = 0;
+		// play step reset
+		final JButton playBtn = new JButton("Play");
+		final JButton stepBtn = new JButton("--");
 		final JButton resetBtn = new JButton("Reset");
-		controls.add(resetBtn, c);
+		c.gridwidth = 1;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(playBtn, c);
+		c.gridx = 1;
+		controls.add(stepBtn,c);
+		c.gridx = 2;
+		controls.add(resetBtn,c);
 		// control panel done
 
 		// Credits
@@ -310,16 +309,16 @@ public class GUI {
 		final TextArea peepsList = new TextArea("", 0,0,TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
-		peepsList.append("\n\nFrame resources:\n");
+		peepsList.append("\n\nAnimation research:\n");
 		peepsList.append("http://alttp.mymm1.com/sprites/includes/animations.txt\n");
 		peepsList.append(GUIHelpers.join(new String[]{
-				"\tMikeTrethewey", // it's mike
-				"TWRoxas", // provided most valuable documentation
-				}, ", "));// forced me to do this and falls in every category
-		peepsList.append("\n\nAnimation research:\n\tRyuTech");
+				"MikeTrethewey", // it's mike
+				"TWRoxas", // helped mike with his site
+				}, ", "));
+		peepsList.append("\nRyuTech");
 		peepsList.append("\n\nCode contribution:\n");
 		peepsList.append(GUIHelpers.join(new String[]{
-				"MikeTrethewey", // God dammit, stop being so helpful
+				"MikeTretheway", // God dammit, so being so helpful
 				"Zarby89", // spr conversion
 				}, ", "));
 		peepsList.append("\n\nResources and development:\n");
@@ -437,12 +436,26 @@ public class GUI {
 		// listen for mode changes
 		run.addModeListener(new ModeListener() {
 			public void eventReceived(ModeEvent arg0) {
-				stepBtn.setEnabled(btnAllowed("step", run.getMode()));
-				slowerBtn.setEnabled(btnAllowed("speed", run.getMode()));
-				fasterBtn.setEnabled(btnAllowed("speed", run.getMode()));
-				if (!btnAllowed("speed", run.getMode())) {
+				int mode = run.getMode();
+				stepBtn.setEnabled(btnAllowed("step", mode));
+				slowerBtn.setEnabled(btnAllowed("speed", mode));
+				fasterBtn.setEnabled(btnAllowed("speed", mode));
+				if (!btnAllowed("speed", mode)) {
 					speedLevel.setText("");
 				}
+				String stepWord;
+				switch (mode) {
+					case 0 :
+						stepWord = "Pause";
+						break;
+					case 1 :
+					default :
+						stepWord = "Step";
+						break;
+				}
+				stepBtn.setText(stepWord);
+				modeOptions.setSelectedIndex(mode);
+				playBtn.setEnabled(!run.isRunning());
 			}
 		});
 
@@ -499,7 +512,7 @@ public class GUI {
 				// read the file
 				byte[] sprite;
 				try {
-					sprite = SpriteManipulator.readSprite(fileName.getText());
+					sprite = SpriteManipulator.readFile(fileName.getText());
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
@@ -553,7 +566,6 @@ public class GUI {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					run.setMode(modeOptions.getSelectedIndex());
-					run.reset();
 				} catch (Exception e) {
 					// do nothing
 				}
@@ -581,6 +593,25 @@ public class GUI {
 				run.slower();
 			}});
 
+		// play button
+		playBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				run.setMode(0);
+			}});
+
+		// step button
+		stepBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				switch (run.getMode()) {
+					case 0 :
+						run.pause();
+						break;
+					case 1 :
+						run.step();
+						break;
+				}
+			}});
+
 		// reset button
 		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -590,12 +621,6 @@ public class GUI {
 				} catch (Exception e) {
 					// do nothing
 				}
-			}});
-
-		// step button
-		stepBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				run.step();
 			}});
 
 		// item toggle
@@ -663,10 +688,10 @@ public class GUI {
 			// step button
 			case "step" : {
 				switch (mode) {
-					case 0 :
 					case 2 :
 						allowed = false;
 						break;
+					case 0 :
 					case 1 :
 						allowed = true;
 						break;

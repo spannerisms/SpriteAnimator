@@ -1,8 +1,11 @@
 package SpriteAnimator;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -30,7 +33,7 @@ public class SpriteAnimator extends Component {
 
 	// Almost the length of a frame at 60 FPS
 	// 1/60 approx. 16.66666...
-	public static final int FPS = 16;
+	public static final int FPS = 17;
 
 	// used for parsing frame data
 	static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZαβ"
@@ -39,9 +42,9 @@ public class SpriteAnimator extends Component {
 	// equipment names and prefixes
 	static final String[] EQUIPNAMES = {
 			"CANE", "BYRNA", "SOMARIA", "BLOCK", "SPARKLE",
-			"ROD", "FIREROD", "ICEROD", "POWDER",
-			"HAMMER", "NET", "HOOKSHOT", "BOOMERANG",
-			"BOW", "BOOK", "PENDANT", "SHOVEL", "BED"
+			"ROD", "FIREROD", "ICEROD", "POWDER", "ITEMSHADOW",
+			"HAMMER", "NET", "HOOKSHOT", "BOOMERANG", "BUSH",
+			"BOW", "BOOK", "PENDANT", "SHOVEL", "BED", "DUCK"
 	};
 
 	// fighter, fighter, master, tempered, butter
@@ -85,7 +88,7 @@ public class SpriteAnimator extends Component {
 	public SpriteAnimator() {
 		anime = 0;
 		speed = 0;
-		mode = 0;
+		mode = 1;
 		frame = 0;
 		maxFrame = 0;
 		makeAnimationFrames();
@@ -155,7 +158,9 @@ public class SpriteAnimator extends Component {
 	 */
 	public void setMode(int m) {
 		mode = m;
-		reset();
+		setRunning();
+		adjustTimer();
+		fireModeEvent();
 	}
 
 	/**
@@ -168,7 +173,7 @@ public class SpriteAnimator extends Component {
 		if (frame >= maxFrame) {
 			if (mode == 2) {
 				frame = maxFrame-1;
-				setRunning(false);
+				running = false;
 			} else {
 				frame = 0;
 			}
@@ -176,6 +181,8 @@ public class SpriteAnimator extends Component {
 		repaint();
 		fireStepEvent();
 		adjustTimer();
+		//TODO REMOVE DEBUG
+		//this.requestFocus();
 	}
 
 	/**
@@ -183,29 +190,32 @@ public class SpriteAnimator extends Component {
 	 */
 	public void reset() {
 		try {
-			tick.cancel();
-			tick = new Timer();
+			resetTimer();
 		} catch(Exception e) {};
 		switch (mode) {
 			case 0 :
-				setRunning(true);
+				setRunning();
 				resetFrame();
-				resetSpeed();
 				break;
 			case 1 :
-				setRunning(false);
+				setRunning();
 				resetFrame();
 				break;
 			case 2 :
-				setRunning(true);
+				setRunning();
 				resetFrame();
-				resetSpeed();
 				break;
 		}
 		fireModeEvent();
 		repaint();
 	}
 
+	/**
+	 * Set mode to 1, allowing stepwise animation
+	 */
+	public void pause() {
+		setMode(1);
+	}
 	/**
 	 * Remakes animation when we need to add new images to the sprite
 	 */
@@ -214,7 +224,14 @@ public class SpriteAnimator extends Component {
 		makeAnimationFrames();
 		reset();
 	}
-	
+	/**
+	 * Reset the timer
+	 */
+	private void resetTimer() {
+		tick.cancel();
+		tick = new Timer();
+		fireSpeedEvent();
+	}
 	/**
 	 * Fires every event to refresh the GUI.
 	 */
@@ -228,6 +245,7 @@ public class SpriteAnimator extends Component {
 	/**
 	 * Reset speed to 0
 	 */
+	@SuppressWarnings("unused")
 	private void resetSpeed() {
 		setSpeed(0);
 	}
@@ -244,10 +262,29 @@ public class SpriteAnimator extends Component {
 	/**
 	 * Control self-animation permission
 	 */
-	private void setRunning(boolean r) {
-		running = r;
+	private void setRunning() {
+		switch (mode) {
+			case 0 :
+				running = true;
+				break;
+			case 1 :
+				running = false;
+				break;
+			case 2 :
+				running = true;
+				break;
+		}
+		if (running) {
+			resetTimer();
+		}
 	}
 
+	/**
+	 * Get run status
+	 */
+	public boolean isRunning() {
+		return running;
+	};
 	/**
 	 * Increments step speed by 1.
 	 */
@@ -741,9 +778,9 @@ public class SpriteAnimator extends Component {
 
 				// sprite sheet and index
 				String sprIndex = spriteSplit[0];
-				String sprIndexRow = sprIndex.substring(0, sprIndex.length()-1);
+				String sprIndexRow = stopAtNumber(sprIndex);
 				int sprIndexRowVal = getIndexRow(sprIndexRow);
-				char sprIndexCol = sprIndex.charAt(sprIndex.length()-1);
+				String sprIndexCol = sprIndex.substring(sprIndexRow.length());
 
 				// assume 1 character rows are always link
 				// and all equipment is named longer than 0
@@ -763,8 +800,15 @@ public class SpriteAnimator extends Component {
 				int drawYoffset, drawXoffset, width, height;
 
 				// sprite size and transformation
-				String sprSize = spriteSplit[2];
-				String sprTrans = spriteSplit[3];
+				String[] sprSizeAndTrans = spriteSplit[2].split(",");
+				String sprSize = sprSizeAndTrans[0];
+				String sprTrans;
+
+				if (sprSizeAndTrans.length == 1) {
+					sprTrans = "0";
+				} else {
+					sprTrans = sprSizeAndTrans[1];
+				}
 
 				// determine offset from initial position
 				switch (sprSize) {
@@ -871,6 +915,7 @@ public class SpriteAnimator extends Component {
 						spreet = flipV(spreet);
 						break;
 					case "UM" :
+					case "MU" :
 						spreet = flipH(spreet);
 						spreet = flipV(spreet);
 						break;
@@ -879,9 +924,11 @@ public class SpriteAnimator extends Component {
 						break;
 				}
 				// put it in backwards to preserve draw order
-				sprList[spriteCount-1-j] = new Sprite(spreet, xpos, ypos);
+				sprList[spriteCount-1-j] = new Sprite(spreet, xpos, ypos, sprIndex, sprSize, sprTrans);
 			}
 		}
+		
+
 	}
 
 	// transformations
@@ -898,6 +945,7 @@ public class SpriteAnimator extends Component {
 	private static BufferedImage flipH(BufferedImage image){
 		return flip(image, false);
 	}
+
 
 	/**
 	 * Flips an image vertically if the second argument is <b>true<b>
@@ -961,8 +1009,10 @@ public class SpriteAnimator extends Component {
 					ret = 6;
 					break;
 				case "SHADOW" : // right under butter
+				case "ITEMSHADOW" :
 				case "BOOK" :
 				case "PENDANT" :
+				case "BUSH" :
 					ret = 7;
 					break;
 				case "FSHIELD" : // figher's shield
@@ -998,10 +1048,14 @@ public class SpriteAnimator extends Component {
 					ret = 16;
 					break;
 				case "SHOVEL" : // *plays minigame music*
+				case "DUCK" : // mostly for mike
 					ret = 17;
 					break;
 				case "BED" : // this big fucker
 					ret = 18;
+					break;
+				case "GRASS" : // effects
+					ret = 20;
 					break;
 			}
 		}
