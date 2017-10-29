@@ -63,7 +63,7 @@ public class SpriteAnimator extends Component {
 	private int frame;
 	private int maxFrame;
 	private boolean running;
-	private int zoom = 5;
+	private int zoom = 3;
 	private Anime[] frames = null;
 	private Timer tick;
 	private TimerTask next;
