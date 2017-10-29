@@ -354,7 +354,8 @@ public abstract class Database {
 				"BUSH3{0,5}{F}:J5{-8,5}{BL}:J5{16,5}{BL,M}:U0{0,3}{F}:U4{0,8}{F}:SHADOW0{0,7}{F} @ 7 ;" +
 				"BUSH3{0,5}{F}:J5{-10,8}{BL,U}:J5{18,8}{BL,UM}:U0{0,3}{F}:U4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"BUSH3{0,-5}{F}:J5{-10,8}{BL,U}:J5{18,8}{BL,UM}:U0{0,3}{F}:U4{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"BUSH3{0,-17}{F}:L5{0,0}{F}:N7{0,8}{F}:SHADOW0{0,7}{F} @ 30 ",
+				"BUSH3{0,-17}{F}:L5{0,0}{F}:N7{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"BUSH3{0,-11}{F}:L5{0,0}{F}:N7{0,8}{F}:SHADOW0{0,7}{F} @ 30 ",
 			// carry
 			"[carry]BUSH3{-1,-12}{F}:L6{-2,-1}{F}:O2{-1,7}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"BUSH3{-1,-11}{F}:L6{-2,0}{F}:O3{-1,7}{F}:SHADOW0{0,7}{F} @ 4 ;" +
