@@ -24,7 +24,8 @@ public abstract class Backgrounds {
 		"Mothula",
 		"Houlihan",
 		"Tile room",
-		"Spike cave"
+		"Spike cave",
+		"Super Mario World" // Added for RyuTech
 	};
 
 	/**
