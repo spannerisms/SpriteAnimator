@@ -105,7 +105,7 @@ public class GUI {
 		final JPanel loadWrap = new JPanel(new BorderLayout());
 		loadWrap.setBorder(fullPad);
 		final JTextField fileName = new JTextField("");
-		final JButton loadBtn = new JButton("Load Sprite");
+		final JButton loadBtn = new JButton("Load sprite");
 
 		loadWrap.add(loadBtn,BorderLayout.EAST);
 		loadWrap.add(fileName,BorderLayout.CENTER);
@@ -472,7 +472,7 @@ public class GUI {
 		// file explorer
 		final JFileChooser explorer = new JFileChooser();
 		FileNameExtensionFilter sprFilter =
-				new FileNameExtensionFilter("ALttP Sprite files", new String[] { "spr" });
+				new FileNameExtensionFilter("ALttP sprite files", new String[] { "spr" });
 		explorer.setAcceptAllFileFilterUsed(false);
 		explorer.setFileFilter(sprFilter);
 
