@@ -448,7 +448,7 @@ public abstract class Database {
 				"K2{0,8}{F}:K0{0,12}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"K1{0,11}{F}:β7{8,16}{BR}:SHADOW0{0,7}{F} @ 3 ",
 			// salute
-			"[salute]SWORD1{9,-6}{F,M}:SHIELD0{-5,9}{F}:A3{0,0}{F}:P4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ",
+			"[salute]SWORD0{11,-7}{R}:SHIELD0{-5,9}{F}:A3{0,0}{F}:P4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ",
 			// itemGet
 			"[itemGet]PENDANT4{5,-15}{F}:SHIELD1{-5,6}{R,M}:L1{-1,-1}{F}:L2{-1,7}{F}:SHADOW0{0,7}{F} @ 3 ",
 			// crystalGet
