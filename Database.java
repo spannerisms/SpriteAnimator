@@ -332,7 +332,7 @@ public abstract class Database {
 				"Y6{0,0}{F}:Z6{0,16}{T}:SHADOW0{0,7}{F} @ 10 " ,
 			// grabDown - Animation is based on input, so use half second loop
 			"[grabDown]E3{0,3}{F}:X5{0,8}{F}:SHADOW0{0,7}{F} @ 30 ;" +
-				"J5{13,6}{BL,M}:J5{-5,6}{BL}:U0{0,2}{F}::P7{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"J5{13,6}{BL,M}:J5{-5,6}{BL}:U0{0,2}{F}:P7{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
 				"J5{16,1}{BL,M}:J5{-8,1}{BL}:U0{0,2}{F}:P7{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
 				"U0{0,2}{F}:P7{0,8}{F}:SHADOW0{0,7}{F} @ 13 ",
 			// lift
@@ -450,12 +450,12 @@ public abstract class Database {
 			// salute
 			"[salute]SWORD1{9,-6}{F,M}:SHIELD0{-5,9}{F}:A3{0,0}{F}:P4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ",
 			// itemGet
-			"[itemGet]PENDANT2{5,-15}{F}:SHIELD1{-5,6}{R,M}:L1{-1,-1}{F}:L2{-1,7}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[itemGet]PENDANT4{5,-15}{F}:SHIELD1{-5,6}{R,M}:L1{-1,-1}{F}:L2{-1,7}{F}:SHADOW0{0,7}{F} @ 3 ",
+			// crystalGet
+			"[crystalGet]CRYSTAL5{0,-15}{F}:Z2{0,0}{F}:β4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
 			// flute
 			"[swagDuck]DUCK2{8,-21}{F}:L1{-1,-8}{F}:L2{-1,0}{F} @ 4 ;" +
 				"DUCK3{8,-21}{F}:L1{-1,-8}{F}:L2{-1,0}{F} @ 8 ",
-			// triforceGet
-			"[triforceGet]Z2{0,0}{F}:β4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
 			// bow
 			"[bow]" + NEUTRAL_RIGHT +
 				"A0{-2,-1}{F}:B0{-1,7}{F}:SHADOW0{0,7}{F} @ 2 ;" +
@@ -749,7 +749,7 @@ public abstract class Database {
 				"A0{-2,-1}{F}:B0{-1,7}{F}:NET0{-10,-5}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"A0{-2,-1}{F}:B0{-1,7}{F}:NET1{1,-9}{F}:SHADOW0{0,7}{F} @ 4 ",
 			// readBook
-			"[readBook]A2{1,0}{F}:K6{0,8}{F}:BOOK4{-4,0}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[readBook]A2{1,0}{F}:K6{0,8}{F}:BOOK2{-4,0}{F}:SHADOW0{0,7}{F} @ 3 ",
 			// prayer
 			"[prayer]R1{0,0}{F}:S1{0,16}{T}:SHADOW0{0,7}{F} @ 157 ;" +
 				"A5{0,1}{F}:Q1{0,8}{F}:SHADOW0{0,7}{F} @ 47 ;" +

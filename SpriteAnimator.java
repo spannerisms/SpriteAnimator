@@ -43,7 +43,7 @@ public class SpriteAnimator extends Component {
 			"CANE", "BYRNA", "SOMARIA", "BLOCK", "SPARKLE",
 			"ROD", "FIREROD", "ICEROD", "POWDER", "ITEMSHADOW",
 			"HAMMER", "NET", "HOOKSHOT", "BOOMERANG", "BUSH",
-			"BOW", "BOOK", "PENDANT", "SHOVEL", "BED", "DUCK"
+			"BOW", "BOOK", "PENDANT", "CRYSTAL", "SHOVEL", "BED", "DUCK"
 	};
 
 	// fighter, fighter, master, tempered, butter
@@ -1061,6 +1061,7 @@ public class SpriteAnimator extends Component {
 				case "ITEMSHADOW" :
 				case "BOOK" :
 				case "PENDANT" :
+				case "CRYSTAL" :
 				case "BUSH" :
 					ret = 7;
 					break;
