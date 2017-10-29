@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 import SpriteAnimator.Listeners.*;
 
 public class SpriteAnimator extends Component {
+	// version and serial
+	public static final String VERSION = "v1.0";
 	private static final long serialVersionUID = 2114886855236406900L;
 
 	private BufferedImage[] BGS = Backgrounds.getBackgrounds();

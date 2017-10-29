@@ -39,7 +39,10 @@ import SpriteAnimator.Listeners.*;
 import SpriteManipulator.SpriteManipulator;
 
 public class GUI {
+	// version number
+	static final String VERSION = SpriteAnimator.VERSION;
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
+
 	private static final String[] MODES = {
 			"Normal play",
 			"Step-by-step",
@@ -91,7 +94,7 @@ public class GUI {
 		} // end Nimbus
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
-		final JFrame frame = new JFrame("Sprite Animator");
+		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
 		final Dimension d = new Dimension(600, 600);
 		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
