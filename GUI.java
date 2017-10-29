@@ -235,7 +235,7 @@ public class GUI {
 		thePhraseMiscellaneousSpritesWithAColon.setBorder(rightPad);
 		setToolTip(thePhraseMiscellaneousSpritesWithAColon,
 				"When <b>miscellaneous sprites</b> are on " +
-						"animations that contains sprites other than the playable character " +
+						"animations that contain sprites other than the playable character " +
 						"will display their relevant sprites.",
 				"This option does not affect the display of swords, shields, or swag duck.",
 				REBUILDS);
