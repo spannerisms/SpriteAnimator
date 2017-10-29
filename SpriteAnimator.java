@@ -69,13 +69,14 @@ public class SpriteAnimator extends Component {
 	private Timer tick;
 	private TimerTask next;
 
-	// equipment
+	// display
 	private int bg = 0;
 	private int mailLevel = 0;
 	private int swordLevel = 0;
 	private int shieldLevel = 0;
 	private boolean showShadow = true;
 	private boolean showEquipment = true;
+	private boolean showNeutral = true;
 
 	// change listeners
 	private List<StepListener> stepListen = new ArrayList<StepListener>();
@@ -88,12 +89,12 @@ public class SpriteAnimator extends Component {
 	public SpriteAnimator() {
 		anime = 0;
 		speed = 0;
-		mode = 1;
+		mode = 0;
 		frame = 0;
 		maxFrame = 0;
 		makeAnimationFrames();
-		running = true;
 		tick = new Timer();
+		setRunning();
 	}
 
 	/**
@@ -182,7 +183,7 @@ public class SpriteAnimator extends Component {
 		fireStepEvent();
 		adjustTimer();
 		//TODO REMOVE DEBUG
-		//this.requestFocus();
+		this.requestFocus();
 	}
 
 	/**
@@ -456,7 +457,20 @@ public class SpriteAnimator extends Component {
 	public boolean shadowOn() {
 		return showShadow;
 	}
+	/**
+	 * Switch shadow display status
+	 */
+	public void switchNeutral() {
+		showNeutral = !showNeutral;
+		fireRebuildEvent();
+	}
 
+	/**
+	 * Return shadow display status
+	 */
+	public boolean neutralOn() {
+		return showNeutral;
+	}
 	/**
 	 * Set mail level
 	 * @param ml
@@ -634,6 +648,26 @@ public class SpriteAnimator extends Component {
 		// for rebuilding and reorganizing frame data
 		String[] eachFrameRaw = animDataX[2].split(";"); // split by frame
 		maxFrame = eachFrameRaw.length;
+		String[] eachFrameMinusNeutral = new String[maxFrame]; // to remove neutral frames
+		
+		// check for and replace neutrals
+		int fcount = 0;
+		for (String checkN : eachFrameRaw) {
+			if (isNeutral(checkN)) {
+				if (showNeutral) {
+					eachFrameMinusNeutral[fcount] = getNeutral(checkN);
+					fcount++;
+				}
+			} else {
+				eachFrameMinusNeutral[fcount] = checkN;
+				fcount++;
+			}
+		}
+
+		// replace raw data with neutral changed data
+		eachFrameRaw = eachFrameMinusNeutral;
+		maxFrame = fcount;
+
 		String[] eachFrameBuilt = new String[maxFrame+1]; // +1 for a ghost
 		String[] eachFrameRebuilt = new String[maxFrame+1];
 		String[] eachFrame;
@@ -658,7 +692,7 @@ public class SpriteAnimator extends Component {
 					} // otherwise do nothing
 				// check for equipment
 				} else if (isEquipment(indexName)) {
-					if (showEquipment) {
+					if (showEquipment || indexName.equalsIgnoreCase("DUCK")) {
 						frameSprites[sprct] = fs;
 						sprct++;
 					} // otherwise do nothing
@@ -924,11 +958,13 @@ public class SpriteAnimator extends Component {
 						break;
 				}
 				// put it in backwards to preserve draw order
+				// TODO: remove debug
 				sprList[spriteCount-1-j] = new Sprite(spreet, xpos, ypos, sprIndex, sprSize, sprTrans);
 			}
 		}
 		
-
+		// TODO: REMOVE DEBUG
+		addDebugMovement();
 	}
 
 	// transformations
@@ -946,7 +982,85 @@ public class SpriteAnimator extends Component {
 		return flip(image, false);
 	}
 
+	// TODO: REMOVE DEBUG
+	private int sprAt = 0;
+	KeyListener keys = new KeyListener() {
 
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			switch (arg0.getKeyCode()) {
+
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {}
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			Sprite[] l = frames[frame].list();
+			int maxS = l.length;
+				switch (arg0.getKeyCode()) {
+					case KeyEvent.VK_1 :
+						sprAt = 0;
+						System.out.println("ADJUSTING : " + l[sprAt].name());
+						break;
+					case KeyEvent.VK_2 :
+						if (maxS > 1) { sprAt = 1; System.out.println("ADJUSTING : " + l[sprAt].name());}
+						break;
+					case KeyEvent.VK_3 :
+						if (maxS > 2) { sprAt = 2; System.out.println("ADJUSTING : " + l[sprAt].name()); }
+						break;
+					case KeyEvent.VK_4 :
+						if (maxS > 3) { sprAt = 3; System.out.println("ADJUSTING : " + l[sprAt].name()); }
+						break;
+					case KeyEvent.VK_5 :
+						if (maxS > 4) { sprAt = 4; System.out.println("ADJUSTING : " + l[sprAt].name()); }
+						break;
+					case KeyEvent.VK_6 :
+						if (maxS > 5) { sprAt = 5; System.out.println("ADJUSTING : " + l[sprAt].name()); }
+						break;
+					case KeyEvent.VK_7 :
+						if (maxS > 6) { sprAt = 6; System.out.println("ADJUSTING : " + l[sprAt].name()); }
+						break;
+					case KeyEvent.VK_8 :
+						if (maxS > 7) { sprAt = 7; System.out.println("ADJUSTING : " + l[sprAt].name()); }
+						break;
+					case KeyEvent.VK_9 :
+						if (maxS > 8) { sprAt = 8; System.out.println("ADJUSTING : " + l[sprAt].name()); }
+						break;
+					case KeyEvent.VK_UP :
+						if (sprAt < maxS)
+							l[sprAt].up();
+						break;
+					case KeyEvent.VK_DOWN :
+						if (sprAt < maxS)
+							l[sprAt].down();
+						break;
+					case KeyEvent.VK_RIGHT :
+						if (sprAt < maxS)
+							l[sprAt].right();
+						break;
+					case KeyEvent.VK_LEFT :
+						if (sprAt < maxS)
+							l[sprAt].left();
+						break;
+					case KeyEvent.VK_F :
+						frames[frame].print();
+						break;
+				}
+			repaint();
+		}};
+	boolean debug = false;
+	public void addDebugMovement() {
+		this.requestFocus();
+		if (debug) return;
+		System.out.println("Debug mode ON");
+		this.setSize(new Dimension(200,200));
+		this.setFocusable(true);
+		this.addKeyListener(keys);
+		debug = true;
+	}
 	/**
 	 * Flips an image vertically if the second argument is <b>true<b>
 	 * or horizontally if it is <b>false</b>
@@ -1093,6 +1207,43 @@ public class SpriteAnimator extends Component {
 				break;
 			}
 		}
+		return ret;
+	}
+	
+	/**
+	 * Tests to see if a frame is a neutral frame
+	 */
+	private static boolean isNeutral(String n) {
+		boolean ret = false;
+		if (n.equalsIgnoreCase(Database.NEUTRAL_RIGHT_TEST)
+				|| n.equalsIgnoreCase(Database.NEUTRAL_LEFT_TEST)
+				|| n.equalsIgnoreCase(Database.NEUTRAL_UP_TEST)
+				|| n.equalsIgnoreCase(Database.NEUTRAL_DOWN_TEST)) {
+			ret = true;
+		}
+		return ret;
+	}
+
+	/**
+	 * Map a neutral frame name to its data.
+	 * <br><br>
+	 * If nothing found, return the original string.
+	 * @param n
+	 */
+	private static String getNeutral(String n) {
+		String ret = n;
+		if (n.equalsIgnoreCase(Database.NEUTRAL_RIGHT_TEST)) {
+			ret = Database.NEUTRAL_RIGHT_FRAME;
+		} else	if (n.equalsIgnoreCase(Database.NEUTRAL_LEFT_TEST)) {
+			ret = Database.NEUTRAL_LEFT_FRAME;
+		} else	if (n.equalsIgnoreCase(Database.NEUTRAL_UP_TEST)) {
+			ret = Database.NEUTRAL_UP_FRAME;
+		} else	if (n.equalsIgnoreCase(Database.NEUTRAL_DOWN_TEST)) {
+			ret = Database.NEUTRAL_DOWN_FRAME;
+		}
+
+		// kill whitespace
+		ret = ret.replaceAll("[ \t]","");
 		return ret;
 	}
 }

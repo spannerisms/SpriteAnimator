@@ -204,13 +204,13 @@ public class GUI {
 
 		// other equipment
 		final JButton equipBtn = new JButton("Toggle");
-		final JLabel theWordEquipmentWithAColon = new JLabel("Equipment:", SwingConstants.RIGHT);
+		final JLabel thePhraseMiscellaneousSpritesWithAColon = new JLabel("Misc. sprites:", SwingConstants.RIGHT);
 		final JLabel equipStatus = new JLabel("ON", SwingConstants.CENTER);
-		theWordEquipmentWithAColon.setBorder(rightPad);
+		thePhraseMiscellaneousSpritesWithAColon.setBorder(rightPad);
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
-		controls.add(theWordEquipmentWithAColon, c);
+		controls.add(thePhraseMiscellaneousSpritesWithAColon, c);
 		c.gridx = 1;
 		controls.add(equipStatus, c);
 		c.gridx = 2;
@@ -229,6 +229,20 @@ public class GUI {
 		controls.add(shadowStatus, c);
 		c.gridx = 2;
 		controls.add(shadowBtn, c);
+
+		// shadows
+		final JButton neutralBtn = new JButton("Toggle");
+		final JLabel theWordNeutralWithAColon = new JLabel("Neutral:", SwingConstants.RIGHT);
+		final JLabel neutralStatus = new JLabel("--", SwingConstants.CENTER);
+		theWordNeutralWithAColon.setBorder(rightPad);
+		c.gridwidth = 1;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(theWordNeutralWithAColon, c);
+		c.gridx = 1;
+		controls.add(neutralStatus, c);
+		c.gridx = 2;
+		controls.add(neutralBtn, c);
 
 		// blank
 		c.gridy++;
@@ -400,7 +414,7 @@ public class GUI {
 		// TODO: uncomment this for exports
 		//explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
-		// clear focusability of all components
+		// clear focusability of all useless components
 		for (Component comp : controls.getComponents()) {
 			if (comp instanceof JLabel ||
 					comp instanceof JButton) {
@@ -479,6 +493,7 @@ public class GUI {
 				frameMax.setText("/ " + run.maxFrame());
 				equipStatus.setText(run.equipmentOn() ? "ON" : "OFF");
 				shadowStatus.setText(run.shadowOn() ? "ON" : "OFF");
+				neutralStatus.setText(run.neutralOn() ? "ON" : "OFF");
 			}
 		});
 
@@ -555,6 +570,7 @@ public class GUI {
 							"This animation caused a problem.",
 							"OH NO",
 							JOptionPane.WARNING_MESSAGE);
+					e.printStackTrace();
 					return;
 				}
 				resetBtn.getActionListeners()[0].actionPerformed(
@@ -633,6 +649,12 @@ public class GUI {
 		shadowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.switchShadow();
+			}});
+
+		// shadow toggle
+		neutralBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				run.switchNeutral();
 			}});
 
 		// gear settings
