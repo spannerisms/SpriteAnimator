@@ -616,7 +616,7 @@ public abstract class Database {
 				"SWORD4{16,15}{B,U}:SHIELD1{-8,5}{R,M}:A1{0,1}{F}:A1{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD5{14,17}{F,U}:SHIELD1{-8,5}{R,M}:A1{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD0{12,19}{R,U}:SHIELD1{-8,5}{R,M}:A1{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
-				"SWORD0{9,20}{L,U}:SHIELD1{-8,5}{R,M}:A1{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 60 ",
+				"SWORD0{9,20}{L,U}:SHIELD1{-8,5}{R,M}:A1{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 360 ",
 			// ether
 			"[ether]" + NEUTRAL_DOWN +
 				"SHIELD0{-4,8}{F}:SWORD0{7,18}{R,UM}:A1{0,0}{F}:M0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
@@ -727,7 +727,7 @@ public abstract class Database {
 				"A2{0,-1}{F}:D2{0,8}{F}:HAMMER0{-2,-4}{R}:SHIELD1{15,3}{R}:SHADOW0{0,7}{F} @ 5 ;" +
 				"A2{0,-1}{F}:N5{0,8}{F}:HAMMER1{-2,-2}{R}:SHIELD1{15,3}{R}:SHADOW0{0,7}{F} @ 18",
 			// hammerDown
-			"[hammerDown]" + NEUTRAL_UP +
+			"[hammerDown]" + NEUTRAL_DOWN +
 				"HAMMER0{10,-2}{R}:SHIELD1{-8,5}{R,M}:G1{0,0}{BR}:G2{8,0}{BL}:H1{0,8}{R}:H2{8,8}{L}:SHADOW0{0,7}{F} @ 4 ;" +
 				"HAMMER2{10,10}{BL}:SHIELD1{-8,5}{R,M}:A3{0,1}{F}:N6{0,8}{F}:SHADOW0{0,7}{F} @ 5 ;" +
 				"HAMMER1{9,18}{L,U}:SHIELD1{-8,5}{R,M}:A3{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 18 ",
@@ -846,26 +846,6 @@ public abstract class Database {
 				"SHIELD0{-4,8}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"SHIELD0{-4,9}{F}:A1{0,0}{F}:B4{0,8}{F,M}:SHADOW0{0,7}{F} @ 1 ;" +
 				NEUTRAL_DOWN,
-			// walkDownstairs1F
-			"[walkDownstairs1F]A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"B7{0,0}{F,M}:Y1{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 2 ;" +
-				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
-				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
-				"SHIELD0{-4,6}{F}:A1{0,0}{F}:S6{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
-				NEUTRAL_DOWN,
 			// walkDownstairs2F
 			"[walkDownstairs2F]" + NEUTRAL_UP +
 				"A2{0,1}{F}:V5{0,8}{F}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4 ;" +
@@ -897,6 +877,26 @@ public abstract class Database {
 				"A0{2,1}{F,M}:V2{1,7}{F,M}:SHIELD1{-5,4}{R,M}:SHADOW0{0,7}{F} @ 8 ;" +
 				"A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 8 ;" +
 				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 2 ",
+			// walkDownstairs1F
+			"[walkDownstairs1F]A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,0}{F,M}:Y1{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 2 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
+				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,6}{F}:A1{0,0}{F}:S6{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
+				NEUTRAL_DOWN,
 			// deathSpin
 			"[deathSpin]A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
 				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
