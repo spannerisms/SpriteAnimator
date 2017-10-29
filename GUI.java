@@ -222,6 +222,12 @@ public class GUI {
 		c.gridx = 1;
 		controls.add(mailLevel, c);
 
+		// blank
+		c.gridy++;
+		c.ipady = 10;
+		controls.add(new JLabel(), c);
+		c.ipady = 0;
+
 		// other equipment
 		final JButton equipBtn = new JButton("Toggle");
 		final JLabel thePhraseMiscellaneousSpritesWithAColon = new JLabel("Misc. sprites:", SwingConstants.RIGHT);
