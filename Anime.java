@@ -51,14 +51,6 @@ public class Anime {
 		return ret;
 	}
 
-	public void print() {
-		System.out.println("SPRITE VALUES : ");
-		for (int i = l.length-1; i >= 0; i--) {
-			System.out.print(l[i].getVal() + ":");
-		}
-		System.out.println("");
-	}
-
 	/**
 	 * Send length of current frame.
 	 * @param m - multiplier

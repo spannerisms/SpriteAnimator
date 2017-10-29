@@ -93,45 +93,6 @@ public class Sprite {
 	public String[] getInfo() {
 		return info;
 	}
-	
-	
-	//TODO REMOVE DEBUG
-	public String getVal() {
-		String name2 = name.replaceAll("[FMTBR](SHIELD|SWORD)", "$1");
-		String sizeAndTrans = size;
-		if (!trans.equalsIgnoreCase("0"))
-			sizeAndTrans += "," + trans;
-		return name2 + "{"+x+","+y+"}{" + sizeAndTrans + "}";
-	}
-	public String name() { return name; }
-	public void up() {
-		if (name.equalsIgnoreCase("SHADOW0")) {
-			System.out.println("SHADOW CANNOT BE MOVED");
-			return;
-		}
-		y--;
-		}
-	public void down() {
-		if (name.equalsIgnoreCase("SHADOW0")) {
-			System.out.println("SHADOW CANNOT BE MOVED");
-			return;
-		}
-		y++;
-		}
-	public void right() {
-		if (name.equalsIgnoreCase("SHADOW0")) {
-			System.out.println("SHADOW CANNOT BE MOVED");
-			return;
-		}
-		x++;
-		}
-	public void left() {
-		if (name.equalsIgnoreCase("SHADOW0")) {
-			System.out.println("SHADOW CANNOT BE MOVED");
-			return;
-		}
-		x--;
-		}
 
 	/**
 	 * Attaches itself to a {@link Graphics2D} object and draws itself accordingly.

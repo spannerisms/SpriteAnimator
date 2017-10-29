@@ -1,11 +1,8 @@
 package SpriteAnimator;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -198,8 +195,6 @@ public class SpriteAnimator extends Component {
 		repaint();
 		fireStepEvent();
 		adjustTimer();
-		//TODO REMOVE DEBUG
-		this.requestFocus();
 	}
 
 	/**
@@ -669,7 +664,7 @@ public class SpriteAnimator extends Component {
 		String[] eachFrameRaw = animDataX[2].split(";"); // split by frame
 		maxFrame = eachFrameRaw.length;
 		String[] eachFrameMinusNeutral = new String[maxFrame]; // to remove neutral frames
-		
+
 		// check for and replace neutrals
 		int fcount = 0;
 		for (String checkN : eachFrameRaw) {
@@ -978,13 +973,10 @@ public class SpriteAnimator extends Component {
 						break;
 				}
 				// put it in backwards to preserve draw order
-				// TODO: remove debug
-				sprList[spriteCount-1-j] = new Sprite(spreet, xpos, ypos, sprIndex, sprSize, sprTrans);
+				sprList[spriteCount-1-j] =
+						new Sprite(spreet, xpos, ypos, sprIndex, sprSize, sprTrans);
 			}
 		}
-		
-		// TODO: REMOVE DEBUG
-		addDebugMovement();
 	}
 
 	// transformations
@@ -1002,85 +994,6 @@ public class SpriteAnimator extends Component {
 		return flip(image, false);
 	}
 
-	// TODO: REMOVE DEBUG
-	private int sprAt = 0;
-	KeyListener keys = new KeyListener() {
-
-		@Override
-		public void keyTyped(KeyEvent arg0) {
-			switch (arg0.getKeyCode()) {
-
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent arg0) {}
-
-		@Override
-		public void keyPressed(KeyEvent arg0) {
-			Sprite[] l = frames[frame].list();
-			int maxS = l.length;
-				switch (arg0.getKeyCode()) {
-					case KeyEvent.VK_1 :
-						sprAt = 0;
-						System.out.println("ADJUSTING : " + l[sprAt].name());
-						break;
-					case KeyEvent.VK_2 :
-						if (maxS > 1) { sprAt = 1; System.out.println("ADJUSTING : " + l[sprAt].name());}
-						break;
-					case KeyEvent.VK_3 :
-						if (maxS > 2) { sprAt = 2; System.out.println("ADJUSTING : " + l[sprAt].name()); }
-						break;
-					case KeyEvent.VK_4 :
-						if (maxS > 3) { sprAt = 3; System.out.println("ADJUSTING : " + l[sprAt].name()); }
-						break;
-					case KeyEvent.VK_5 :
-						if (maxS > 4) { sprAt = 4; System.out.println("ADJUSTING : " + l[sprAt].name()); }
-						break;
-					case KeyEvent.VK_6 :
-						if (maxS > 5) { sprAt = 5; System.out.println("ADJUSTING : " + l[sprAt].name()); }
-						break;
-					case KeyEvent.VK_7 :
-						if (maxS > 6) { sprAt = 6; System.out.println("ADJUSTING : " + l[sprAt].name()); }
-						break;
-					case KeyEvent.VK_8 :
-						if (maxS > 7) { sprAt = 7; System.out.println("ADJUSTING : " + l[sprAt].name()); }
-						break;
-					case KeyEvent.VK_9 :
-						if (maxS > 8) { sprAt = 8; System.out.println("ADJUSTING : " + l[sprAt].name()); }
-						break;
-					case KeyEvent.VK_UP :
-						if (sprAt < maxS)
-							l[sprAt].up();
-						break;
-					case KeyEvent.VK_DOWN :
-						if (sprAt < maxS)
-							l[sprAt].down();
-						break;
-					case KeyEvent.VK_RIGHT :
-						if (sprAt < maxS)
-							l[sprAt].right();
-						break;
-					case KeyEvent.VK_LEFT :
-						if (sprAt < maxS)
-							l[sprAt].left();
-						break;
-					case KeyEvent.VK_F :
-						frames[frame].print();
-						break;
-				}
-			repaint();
-		}};
-	boolean debug = false;
-	public void addDebugMovement() {
-		this.requestFocus();
-		if (debug) return;
-		System.out.println("Debug mode ON");
-		this.setSize(new Dimension(200,200));
-		this.setFocusable(true);
-		this.addKeyListener(keys);
-		debug = true;
-	}
 	/**
 	 * Flips an image vertically if the second argument is <b>true<b>
 	 * or horizontally if it is <b>false</b>
@@ -1229,7 +1142,7 @@ public class SpriteAnimator extends Component {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Tests to see if a frame is a neutral frame
 	 */

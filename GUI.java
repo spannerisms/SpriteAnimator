@@ -89,7 +89,7 @@ public class GUI {
 					// do nothing
 			} //end System
 		} // end Nimbus
-		
+
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		final JFrame frame = new JFrame("Sprite Animator");
 		final Dimension d = new Dimension(600, 600);
@@ -404,7 +404,7 @@ public class GUI {
 		aboutFrame.setLocation(150,150);
 		aboutFrame.setResizable(false);
 		// end credits
-		
+
 		// menu
 		final JMenuBar menu = new JMenuBar();
 		final JMenu aboutMenu = new JMenu("About");

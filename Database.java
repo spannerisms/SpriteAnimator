@@ -736,7 +736,18 @@ public abstract class Database {
 				"SHOVEL0{8,15}{F}:B7{-1,-2}{F}:D7{-1,7}{F}:SHADOW0{0,7}{F} @ 8 ;" +
 				"SHOVEL0{12,16}{F}:A0{-1,-1}{F}:F5{-1,7}{F}:SHADOW0{0,7}{F} @ 19 ;" +
 				"A0{-2,-1}{F}:C7{-1,7}{F}:SHOVEL1{-1,-5}{TL}:SHADOW0{0,7}{F} @ 17 ",
-			//TODO NET
+			// bugNet
+			"[bugNet]" + NEUTRAL_RIGHT +
+				"A0{-2,-1}{F}:I0{-1,7}{F}:NET0{-10,-5}{F}:SHADOW0{0,7}{F} @ 3 ;" +
+				"A0{-2,-1}{F}:B0{-1,7}{F}:NET1{1,-9}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A1{0,0}{F}:P4{0,8}{F,M}:NET2{14,-5}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A1{-1,-1}{F}:P3{-1,7}{F}:NET3{15,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"NET4{10,12}{F}:A0{0,-1}{F,M}:B0{-1,7}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"NET1{-1,19}{F,UM}:A0{0,-1}{F,M}:B0{-1,7}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"NET5{-11,14}{F}:A2{-1,-1}{F}:P2{-1,7}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"NET6{-17,5}{F}:A2{-1,-1}{F}:P2{-1,7}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,-1}{F}:B0{-1,7}{F}:NET0{-10,-5}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,-1}{F}:B0{-1,7}{F}:NET1{1,-9}{F}:SHADOW0{0,7}{F} @ 4 ",
 			// readBook
 			"[readBook]A2{1,0}{F}:K6{0,8}{F}:BOOK4{-4,0}{F}:SHADOW0{0,7}{F} @ 3 ",
 			// prayer
@@ -786,98 +797,106 @@ public abstract class Database {
 				"Z5{0,1}{F}:Z7{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"Z5{0,0}{F}:α0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"Z5{0,1}{F}:Z7{0,8}{F,M}:SHADOW0{0,7}{F} @ 2 ",
-			// walkUpstairs1F TODO: 100% confirm
-			"[walkUpstairs1F]A2{0,1}{F}:V5{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,2}{F}:V6{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,-1}{F}:Y3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,0}{F}:Y4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
+			// walkUpstairs1F
+			"[walkUpstairs1F]" + NEUTRAL_UP +
+				"A2{0,1}{F}:V5{0,8}{F}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,2}{F}:V6{0,8}{F}:SHIELD2{5,4}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,0}{F}:C1{0,8}{F}:SHIELD2{5,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,1}{F}:V5{0,8}{F,M}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,2}{F}:V6{0,8}{F,M}:SHIELD2{5,4}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,0}{F}:C1{0,8}{F}:SHIELD2{5,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,1}{F}:V5{0,8}{F}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,2}{F}:V6{0,8}{F}:SHIELD2{5,4}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"X1{0,1}{F}:Y5{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,-1}{F}:Y3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,0}{F}:Y4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,1}{F}:Y5{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,-1}{F}:Y3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,0}{F}:Y4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F}:V2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F}:V2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F}:V2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F}:V2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
-			// walkDownstairs1F TODO: 100% confirm
-			"[walkDownstairs1F]A0{0,2}{F,M}:V2{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,1}{F,M}:V1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,0}{F,M}:Y1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,0}{F,M}:Y1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,0}{F,M}:Y1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,1}{F}:V3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,2}{F}:V4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,1}{F}:V3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,0}{F}:S6{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,1}{F}:B3{0,9}{F}:SHADOW0{0,7}{F} @ 3 ",
-			// walkUpstairs2F TODO: 100% confirm
-			"[walkUpstairs2F]A0{0,0}{F}:B0{1,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,1}{F}:V1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,0}{F}:Y1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,1}{F}:Y2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
+				"X1{0,-1}{F}:Y3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,0}{F}:Y4{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,1}{F}:Y5{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,-1}{F}:Y3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,0}{F}:Y4{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,1}{F}:Y5{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,-1}{F}:Y3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,0}{F}:V1{-1,7}{F}:SHIELD1{13,3}{R}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,1}{F}:V2{-1,7}{F}:SHIELD1{13,4}{R}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,-1}{F}:B0{-1,7}{F}:SHIELD1{13,2}{R}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,0}{F}:V1{-1,7}{F}:SHIELD1{13,3}{R}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,1}{F}:V2{-1,7}{F}:SHIELD1{13,4}{R}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,-1}{F}:B0{-1,7}{F}:SHIELD1{13,2}{R}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{-2,0}{F}:V1{-1,7}{F}:SHIELD1{13,3}{R}:SHADOW0{0,7}{F} @ 8 ;" +
+				"A0{-2,1}{F}:V2{-1,7}{F}:SHIELD1{13,4}{R}:SHADOW0{0,7}{F} @ 6",
+			// walkUpstairs2F
+			"[walkUpstairs2F]A0{-2,0}{F}:V1{-1,7}{F}:SHIELD1{13,3}{R}:SHADOW0{0,7}{F} @ 1 ;" +
+				"A0{-2,1}{F}:V2{-1,7}{F}:SHIELD1{13,4}{R}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{-2,-1}{F}:B0{-1,7}{F}:SHIELD1{13,2}{R}:SHADOW0{0,7}{F} @ 1 ;" +
 				"B7{0,-1}{F}:Y0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
+				"B7{0,0}{F}:Y1{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F}:Y2{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,-1}{F}:Y0{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,0}{F}:Y1{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F}:Y2{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,-1}{F}:Y0{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,0}{F}:Y1{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F}:Y2{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,-1}{F}:Y0{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"B7{0,0}{F}:Y1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,1}{F}:Y2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,-1}{F}:Y0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,0}{F}:Y1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"B7{0,1}{F}:Y2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,2}{F}:V4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,1}{F}:V3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
-			// walkDownstairs2F TODO: 100% confirm
-			"[walkDownstairs2F]A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,1}{F}:V5{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,2}{F}:V6{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,1}{F}:D4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,2}{F}:M5{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A2{0,1}{F}:V5{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,0}{F,M}:Y4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,8}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,0}{F}:B4{0,8}{F,M}:SHADOW0{0,7}{F} @ 1 ;" +
+				NEUTRAL_DOWN,
+			// walkDownstairs1F
+			"[walkDownstairs1F]A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,0}{F,M}:Y1{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,-1}{F,M}:Y0{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"B7{0,1}{F,M}:Y2{0,8}{F,M}:SHADOW0{0,7}{F} @ 2 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
+				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SHIELD0{-4,6}{F}:A1{0,0}{F}:S6{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
+				NEUTRAL_DOWN,
+			// walkDownstairs2F
+			"[walkDownstairs2F]" + NEUTRAL_UP +
+				"A2{0,1}{F}:V5{0,8}{F}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,2}{F}:V6{0,8}{F}:SHIELD2{5,4}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,0}{F}:C1{0,8}{F}:SHIELD2{5,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,1}{F}:V5{0,8}{F,M}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,2}{F}:V6{0,8}{F,M}:SHIELD2{5,4}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,0}{F}:C1{0,8}{F}:SHIELD2{5,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,1}{F}:V5{0,8}{F}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A2{0,2}{F}:V6{0,8}{F}:SHIELD2{5,4}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"X1{0,1}{F,M}:Y5{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,-1}{F,M}:Y3{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,0}{F,M}:Y4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,1}{F,M}:Y5{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,-1}{F,M}:Y3{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,0}{F,M}:Y4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,1}{F,M}:Y5{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"X1{0,-1}{F,M}:Y3{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,1}{F,M}:V1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F,M}:V2{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,1}{F,M}:V1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F,M}:V2{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,1}{F,M}:V1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F,M}:V2{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,1}{F,M}:V1{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{0,2}{F,M}:V2{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ",
+				"X1{0,-1}{F,M}:Y3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,0}{F,M}:Y4{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,1}{F,M}:Y5{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,-1}{F,M}:Y3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,0}{F,M}:Y4{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,1}{F,M}:Y5{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"X1{0,-1}{F,M}:Y3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,1}{F,M}:V2{1,7}{F,M}:SHIELD1{-5,4}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,1}{F,M}:V2{1,7}{F,M}:SHIELD1{-5,4}{R,M}:SHADOW0{0,7}{F} @ 4 ;"+
+				"A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,1}{F,M}:V2{1,7}{F,M}:SHIELD1{-5,4}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A0{2,1}{F,M}:V2{1,7}{F,M}:SHIELD1{-5,4}{R,M}:SHADOW0{0,7}{F} @ 8 ;" +
+				"A0{2,-1}{F,M}:B0{1,7}{F,M}:SHIELD1{-5,2}{R,M}:SHADOW0{0,7}{F} @ 8 ;" +
+				"A0{2,0}{F,M}:V1{1,7}{F,M}:SHIELD1{-5,3}{R,M}:SHADOW0{0,7}{F} @ 2 ",
 			// deathSpin
 			"[deathSpin]A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
 				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
@@ -922,7 +941,7 @@ public abstract class Database {
 				"GRASS0{0,16}{T}:SHIELD0{-4,8}{F}:A1{0,0}{F}:B3{0,8}{F} @ 4 ;" +
 				"GRASS0{0,16}{T}:SHIELD0{-4,8}{F}:A1{0,0}{F}:B3{0,8}{F} @ 4 ;" +
 				"GRASS0{0,16}{B}:SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M} @ 4 ;" +
-				"GRASS1{0,16}{T}:SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M} @ 4 " +
+				"GRASS1{0,16}{T}:SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M} @ 4 ",
 			// mapDungeon
 			"[mapDungeon]K7{0,0}{F} @ 3 ",
 			// mapWorld
