@@ -740,7 +740,7 @@ public abstract class Database {
 			"[bugNet]" + NEUTRAL_RIGHT +
 				"A0{-2,-1}{F}:I0{-1,7}{F}:NET0{-10,-5}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"A0{-2,-1}{F}:B0{-1,7}{F}:NET1{1,-9}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"A1{0,0}{F}:P4{0,8}{F,M}:NET2{14,-5}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"A1{0,0}{F}:P4{-1,7}{F,M}:NET2{14,-5}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"A1{-1,-1}{F}:P3{-1,7}{F}:NET3{15,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"NET4{10,12}{F}:A0{0,-1}{F,M}:B0{-1,7}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
 				"NET1{-1,19}{F,UM}:A0{0,-1}{F,M}:B0{-1,7}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
