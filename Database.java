@@ -9,7 +9,7 @@ public abstract class Database {
 	 * RyuTech
 	 *
 	 * Format:
-	 * [<ANIMNAME>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>}{<TRANSFORM>}
+	 * [<ANIMNAME>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>,<TRANSFORM>}
 	 * : delimits sprites in the same frame
 	 * ; delimits entire frames
 	 * @ at the end of each frame denotes how long it lasts
