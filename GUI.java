@@ -372,7 +372,6 @@ public class GUI {
 
 		// Credits
 		final JFrame aboutFrame = new JFrame("Acknowledgements");
-		final JMenuItem peeps = new JMenuItem("About");
 		final TextArea peepsList = new TextArea("", 0,0,TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
@@ -400,10 +399,6 @@ public class GUI {
 				}, ", "));
 		aboutFrame.add(peepsList);
 
-		peeps.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				aboutFrame.setVisible(true);
-			}});
 		aboutFrame.setSize(600,300);
 		aboutFrame.setLocation(150,150);
 		aboutFrame.setResizable(false);
@@ -411,16 +406,32 @@ public class GUI {
 
 		// menu
 		final JMenuBar menu = new JMenuBar();
-		final JMenu aboutMenu = new JMenu("About");
-		aboutMenu.add(peeps);
-		menu.add(aboutMenu);
+		
+		// file menu
+		final JMenu fileMenu = new JMenu("File");
+		menu.add(fileMenu);
 
+		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
+		fileMenu.add(exit);
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}});
-		aboutMenu.add(exit);
+		// end file menu
+
+		// help menu
+		final JMenu helpMenu = new JMenu("Help");
+		menu.add(helpMenu);
+
+		// Acknowledgements
+		final JMenuItem peeps = new JMenuItem("About");
+		helpMenu.add(peeps);
+		peeps.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				aboutFrame.setVisible(true);
+			}});
+		// end help menu
 
 		// But what if Ganon dabs back?
 		ImageIcon ico = new ImageIcon(
@@ -728,7 +739,7 @@ public class GUI {
 				run.switchShadow();
 			}});
 
-		// shadow toggle
+		// neutral toggle
 		neutralBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				run.switchNeutral();
