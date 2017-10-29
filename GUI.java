@@ -94,7 +94,7 @@ public class GUI {
 		} // end Nimbus
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
-		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
 		final Dimension d = new Dimension(800, 600);
 		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
@@ -439,7 +439,6 @@ public class GUI {
 		final SpriteAnimator run = imageArea; // just a shorter name
 		// need to wrap it for a border
 		final JPanel imageWrap = new JPanel(new BorderLayout());
-
 		imageWrap.setBorder(fullPad);
 		imageWrap.add(imageArea,BorderLayout.CENTER);
 		frame.add(imageWrap, BorderLayout.CENTER);
@@ -465,7 +464,7 @@ public class GUI {
 		final File EEE = new File("");
 
 		// TODO: uncomment this for exports
-		//explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
+		explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
 		// clear focusability of all useless components
 		for (Component comp : controls.getComponents()) {
@@ -486,13 +485,12 @@ public class GUI {
 		});
 
 		// Updates frame info, but only in the correct mode
-		StepListener frameInfoWAtcher = new StepListener() {
+		StepListener frameInfoWatcher = new StepListener() {
 			public void eventReceived(StepEvent arg0) {
 				try {
 					frameInfo.setText(run.getFrameInfo());
 				} catch (Exception e) {
 					// nothing
-					e.printStackTrace();
 				}
 			}};
 
@@ -525,19 +523,19 @@ public class GUI {
 				switch (mode) {
 					case 0 :
 						stepWord = "Pause";
-						run.removeStepListener(frameInfoWAtcher);
+						run.removeStepListener(frameInfoWatcher);
 						break;
 					case 1 :
 						stepWord = "Step";
-						run.addStepListener(frameInfoWAtcher);
+						run.addStepListener(frameInfoWatcher);
 						break;
 					case 2 :
 						stepWord = "Pause";
-						run.removeStepListener(frameInfoWAtcher);
+						run.removeStepListener(frameInfoWatcher);
 						break;
 					default :
 						stepWord = "Step";
-						run.removeStepListener(frameInfoWAtcher);
+						run.removeStepListener(frameInfoWatcher);
 						break;
 				}
 				stepBtn.setText(stepWord);
@@ -869,7 +867,7 @@ public class GUI {
 		c.setToolTipText(
 				"<html>" +
 				"<div style=\"" + GUIHelpers.join(TOOLTIP_STYLES, ";") + "\">" +
-				GUIHelpers.join(text, "<br><br>") +
+				GUIHelpers.join(text, "<br/><br/>") +
 				"</div>" +
 				"</html>");
 		// set an underline for the component
@@ -877,7 +875,7 @@ public class GUI {
 			String s =  ((JLabel) c).getText();
 			((JLabel) c).setText(
 					"<html>" +
-					"<div style=\"border-bottom: 1px dotted #000;\">" +
+					"<div style=\"border-bottom: 1px dotted;\">" +
 					s +
 					"</div>" +
 					"</html>"
