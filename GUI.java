@@ -94,8 +94,9 @@ public class GUI {
 		} // end Nimbus
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
+		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
-		final Dimension d = new Dimension(600, 600);
+		final Dimension d = new Dimension(800, 600);
 		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
 		Dimension textDimension = new Dimension(50,20);
@@ -182,8 +183,8 @@ public class GUI {
 		final JLabel theWordSword = new JLabel("Gear:", SwingConstants.RIGHT); // not actually the word "Sword"
 		theWordSword.setBorder(rightPad);
 		setToolTip(theWordSword,
-				"Allows you to change or remove the sword and shield, " +
-				"and change the current mail palette.",
+				"Controls the level and display of the sword and shield, " +
+				"and the current mail palette.",
 				REBUILDS_PLURAL);
 
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -329,7 +330,7 @@ public class GUI {
 		setAllSizes(frameCur,textDimension);
 		setToolTip(theWordFrameWithAColon,
 				"In this case, the word \"frame\" refers to a particular " +
-				"frame of animation, rather than a CPU cycle.");
+				"frame of animation, rather than a repaint cycle of the SNES.");
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -449,7 +450,7 @@ public class GUI {
 		frame.setSize(d);
 		frame.setMinimumSize(d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocation(200,200);
+		frame.setLocation(150,150);
 		frame.setJMenuBar(menu);
 
 		// file explorer
