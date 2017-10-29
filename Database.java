@@ -441,12 +441,12 @@ public abstract class Database {
 				"P7{0,8}{F,UM}:E7{0,12}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"N0{0,8}{F}:A1{0,14}{F,U}:SHADOW0{0,7}{F} @ 3 ;" +
 				"K2{0,8}{F}:K0{0,12}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"K1{0,11}{F}:β7{8,16}{BR}:SHADOW0{0,7}{F} @ 3 ;" +
+				"K1{0,11}{F}:β7{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"F4{0,0}{F}:G4{0,16}{T}:SHADOW0{0,7}{F} @ 3 ;" +
 				"P7{0,8}{F,UM}:E7{0,12}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"N0{0,8}{F}:A1{0,14}{F,U}:SHADOW0{0,7}{F} @ 3 ;" +
 				"K2{0,8}{F}:K0{0,12}{F}:SHADOW0{0,7}{F} @ 3 ;" +
-				"K1{0,11}{F}:β7{8,16}{BR}:SHADOW0{0,7}{F} @ 3 ",
+				"K1{0,11}{F}:β7{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
 			// salute
 			"[salute]SWORD0{11,-7}{R}:SHIELD0{-5,9}{F}:A3{0,0}{F}:P4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ",
 			// itemGet
