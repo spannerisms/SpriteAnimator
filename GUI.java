@@ -867,7 +867,7 @@ public class GUI {
 		c.setToolTipText(
 				"<html>" +
 				"<div style=\"" + GUIHelpers.join(TOOLTIP_STYLES, ";") + "\">" +
-				GUIHelpers.join(text, "<br/><br />") +
+				GUIHelpers.join(text, "<br /><br />") +
 				"</div>" +
 				"</html>");
 		// set an underline for the component

@@ -40,7 +40,7 @@ public class Anime {
 			String[] spriteInfo = l[i].getInfo();
 			if (spriteInfo != null) {
 				ret += "<tr>" +
-						"<td style=\"width: 17%; text-align: right;\">" + spriteInfo[0] + "</td>" +
+						"<td style=\"width: 20%; text-align: right;\">" + spriteInfo[0] + "</td>" +
 						"<td style=\"width: 40%;\">" + spriteInfo[1] + "</td>" +
 						"<td style=\"width: 40%;\">" + spriteInfo[2] + "</td>" +
 						"</tr>";
