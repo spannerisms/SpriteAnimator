@@ -56,12 +56,10 @@ public class Sprite {
 			return;
 		}
 		// replace Alpha and Beta with Mike's index codes
-		if (n.equalsIgnoreCase("α")) {
-			n = "AA";
-		} else if (n.equalsIgnoreCase("β")) {
-			n = "AB";
-		} else { // pad all other indices with a single space
-			n = " " + n;
+		if (n.charAt(0) == Character.toUpperCase('α')) {
+			n = "AA" + n.charAt(1);
+		} else if (n.charAt(0) == Character.toUpperCase('β')) {
+			n = "AB" + n.charAt(1);
 		}
 		// get draw size
 		String flagW = "";
