@@ -475,7 +475,7 @@ public class GUI {
 		final File EEE = new File("");
 
 		// TODO: uncomment this for exports
-		explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
+		// explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
 		// clear focusability of all useless components
 		for (Component comp : controls.getComponents()) {
@@ -652,13 +652,14 @@ public class GUI {
 				try {
 					run.setAnimation(animOptions.getSelectedIndex());
 				} catch(Exception e) {
+					String animName = animOptions.getSelectedItem().toString();
 					run.setAnimation(0);
 					animOptions.setSelectedIndex(0);
 					JOptionPane.showMessageDialog(frame,
-							"This animation caused a problem.",
+							"There's a problem with the animation:\n" +
+									animName,
 							"OH NO",
 							JOptionPane.WARNING_MESSAGE);
-					e.printStackTrace();
 					return;
 				}
 				resetBtn.getActionListeners()[0].actionPerformed(
