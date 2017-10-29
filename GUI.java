@@ -18,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
@@ -87,6 +89,8 @@ public class GUI {
 					// do nothing
 			} //end System
 		} // end Nimbus
+		
+		ToolTipManager.sharedInstance().setInitialDelay(100);
 		final JFrame frame = new JFrame("Sprite Animator");
 		final Dimension d = new Dimension(600, 440);
 		final Dimension minD = new Dimension(400, 440);
@@ -102,6 +106,12 @@ public class GUI {
 
 		loadWrap.add(loadBtn,BorderLayout.EAST);
 		loadWrap.add(fileName,BorderLayout.CENTER);
+
+		// Tool Tip constants info
+		final String REBUILDS =
+				"This action requires a rebuild of the animation data, resetting the current frame to 1.";
+		final String REBUILDS_PLURAL =
+				"These actions require a rebuild of the animation data, resetting the current frame to 1.";
 
 		// controls panel
 		final JPanel controls = new JPanel(new GridBagLayout());
@@ -148,6 +158,8 @@ public class GUI {
 		final JComboBox<String> bgDisp = new JComboBox<String>(BACKGROUNDS);
 		final JLabel theWordBackground = new JLabel("Background:", SwingConstants.RIGHT);
 		theWordBackground.setBorder(rightPad);
+		setToolTip(theWordBackground,
+					"Changes the backdrop.");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
 		c.gridx = 0;
@@ -167,6 +179,11 @@ public class GUI {
 		final JComboBox<String> swordLevel = new JComboBox<String>(SWORDLEVELS);
 		final JLabel theWordSword = new JLabel("Gear:", SwingConstants.RIGHT); // not actually the word "Sword"
 		theWordSword.setBorder(rightPad);
+		setToolTip(theWordSword,
+				"Allows you to change or remove the sword and shield, " +
+				"and change the current mail palette.",
+				REBUILDS_PLURAL);
+
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
 		c.gridx = 0;
@@ -207,6 +224,12 @@ public class GUI {
 		final JLabel thePhraseMiscellaneousSpritesWithAColon = new JLabel("Misc. sprites:", SwingConstants.RIGHT);
 		final JLabel equipStatus = new JLabel("ON", SwingConstants.CENTER);
 		thePhraseMiscellaneousSpritesWithAColon.setBorder(rightPad);
+		setToolTip(thePhraseMiscellaneousSpritesWithAColon,
+				"When <b>miscellaneous sprites</b> are on " +
+						"animations that contains sprites other than the playable character " +
+						"will display their relevant sprites.",
+				"This option does not affect the display of swords, shields, or swag duck.",
+				REBUILDS);
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -221,6 +244,11 @@ public class GUI {
 		final JLabel theWordShadowsWithAColon = new JLabel("Shadows:", SwingConstants.RIGHT);
 		final JLabel shadowStatus = new JLabel("--", SwingConstants.CENTER);
 		theWordShadowsWithAColon.setBorder(rightPad);
+		setToolTip(theWordShadowsWithAColon,
+				"When <b>shadows</b> are on " +
+						"certain animations will display a shadow below the sprite.",
+				"This option will not affect shadows that belong to other sprites.",
+				REBUILDS);
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -235,6 +263,11 @@ public class GUI {
 		final JLabel theWordNeutralWithAColon = new JLabel("Neutral:", SwingConstants.RIGHT);
 		final JLabel neutralStatus = new JLabel("--", SwingConstants.CENTER);
 		theWordNeutralWithAColon.setBorder(rightPad);
+		setToolTip(theWordNeutralWithAColon,
+				"When <b>neutral frames</b> are on " +
+						"certain animations will begin with the sprite at the " +
+						"default standing position.",
+				REBUILDS);
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -292,6 +325,9 @@ public class GUI {
 		frameCur.setBorder(rightPad);
 		frameMax.setBorder(rightPad);
 		setAllSizes(frameCur,textDimension);
+		setToolTip(theWordFrameWithAColon,
+				"In this case, the word \"frame\" refers to a particular " +
+				"frame of animation, rather than a CPU cycle.");
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -355,7 +391,7 @@ public class GUI {
 		aboutFrame.setLocation(150,150);
 		aboutFrame.setResizable(false);
 		// end credits
-
+		
 		// menu
 		final JMenuBar menu = new JMenuBar();
 		final JMenu aboutMenu = new JMenu("About");
@@ -760,9 +796,49 @@ public class GUI {
 		return ret;
 	}
 
+	/**
+	 * Set min max and preferred size for a component
+	 * @param c
+	 * @param d
+	 */
 	private void setAllSizes(Component c, Dimension d) {
 		c.setPreferredSize(d);
 		c.setMaximumSize(d);
 		c.setMinimumSize(d);
+	}
+
+	/**
+	 * Tool tips are stupid omfg
+	 */
+	private static final String[] TOOLTIP_STYLES = {
+			"width: 150px",
+			"max-width: 150px",
+			"padding: 2px",
+	};
+
+	/**
+	 * Set a tool tip with text and warning in the preferred format
+	 * @param c
+	 * @param text
+	 * @param warning
+	 */
+	private void setToolTip(JComponent c, String... text) {
+		c.setToolTipText(
+				"<html>" +
+				"<div style=\"" + GUIHelpers.join(TOOLTIP_STYLES, ";") + "\">" +
+				GUIHelpers.join(text, "<br><br>") +
+				"</div>" +
+				"</html>");
+		// set an underline for the component
+		if (c instanceof JLabel) {
+			String s =  ((JLabel) c).getText();
+			((JLabel) c).setText(
+					"<html>" +
+					"<div style=\"border-bottom: 1px dotted #000;\">" +
+					s +
+					"</div>" +
+					"</html>"
+					);
+		}
 	}
 }
