@@ -7,7 +7,6 @@ public class Anime {
 	private Sprite[] l; // list of sprites in frame
 	private int xOffset;
 	private int yOffset;
-
 	public Anime(Sprite[] spriteList, int duration) {
 		d = duration;
 		l = spriteList;
@@ -26,6 +25,38 @@ public class Anime {
 		for (Sprite s : l) {
 			s.draw(g, xOffset + scaleOffset, yOffset + scaleOffset);
 		}
+	}
+
+	public Sprite[] list() {
+		return l;
+	}
+
+	// TODO: Can this be done without HTML? lol
+	public String printAll() {
+		String ret = "<html>" +
+				"<b>Sprites used:</b>" +
+				"<table style=\"width: 150px;\">";
+		for (int i = l.length - 1; i >= 0; i--) {
+			String[] spriteInfo = l[i].getInfo();
+			if (spriteInfo != null) {
+				ret += "<tr>" +
+						"<td style=\"width: 17%;\">" + spriteInfo[0] + "</td>" +
+						"<td style=\"width: 40%;\">" + spriteInfo[1] + "</td>" +
+						"<td style=\"width: 40%;\">" + spriteInfo[2] + "</td>" +
+						"</tr>";
+			}
+		}
+
+		ret += "</table></html>";
+		return ret;
+	}
+
+	public void print() {
+		System.out.println("SPRITE VALUES : ");
+		for (int i = l.length-1; i >= 0; i--) {
+			System.out.print(l[i].getVal() + ":");
+		}
+		System.out.println("");
 	}
 
 	/**

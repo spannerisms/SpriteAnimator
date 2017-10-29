@@ -113,6 +113,22 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
+	 * Current frames sprite list
+	 */
+	public String getFrameInfo() {
+		String ret = "";
+		switch (mode) {
+			case 0 :
+			case 2 :
+				ret = "Frame information disabled in this mode.";
+				break;
+			case 1 :
+				ret = frames[frame].printAll();
+				break;
+		}
+		return ret;
+	}
+	/**
 	 * Highest frame of current animation, not 0-indexed
 	 */
 	public int maxFrame() {
@@ -540,6 +556,10 @@ public class SpriteAnimator extends Component {
 	 */
 	public synchronized void addStepListener(StepListener s) {
 		stepListen.add(s);
+	}
+
+	public synchronized void removeStepListener(StepListener s) {
+		stepListen.remove(s);
 	}
 
 	private synchronized void fireStepEvent() {

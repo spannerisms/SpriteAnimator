@@ -92,8 +92,7 @@ public class GUI {
 		
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		final JFrame frame = new JFrame("Sprite Animator");
-		final Dimension d = new Dimension(600, 440);
-		final Dimension minD = new Dimension(400, 440);
+		final Dimension d = new Dimension(600, 600);
 		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
 		Dimension textDimension = new Dimension(50,20);
@@ -351,6 +350,20 @@ public class GUI {
 		controls.add(stepBtn,c);
 		c.gridx = 2;
 		controls.add(resetBtn,c);
+
+		// blank
+		c.gridy++;
+		c.ipady = 20;
+		controls.add(new JLabel(), c);
+		c.ipady = 0;
+
+		// frame info
+		final JLabel frameInfo = new JLabel("");
+		c.gridwidth = 3;
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(frameInfo,c);
+
 		// control panel done
 
 		// Credits
@@ -431,7 +444,7 @@ public class GUI {
 		frame.add(controlsWrap,BorderLayout.EAST);
 		frame.add(loadWrap,BorderLayout.NORTH);
 		frame.setSize(d);
-		frame.setMinimumSize(minD);
+		frame.setMinimumSize(d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(200,200);
 		frame.setJMenuBar(menu);
@@ -468,6 +481,17 @@ public class GUI {
 			}
 		});
 
+		// Updates frame info, but only in the correct mode
+		StepListener frameInfoWAtcher = new StepListener() {
+			public void eventReceived(StepEvent arg0) {
+				try {
+					frameInfo.setText(run.getFrameInfo());
+				} catch (Exception e) {
+					// nothing
+					e.printStackTrace();
+				}
+			}};
+
 		// listen for speed changes
 		run.addSpeedListener(new SpeedListener() {
 			public void eventReceived(SpeedEvent arg0) {
@@ -497,15 +521,30 @@ public class GUI {
 				switch (mode) {
 					case 0 :
 						stepWord = "Pause";
+						run.removeStepListener(frameInfoWAtcher);
 						break;
 					case 1 :
+						stepWord = "Step";
+						run.addStepListener(frameInfoWAtcher);
+						break;
+					case 2 :
+						stepWord = "Pause";
+						run.removeStepListener(frameInfoWAtcher);
+						break;
 					default :
 						stepWord = "Step";
+						run.removeStepListener(frameInfoWAtcher);
 						break;
 				}
 				stepBtn.setText(stepWord);
 				modeOptions.setSelectedIndex(mode);
 				playBtn.setEnabled(!run.isRunning());
+
+				try {
+					frameInfo.setText(run.getFrameInfo());
+				} catch (Exception e) {
+					// nothing
+				}
 			}
 		});
 
