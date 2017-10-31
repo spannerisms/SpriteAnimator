@@ -37,19 +37,19 @@ public abstract class Database {
 	// Neutral poses constants
 	private static final String NEUTRAL_LENGTH = "15";
 	
-	// for adding to dat
-	private static final String NEUTRAL_RIGHT = "NEUTRALRIGHT;";
-	@SuppressWarnings("unused")
-	private static final String NEUTRAL_LEFT = "NEUTRALLEFT;";
-	private static final String NEUTRAL_UP = "NEUTRALUP;";
-	private static final String NEUTRAL_DOWN = "NEUTRALDOWN;";
-	
 	// for testing
 	public static final String NEUTRAL_RIGHT_TEST = "NEUTRALRIGHT";
 	public static final String NEUTRAL_LEFT_TEST = "NEUTRALLEFT";
 	public static final String NEUTRAL_UP_TEST = "NEUTRALUP";
 	public static final String NEUTRAL_DOWN_TEST = "NEUTRALDOWN";
-	
+
+	// for adding to data
+	private static final String NEUTRAL_RIGHT = NEUTRAL_RIGHT_TEST + ";";
+	@SuppressWarnings("unused")
+	private static final String NEUTRAL_LEFT = NEUTRAL_LEFT_TEST + ";";
+	private static final String NEUTRAL_UP = NEUTRAL_UP_TEST + ";";
+	private static final String NEUTRAL_DOWN = NEUTRAL_DOWN_TEST + ";";
+
 	// map names to frames
 	public static final String NEUTRAL_RIGHT_FRAME =
 			"A0{-2,-1}{F}:B0{-1,7}{F}:SHIELD1{13,2}{R}:SHADOW0{0,7}{F} @ " + NEUTRAL_LENGTH;
@@ -62,11 +62,11 @@ public abstract class Database {
 
 	public static final String[] ALLFRAMES = {
 			// stand
-			"[stand]A0{-2,-1}{F}:B0{-1,7}{F}:SHIELD1{13,2}{R}:SHADOW0{0,7}{F} @ 4",
+			"[stand]A0{-2,-1}{F}:B0{-1,7}{F}:SHIELD1{13,2}{R}:SHADOW0{0,7}{F} @ 10000",
 			// standUp
-			"[standUp]A2{0,0}{F}:C1{0,8}{F}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 4",
+			"[standUp]A2{0,0}{F}:C1{0,8}{F}:SHIELD2{5,3}{F}:SHADOW0{0,7}{F} @ 10000",
 			// standDown
-			"[standDown]SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 4",
+			"[standDown]SHIELD0{-4,7}{F}:A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 10000",
 			// walk
 			"[walk]A0{-2,-1}{F}:B0{-1,7}{F}:SHIELD1{5,2}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"A0{-2,-2}{F}:B1{-1,7}{F}:SHIELD1{5,0}{F}:SHADOW0{0,7}{F} @ 3 ;" +
@@ -125,7 +125,7 @@ public abstract class Database {
 				"A0{-2,0}{F}:C3{-1,7}{F}:SWORD1{11,-3}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"A0{0,0}{F}:C3{-1,7}{F}:SWORD2{14,-3}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"Z6{10,11}{BL}:A0{0,1}{F}:C4{-1,7}{F,0}{0}:SWORD2{17,0}{F}:SHADOW0{0,7}{F} @ 1 ;" +
-				"Z6{14,11}{BL}:A0{3,1}{F}:Α7{-1,7}{F}:SWORD3{20,10}{XW}:SHADOW0{0,7}{F} @ 4 ;" +
+				"Z6{14,11}{BL}:A0{3,1}{F}:α7{-1,7}{F}:SWORD3{20,10}{XW}:SHADOW0{0,7}{F} @ 4 ;" +
 				"Z6{10,11}{BL}:A0{0,1}{F}:C4{-1,7}{F}:SWORD2{16,15}{F,U}:SHADOW0{0,7}{F} @ 1 ;" +
 				"SWORD5{13,19}{F,U}:A0{-1,0}{F,1}{0}:C5{-1,7}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"SWORD6{8,20}{F,U}:A0{-1,0}{F,1}{0}:C5{-1,7}{F}:SHADOW0{0,7}{F} @ 2 ",
@@ -147,7 +147,7 @@ public abstract class Database {
 				"SWORD5{-8,17}{F,UM}:SHIELD1{-7,2}{R,M}:A1{0,1}{F}:C6{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"SWORD9{-7,19}{F,UM}:SHIELD1{-7,2}{R,M}:A1{0,1}{F}:C6{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"SWORD9{-3,21}{F,UM}:SHIELD1{-8,4}{R,M}:A4{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
-				"SWORD8{8,24}{XT,U}:SHIELD1{-8,6}{R,M}:A4{0,5}{F}:Β0{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
+				"SWORD8{8,24}{XT,U}:SHIELD1{-8,6}{R,M}:A4{0,5}{F}:β0{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"SWORD9{12,19}{F,U}:SHIELD1{-8,4}{R,M}:A4{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"SWORD1{14,17}{F,U}:SHIELD1{-8,4}{R,M}:A3{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				"SWORD10{16,7}{F,U}:SHIELD1{-8,4}{R,M}:A3{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ",
@@ -186,7 +186,7 @@ public abstract class Database {
 				"A0{-1,0}{F}:B0{0,8}{F}:SWORD0{-1,-9}{R,M}:SHADOW0{0,7}{F} @ 2 ;" +
 				"A0{-1,0}{F}:B0{0,8}{F}:SWORD0{9,-9}{R}:SHADOW0{0,7}{F} @ 2 ;" +
 				"A1{0,0}{F}:P3{0,8}{F}:SWORD4{16,6}{B}:SHADOW0{0,7}{F} @ 2 ;" +
-				"SWORD4{16,5}{B,U}:A1{0,0}{F}:P3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
+				"SWORD4{16,15}{B,U}:A1{0,0}{F}:P3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD0{8,20}{R,U}:A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD0{-1,20}{R,UM}:A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD0{-5,16}{R,UM}:A2{0,0}{F}:D1{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ",
@@ -301,25 +301,52 @@ public abstract class Database {
 				"G4{12,8}{BR} @ 10 ;" +
 				"G4{0,0}{E} @ 10 ",
 			// zap
-			"[zap]" + NEUTRAL_RIGHT +
-				"S0{0,0}{B}:T0{0,8}{F} @ 2 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPS0{0,0}{B}:ZAPT0{0,8}{F} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPS0{0,0}{B}:ZAPT0{0,8}{F} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"R0{0,0}{F}:S0{0,16}{T} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPR0{0,0}{F}:ZAPS0{0,16}{T} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPR0{0,0}{F}:ZAPS0{0,16}{T} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"S0{0,0}{B}:T0{0,8}{F} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPS0{0,0}{B}:ZAPT0{0,8}{F} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPS0{0,0}{B}:ZAPT0{0,8}{F} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"R0{0,0}{F}:S0{0,16}{T} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPR0{0,0}{F}:ZAPS0{0,16}{T} @ 1 ;" + "A0{0,0}{E} @ 1 ;" +
-				"ZAPR0{0,0}{F}:ZAPS0{0,16}{T} @ 1 ;" + "A0{0,0}{E} @ 1 ",
+			"[zap]" + NEUTRAL_DOWN +
+				"S0{2,-1}{B}:T0{2,7}{F}:SHADOW1{0,7}{F} @ 2 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPS0{2,-1}{B}:ZAPT0{2,7}{F}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPS0{2,-1}{B}:ZAPT0{2,7}{F}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"R0{2,-1}{F}:S0{2,15}{T}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPR0{2,-1}{F}:ZAPS0{2,15}{T}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPR0{2,-1}{F}:ZAPS0{2,15}{T}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"S0{2,-1}{B}:T0{2,7}{F}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPS0{2,-1}{B}:ZAPT0{2,7}{F}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPS0{2,-1}{B}:ZAPT0{2,7}{F}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"R0{2,-1}{F}:S0{2,15}{T}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPR0{2,-1}{F}:ZAPS0{2,15}{T}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ;" +
+				"ZAPR0{2,-1}{F}:ZAPS0{2,15}{T}:SHADOW1{0,7}{F} @ 1 ;" +
+				"A0{0,0}{E}:SHADOW1{0,7}{F} @ 1 ",
 			// bonk
-			"[bonk]SWORD0{0,4}{R,M}:F3{0,0}{F}:G3{0,16}{T}:SHIELD2{-3,5}{F} @ 3 ",
+			"[bonk]SWORD0{0,4}{R,M}:F3{0,0}{F}:G3{0,16}{T}:SHIELD2{-3,5}{F} @ 10000 ",
 			// bonkUp
-			"[bonkUp]F4{0,0}{F}:G4{0,16}{T}:SWORD0{-4,0}{R,M}:SHIELD2{8,3}{F} @ 3 ",
+			"[bonkUp]F4{0,0}{F}:G4{0,16}{T}:SWORD0{-4,0}{R,M}:SHIELD2{8,3}{F} @ 10000 ",
 			// bonkDown
-			"[bonkDown]SHIELD0{-4,6}{F}:F2{0,0}{F}:G2{0,16}{T}:SWORD0{12,1}{R} @ 3 ",
+			"[bonkDown]SHIELD0{-4,6}{F}:F2{0,0}{F}:G2{0,16}{T}:SWORD0{12,1}{R} @ 10000 ",
+			// deathSpin
+			"[deathSpin]A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
+				"E2{2,0}{F}:J5{0,8}{R}:J6{8,8}{L}:SHADOW0{0,7}{F} @ 4 ;" +
+				"J6{1,8}{R}:J7{9,8}{F}:SHADOW0{0,7}{F} @ 60 ",
 			// grab - Animation is based on input, so use half second loop
 			"[grab]A0{0,-1}{F}:X2{-1,7}{F}:SHADOW0{0,7}{F} @ 30 ;" +
 				"J5{-8,12}{BL,U}:Z3{-5,0}{F}:Z4{-1,7}{F}:SHADOW0{0,7}{F} @ 6 ;" +
@@ -341,14 +368,14 @@ public abstract class Database {
 				"BUSH3{12,-4}{F}:ITEMSHADOW0{12,5}{F}:J5{-9,11}{BL,U}:U1{-2,1}{F}:U6{-1,7}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"BUSH3{9,-7}{F}:ITEMSHADOW0{9,5}{F}:J5{-9,11}{BL,U}:U1{-2,1}{F}:U6{-1,7}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"BUSH3{4,-10}{F}:ITEMSHADOW0{4,5}{F}:L6{-2,-1}{F}:O2{-1,7}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"BUSH3{-1,-12}{F}:L6{-2,-1}{F}:O2{-1,7}{F}:SHADOW0{0,7}{F} @ 4 ",
+				"BUSH3{-1,-12}{F}:L6{-2,-1}{F}:O2{-1,7}{F}:SHADOW0{0,7}{F} @ 30 ",
 			// liftUp
 			"[liftUp]BUSH3{0,-8}{F}:ITEMSHADOW0{0,6}{F}:U2{0,2}{F}:U7{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
 				"J5{-7,7}{BL}:J5{15,7}{BL,M}:BUSH3{0,-8}{F}:ITEMSHADOW0{0,6}{F}:A2{0,2}{F}:V0{0,8}{F}:SHADOW0{0,7}{F} @ 7 ;"+
 				"J5{-9,10}{BL,U}:J5{17,10}{BL,UM}:BUSH3{0,-8}{F}:ITEMSHADOW0{0,6}{F}:A2{0,2}{F}:V0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"J5{-9,10}{BL,U}:J5{17,10}{BL,UM}:BUSH3{0,-9}{F}:ITEMSHADOW0{0,6}{F}:A2{0,2}{F}:V0{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"BUSH3{0,-10}{F}:ITEMSHADOW0{0,6}{F}:L7{0,0}{F}:O5{0,8}{F}:SHADOW0{0,7}{F} @ 4 ;" +
-				"BUSH3{0,-11}{F}:ITEMSHADOW0{0,6}{F}:L7{0,0}{F}:O5{0,8}{F}:SHADOW0{0,7}{F} @ 20 ",
+				"BUSH3{0,-11}{F}:L7{0,0}{F}:O5{0,8}{F}:SHADOW0{0,7}{F} @ 30 ",
 			// liftDown
 			"[liftDown]BUSH3{0,5}{F}:E3{0,3}{F}:U4{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
 				"BUSH3{0,5}{F}:J5{-8,5}{BL}:J5{16,5}{BL,M}:U0{0,3}{F}:U4{0,8}{F}:SHADOW0{0,7}{F} @ 7 ;" +
@@ -898,21 +925,6 @@ public abstract class Database {
 				"SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
 				"SHIELD0{-4,6}{F}:A1{0,0}{F}:S6{0,8}{F}:SHADOW0{0,7}{F} @ 1 ;" +
 				NEUTRAL_DOWN,
-			// deathSpin
-			"[deathSpin]A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A1{0,0}{F}:B3{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A0{1,0}{F,M}:B0{0,8}{F,M}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A2{0,0}{F}:C1{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"A0{-1,0}{F}:B0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ;" +
-				"E2{2,0}{F}:J5{0,8}{R}:J6{8,8}{L}:SHADOW0{0,7}{F} @ 4 ;" +
-				"J6{1,8}{R}:J7{9,8}{F} @ 60 ",
 			// poke
 			"[poke]SWORD3{12,13}{B}:A0{-2,0}{F}:N2{-1,7}{F}:SHIELD2{-1,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"SWORD3{16,11}{B}:A0{0,1}{F}:F6{-1,7}{F}:SHIELD2{0,2}{F}:SHADOW0{0,7}{F} @ 4 ;" +
@@ -944,13 +956,13 @@ public abstract class Database {
 				"GRASS0{0,16}{B}:SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M} @ 4 ;" +
 				"GRASS1{0,16}{T}:SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M} @ 4 ",
 			// mapDungeon
-			"[mapDungeon]K7{0,0}{F} @ 3 ",
+			"[mapDungeon]K7{0,0}{F} @ 10000 ",
 			// mapWorld
 			"[mapWorld]Y7{0,0}{F} @ 17; " +
 				"Y7{0,0}{E} @ 17 ",
 			// sleep
-			"[sleep]A6{0,0}{F}:BED0{-8,8}{XXL}:D3{0,5}{F} @ 3 ",
+			"[sleep]A6{0,0}{F}:BED0{-8,8}{XXL}:D3{0,5}{F} @ 10000 ",
 			// awake
-			"[awake]E3{0,-1}{F}:BED2{-8,8}{XXL}:D3{0,6}{F} @ 3 "
+			"[awake]E3{0,-1}{F}:BED2{-8,8}{XXL}:D3{0,6}{F} @ 10000 "
 		};
 }
