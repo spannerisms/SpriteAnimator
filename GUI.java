@@ -103,11 +103,16 @@ public class GUI {
 
 		// image loading
 		final JPanel loadWrap = new JPanel(new BorderLayout());
+		final JPanel loadBtnWrap = new JPanel(new BorderLayout());
+		loadBtnWrap.setPreferredSize(new Dimension(200, 16));
 		loadWrap.setBorder(fullPad);
 		final JTextField fileName = new JTextField("");
 		final JButton loadBtn = new JButton("Load sprite");
+		final JButton reloadBtn = new JButton("Reload sprite");
 
-		loadWrap.add(loadBtn,BorderLayout.EAST);
+		loadBtnWrap.add(reloadBtn,BorderLayout.EAST);
+		loadBtnWrap.add(loadBtn,BorderLayout.CENTER);
+		loadWrap.add(loadBtnWrap, BorderLayout.EAST);
 		loadWrap.add(fileName,BorderLayout.CENTER);
 
 		// Tool Tip constants info
@@ -618,38 +623,22 @@ public class GUI {
 					}
 				}
 
-				// read the file
-				byte[] sprite;
-				try {
-					sprite = SpriteManipulator.readFile(fileName.getText());
-				} catch (IOException e1) {
+				GUIHelpers.loadSPR(n, animOptions.getSelectedIndex(), run, frame);
+			}});
+		
+		// reload sprite file
+		reloadBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String curFileName = fileName.getText();
+				if (curFileName.equals("") || !GUIHelpers.testFileType(curFileName,"spr")) {
 					JOptionPane.showMessageDialog(frame,
-							"Error reading sprite",
+							"Please load a file first",
 							"Oops",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 
-				// turn spr into useable images
-				try {
-					byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
-					byte[][] palette = SpriteManipulator.getPal(sprite);
-					BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
-					run.setImage(mails);
-				} catch(Exception e) {
-					JOptionPane.showMessageDialog(frame,
-							"Error converting sprite",
-							"Oops",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-
-				// reset animator, forcing it to update
-				try {
-					run.setAnimation(animOptions.getSelectedIndex());
-				} catch(Exception e) {
-					// nothing
-				}
+				GUIHelpers.loadSPR(curFileName, animOptions.getSelectedIndex(), run, frame);
 			}});
 
 		// animation select
