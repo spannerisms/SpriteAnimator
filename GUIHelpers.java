@@ -1,6 +1,58 @@
 package SpriteAnimator;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import SpriteManipulator.SpriteManipulator;
+
 public abstract class GUIHelpers {
+	
+	
+	/**
+	 * Loads an SPR file and resets the animation
+	 * @param fileName - name of file to load
+	 * @param selectedAnimation - index of the selected animation
+	 * @param run - animation handler
+	 * @param frame - main jframe
+	 */
+	public static void loadSPR(String fileName, int selectedAnimation, SpriteAnimator run, JFrame frame) {
+		// read the file
+		byte[] sprite;
+		try {
+			sprite = SpriteManipulator.readFile(fileName);
+		} catch (IOException e1) {
+			JOptionPane.showMessageDialog(frame,
+					"Error reading sprite",
+					"Oops",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		// turn spr into useable images
+		try {
+			byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
+			byte[][] palette = SpriteManipulator.getPal(sprite);
+			BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
+			run.setImage(mails);
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(frame,
+					"Error converting sprite",
+					"Oops",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		// reset animator, forcing it to update
+		try {
+			run.setAnimation(selectedAnimation);
+		} catch(Exception e) {
+			// nothing
+		}
+	}
+	
 	/**
 	 * gives file extension name from a string
 	 * @param s - test case
