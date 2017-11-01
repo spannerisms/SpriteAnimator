@@ -3,8 +3,6 @@ package SpriteAnimator;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 import SpriteManipulator.SpriteManipulator;
 
 public abstract class GUIHelpers {
