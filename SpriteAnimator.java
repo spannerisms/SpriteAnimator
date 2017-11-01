@@ -470,8 +470,9 @@ public class SpriteAnimator extends Component {
 	public boolean shadowOn() {
 		return showShadow;
 	}
+
 	/**
-	 * Switch shadow display status
+	 * Switch neutral display status
 	 */
 	public void switchNeutral() {
 		showNeutral = !showNeutral;
@@ -479,11 +480,12 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Return shadow display status
+	 * Return neutral display status
 	 */
 	public boolean neutralOn() {
 		return showNeutral;
 	}
+
 	/**
 	 * Set mail level
 	 * @param ml
