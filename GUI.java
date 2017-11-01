@@ -1,7 +1,7 @@
 package SpriteAnimator;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -28,6 +28,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
@@ -91,7 +92,7 @@ public class GUI {
 					| IllegalAccessException e2) {
 					// do nothing
 			} //end System
-		} // end Nimbus
+		} // end Metal
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
@@ -101,15 +102,35 @@ public class GUI {
 		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
 		Dimension textDimension = new Dimension(50,20);
 
+		// layout
+		final Container fullWrap = frame.getContentPane();
+		SpringLayout l = new SpringLayout();
+		fullWrap.setLayout(l);
+
 		// image loading
-		final JPanel loadWrap = new JPanel(new BorderLayout());
-		loadWrap.setBorder(fullPad);
 		final JTextField fileName = new JTextField("");
 		final JButton loadBtn = new JButton("Load sprite");
+		final JButton reloadBtn = new JButton("Reload");
+		l.putConstraint(SpringLayout.EAST, reloadBtn, -5,
+				SpringLayout.EAST, fullWrap);
+		l.putConstraint(SpringLayout.NORTH, reloadBtn, 5,
+				SpringLayout.NORTH, fullWrap);
+		
+		l.putConstraint(SpringLayout.EAST, loadBtn, -5,
+				SpringLayout.WEST, reloadBtn);
+		l.putConstraint(SpringLayout.NORTH, loadBtn, 5,
+				SpringLayout.NORTH, fullWrap);
 
-		loadWrap.add(loadBtn,BorderLayout.EAST);
-		loadWrap.add(fileName,BorderLayout.CENTER);
-
+		l.putConstraint(SpringLayout.WEST, fileName, 5,
+				SpringLayout.WEST, fullWrap);
+		l.putConstraint(SpringLayout.EAST, fileName, -5,
+				SpringLayout.WEST, loadBtn);
+		l.putConstraint(SpringLayout.NORTH, fileName, 7,
+				SpringLayout.NORTH, fullWrap);
+		fullWrap.add(fileName);
+		fullWrap.add(loadBtn);
+		fullWrap.add(reloadBtn);
+		
 		// Tool Tip constants info
 		final String REBUILDS =
 				"This action requires a rebuild of the animation data, resetting the current frame to 1.";
@@ -118,9 +139,14 @@ public class GUI {
 
 		// controls panel
 		final JPanel controls = new JPanel(new GridBagLayout());
-		final JPanel controlsWrap = new JPanel(new BorderLayout());
 		controls.setBorder(fullPad);
 		GridBagConstraints c = new GridBagConstraints();
+
+		l.putConstraint(SpringLayout.EAST, controls, -5,
+				SpringLayout.EAST, fullWrap);
+		l.putConstraint(SpringLayout.NORTH, controls, 0,
+				SpringLayout.SOUTH, loadBtn);
+		frame.add(controls);
 
 		// negative so everything can just ++
 		c.gridy = -1;
@@ -234,7 +260,7 @@ public class GUI {
 		final JLabel equipStatus = new JLabel("ON", SwingConstants.CENTER);
 		thePhraseMiscellaneousSpritesWithAColon.setBorder(rightPad);
 		setToolTip(thePhraseMiscellaneousSpritesWithAColon,
-				"When <b>miscellaneous sprites</b> are on " +
+				"When <b>miscellaneous sprites</b> are on, " +
 						"animations that contain sprites other than the playable character " +
 						"will display their relevant sprites.",
 				"This option does not affect the display of swords, shields, or swag duck.",
@@ -254,7 +280,7 @@ public class GUI {
 		final JLabel shadowStatus = new JLabel("--", SwingConstants.CENTER);
 		theWordShadowsWithAColon.setBorder(rightPad);
 		setToolTip(theWordShadowsWithAColon,
-				"When <b>shadows</b> are on " +
+				"When <b>shadows</b> are on, " +
 						"certain animations will display a shadow below the sprite.",
 				"This option will not affect shadows that belong to other sprites.",
 				REBUILDS);
@@ -273,9 +299,9 @@ public class GUI {
 		final JLabel neutralStatus = new JLabel("--", SwingConstants.CENTER);
 		theWordNeutralWithAColon.setBorder(rightPad);
 		setToolTip(theWordNeutralWithAColon,
-				"When <b>neutral frames</b> are on " +
-						"certain animations will begin with the sprite at the " +
-						"default standing position.",
+				"When <b>neutral frames</b> are on, " +
+						"certain animations will begin or end with the sprite at a " +
+						"neutral standing position.",
 				REBUILDS);
 		c.gridwidth = 1;
 		c.gridy++;
@@ -392,6 +418,7 @@ public class GUI {
 		peepsList.append(GUIHelpers.join(new String[]{
 				"MikeTrethewey", // God dammit, stop being so helpful
 				"Zarby89", // spr conversion
+				"Roxas232" // reload button
 				}, ", "));
 		peepsList.append("\n\nResources and development:\n");
 		peepsList.append(GUIHelpers.join(new String[]{
@@ -412,6 +439,7 @@ public class GUI {
 
 		// menu
 		final JMenuBar menu = new JMenuBar();
+		frame.setJMenuBar(menu);
 		
 		// file menu
 		final JMenu fileMenu = new JMenu("File");
@@ -452,22 +480,19 @@ public class GUI {
 		frame.setIconImages(icons);
 
 		// other frame organization
-		final SpriteAnimator imageArea = new SpriteAnimator();
-		final SpriteAnimator run = imageArea; // just a shorter name
-		// need to wrap it for a border
-		final JPanel imageWrap = new JPanel(new BorderLayout());
-		imageWrap.setBorder(fullPad);
-		imageWrap.add(imageArea,BorderLayout.CENTER);
-		frame.add(imageWrap, BorderLayout.CENTER);
+		final SpriteAnimator run = new SpriteAnimator(); // just a shorter name
+		setAllSizes(run, new Dimension(550,550));
+		l.putConstraint(SpringLayout.WEST, run, -5,
+				SpringLayout.WEST, fullWrap);
+		l.putConstraint(SpringLayout.NORTH, run, 5,
+				SpringLayout.SOUTH, fileName);
+		fullWrap.add(run);
 
-		controlsWrap.add(controls,BorderLayout.NORTH);
-		frame.add(controlsWrap,BorderLayout.EAST);
-		frame.add(loadWrap,BorderLayout.NORTH);
+		// frame setting
 		frame.setSize(d);
 		frame.setMinimumSize(d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(150,150);
-		frame.setJMenuBar(menu);
 
 		// file explorer
 		final JFileChooser explorer = new JFileChooser();
@@ -864,6 +889,7 @@ public class GUI {
 		c.setPreferredSize(d);
 		c.setMaximumSize(d);
 		c.setMinimumSize(d);
+		c.setSize(d);
 	}
 
 	/**
