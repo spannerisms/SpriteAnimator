@@ -115,7 +115,7 @@ public class GUI {
 				SpringLayout.EAST, fullWrap);
 		l.putConstraint(SpringLayout.NORTH, reloadBtn, 5,
 				SpringLayout.NORTH, fullWrap);
-		
+
 		l.putConstraint(SpringLayout.EAST, loadBtn, -5,
 				SpringLayout.WEST, reloadBtn);
 		l.putConstraint(SpringLayout.NORTH, loadBtn, 5,
@@ -130,7 +130,7 @@ public class GUI {
 		fullWrap.add(fileName);
 		fullWrap.add(loadBtn);
 		fullWrap.add(reloadBtn);
-		
+
 		// Tool Tip constants info
 		final String REBUILDS =
 				"This action requires a rebuild of the animation data, resetting the current frame to 1.";
@@ -440,7 +440,7 @@ public class GUI {
 		// menu
 		final JMenuBar menu = new JMenuBar();
 		frame.setJMenuBar(menu);
-		
+
 		// file menu
 		final JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
@@ -644,10 +644,9 @@ public class GUI {
 				}
 
 				// read the file
-				byte[] sprite;
 				try {
-					sprite = SpriteManipulator.readFile(fileName.getText());
-				} catch (IOException e1) {
+					GUIHelpers.loadSprite(run, fileName.getText());
+				} catch (Exception e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
 							"Oops",
@@ -655,15 +654,31 @@ public class GUI {
 					return;
 				}
 
-				// turn spr into useable images
+				// reset animator, forcing it to update
 				try {
-					byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
-					byte[][] palette = SpriteManipulator.getPal(sprite);
-					BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
-					run.setImage(mails);
+					run.setAnimation(animOptions.getSelectedIndex());
 				} catch(Exception e) {
+					// nothing
+				}
+			}});
+
+		reloadBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String n = fileName.getText();
+				if (!GUIHelpers.testFileType(n,"spr")) {
 					JOptionPane.showMessageDialog(frame,
-							"Error converting sprite",
+							"Please select a sprite first.",
+							"C'mon dude",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+
+				// read the file
+				try {
+					GUIHelpers.loadSprite(run, fileName.getText());
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(frame,
+							"Error reloading sprite",
 							"Oops",
 							JOptionPane.WARNING_MESSAGE);
 					return;

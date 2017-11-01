@@ -1,5 +1,12 @@
 package SpriteAnimator;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import SpriteManipulator.SpriteManipulator;
+
 public abstract class GUIHelpers {
 	/**
 	 * gives file extension name from a string
@@ -58,5 +65,25 @@ public abstract class GUIHelpers {
 			}
 		}
 		return ret;
+	}
+
+	public static void loadSprite(SpriteAnimator a, String fileName) throws IOException {
+		// read the file
+		byte[] sprite;
+		try {
+			sprite = SpriteManipulator.readFile(fileName);
+		} catch (IOException e1) {
+			throw e1;
+		}
+
+		// turn spr into useable images
+		try {
+			byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
+			byte[][] palette = SpriteManipulator.getPal(sprite);
+			BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
+			a.setImage(mails);
+		} catch(Exception e) {
+			throw e;
+		}
 	}
 }
