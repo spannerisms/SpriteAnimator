@@ -352,15 +352,12 @@ public class GUI {
 		c.ipady = 0;
 
 		// frame counter
-		final JLabel theWordFrameWithAColon = new JLabel("Frame:", SwingConstants.RIGHT);
+		final JLabel theWordFrameWithAColon = new JLabel("Animation step:", SwingConstants.RIGHT);
 		final JLabel frameCur = new JLabel("-", SwingConstants.RIGHT);
 		final JLabel frameMax = new JLabel("/ -");
 		frameCur.setBorder(rightPad);
 		frameMax.setBorder(rightPad);
 		setAllSizes(frameCur,textDimension);
-		setToolTip(theWordFrameWithAColon,
-				"In this case, the word \"frame\" refers to a particular " +
-				"frame of animation, rather than a repaint cycle of the SNES.");
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;

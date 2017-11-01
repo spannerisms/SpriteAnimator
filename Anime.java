@@ -34,7 +34,7 @@ public class Anime {
 	// TODO: Can this be done without HTML? lol
 	public String printAll() {
 		String ret = "<html>" +
-				"<b>Sprites used:</b>" +
+				"<b>Sprite indices used:</b>" +
 				"<table style=\"width: 150px;\">";
 		for (int i = l.length - 1; i >= 0; i--) {
 			String[] spriteInfo = l[i].getInfo();

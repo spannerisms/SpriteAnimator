@@ -64,7 +64,7 @@ public class Sprite {
 		// get draw size
 		String flagW = "";
 		if (size.equalsIgnoreCase("E")) {
-			n = "Empty frame";
+			n = "Empty step";
 		} else {
 			for (String[] f : FLAGS_TO_VAL) {
 				if (size.equalsIgnoreCase(f[0])) {

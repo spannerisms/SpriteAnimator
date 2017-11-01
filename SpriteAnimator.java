@@ -119,7 +119,7 @@ public class SpriteAnimator extends Component {
 		switch (mode) {
 			case 0 :
 			case 2 :
-				ret = "Frame information disabled in this mode.";
+				ret = "Sprite information disabled in this mode.";
 				break;
 			case 1 :
 				ret = frames[frame].printAll();
