@@ -42,6 +42,8 @@ public class GUI {
 	static final String VERSION = SpriteAnimator.VERSION;
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 
+	private static final String[] ACCEPTED_FILE_TYPES = new String[] { "spr", "sfc", "png" };
+
 	private static final String[] MODES = {
 			"Normal play",
 			"Step-by-step",
@@ -493,8 +495,13 @@ public class GUI {
 		final JFileChooser explorer = new JFileChooser();
 		FileNameExtensionFilter sprFilter =
 				new FileNameExtensionFilter("ALttP sprite files", new String[] { "spr" });
+		FileNameExtensionFilter romFilter =
+				new FileNameExtensionFilter("ALttP rom files", new String[] { "sfc" });
+		FileNameExtensionFilter pngFilter =
+				new FileNameExtensionFilter("PNG images", new String[] { "png" });
 		explorer.setAcceptAllFileFilterUsed(false);
 		explorer.setFileFilter(sprFilter);
+		explorer.addChoosableFileFilter(romFilter);
 
 		// can't clear text due to wonky code
 		// have to set a blank file instead
@@ -630,7 +637,7 @@ public class GUI {
 				} catch (NullPointerException e) {
 					// do nothing
 				} finally {
-					if (GUIHelpers.testFileType(n,"spr")) {
+					if (GUIHelpers.testFileType(n,ACCEPTED_FILE_TYPES)) {
 						fileName.setText(n);
 					}
 					else {
@@ -660,7 +667,7 @@ public class GUI {
 		reloadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String n = fileName.getText();
-				if (!GUIHelpers.testFileType(n,"spr")) {
+				if (!GUIHelpers.testFileType(n,ACCEPTED_FILE_TYPES)) {
 					JOptionPane.showMessageDialog(frame,
 							"Please select a sprite first.",
 							"C'mon dude",

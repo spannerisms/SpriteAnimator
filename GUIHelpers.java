@@ -67,11 +67,21 @@ public abstract class GUIHelpers {
 
 	public static void loadSprite(SpriteAnimator a, String fileName) throws IOException {
 		// read the file
-		byte[] sprite;
+		byte[] file;
 		try {
-			sprite = SpriteManipulator.readFile(fileName);
+			file = SpriteManipulator.readFile(fileName);
 		} catch (IOException e1) {
 			throw e1;
+		}
+
+		String fileType = getFileType(fileName);
+		byte[] sprite;
+		if (fileType.equalsIgnoreCase("spr")) {
+			sprite = file;
+		} else if (fileType.equalsIgnoreCase("sfc")) {
+			sprite = SpriteManipulator.sprFromRom(file);
+		} else {
+			return;
 		}
 
 		// turn spr into useable images
