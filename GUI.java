@@ -42,7 +42,7 @@ public class GUI {
 	static final String VERSION = SpriteAnimator.VERSION;
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 
-	private static final String[] ACCEPTED_FILE_TYPES = new String[] { "spr", "sfc", "png" };
+	private static final String[] ACCEPTED_FILE_TYPES = new String[] { "spr", "sfc" /*, "png"*/ };
 
 	private static final String[] MODES = {
 			"Normal play",
@@ -75,7 +75,7 @@ public class GUI {
 	private static final String[] BACKGROUNDS = Backgrounds.BACKGROUNDNAMES;
 
 	// use func
-	public void printGUI(String[] args) throws IOException {
+	public void printGUI() throws IOException {
 		//try to set LaF
 		try {
 			UIManager.setLookAndFeel("metal");
@@ -497,8 +497,8 @@ public class GUI {
 				new FileNameExtensionFilter("ALttP sprite files", new String[] { "spr" });
 		FileNameExtensionFilter romFilter =
 				new FileNameExtensionFilter("ALttP rom files", new String[] { "sfc" });
-		FileNameExtensionFilter pngFilter =
-				new FileNameExtensionFilter("PNG images", new String[] { "png" });
+//		FileNameExtensionFilter pngFilter =
+//				new FileNameExtensionFilter("PNG images", new String[] { "png" });
 		explorer.setAcceptAllFileFilterUsed(false);
 		explorer.setFileFilter(sprFilter);
 		explorer.addChoosableFileFilter(romFilter);

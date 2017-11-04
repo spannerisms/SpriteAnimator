@@ -127,6 +127,7 @@ public class SpriteAnimator extends Component {
 		}
 		return ret;
 	}
+
 	/**
 	 * Highest frame of current animation, not 0-indexed
 	 */
@@ -230,6 +231,7 @@ public class SpriteAnimator extends Component {
 	public void pause() {
 		setMode(1);
 	}
+
 	/**
 	 * Remakes animation when we need to add new images to the sprite
 	 */
@@ -238,6 +240,7 @@ public class SpriteAnimator extends Component {
 		makeAnimationFrames();
 		reset();
 	}
+
 	/**
 	 * Reset the timer
 	 */
@@ -246,6 +249,7 @@ public class SpriteAnimator extends Component {
 		tick = new Timer();
 		fireSpeedEvent();
 	}
+
 	/**
 	 * Fires every event to refresh the GUI.
 	 */
@@ -256,6 +260,7 @@ public class SpriteAnimator extends Component {
 		fireZoomEvent();
 		fireRebuildEvent();
 	}
+
 	/**
 	 * Reset speed to 0
 	 */
@@ -298,7 +303,8 @@ public class SpriteAnimator extends Component {
 	 */
 	public boolean isRunning() {
 		return running;
-	};
+	}
+
 	/**
 	 * Increments step speed by 1.
 	 */
@@ -1029,8 +1035,15 @@ public class SpriteAnimator extends Component {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		GUI G = new GUI();
-		G.printGUI(args);
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					new GUI().printGUI();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
