@@ -79,14 +79,16 @@ public abstract class GUIHelpers {
 		if (fileType.equalsIgnoreCase("spr")) {
 			sprite = file;
 		} else if (fileType.equalsIgnoreCase("sfc")) {
-			sprite = SpriteManipulator.sprFromRom(file);
+			sprite = SpriteManipulator.getSprFromRom(file);
+		} else if (fileType.equalsIgnoreCase("png")){
+			return;
 		} else {
 			return;
 		}
 
 		// turn spr into useable images
 		try {
-			byte[][][] ebe = SpriteManipulator.sprTo8x8(sprite);
+			byte[][][] ebe = SpriteManipulator.makeSpr8x8(sprite);
 			byte[][] palette = SpriteManipulator.getPal(sprite);
 			BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
 			a.setImage(mails);
