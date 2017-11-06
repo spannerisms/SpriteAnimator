@@ -539,8 +539,8 @@ public class GUI {
 			}};
 
 		// listen for speed changes
-		run.addSpeedListener(new SpeedListener() {
-			public void eventReceived(SpeedEvent arg0) {
+		run.addSpeedListener(
+			arg0 -> {
 				if (btnAllowed("speed", run.getMode())) {
 					fasterBtn.setEnabled(!run.atMaxSpeed());
 					slowerBtn.setEnabled(!run.atMinSpeed());
@@ -550,12 +550,11 @@ public class GUI {
 					fasterBtn.setEnabled(false);
 					slowerBtn.setEnabled(false);
 				}
-			}
-		});
+			});
 
 		// listen for mode changes
-		run.addModeListener(new ModeListener() {
-			public void eventReceived(ModeEvent arg0) {
+		run.addModeListener(
+			arg0 -> {
 				int mode = run.getMode();
 				stepBtn.setEnabled(btnAllowed("step", mode));
 				slowerBtn.setEnabled(btnAllowed("speed", mode));
@@ -591,21 +590,19 @@ public class GUI {
 				} catch (Exception e) {
 					// nothing
 				}
-			}
-		});
+			});
 
 		// listen for Zoom changes
-		run.addZoomListener(new ZoomListener() {
-			public void eventReceived(ZoomEvent arg0) {
+		run.addZoomListener(
+			arg0 -> {
 				bigBtn.setEnabled(!run.tooBig());
 				lilBtn.setEnabled(!run.vanillaSize());
 				zoomLevel.setText("x" + run.getZoom());
-			}
-		});
+			});
 
 		// listen for display changes
-		run.addRebuildListener(new RebuildListener() {
-			public void eventReceived(RebuildEvent arg0) {
+		run.addRebuildListener(
+			arg0 -> {
 				try {
 					run.hardReset();
 				} catch (Exception e) {
@@ -615,15 +612,14 @@ public class GUI {
 				equipStatus.setText(run.equipmentOn() ? "ON" : "OFF");
 				shadowStatus.setText(run.shadowOn() ? "ON" : "OFF");
 				neutralStatus.setText(run.neutralOn() ? "ON" : "OFF");
-			}
-		});
+			});
 
 		// update GUI
 		run.firePurge();
 
 		// load sprite file
-		loadBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		loadBtn.addActionListener(
+			arg0 -> {
 				explorer.setSelectedFile(EEE);
 				int option = explorer.showOpenDialog(loadBtn);
 				if (option == JFileChooser.CANCEL_OPTION) {
@@ -662,10 +658,10 @@ public class GUI {
 				} catch(Exception e) {
 					// nothing
 				}
-			}});
+			});
 
-		reloadBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		reloadBtn.addActionListener(
+			arg0 -> {
 				String n = fileName.getText();
 				if (!GUIHelpers.testFileType(n,ACCEPTED_FILE_TYPES)) {
 					JOptionPane.showMessageDialog(frame,
@@ -692,11 +688,11 @@ public class GUI {
 				} catch(Exception e) {
 					// nothing
 				}
-			}});
+			});
 
 		// animation select
-		animOptions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		animOptions.addActionListener(
+			arg0 -> {
 				try {
 					run.setAnimation(animOptions.getSelectedIndex());
 				} catch(Exception e) {
@@ -712,49 +708,49 @@ public class GUI {
 				}
 				resetBtn.getActionListeners()[0].actionPerformed(
 						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"",0,0));
-			}});
+			});
 
 		// mode select
-		modeOptions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		modeOptions.addActionListener(
+			arg0 -> {
 				try {
 					run.setMode(modeOptions.getSelectedIndex());
 				} catch (Exception e) {
 					// do nothing
 				}
-			}});
+			});
 
 		// zoom buttons
-		bigBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		bigBtn.addActionListener(
+			arg0 -> {
 				run.embiggen();
-			}});
+			});
 
-		lilBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		lilBtn.addActionListener(
+			arg0 -> {
 				run.ensmallen();
-			}});
+			});
 
 		// speed buttons
-		fasterBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		fasterBtn.addActionListener(
+			arg0 -> {
 				run.faster();
-			}});
+			});
 
-		slowerBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		slowerBtn.addActionListener(
+			arg0 -> {
 				run.slower();
-			}});
+			});
 
 		// play button
-		playBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		playBtn.addActionListener(
+			arg0 -> {
 				run.setMode(0);
-			}});
+			});
 
 		// step button
-		stepBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		stepBtn.addActionListener(
+			arg0 -> {
 				switch (run.getMode()) {
 					case 0 :
 						run.pause();
@@ -763,62 +759,62 @@ public class GUI {
 						run.step();
 						break;
 				}
-			}});
+			});
 
 		// reset button
-		resetBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		resetBtn.addActionListener(
+			arg0 -> {
 				try {
 					run.repaint();
 					run.reset();
 				} catch (Exception e) {
 					// do nothing
 				}
-			}});
+			});
 
 		// item toggle
-		equipBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		equipBtn.addActionListener(
+			arg0 -> {
 				run.switchEquipment();
-			}});
+			});
 
 		// shadow toggle
-		shadowBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		shadowBtn.addActionListener(
+			arg0 -> {
 				run.switchShadow();
-			}});
+			});
 
 		// neutral toggle
-		neutralBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		neutralBtn.addActionListener(
+			arg0 -> {
 				run.switchNeutral();
-			}});
+			});
 
 		// gear settings
-		mailLevel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		mailLevel.addActionListener(
+			arg0 -> {
 				int level = mailLevel.getSelectedIndex();
 				run.setMail(level);
-			}});
+			});
 
-		swordLevel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		swordLevel.addActionListener(
+			arg0 -> {
 				int level = swordLevel.getSelectedIndex();
 				run.setSword(level);
-			}});
+			});
 
-		shieldLevel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		shieldLevel.addActionListener(
+			arg0 -> {
 				int level = shieldLevel.getSelectedIndex();
 				run.setShield(level);
-			}});
+			});
 
 		// background display
-		bgDisp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		bgDisp.addActionListener(
+			arg0 -> {
 				int bg = bgDisp.getSelectedIndex();
 				run.setBackground(bg);
-			}});
+			});
 
 		// turn on
 		frame.setVisible(true);
