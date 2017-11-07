@@ -760,7 +760,7 @@ public class SpriteAnimator extends Component {
 			for (int h = 0; h < sprct; h++) {
 				usedSprites[h] = frameSprites[h];
 			}
-			frameBuilt = GUIHelpers.join(usedSprites, ":");
+			frameBuilt = String.join(":", usedSprites);
 			frameBuilt += ("@" + wholeFrame[1]);
 			eachFrameBuilt[i] = frameBuilt;
 		}

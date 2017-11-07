@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -36,6 +37,7 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import SpriteAnimator.Listeners.*;
+import SpriteManipulator.SpriteManipulator;
 
 public class GUI {
 	// version number
@@ -406,27 +408,31 @@ public class GUI {
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
 		peepsList.append("\n\nAnimation research:\n");
 		peepsList.append("http://alttp.mymm1.com/sprites/includes/animations.txt\n");
-		peepsList.append(GUIHelpers.join(new String[]{
-				"MikeTrethewey", // it's mike
-				"TWRoxas", // helped mike with his site
-				}, ", "));
+		peepsList.append(String.join(", ",
+				new String[]{
+						"MikeTrethewey", // it's mike
+						"TWRoxas", // helped mike with his site
+				}));
 		peepsList.append("\nRyuTech");
 		peepsList.append("\n\nCode contribution:\n");
-		peepsList.append(GUIHelpers.join(new String[]{
-				"MikeTrethewey", // God dammit, stop being so helpful
-				"Zarby89", // spr conversion
-				"Roxas232" // reload button
-				}, ", "));
+		peepsList.append(String.join(", ",
+				new String[]{
+						"MikeTrethewey", // God dammit, stop being so helpful
+						"Zarby89", // spr conversion
+						"Roxas232" // reload button
+				}));
 		peepsList.append("\n\nResources and development:\n");
-		peepsList.append(GUIHelpers.join(new String[]{
-				"Veetorp", // provided most valuable documentation
-				"Zarby89", // various documentation and answers
-				"Sosuke3" // various snes code answers
-				}, ", "));
+		peepsList.append(String.join(", ",
+				new String[]{
+						"Veetorp", // provided most valuable documentation
+						"Zarby89", // various documentation and answers
+						"Sosuke3" // various snes code answers
+				}));
 		peepsList.append("\n\nTesting and feedback:\n");
-		peepsList.append(GUIHelpers.join(new String[]{
-				"Jighart",
-				}, ", "));
+		peepsList.append(String.join(", ",
+				new String[]{
+						"Jighart",
+				}));
 		aboutFrame.add(peepsList);
 
 		aboutFrame.setSize(600,300);
@@ -637,7 +643,7 @@ public class GUI {
 				} catch (NullPointerException e) {
 					// do nothing
 				} finally {
-					if (GUIHelpers.testFileType(n,ACCEPTED_FILE_TYPES)) {
+					if (SpriteManipulator.testFileType(n,ACCEPTED_FILE_TYPES)) {
 						fileName.setText(n);
 					}
 					else {
@@ -647,7 +653,7 @@ public class GUI {
 
 				// read the file
 				try {
-					GUIHelpers.loadSprite(run, fileName.getText());
+					loadSprite(run, fileName.getText());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
@@ -667,7 +673,7 @@ public class GUI {
 		reloadBtn.addActionListener(
 			arg0 -> {
 				String n = fileName.getText();
-				if (!GUIHelpers.testFileType(n,ACCEPTED_FILE_TYPES)) {
+				if (!SpriteManipulator.testFileType(n,ACCEPTED_FILE_TYPES)) {
 					JOptionPane.showMessageDialog(frame,
 							"Please select a sprite first.",
 							"C'mon dude",
@@ -677,7 +683,7 @@ public class GUI {
 
 				// read the file
 				try {
-					GUIHelpers.loadSprite(run, fileName.getText());
+					loadSprite(run, fileName.getText());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reloading sprite",
@@ -927,8 +933,8 @@ public class GUI {
 	private void setToolTip(JComponent c, String... text) {
 		c.setToolTipText(
 				"<html>" +
-				"<div style=\"" + GUIHelpers.join(TOOLTIP_STYLES, ";") + "\">" +
-				GUIHelpers.join(text, "<br /><br />") +
+				"<div style=\"" + String.join(";", TOOLTIP_STYLES) + "\">" +
+				String.join("<br /><br />", text) +
 				"</div>" +
 				"</html>");
 		// set an underline for the component
@@ -941,6 +947,38 @@ public class GUI {
 					"</div>" +
 					"</html>"
 					);
+		}
+	}
+	
+	public static void loadSprite(SpriteAnimator a, String fileName) throws IOException {
+		// read the file
+		byte[] file;
+		try {
+			file = SpriteManipulator.readFile(fileName);
+		} catch (IOException e1) {
+			throw e1;
+		}
+
+		String fileType = SpriteManipulator.getFileType(fileName);
+		byte[] sprite;
+		if (fileType.equalsIgnoreCase("spr")) {
+			sprite = file;
+		} else if (fileType.equalsIgnoreCase("sfc")) {
+			sprite = SpriteManipulator.getSprFromRom(file);
+		} else if (fileType.equalsIgnoreCase("png")){
+			return;
+		} else {
+			return;
+		}
+
+		// turn spr into useable images
+		try {
+			byte[][][] ebe = SpriteManipulator.makeSpr8x8(sprite);
+			byte[][] palette = SpriteManipulator.getPal(sprite);
+			BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
+			a.setImage(mails);
+		} catch(Exception e) {
+			throw e;
 		}
 	}
 }
