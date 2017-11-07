@@ -167,9 +167,9 @@ public class SpriteAnimator extends Component {
 	/**
 	 * Set image mode and reset.
 	 * <ul style="list-style:none">
-	 * <li><b>0</b> - normal animation</li>
-	 * <li><b>1</b> - step-by-step</li>
-	 * <li><b>2</b> - all frames</li>
+	 * <li>{@code 0} - normal animation</li>
+	 * <li>{@code 1} - step-by-step</li>
+	 * <li>{@code 2} - all frames</li>
 	 * </ul>
 	 * @param m - mode 
 	 */
@@ -1006,7 +1006,7 @@ public class SpriteAnimator extends Component {
 
 	/**
 	 * Flips an image vertically if the second argument is <b>true<b>
-	 * or horizontally if it is <b>false</b>
+	 * or horizontally if it is {@code false}
 	 * @param image
 	 * @param vertical - orientation
 	 * @return

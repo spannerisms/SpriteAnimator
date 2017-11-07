@@ -18,12 +18,12 @@ public abstract class GUIHelpers {
 
 	/**
 	 * Test a file against multiple extensions.
-	 * The way <b>getFileType</b> works should allow
+	 * The way {@code getFileType} works should allow
 	 * both full paths and lone file types to work.
 	 * 
 	 * @param s - file name or extension
 	 * @param type - list of all extensions to test against
-	 * @return <tt>true</tt> if any extension is matched
+	 * @return {@code true} if any extension is matched
 	 */
 	public static boolean testFileType(String s, String[] type) {
 		boolean ret = false;
@@ -42,7 +42,7 @@ public abstract class GUIHelpers {
 	 * 
 	 * @param s - file name or extension
 	 * @param type - extension
-	 * @return <tt>true</tt> if extension is matched
+	 * @return {@code true} if extension is matched
 	 */
 	public static boolean testFileType(String s, String type) {
 		return testFileType(s, new String[] { type });
@@ -52,7 +52,6 @@ public abstract class GUIHelpers {
 	 * Join array of strings together with a delimiter.
 	 * @param s - array of strings
 	 * @param c - delimiter
-	 * @return A single <tt>String</tt>.
 	 */
 	public static String join(String[] s, String c) {
 		String ret = "";
