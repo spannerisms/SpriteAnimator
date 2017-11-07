@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -400,7 +400,7 @@ public class GUI {
 		// control panel done
 
 		// Credits
-		final JFrame aboutFrame = new JFrame("Acknowledgements");
+		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 		final TextArea peepsList = new TextArea("", 0,0,TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
@@ -436,32 +436,36 @@ public class GUI {
 
 		// menu
 		final JMenuBar menu = new JMenuBar();
-		frame.setJMenuBar(menu);
-
-		// file menu
 		final JMenu fileMenu = new JMenu("File");
-		menu.add(fileMenu);
+		frame.setJMenuBar(menu);
 
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
+		ImageIcon mirror = new ImageIcon(
+				GUI.class.getResource("/SpriteAnimator/Images/Mirror.png")
+			);
+		exit.setIcon(mirror);
 		fileMenu.add(exit);
-		exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}});
+		exit.addActionListener(arg0 -> System.exit(0));
+
+		menu.add(fileMenu);
 		// end file menu
 
 		// help menu
 		final JMenu helpMenu = new JMenu("Help");
-		menu.add(helpMenu);
 
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
+		ImageIcon mapIcon = new ImageIcon(
+				GUI.class.getResource("/SpriteAnimator/Images/Map.png")
+			);
+		peeps.setIcon(mapIcon);
 		helpMenu.add(peeps);
-		peeps.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				aboutFrame.setVisible(true);
-			}});
+
+		// Acknowledgements
+		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true));
+
+		menu.add(helpMenu);
 		// end help menu
 
 		// But what if Ganon dabs back?
