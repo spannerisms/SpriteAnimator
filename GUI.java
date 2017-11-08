@@ -37,7 +37,7 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import SpriteAnimator.Listeners.*;
-import SpriteManipulator.SpriteManipulator;
+import SpriteManipulator.*;
 
 public class GUI {
 	// version number
@@ -654,10 +654,28 @@ public class GUI {
 				// read the file
 				try {
 					loadSprite(run, fileName.getText());
-				} catch (Exception e) {
+				} catch (IOException e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
 							"Oops",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				} catch (ObsoleteSPRFormatException e) {
+					JOptionPane.showMessageDialog(frame,
+							e.getMessage(),
+							"Y'all old",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				} catch (NotSPRException e) {
+					JOptionPane.showMessageDialog(frame,
+							"File is not SPR file",
+							"Not my job",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				} catch (BadChecksumException e) {
+					JOptionPane.showMessageDialog(frame,
+							"Bad checksum; file may be corrupted",
+							"Invalid",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
@@ -684,10 +702,28 @@ public class GUI {
 				// read the file
 				try {
 					loadSprite(run, fileName.getText());
-				} catch (Exception e) {
+				} catch (IOException e) {
 					JOptionPane.showMessageDialog(frame,
-							"Error reloading sprite",
+							"Error reading sprite",
 							"Oops",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				} catch (ObsoleteSPRFormatException e) {
+					JOptionPane.showMessageDialog(frame,
+							e.getMessage(),
+							"Y'all old",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				} catch (NotSPRException e) {
+					JOptionPane.showMessageDialog(frame,
+							"File is not SPR file",
+							"Not my job",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				} catch (BadChecksumException e) {
+					JOptionPane.showMessageDialog(frame,
+							"Bad checksum; file may be corrupted",
+							"Invalid",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
@@ -949,22 +985,24 @@ public class GUI {
 					);
 		}
 	}
-	
-	public static void loadSprite(SpriteAnimator a, String fileName) throws IOException {
-		// read the file
-		byte[] file;
-		try {
-			file = SpriteManipulator.readFile(fileName);
-		} catch (IOException e1) {
-			throw e1;
-		}
 
+	public static void loadSprite(SpriteAnimator a, String fileName)
+			throws IOException, NotSPRException, ObsoleteSPRFormatException, BadChecksumException {
+		// read the file
 		String fileType = SpriteManipulator.getFileType(fileName);
-		byte[] sprite;
+
+		// sprite data
+		byte[] spriteData;
+
+		// palette data
+		byte[] palData;
 		if (fileType.equalsIgnoreCase("spr")) {
-			sprite = file;
+			SPRFile temp = SPRFile.readFile(fileName);
+			spriteData = temp.getSpriteData();
+			palData = temp.getPalData();
 		} else if (fileType.equalsIgnoreCase("sfc")) {
-			sprite = SpriteManipulator.getSprFromRom(file);
+			spriteData = SpriteManipulator.getSprFromROM(fileName);
+			palData = SpriteManipulator.getPalFromROM(fileName);
 		} else if (fileType.equalsIgnoreCase("png")){
 			return;
 		} else {
@@ -972,13 +1010,9 @@ public class GUI {
 		}
 
 		// turn spr into useable images
-		try {
-			byte[][][] ebe = SpriteManipulator.makeSpr8x8(sprite);
-			byte[][] palette = SpriteManipulator.getPal(sprite);
-			BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
-			a.setImage(mails);
-		} catch(Exception e) {
-			throw e;
-		}
+		byte[][][] ebe = SpriteManipulator.makeSpr8x8(spriteData);
+		byte[][] palette = SpriteManipulator.getPal(palData);
+		BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
+		a.setImage(mails);
 	}
 }
