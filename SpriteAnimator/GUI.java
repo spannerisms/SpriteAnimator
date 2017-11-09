@@ -457,7 +457,7 @@ public class GUI {
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
 		ImageIcon mirror = new ImageIcon(
-				GUI.class.getResource("/images/mirror.png")
+				getClass().getResource("/images/mirror.png")
 			);
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
@@ -472,7 +472,7 @@ public class GUI {
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
 		ImageIcon mapIcon = new ImageIcon(
-				GUI.class.getResource("/images/map.png")
+				getClass().getResource("/images/map.png")
 			);
 		peeps.setIcon(mapIcon);
 		helpMenu.add(peeps);
