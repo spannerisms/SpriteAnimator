@@ -646,29 +646,10 @@ public class GUI {
 				}
 				String n = "";
 
-				// grab file name
-				try {
-					n = explorer.getSelectedFile().getPath();
-				} catch (NullPointerException e) {
-					// do nothing
-				} finally {
-					if (SpriteManipulator.testFileType(n,ACCEPTED_FILE_TYPES)) {
-						fileName.setText(n);
-					}
-					else {
-						return;
-					}
-				}
-
 				// read the file
 				try {
-					loadSprite(run, fileName.getText());
-				} catch (IOException e) {
-					JOptionPane.showMessageDialog(frame,
-							"Error reading sprite",
-							"Oops",
-							JOptionPane.WARNING_MESSAGE);
-					return;
+					n = explorer.getSelectedFile().getPath();
+					loadSprite(run, n);
 				} catch (ObsoleteSPRFormatException e) {
 					JOptionPane.showMessageDialog(frame,
 							e.getMessage(),
@@ -687,6 +668,16 @@ public class GUI {
 							"Invalid",
 							JOptionPane.WARNING_MESSAGE);
 					return;
+				} catch (Exception e) { // all other errors
+					JOptionPane.showMessageDialog(frame,
+							"Error reading sprite",
+							"Oops",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+
+				if (SpriteManipulator.testFileType(n,ACCEPTED_FILE_TYPES)) {
+					fileName.setText(n);
 				}
 
 				// reset animator, forcing it to update
