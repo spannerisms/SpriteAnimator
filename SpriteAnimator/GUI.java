@@ -80,7 +80,7 @@ public class GUI {
 		String[] ret = new String[Backgrounds.BACKGROUNDNAMES.length];
 		for (int i = 0; i < ret.length; i++) {
 			String bg = Backgrounds.BACKGROUNDNAMES[i];
-			ret[i] = bg.replaceAll("(Dungeon|Boss)-", "");
+			ret[i] = bg.replaceAll("(Dungeon|Boss|Custom)-", "");
 		}
 		return ret;
 	}
