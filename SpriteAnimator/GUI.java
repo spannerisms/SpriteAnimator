@@ -74,7 +74,16 @@ public class GUI {
 			"Bunny"
 	};
 
-	private static final String[] BACKGROUNDS = Backgrounds.BACKGROUNDNAMES;
+	private static final String[] BACKGROUNDS = BACKGROUNDS_NAMELESS();
+
+	private static String[] BACKGROUNDS_NAMELESS() {
+		String[] ret = new String[Backgrounds.BACKGROUNDNAMES.length];
+		for (int i = 0; i < ret.length; i++) {
+			String bg = Backgrounds.BACKGROUNDNAMES[i];
+			ret[i] = bg.replaceAll("(Dungeon|Boss)-", "");
+		}
+		return ret;
+	}
 
 	// use func
 	public void printGUI() throws IOException {
