@@ -29,7 +29,7 @@ public abstract class Backgrounds {
 	};
 
 	/**
-	 * Looks for the resources <tt><<b></b>S>_BG.png</tt>
+	 * Looks for the resources {@code <s>_BG.png}
 	 * and puts them into a list of images for use.
 	 */
 	public static final BufferedImage[] getBackgrounds() {
