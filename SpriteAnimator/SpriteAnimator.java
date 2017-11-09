@@ -24,7 +24,7 @@ public class SpriteAnimator extends Component {
 	private BufferedImage EQUIPMENT; {
 		try {
 			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
-					"../images/equipment.png"));
+					"/images/equipment.png"));
 		} catch (IOException e) {
 	}};
 

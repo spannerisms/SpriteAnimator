@@ -36,7 +36,7 @@ public abstract class Backgrounds {
 		BufferedImage[] ret = new BufferedImage[BACKGROUNDNAMES.length];
 		for (int i = 0; i < ret.length; i++) {
 			try {
-				String bgFilename = "../images/bg-" + BACKGROUNDNAMES[i].toLowerCase().replace(" ", "") + ".png";
+				String bgFilename = "/images/bg-" + BACKGROUNDNAMES[i].toLowerCase().replace(" ", "") + ".png";
 				ret[i] = ImageIO.read(Backgrounds.class.getResourceAsStream(bgFilename));
 			} catch (IOException e) {
 			};
