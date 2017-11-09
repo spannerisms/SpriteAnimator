@@ -1,0 +1,3 @@
+[submodule "SpriteManipulator"]
+	path = SpriteManipulator
+	url = https://github.com/fatmanspanda/SpriteManipulator.git
