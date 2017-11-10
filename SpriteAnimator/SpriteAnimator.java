@@ -630,7 +630,7 @@ public class SpriteAnimator extends Component {
 	 * <li>Mail</li>
 	 * <li>Sword</li>
 	 * <li>Shield</li>
-	 * <li>Equipped item</li>
+	 * <li>Misc sprites</li>
 	 * <li>Shadows</li>
 	 * </ul>
 	 * All these categories may require new sprites to be added to each frame,
