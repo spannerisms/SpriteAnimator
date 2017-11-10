@@ -24,9 +24,8 @@ public abstract class Backgrounds {
 		"Dungeon-Misery Mire",
 		"Dungeon-Turtle Rock",
 		"Boss-Moldorm",
-		"Boss-Mothula",
-		"Custom-Super Mario World" // Added for RyuTech
-	};
+		"Boss-Mothula"
+		};
 
 	/**
 	 * Looks for the resources {@code <s>_BG.png}

@@ -6,7 +6,6 @@ public abstract class Database {
 	 * credit:
 	 * Mike Trethewey
 	 * TWRoxas
-	 * RyuTech
 	 *
 	 * Format:
 	 * [<ANIMNAME>]<INDEX>{<XPOS>,<YPOS>}{<SPRITESIZE>,<TRANSFORM>}
@@ -476,11 +475,11 @@ public abstract class Database {
 				"K2{0,8}{F}:K0{0,12}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"K1{0,11}{F}:β7{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
 			// salute
-			"[salute]SWORD0{11,-7}{R}:SHIELD0{-5,9}{F}:A3{0,0}{F}:P4{0,8}{F,M}:SHADOW0{0,7}{F} @ 3 ",
+			"[salute]SWORD0{11,-7}{R}:SHIELD0{-5,9}{F}:A3{0,0}{F}:P4{0,8}{F,M}:SHADOW0{0,7}{F} @ 10000 ",
 			// itemGet
-			"[itemGet]PENDANT4{5,-15}{F}:SHIELD1{-5,6}{R,M}:L1{-1,-1}{F}:L2{-1,7}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[itemGet]PENDANT4{5,-15}{F}:SHIELD1{-5,6}{R,M}:L1{-1,-1}{F}:L2{-1,7}{F}:SHADOW0{0,7}{F} @ 10000 ",
 			// crystalGet
-			"[crystalGet]CRYSTAL5{0,-15}{F}:Z2{0,0}{F}:β4{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[crystalGet]CRYSTAL5{0,-15}{F}:Z2{0,0}{F}:β4{0,8}{F}:SHADOW0{0,7}{F} @ 10000 ",
 			// flute
 			"[swagDuck]DUCK2{8,-21}{F}:L1{-1,-8}{F}:L2{-1,0}{F} @ 4 ;" +
 				"DUCK3{8,-21}{F}:L1{-1,-8}{F}:L2{-1,0}{F} @ 8 ",
@@ -641,7 +640,7 @@ public abstract class Database {
 				"SHIELD0{-5,2}{F}:A1{0,0}{F}:P4{0,8}{F,M}:SWORD0{8,-7}{R,M}:SHADOW0{0,7}{F} @ 20 ;" +
 				"SWORD0{14,-3}{R}:SHIELD0{-5,2}{F}:A1{0,0}{F}:P3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD3{16,10}{B}:SHIELD1{-8,5}{R,M}:A1{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
-				"SWORD4{16,15}{B,U}:SHIELD1{-8,5}{R,M}:A1{0,1}{F}:A1{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
+				"SWORD4{16,15}{B,U}:SHIELD1{-8,5}{R,M}:A1{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD5{14,17}{F,U}:SHIELD1{-8,5}{R,M}:A1{0,1}{F}:L3{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD0{12,19}{R,U}:SHIELD1{-8,5}{R,M}:A1{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 2 ;" +
 				"SWORD0{9,20}{L,U}:SHIELD1{-8,5}{R,M}:A1{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 360 ",
@@ -777,7 +776,7 @@ public abstract class Database {
 				"A0{-2,-1}{F}:B0{-1,7}{F}:NET0{-10,-5}{F}:SHADOW0{0,7}{F} @ 4 ;" +
 				"A0{-2,-1}{F}:B0{-1,7}{F}:NET1{1,-9}{F}:SHADOW0{0,7}{F} @ 4 ",
 			// readBook
-			"[readBook]A2{1,0}{F}:K6{0,8}{F}:BOOK2{-4,0}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[readBook]A2{1,0}{F}:K6{0,8}{F}:BOOK2{-4,0}{F}:SHADOW0{0,7}{F} @ 10000 ",
 			// prayer
 			"[prayer]R1{0,0}{F}:S1{0,16}{T}:SHADOW0{0,7}{F} @ 157 ;" +
 				"A5{0,1}{F}:Q1{0,8}{F}:SHADOW0{0,7}{F} @ 47 ;" +
@@ -799,11 +798,11 @@ public abstract class Database {
 				"CANE0{12,-3}{L}:A1{0,0}{F}:P4{0,8}{F,M}:SHADOW0{0,7}{F} @ 4 ;" +
 				"CANE0{8,16}{R,U}:A1{0,2}{F}:D0{0,8}{F}:SHADOW0{0,7}{F} @ 6 ",
 			// bunnyStand
-			"[bunnyStand]α4{-2,-1}{F}:α5{-1,7}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[bunnyStand]α4{-2,-1}{F}:α5{-1,7}{F}:SHADOW0{0,7}{F} @ 10000 ",
 			// bunnyStandUp
-			"[bunnyStandUp]α1{0,0}{F}:α2{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[bunnyStandUp]α1{0,0}{F}:α2{0,8}{F}:SHADOW0{0,7}{F} @ 10000 ",
 			// bunnyStandDown
-			"[bunnyStandDown]Z5{0,0}{F}:α0{0,8}{F}:SHADOW0{0,7}{F} @ 3 ",
+			"[bunnyStandDown]Z5{0,0}{F}:α0{0,8}{F}:SHADOW0{0,7}{F} @ 10000 ",
 			// bunnyWalk
 			"[bunnyWalk]α4{-2,-1}{F}:α5{-1,7}{F}:SHADOW0{0,7}{F} @ 3 ;" +
 				"α4{-2,0}{F}:α6{-1,7}{F}:SHADOW0{0,7}{F} @ 2 ;" +
@@ -951,7 +950,7 @@ public abstract class Database {
 			// tallGrassDown
 			"[tallGrassDown]GRASS0{0,16}{T}:SHIELD0{-4,8}{F}:A1{0,0}{F}:B3{0,8}{F} @ 4 ;" +
 				"GRASS0{0,16}{B}:SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F} @ 4 ;" +
-				"GRASS0{0,16}{T}:SHIELD0{-4,8}{F}:A1{0,0}{F}:B3{0,8}{F} @ 4 ;" +
+				"GRASS1{0,16}{T}:SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F} @ 4 ;" +
 				"GRASS0{0,16}{T}:SHIELD0{-4,8}{F}:A1{0,0}{F}:B3{0,8}{F} @ 4 ;" +
 				"GRASS0{0,16}{B}:SHIELD0{-4,9}{F}:A1{0,1}{F}:V3{0,8}{F,M} @ 4 ;" +
 				"GRASS1{0,16}{T}:SHIELD0{-4,10}{F}:A1{0,2}{F}:V4{0,8}{F,M} @ 4 ",
