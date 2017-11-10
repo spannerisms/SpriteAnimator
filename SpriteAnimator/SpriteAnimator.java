@@ -112,7 +112,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Current frames sprite list
+	 * Current frame's sprite list
 	 */
 	public String getFrameInfo() {
 		String ret = "";
@@ -273,7 +273,7 @@ public class SpriteAnimator extends Component {
 	 * Resets frame to 0
 	 */
 	private void resetFrame() {
-		// force a step
+		// forcing a step to get to 0 will fire step events and run animation functions
 		frame = -1;
 		step();
 	}
@@ -401,7 +401,7 @@ public class SpriteAnimator extends Component {
 				zoom = z;
 			}
 		} else { // should never hit this
-			zoom = 0; // but if we do, reset the speed
+			zoom = 3; // but if we do, reset the zoom
 		}
 		fireZoomEvent();
 		repaint();
@@ -448,7 +448,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Return equipment display status.
+	 * Switch equipment display status
 	 */
 	public void switchEquipment() {
 		showEquipment = !showEquipment;
