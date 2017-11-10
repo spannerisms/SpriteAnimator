@@ -421,8 +421,8 @@ public class GUI {
 				new String[]{
 						"MikeTrethewey", // it's mike
 						"TWRoxas", // helped mike with his site
+						"RyuTech"
 				}));
-		peepsList.append("\nRyuTech");
 		peepsList.append("\n\nCode contribution:\n");
 		peepsList.append(String.join(", ",
 				new String[]{
