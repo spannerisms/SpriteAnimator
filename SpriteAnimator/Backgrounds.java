@@ -15,16 +15,22 @@ public abstract class Backgrounds {
 		"Grass",
 		"Houlihan",
 		"Still water",
+		"Mosaic",
 		"Cave",
 		"Spike cave",
 		"Tile room",
 		"Dungeon-Eastern Palace",
 		"Dungeon-Desert Palace",
+		"Dungeon-Palace of Darkness",
+		"Dungeon-Skull Woods",
 		"Dungeon-Ice Palace",
 		"Dungeon-Misery Mire",
 		"Dungeon-Turtle Rock",
 		"Boss-Moldorm",
-		"Boss-Mothula"
+		"Boss-Arrghus",
+		"Boss-Mothula",
+		"Boss-Blind",
+		"Boss-Vitreous"
 		};
 
 	/**
