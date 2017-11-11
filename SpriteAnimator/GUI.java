@@ -44,7 +44,8 @@ public class GUI {
 	static final String VERSION = SpriteAnimator.VERSION;
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 
-	private static final String[] ACCEPTED_FILE_TYPES = new String[] { SPRFile.EXTENSION, "sfc" /*, "png"*/ };
+	private static final String[] ACCEPTED_FILE_TYPES =
+			new String[] { ZSPRFile.EXTENSION, "sfc" /*, "png"*/ };
 
 	private static final String[] MODES = {
 			"Normal play",
@@ -513,7 +514,7 @@ public class GUI {
 		// file explorer
 		final JFileChooser explorer = new JFileChooser();
 		FileNameExtensionFilter sprFilter =
-				new FileNameExtensionFilter("ALttP sprite files", new String[] { SPRFile.EXTENSION });
+				new FileNameExtensionFilter("ALttP sprite files", new String[] { ZSPRFile.EXTENSION });
 		FileNameExtensionFilter romFilter =
 				new FileNameExtensionFilter("ALttP rom files", new String[] { "sfc" });
 //		FileNameExtensionFilter pngFilter =
@@ -658,7 +659,7 @@ public class GUI {
 					return;
 				} catch (NotZSPRException e) {
 					JOptionPane.showMessageDialog(frame,
-							"File is not a " + SPRFile.EXTENSION + " file",
+							"File is not a " + ZSPRFile.EXTENSION + " file",
 							"Not my job",
 							JOptionPane.WARNING_MESSAGE);
 					return;
@@ -716,7 +717,7 @@ public class GUI {
 					return;
 				} catch (NotZSPRException e) {
 					JOptionPane.showMessageDialog(frame,
-							"File is not a " + SPRFile.EXTENSION +" file",
+							"File is not a " + ZSPRFile.EXTENSION +" file",
 							"Not my job",
 							JOptionPane.WARNING_MESSAGE);
 					return;
@@ -996,14 +997,14 @@ public class GUI {
 
 		// palette data
 		byte[] palData;
-		if (fileType.equalsIgnoreCase(SPRFile.EXTENSION)) {
-			SPRFile temp = SPRFile.readFile(fileName);
+		if (fileType.equalsIgnoreCase(ZSPRFile.EXTENSION)) {
+			ZSPRFile temp = ZSPRFile.readFile(fileName);
 			spriteData = temp.getSpriteData();
 			palData = temp.getPalData();
 		} else if (fileType.equalsIgnoreCase("sfc")) {
 			spriteData = SpriteManipulator.getSprFromROM(fileName);
 			palData = SpriteManipulator.getPalFromROM(fileName);
-		} else if (fileType.equalsIgnoreCase("png")){
+		} else if (fileType.equalsIgnoreCase("png")) {
 			return;
 		} else {
 			return;
