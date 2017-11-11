@@ -44,7 +44,7 @@ public class GUI {
 	static final String VERSION = SpriteAnimator.VERSION;
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 
-	private static final String[] ACCEPTED_FILE_TYPES = new String[] { "spr", "sfc" /*, "png"*/ };
+	private static final String[] ACCEPTED_FILE_TYPES = new String[] { SPRFile.EXTENSION, "sfc" /*, "png"*/ };
 
 	private static final String[] MODES = {
 			"Normal play",
@@ -513,7 +513,7 @@ public class GUI {
 		// file explorer
 		final JFileChooser explorer = new JFileChooser();
 		FileNameExtensionFilter sprFilter =
-				new FileNameExtensionFilter("ALttP sprite files", new String[] { "spr" });
+				new FileNameExtensionFilter("ALttP sprite files", new String[] { SPRFile.EXTENSION });
 		FileNameExtensionFilter romFilter =
 				new FileNameExtensionFilter("ALttP rom files", new String[] { "sfc" });
 //		FileNameExtensionFilter pngFilter =
@@ -527,7 +527,7 @@ public class GUI {
 		final File EEE = new File("");
 
 		// TODO: uncomment this for exports
-		// explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
+		explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
 		// clear focusability of all useless components
 		for (Component comp : controls.getComponents()) {
@@ -656,9 +656,9 @@ public class GUI {
 							"Y'all old",
 							JOptionPane.WARNING_MESSAGE);
 					return;
-				} catch (NotSPRException e) {
+				} catch (NotZSPRException e) {
 					JOptionPane.showMessageDialog(frame,
-							"File is not SPR file",
+							"File is not a " + SPRFile.EXTENSION + " file",
 							"Not my job",
 							JOptionPane.WARNING_MESSAGE);
 					return;
@@ -714,9 +714,9 @@ public class GUI {
 							"Y'all old",
 							JOptionPane.WARNING_MESSAGE);
 					return;
-				} catch (NotSPRException e) {
+				} catch (NotZSPRException e) {
 					JOptionPane.showMessageDialog(frame,
-							"File is not SPR file",
+							"File is not a " + SPRFile.EXTENSION +" file",
 							"Not my job",
 							JOptionPane.WARNING_MESSAGE);
 					return;
@@ -987,7 +987,7 @@ public class GUI {
 	}
 
 	public static void loadSprite(SpriteAnimator a, String fileName)
-			throws IOException, NotSPRException, ObsoleteSPRFormatException, BadChecksumException {
+			throws IOException, NotZSPRException, ObsoleteSPRFormatException, BadChecksumException {
 		// read the file
 		String fileType = SpriteManipulator.getFileType(fileName);
 
@@ -996,7 +996,7 @@ public class GUI {
 
 		// palette data
 		byte[] palData;
-		if (fileType.equalsIgnoreCase("spr")) {
+		if (fileType.equalsIgnoreCase(SPRFile.EXTENSION)) {
 			SPRFile temp = SPRFile.readFile(fileName);
 			spriteData = temp.getSpriteData();
 			palData = temp.getPalData();
