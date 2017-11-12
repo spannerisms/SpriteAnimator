@@ -512,7 +512,7 @@ public class GUI {
 		frame.setLocation(150,150);
 
 		// file explorer
-		final JFileChooser explorer = new JFileChooser();
+		final BetterJFileChooser explorer = new BetterJFileChooser();
 		FileNameExtensionFilter sprFilter =
 				new FileNameExtensionFilter("ALttP sprite files", new String[] { ZSPRFile.EXTENSION });
 		FileNameExtensionFilter romFilter =
