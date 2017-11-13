@@ -51,7 +51,7 @@ public enum FrameTransformations {
 	}
 
 	/**
-	 * Runs transformat operation on a {@code BufferedImage} and returns a new image.
+	 * Runs transformation operation on a {@code BufferedImage} and returns a new image.
 	 */
 	private interface Transform {
 		public BufferedImage transform(BufferedImage i);
