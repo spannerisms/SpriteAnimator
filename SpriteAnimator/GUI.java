@@ -75,17 +75,6 @@ public class GUI {
 			"Bunny"
 	};
 
-	private static final String[] BACKGROUNDS = BACKGROUNDS_NAMELESS();
-
-	private static String[] BACKGROUNDS_NAMELESS() {
-		String[] ret = new String[Backgrounds.BACKGROUNDNAMES.length];
-		for (int i = 0; i < ret.length; i++) {
-			String bg = Backgrounds.BACKGROUNDNAMES[i];
-			ret[i] = bg.replaceAll("(Dungeon|Boss|Custom)-", "");
-		}
-		return ret;
-	}
-
 	// use func
 	public void printGUI() throws IOException {
 		//try to set LaF
@@ -196,7 +185,7 @@ public class GUI {
 		c.ipady = 0;
 
 		// background
-		final JComboBox<String> bgDisp = new JComboBox<String>(BACKGROUNDS);
+		final JComboBox<Background> bgDisp = new JComboBox<Background>(Background.values());
 		final JLabel theWordBackground = new JLabel("Background:", SwingConstants.RIGHT);
 		theWordBackground.setBorder(rightPad);
 		setToolTip(theWordBackground,
@@ -859,7 +848,7 @@ public class GUI {
 		// background display
 		bgDisp.addActionListener(
 			arg0 -> {
-				int bg = bgDisp.getSelectedIndex();
+				Background bg = (Background) bgDisp.getSelectedItem();
 				run.setBackground(bg);
 			});
 

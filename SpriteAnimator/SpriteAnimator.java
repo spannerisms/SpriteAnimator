@@ -24,7 +24,6 @@ public class SpriteAnimator extends Component {
 	public static final String VERSION = "v1.5";
 	private static final long serialVersionUID = 2114886855236406900L;
 
-	private BufferedImage[] BGS = Backgrounds.getBackgrounds();
 	private BufferedImage EQUIPMENT; {
 		try {
 			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
@@ -32,6 +31,7 @@ public class SpriteAnimator extends Component {
 		} catch (IOException e) {
 	}};
 
+	// frame data
 	static final String[] ALLFRAMES = Database.ALLFRAMES;
 
 	// Almost the length of a frame at 60 FPS
@@ -50,30 +50,31 @@ public class SpriteAnimator extends Component {
 			"BOW", "BOOK", "PENDANT", "CRYSTAL", "SHOVEL", "BED", "DUCK"
 	};
 
-	// fighter, fighter, master, tempered, butter
-	static final String[] SWORDPREFIX = { "F", "F", "M", "T", "B" }; // default to fighter
-	// fighter, fighter, red, mirror
-	static final String[] SHIELDPREFIX = { "F", "F", "R", "M" }; // default to fighter
+	// (default: Fighter), Fighter, Master, Tempered, Butter
+	static final String[] SWORDPREFIX = { "F", "F", "M", "T", "B" };
+
+	// (default: Fighter), Fighter, Red, Mirror
+	static final String[] SHIELDPREFIX = { "F", "F", "R", "M" };
 
 	// maximums
 	private static final int MAXSPEED = 5; // maximum speed magnitude
-	private static final int MAXZOOM = 7; // maximum zoom level
+	private static final int MAXZOOM = 5; // maximum zoom level
 
 	// locals
 	private BufferedImage[] mailImages = null; // sprite sheet
 	private int anime; // animation id
 	private int speed; // speed; 0 = normal; positive = faster; negative = slower
 	private int mode; // animation mode
-	private int frame;
-	private int maxFrame;
-	private boolean running;
-	private int zoom = 3;
-	private Anime[] frames = null;
-	private Timer tick;
-	private TimerTask next;
+	private int frame; // animation step (not 0 indexed)
+	private int maxFrame; // highest animation step (not 0 indexed)
+	private boolean running; // self-running status
+	private int zoom = 3; // default zoom
+	private Anime[] frames = null; // each frame of animation, as an object
+	private Timer tick; // runs for steps
+	private TimerTask next; // controls steps
 
 	// display
-	private int bg = 0;
+	private Background bg = Background.EMPTY;
 	private int posX = 0;
 	private int posY = 0;
 	private int mailLevel = 0;
@@ -529,11 +530,10 @@ public class SpriteAnimator extends Component {
 	 * Set the background
 	 * @param b
 	 */
-	public void setBackground(int b) {
+	public void setBackground(Background b) {
 		bg = b;
 		repaint(); // shouldn't need a new event
 	}
-	// end of equipment
 
 	/**
 	 * Draw every sprite
@@ -546,7 +546,7 @@ public class SpriteAnimator extends Component {
 		
 		g2.scale(zoom, zoom);
 		
-		g2.drawImage(BGS[bg], offsetX, offsetY, null);
+		g2.drawImage(bg.getImage(), offsetX, offsetY, null);
 		// Catch null frames
 		if (frames==null || frames[frame] == null) {
 			return;
@@ -710,29 +710,27 @@ public class SpriteAnimator extends Component {
 		// remove unnecessary sprites from each frame
 		for (int i = 0; i < maxFrame; i++) {
 			String[] wholeFrame = eachFrameRaw[i].split("@");
-			String frameBuilt;
 			String[] eachSprite = wholeFrame[0].split(":");
 			String[] frameSprites = new String[eachSprite.length];
-			int sprct = 0;
+
 			// remove sprites we don't want
 			// change equipment names
 			String indexName;
+			String frameBuilt;
+			int sprct = 0;
 			for (String fs : eachSprite) {
 				indexName = stopAtNumber(fs);
-				// check for shadow
-				if (indexName.equalsIgnoreCase("SHADOW")) {
+				if (indexName.equalsIgnoreCase("SHADOW")) { // check for shadow
 					if (showShadow) {
 						frameSprites[sprct] = fs;
 						sprct++;
 					} // otherwise do nothing
-				// check for equipment
-				} else if (isEquipment(indexName)) {
+				} else if (isEquipment(indexName)) { // check for equipment
 					if (showEquipment || indexName.equalsIgnoreCase("DUCK")) {
 						frameSprites[sprct] = fs;
 						sprct++;
 					} // otherwise do nothing
-				// check and replace for sword
-				} else if (indexName.equalsIgnoreCase("SWORD")) {
+				} else if (indexName.equalsIgnoreCase("SWORD")) { // check and replace for sword
 					switch (swordLevel) {
 						default : // catch all
 						case 0 : // no sword
@@ -746,8 +744,7 @@ public class SpriteAnimator extends Component {
 							sprct++;
 							break;
 					}
-				// check and replace for shield
-				} else if (indexName.equalsIgnoreCase("SHIELD")) {
+				} else if (indexName.equalsIgnoreCase("SHIELD")) { // check and replace for shield
 					switch (shieldLevel) {
 						default : // catch all
 						case 0 : // no shield
@@ -765,6 +762,7 @@ public class SpriteAnimator extends Component {
 					sprct++;
 				}
 			} // end of each sprite
+
 			// add duration to frame raw
 			String[] usedSprites = new String[sprct];
 			for (int h = 0; h < sprct; h++) {
@@ -772,11 +770,13 @@ public class SpriteAnimator extends Component {
 			}
 			frameBuilt = String.join(":", usedSprites);
 			frameBuilt += ("@" + wholeFrame[1]);
+
 			eachFrameBuilt[i] = frameBuilt;
 		}
 
 		// add a ghost frame to halt duplicate process (it won't be added)
 		eachFrameBuilt[maxFrame] = "GARBAGE0@0";
+
 		// try to remove duplicates by comparing frames
 		// only do it for > 1 frame
 		if (maxFrame == 1) { // for 1 frame animations, just copy the frame over
@@ -787,6 +787,7 @@ public class SpriteAnimator extends Component {
 			String addFrame, curFrame;
 			String addFrameData, curFrameData;
 			int addFrameLength, curFrameLength;
+
 			addFrame = eachFrameBuilt[0];
 			addFrameData = addFrame.substring(0, addFrame.indexOf('@'));
 			addFrameLength = Integer.parseInt(
@@ -816,6 +817,7 @@ public class SpriteAnimator extends Component {
 					builtFramesCount++;
 				}
 			} // end loop
+
 			// build a final list of frames with removed dupes
 			eachFrame = new String[builtFramesCount];
 			for (int x = 0; x < builtFramesCount; x++) {
@@ -827,23 +829,23 @@ public class SpriteAnimator extends Component {
 		maxFrame = eachFrame.length;
 		frames = new Anime[maxFrame];
 		int spriteCount = 0;
+
 		for (int i = 0; i < maxFrame; i++) {
-			// each sprite in frame
-			String[] wholeFrame = eachFrame[i].split("@");
-			int animSpeed;
+			String[] wholeFrame = eachFrame[i].split("@");// each sprite in frame
+			
+			int frameLength; // length of animation step in frames
 			try {
-				animSpeed = Integer.parseInt(wholeFrame[1]);
+				frameLength = Integer.parseInt(wholeFrame[1]);
 			} catch (Exception e) {
-				animSpeed = 100;
+				frameLength = 100;
 			}
 
 			String[] eachSprite = wholeFrame[0].split(":");
 			spriteCount = eachSprite.length;
 			Sprite[] sprList = new Sprite[spriteCount];
-			frames[i] = new Anime(sprList, animSpeed);
+			frames[i] = new Anime(sprList, frameLength);
 			for (int j = 0; j < spriteCount; j++) {
-				// split into info sections
-				String[] spriteSplit = eachSprite[j].split("[\\{\\}]{1,2}");
+				String[] spriteSplit = eachSprite[j].split("[\\{\\}]{1,2}"); // split into info sections
 
 				// sprite sheet and index
 				String sprIndex = spriteSplit[0];
@@ -860,15 +862,17 @@ public class SpriteAnimator extends Component {
 				} else {
 					sheet = EQUIPMENT;
 				}
+
 				// sprite position
 				String[] pos = spriteSplit[1].split(",");
 				int xpos = Integer.parseInt(pos[0]);
 				int ypos = Integer.parseInt(pos[1]);
+
+				// sprite cell location, size, and transformation
 				int drawY = sprIndexRowVal * 16;
 				int drawX = Integer.parseInt((sprIndexCol + "")) * 16;
-				int drawYoffset, drawXoffset, width, height;
-
-				// sprite size and transformation
+				int drawYoffset, drawXoffset;
+				int width, height;
 				String[] sprSizeAndTrans = spriteSplit[2].split(",");
 				String sprSize = sprSizeAndTrans[0];
 				String sprTrans;
@@ -966,14 +970,17 @@ public class SpriteAnimator extends Component {
 						height = 16;
 						break;
 				}
+
 				drawX += drawXoffset;
 				drawY += drawYoffset;
 				BufferedImage spreet;
-				// blank sprite frame
-				if (sprSize.equals("E"))
-					spreet = new BufferedImage(16, 16, BufferedImage.TYPE_4BYTE_ABGR_PRE);
-				else
+
+				// draw cell image
+				if (sprSize.equals("E")) { // blank
+					spreet = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR_PRE);
+				} else {
 					spreet = sheet.getSubimage(drawX, drawY, width, height);
+				}
 
 				// transformations
 				switch (sprTrans) {
@@ -992,12 +999,13 @@ public class SpriteAnimator extends Component {
 						// nothing
 						break;
 				}
+
 				// put it in backwards to preserve draw order
 				sprList[spriteCount-1-j] =
 						new Sprite(spreet, xpos, ypos, sprIndex, sprSize, sprTrans);
-			}
-		}
-	}
+			} // end per sprite
+		} // end per frame
+	} // end makeAnimationFrames
 
 	// transformations
 	/**
@@ -1234,8 +1242,6 @@ public class SpriteAnimator extends Component {
 
 	/**
 	 * Perform
-	 * @param args
-	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
