@@ -33,11 +33,13 @@ public enum FrameRow {
 	BETA (27),
 	// equipment
 	// swords
+	SWORD (0), // use generic sword and swap later
 	FSWORD (0),
 	MSWORD (2),
 	TSWORD (4),
 	BSWORD (6),
 	// shields
+	SHIELD (8), // use any shield and swap later
 	FSHIELD (8),
 	RSHIELD (9),
 	MSHIELD (10),
@@ -52,14 +54,13 @@ public enum FrameRow {
 	ROD (12),
 	HAMMER (13),
 	HOOKSHOT (14),
-	BOOMERANGE (14),
+	BOOMERANG (14),
 	NET (15),
 	BOW (16),
 	SHOVEL (17),
 	DUCK (17),
 	BED (18),
-	GRASS (20)
-	;
+	GRASS (20);
 
 	public final int val;
 	private FrameRow(int n) {

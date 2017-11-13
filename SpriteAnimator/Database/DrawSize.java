@@ -1,6 +1,6 @@
 package SpriteAnimator.Database;
 
-public enum DrawSizes {
+public enum DrawSize {
 	FULL (0, 0, 16, 16),
 	TOP_HALF (0, 0, 16, 8),
 	BOTTOM_HALF (8, 0, 16, 8),
@@ -21,7 +21,7 @@ public enum DrawSizes {
 	public final int w;
 	public final int h;
 
-	private DrawSizes(int x, int y, int w, int h) {
+	private DrawSize(int x, int y, int w, int h) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
