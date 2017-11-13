@@ -7,6 +7,7 @@ public class Anime {
 	private Sprite[] l; // list of sprites in frame
 	private int xOffset;
 	private int yOffset;
+
 	public Anime(Sprite[] spriteList, int duration) {
 		d = duration;
 		l = spriteList;
@@ -21,9 +22,9 @@ public class Anime {
 		yOffset = y;
 	}
 
-	public void draw(Graphics2D g, int scaleOffset) {
+	public void draw(Graphics2D g, int scaleOffsetX, int scaleOffsetY) {
 		for (Sprite s : l) {
-			s.draw(g, xOffset + scaleOffset, yOffset + scaleOffset);
+			s.draw(g, xOffset + scaleOffsetX, yOffset + scaleOffsetY);
 		}
 	}
 

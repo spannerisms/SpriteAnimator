@@ -3,6 +3,10 @@ package SpriteAnimator;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,7 +21,7 @@ import SpriteAnimator.Listeners.*;
 
 public class SpriteAnimator extends Component {
 	// version and serial
-	public static final String VERSION = "v1.4";
+	public static final String VERSION = "v1.5";
 	private static final long serialVersionUID = 2114886855236406900L;
 
 	private BufferedImage[] BGS = Backgrounds.getBackgrounds();
@@ -70,6 +74,8 @@ public class SpriteAnimator extends Component {
 
 	// display
 	private int bg = 0;
+	private int posX = 0;
+	private int posY = 0;
 	private int mailLevel = 0;
 	private int swordLevel = 0;
 	private int shieldLevel = 0;
@@ -91,9 +97,9 @@ public class SpriteAnimator extends Component {
 		mode = 0;
 		frame = 0;
 		maxFrame = 0;
-		makeAnimationFrames();
 		tick = new Timer();
 		setRunning();
+		addMouse();
 	}
 
 	/**
@@ -534,19 +540,23 @@ public class SpriteAnimator extends Component {
 	 */
 	public void paint(Graphics g) {
 		// draw background
-		int bgOffset = (zoom-1) * -7;
+		int offsetX = (zoom-1) * -7;
+		int offsetY = (zoom-1) * -7;
 		Graphics2D g2 = (Graphics2D) g;
+		
 		g2.scale(zoom, zoom);
-		g2.drawImage(BGS[bg], bgOffset, bgOffset, null);
+		
+		g2.drawImage(BGS[bg], offsetX, offsetY, null);
 		// Catch null frames
 		if (frames==null || frames[frame] == null) {
 			return;
 		}
 		// catch other errors
 		try {
-			int scaleOffset = (8 - zoom) * 7 + 10;
+			int scaleOffsetX = posX + offsetX;
+			int scaleOffsetY = posY + offsetY;
 			Anime t = frames[frame];
-			t.draw(g2, scaleOffset);
+			t.draw(g2, scaleOffsetX, scaleOffsetY);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1005,7 +1015,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Flips an image vertically if the second argument is <b>true<b>
+	 * Flips an image vertically if the second argument is {@code true}
 	 * or horizontally if it is {@code false}
 	 * @param image
 	 * @param vertical - orientation
@@ -1027,23 +1037,6 @@ public class SpriteAnimator extends Component {
 		g.drawImage(image, 0, 0, null);
 		g.dispose();
 		return newImage;
-	}
-
-	/**
-	 * Perform
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new GUI().printGUI();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
 	/**
@@ -1196,5 +1189,63 @@ public class SpriteAnimator extends Component {
 		// kill whitespace
 		ret = ret.replaceAll("[ \t]","");
 		return ret;
+	}
+
+	/**
+	 * Used to add mouse listeners
+	 */
+	private final void addMouse() {
+		this.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {
+				moveToPoint(arg0.getPoint());
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+				moveToPoint(arg0.getPoint());
+			}
+
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+		});
+		
+		this.addMouseMotionListener(new MouseMotionListener() {
+			public void mouseDragged(MouseEvent arg0) {
+				moveToPoint(arg0.getPoint());
+			}
+
+			public void mouseMoved(MouseEvent arg0) {
+				
+			}});
+	} // end addMouse
+
+	/**
+	 * Moves to a point
+	 */
+	private void moveToPoint(Point p) {
+		posX = p.x / zoom;
+		posY = p.y / zoom;
+		System.out.println(String.format(
+				"{%s, %s} : {%s, %s}",
+				p.x, p.y, posX, posY
+				));
+		repaint();
+	}
+
+	/**
+	 * Perform
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					new GUI().printGUI();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
