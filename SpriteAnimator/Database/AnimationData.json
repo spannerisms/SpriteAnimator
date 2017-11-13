@@ -1,6 +1,125 @@
 {
+	"neutralRight": {
+		"name": "Neutral (right)",
+		"frames": [
+			{
+				"sprites": [
+					{
+						"row": "A",
+						"col": 0,
+						"pos": [-2,-1],
+						"size": "FULL"
+					},
+					{
+						"row": "B",
+						"col": 0,
+						"pos": [-1,7],
+						"size": "FULL"
+					},
+					{
+						"row": "SHIELD",
+						"col": 1,
+						"pos": [13,2],
+						"size": "RIGHT_HALF"
+					}
+				],
+				"length": 15,
+				"shadow": "TRUE"
+			}
+		]
+	},
+	"neutralLeft": {
+		"name": "Neutral (left)",
+		"frames": [
+			{
+				"sprites": [
+					{
+						"row": "A",
+						"col": 0,
+						"pos": [2,-1],
+						"size": "FULL",
+						"transformation": "Y_FLIPPED"
+					},
+					{
+						"row": "B",
+						"col": 0,
+						"pos": [1,7],
+						"size": "FULL",
+						"transformation": "Y_FLIPPED"
+					},
+					{
+						"row": "SHIELD",
+						"col": 1,
+						"pos": [-5,2],
+						"size": "RIGHT_HALF",
+						"transformation": "Y_FLIPPED"
+					}
+				],
+				"length": 15,
+				"shadow": "TRUE"
+			}
+		]
+	},
+	"neutralUp": {
+		"name": "Neutral (up)",
+		"frames": [
+			{
+				"sprites": [
+					{
+						"row": "A",
+						"col": 2,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "C",
+						"col": 1,
+						"pos": [0,8],
+						"size": "FULL"
+					},
+					{
+						"row": "SHIELD",
+						"col": 2,
+						"pos": [5,3],
+						"size": "FULL"
+					}
+				],
+				"length": 15,
+				"shadow": "TRUE"
+			}
+		]
+	},
+	"neutralDown": {
+		"name": "Neutral (down)",
+		"frames": [
+			{
+				"sprites": [
+					{
+						"row": "SHIELD",
+						"col": 0,
+						"pos": [-4,7],
+						"size": "FULL"
+					},
+					{
+						"row": "A",
+						"col": 1,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "B",
+						"col": 3,
+						"pos": [0,8],
+						"size": "FULL"
+					}
+				],
+				"length": 15,
+				"shadow": "TRUE"
+			}
+		]
+	},
 	"stand": {
-		"name": "stand",
+		"name": "Stand",
 		"frames": [
 			{
 				"sprites": [
@@ -29,7 +148,7 @@
 		]
 	},
 	"standUp": {
-		"name": "standUp",
+		"name": "Stand (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -58,7 +177,7 @@
 		]
 	},
 	"standDown": {
-		"name": "standDown",
+		"name": "Stand (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -87,7 +206,7 @@
 		]
 	},
 	"walk": {
-		"name": "walk",
+		"name": "Walk",
 		"frames": [
 			{
 				"sprites": [
@@ -284,7 +403,7 @@
 		]
 	},
 	"walkUp": {
-		"name": "walkUp",
+		"name": "Walk (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -481,7 +600,7 @@
 		]
 	},
 	"walkDown": {
-		"name": "walkDown",
+		"name": "Walk (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -683,7 +802,7 @@
 		]
 	},
 	"swim": {
-		"name": "swim",
+		"name": "Swim",
 		"frames": [
 			{
 				"sprites": [
@@ -780,7 +899,7 @@
 		]
 	},
 	"swimUp": {
-		"name": "swimUp",
+		"name": "Swim (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -900,7 +1019,7 @@
 		]
 	},
 	"swimDown": {
-		"name": "swimDown",
+		"name": "Swim (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -1018,7 +1137,7 @@
 		]
 	},
 	"treadingWater": {
-		"name": "treadingWater",
+		"name": "Treading water",
 		"frames": [
 			{
 				"sprites": [
@@ -1060,7 +1179,7 @@
 		]
 	},
 	"treadingWaterUp": {
-		"name": "treadingWaterUp",
+		"name": "Treading water (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -1102,7 +1221,7 @@
 		]
 	},
 	"treadingWaterDown": {
-		"name": "treadingWaterDown",
+		"name": "Treading water (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -1144,7 +1263,7 @@
 		]
 	},
 	"attack": {
-		"name": "attack",
+		"name": "Attack",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -1290,7 +1409,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 7,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -1389,7 +1508,7 @@
 		]
 	},
 	"attackUp": {
-		"name": "attackUp",
+		"name": "Attack (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -1553,7 +1672,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "β",
+						"row": "AB",
 						"col": 1,
 						"pos": [0,8],
 						"size": "FULL"
@@ -1670,7 +1789,7 @@
 		]
 	},
 	"attackDown": {
-		"name": "attackDown",
+		"name": "Attack (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -1858,7 +1977,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "β",
+						"row": "AB",
 						"col": 0,
 						"pos": [0,8],
 						"size": "FULL"
@@ -1966,7 +2085,7 @@
 		]
 	},
 	"spinAttack": {
-		"name": "spinAttack",
+		"name": "Spin attack",
 		"frames": [
 			{
 				"sprites": [
@@ -2273,7 +2392,7 @@
 		]
 	},
 	"spinAttackLeft": {
-		"name": "spinAttackLeft",
+		"name": "Spin attack (left)",
 		"frames": [
 			{
 				"sprites": [
@@ -2583,7 +2702,7 @@
 		]
 	},
 	"spinAttackUp": {
-		"name": "spinAttackUp",
+		"name": "Spin attack (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -2895,7 +3014,7 @@
 		]
 	},
 	"spinAttackDown": {
-		"name": "spinAttackDown",
+		"name": "Spin attack (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -3204,7 +3323,7 @@
 		]
 	},
 	"dashSpinup": {
-		"name": "dashSpinup",
+		"name": "Dash spinup",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -3692,7 +3811,7 @@
 		]
 	},
 	"dashSpinupUp": {
-		"name": "dashSpinupUp",
+		"name": "Dash spinup (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -4252,7 +4371,7 @@
 		]
 	},
 	"dashSpinupDown": {
-		"name": "dashSpinupDown",
+		"name": "Dash spinup (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -4801,7 +4920,7 @@
 		]
 	},
 	"dashRelease": {
-		"name": "dashRelease",
+		"name": "Dash release",
 		"frames": [
 			{
 				"sprites": [
@@ -4878,7 +4997,7 @@
 		]
 	},
 	"dashReleaseUp": {
-		"name": "dashReleaseUp",
+		"name": "Dash release (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -5065,7 +5184,7 @@
 		]
 	},
 	"dashReleaseDown": {
-		"name": "dashReleaseDown",
+		"name": "Dash release (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -5218,7 +5337,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "β",
+						"row": "AB",
 						"col": 2,
 						"pos": [0,8],
 						"size": "FULL"
@@ -5250,7 +5369,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "β",
+						"row": "AB",
 						"col": 3,
 						"pos": [0,8],
 						"size": "FULL"
@@ -5262,7 +5381,7 @@
 		]
 	},
 	"fall": {
-		"name": "fall",
+		"name": "Fall",
 		"frames": [
 			{
 				"sprites": [
@@ -5369,7 +5488,7 @@
 		]
 	},
 	"zap": {
-		"name": "zap",
+		"name": "Zap",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -5753,7 +5872,7 @@
 		]
 	},
 	"bonk": {
-		"name": "bonk",
+		"name": "Bonk",
 		"frames": [
 			{
 				"sprites": [
@@ -5789,7 +5908,7 @@
 		]
 	},
 	"bonkUp": {
-		"name": "bonkUp",
+		"name": "Bonk (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -5825,7 +5944,7 @@
 		]
 	},
 	"bonkDown": {
-		"name": "bonkDown",
+		"name": "Bonk (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -5860,7 +5979,7 @@
 		]
 	},
 	"deathSpin": {
-		"name": "deathSpin",
+		"name": "Death spin",
 		"frames": [
 			{
 				"sprites": [
@@ -6129,7 +6248,7 @@
 		]
 	},
 	"grab": {
-		"name": "grab",
+		"name": "Grab",
 		"frames": [
 			{
 				"sprites": [
@@ -6220,7 +6339,7 @@
 		]
 	},
 	"grabUp": {
-		"name": "grabUp",
+		"name": "Grab (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -6325,7 +6444,7 @@
 		]
 	},
 	"grabDown": {
-		"name": "grabDown",
+		"name": "Grab (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -6428,7 +6547,7 @@
 		]
 	},
 	"lift": {
-		"name": "lift",
+		"name": "Lift",
 		"frames": [
 			{
 				"sprites": [
@@ -6638,7 +6757,7 @@
 		]
 	},
 	"liftUp": {
-		"name": "liftUp",
+		"name": "Lift (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -6869,7 +6988,7 @@
 		]
 	},
 	"liftDown": {
-		"name": "liftDown",
+		"name": "Lift (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -7065,7 +7184,7 @@
 		]
 	},
 	"carry": {
-		"name": "carry",
+		"name": "Carry",
 		"frames": [
 			{
 				"sprites": [
@@ -7145,7 +7264,7 @@
 		]
 	},
 	"carryUp": {
-		"name": "carryUp",
+		"name": "Carry (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -7302,7 +7421,7 @@
 		]
 	},
 	"carryDown": {
-		"name": "carryDown",
+		"name": "Carry (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -7459,7 +7578,7 @@
 		]
 	},
 	"throw": {
-		"name": "throw",
+		"name": "Throw",
 		"frames": [
 			{
 				"sprites": [
@@ -7839,7 +7958,7 @@
 		]
 	},
 	"throwUp": {
-		"name": "throwUp",
+		"name": "Throw (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -8219,7 +8338,7 @@
 		]
 	},
 	"throwDown": {
-		"name": "throwDown",
+		"name": "Throw (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -8599,7 +8718,7 @@
 		]
 	},
 	"push": {
-		"name": "push",
+		"name": "Push",
 		"frames": [
 			{
 				"sprites": [
@@ -8748,7 +8867,7 @@
 		]
 	},
 	"pushUp": {
-		"name": "pushUp",
+		"name": "Push (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -8898,7 +9017,7 @@
 		]
 	},
 	"pushDown": {
-		"name": "pushDown",
+		"name": "Push (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -9048,7 +9167,7 @@
 		]
 	},
 	"treePull": {
-		"name": "treePull",
+		"name": "Tree pull",
 		"frames": [
 			{
 				"sprites": [
@@ -9133,7 +9252,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "β",
+						"row": "AB",
 						"col": 7,
 						"pos": [0,8],
 						"size": "FULL"
@@ -9225,7 +9344,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "β",
+						"row": "AB",
 						"col": 7,
 						"pos": [0,8],
 						"size": "FULL"
@@ -9237,7 +9356,7 @@
 		]
 	},
 	"salute": {
-		"name": "salute",
+		"name": "Salute",
 		"frames": [
 			{
 				"sprites": [
@@ -9273,7 +9392,7 @@
 		]
 	},
 	"itemGet": {
-		"name": "itemGet",
+		"name": "Item get",
 		"frames": [
 			{
 				"sprites": [
@@ -9310,7 +9429,7 @@
 		]
 	},
 	"crystalGet": {
-		"name": "crystalGet",
+		"name": "Crystal get",
 		"frames": [
 			{
 				"sprites": [
@@ -9328,7 +9447,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "β",
+						"row": "AB",
 						"col": 4,
 						"pos": [0,8],
 						"size": "FULL"
@@ -9340,7 +9459,7 @@
 		]
 	},
 	"swagDuck": {
-		"name": "swagDuck",
+		"name": "Swag duck",
 		"frames": [
 			{
 				"sprites": [
@@ -9395,7 +9514,7 @@
 		]
 	},
 	"bow": {
-		"name": "bow",
+		"name": "Bow",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -9496,7 +9615,7 @@
 		]
 	},
 	"bowUp": {
-		"name": "bowUp",
+		"name": "Bow (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -9598,7 +9717,7 @@
 		]
 	},
 	"bowDown": {
-		"name": "bowDown",
+		"name": "Bow (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -9701,7 +9820,7 @@
 		]
 	},
 	"boomerang": {
-		"name": "boomerang",
+		"name": "Boomerang",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -10241,7 +10360,7 @@
 		]
 	},
 	"boomerangUp": {
-		"name": "boomerangUp",
+		"name": "Boomerang (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -10685,7 +10804,7 @@
 		]
 	},
 	"boomerangDown": {
-		"name": "boomerangDown",
+		"name": "Boomerang (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -11232,7 +11351,7 @@
 		]
 	},
 	"hookshot": {
-		"name": "hookshot",
+		"name": "Hookshot",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -11615,7 +11734,7 @@
 		]
 	},
 	"hookshotUp": {
-		"name": "hookshotUp",
+		"name": "Hookshot (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -12056,7 +12175,7 @@
 		]
 	},
 	"hookshotDown": {
-		"name": "hookshotDown",
+		"name": "Hookshot (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -12438,7 +12557,7 @@
 		]
 	},
 	"powder": {
-		"name": "powder",
+		"name": "Powder",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -12542,7 +12661,7 @@
 		]
 	},
 	"powderUp": {
-		"name": "powderUp",
+		"name": "Powder (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -12646,7 +12765,7 @@
 		]
 	},
 	"powderDown": {
-		"name": "powderDown",
+		"name": "Powder (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -12752,7 +12871,7 @@
 		]
 	},
 	"rod": {
-		"name": "rod",
+		"name": "Rod",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -12865,7 +12984,7 @@
 		]
 	},
 	"rodUp": {
-		"name": "rodUp",
+		"name": "Rod (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -12978,7 +13097,7 @@
 		]
 	},
 	"rodDown": {
-		"name": "rodDown",
+		"name": "Rod (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -13095,7 +13214,7 @@
 		]
 	},
 	"bombos": {
-		"name": "bombos",
+		"name": "Bombos",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -13637,7 +13756,7 @@
 		]
 	},
 	"ether": {
-		"name": "ether",
+		"name": "Ether",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -15303,7 +15422,7 @@
 		]
 	},
 	"quake": {
-		"name": "quake",
+		"name": "Quake",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -16648,7 +16767,7 @@
 		]
 	},
 	"hammer": {
-		"name": "hammer",
+		"name": "Hammer",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -16761,7 +16880,7 @@
 		]
 	},
 	"hammerUp": {
-		"name": "hammerUp",
+		"name": "Hammer (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -16874,7 +16993,7 @@
 		]
 	},
 	"hammerDown": {
-		"name": "hammerDown",
+		"name": "Hammer (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -16991,7 +17110,7 @@
 		]
 	},
 	"shovel": {
-		"name": "shovel",
+		"name": "Shovel",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -17074,7 +17193,7 @@
 		]
 	},
 	"bugNet": {
-		"name": "bugNet",
+		"name": "Bug net",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -17338,7 +17457,7 @@
 		]
 	},
 	"readBook": {
-		"name": "readBook",
+		"name": "Read book",
 		"frames": [
 			{
 				"sprites": [
@@ -17368,7 +17487,7 @@
 		]
 	},
 	"prayer": {
-		"name": "prayer",
+		"name": "Prayer",
 		"frames": [
 			{
 				"sprites": [
@@ -17445,7 +17564,7 @@
 		]
 	},
 	"cane": {
-		"name": "cane",
+		"name": "Cane",
 		"frames": [
 			{
 				"neutralFrame": "RIGHT"
@@ -17531,7 +17650,7 @@
 		]
 	},
 	"caneUp": {
-		"name": "caneUp",
+		"name": "Cane (up)",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -17618,7 +17737,7 @@
 		]
 	},
 	"caneDown": {
-		"name": "caneDown",
+		"name": "Cane (down)",
 		"frames": [
 			{
 				"neutralFrame": "DOWN"
@@ -17705,18 +17824,18 @@
 		]
 	},
 	"bunnyStand": {
-		"name": "bunnyStand",
+		"name": "Bunny stand",
 		"frames": [
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,-1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 5,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17728,18 +17847,18 @@
 		]
 	},
 	"bunnyStandUp": {
-		"name": "bunnyStandUp",
+		"name": "Bunny stand (up)",
 		"frames": [
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 1,
 						"pos": [0,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 2,
 						"pos": [0,8],
 						"size": "FULL"
@@ -17751,7 +17870,7 @@
 		]
 	},
 	"bunnyStandDown": {
-		"name": "bunnyStandDown",
+		"name": "Bunny stand (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -17762,7 +17881,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 0,
 						"pos": [0,8],
 						"size": "FULL"
@@ -17774,18 +17893,18 @@
 		]
 	},
 	"bunnyWalk": {
-		"name": "bunnyWalk",
+		"name": "Bunny walk",
 		"frames": [
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,-1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 5,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17797,13 +17916,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 6,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17815,13 +17934,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,-1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 5,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17833,13 +17952,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 6,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17851,13 +17970,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,-1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 5,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17869,13 +17988,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 6,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17887,13 +18006,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,-1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 5,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17905,13 +18024,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 6,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17923,13 +18042,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,-1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 5,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17941,13 +18060,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 4,
 						"pos": [-2,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 6,
 						"pos": [-1,7],
 						"size": "FULL"
@@ -17959,18 +18078,18 @@
 		]
 	},
 	"bunnyWalkUp": {
-		"name": "bunnyWalkUp",
+		"name": "Bunny walk (up)",
 		"frames": [
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 1,
 						"pos": [0,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 2,
 						"pos": [0,8],
 						"size": "FULL"
@@ -17982,13 +18101,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 1,
 						"pos": [0,1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 3,
 						"pos": [0,8],
 						"size": "FULL"
@@ -18000,13 +18119,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 1,
 						"pos": [0,0],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 2,
 						"pos": [0,8],
 						"size": "FULL"
@@ -18018,13 +18137,13 @@
 			{
 				"sprites": [
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 1,
 						"pos": [0,1],
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 3,
 						"pos": [0,8],
 						"size": "FULL",
@@ -18037,7 +18156,7 @@
 		]
 	},
 	"bunnyWalkDown": {
-		"name": "bunnyWalkDown",
+		"name": "Bunny walk (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -18048,7 +18167,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 0,
 						"pos": [0,8],
 						"size": "FULL"
@@ -18084,7 +18203,7 @@
 						"size": "FULL"
 					},
 					{
-						"row": "α",
+						"row": "AA",
 						"col": 0,
 						"pos": [0,8],
 						"size": "FULL"
@@ -18115,7 +18234,7 @@
 		]
 	},
 	"walkUpstairs1F": {
-		"name": "walkUpstairs1F",
+		"name": "Walk upstairs 1f",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -18653,7 +18772,7 @@
 		]
 	},
 	"walkUpstairs2F": {
-		"name": "walkUpstairs2F",
+		"name": "Walk upstairs 2f",
 		"frames": [
 			{
 				"sprites": [
@@ -19102,7 +19221,7 @@
 		]
 	},
 	"walkDownstairs2F": {
-		"name": "walkDownstairs2F",
+		"name": "Walk downstairs 2f",
 		"frames": [
 			{
 				"neutralFrame": "UP"
@@ -19815,7 +19934,7 @@
 		]
 	},
 	"walkDownstairs1F": {
-		"name": "walkDownstairs1F",
+		"name": "Walk downstairs 1f",
 		"frames": [
 			{
 				"sprites": [
@@ -20240,7 +20359,7 @@
 		]
 	},
 	"poke": {
-		"name": "poke",
+		"name": "Poke",
 		"frames": [
 			{
 				"sprites": [
@@ -20335,7 +20454,7 @@
 		]
 	},
 	"pokeUp": {
-		"name": "pokeUp",
+		"name": "Poke (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -20430,7 +20549,7 @@
 		]
 	},
 	"pokeDown": {
-		"name": "pokeDown",
+		"name": "Poke (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -20531,7 +20650,7 @@
 		]
 	},
 	"tallGrass": {
-		"name": "tallGrass",
+		"name": "Tall grass",
 		"frames": [
 			{
 				"sprites": [
@@ -20626,7 +20745,7 @@
 		]
 	},
 	"tallGrassUp": {
-		"name": "tallGrassUp",
+		"name": "Tall grass (up)",
 		"frames": [
 			{
 				"sprites": [
@@ -20812,7 +20931,7 @@
 		]
 	},
 	"tallGrassDown": {
-		"name": "tallGrassDown",
+		"name": "Tall grass (down)",
 		"frames": [
 			{
 				"sprites": [
@@ -20999,7 +21118,7 @@
 		]
 	},
 	"mapDungeon": {
-		"name": "mapDungeon",
+		"name": "Map dungeon",
 		"frames": [
 			{
 				"sprites": [
@@ -21016,7 +21135,7 @@
 		]
 	},
 	"mapWorld": {
-		"name": "mapWorld",
+		"name": "Map world",
 		"frames": [
 			{
 				"sprites": [
@@ -21045,7 +21164,7 @@
 		]
 	},
 	"sleep": {
-		"name": "sleep",
+		"name": "Sleep",
 		"frames": [
 			{
 				"sprites": [
@@ -21075,7 +21194,7 @@
 		]
 	},
 	"awake": {
-		"name": "awake",
+		"name": "Awake",
 		"frames": [
 			{
 				"sprites": [
