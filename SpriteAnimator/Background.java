@@ -5,27 +5,36 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public enum Background {
+		// empty
 		EMPTY ("Empty", "empty"),
+		// overworld areas
 		HOUSE ("House", "house"),
 		GRASS ("Grass", "grass"),
 		HOULIHAN ("Houlihan", "houlihan"),
 		STILL_WATER ("Still water", "stillwater"),
 		MOSAIC ("Mosaic", "mosaic"),
 		CAVE ("Cave", "cave"),
+		// meme rooms
 		SPIKE_CAVE ("Spike cave", "spikecave"),
 		TILE_ROOM ("Tile room", "tileroom"),
-		DUNGEON_EASTERN_PALACE ("Eastern Palace", "dungeon-easternpalace"),
-		DUNGEON_DESERT_PALACE ("Desert Palace", "dungeon-desertpalace"),
-		DUNGEON_PALACE_OF_DARKNESS ("Palace of Darkness", "dungeon-palaceofdarkness"),
-		DUNGEON_SKULL_WOODS ("Skull Woods", "dungeon-skullwoods"),
-		DUNGEON_ICE_PALACE ("Ice Palace", "dungeon-icepalace"),
-		DUNGEON_MISERY_MIRE ("Misery Mire", "dungeon-miserymire"),
-		DUNGEON_TURTLE_ROCK ("Turtle Rock", "dungeon-turtlerock"),
-		BOSS_MOLDORM ("Moldorm", "boss-moldorm"),
-		BOSS_ARGHUS ("Arrghus", "boss-arrghus"),
-		BOSS_MOTHULA ("Mothula", "boss-mothula"),
-		BOSS_BLIND ("Blind", "boss-blind"),
-		BOSS_VITREOUS ("Vitreous", "boss-vitreous");
+		// light world dungeons
+		EASTERN_PALACE ("Eastern Palace", "dungeon-easternpalace"),
+		DESERT_PALACE ("Desert Palace", "dungeon-desertpalace"),
+		TOWER_OF_HERA ("Tower of Hera", "dungeon-towerofhera"),
+		// dark world dungeons
+		PALACE_OF_DARKNESS ("Palace of Darkness", "dungeon-palaceofdarkness"),
+		SWAMP_PALACE ("Swamp Palace", "dungeon-swamppalace"),
+		SKULL_WOODS ("Skull Woods", "dungeon-skullwoods"),
+		ICE_PALACE ("Ice Palace", "dungeon-icepalace"),
+		MISERY_MIRE ("Misery Mire", "dungeon-miserymire"),
+		TURTLE_ROCK ("Turtle Rock", "dungeon-turtlerock"),
+		GANONS_TOWER ("Ganon's Tower", "dungeon-ganonstower"),
+		// boss rooms
+		MOLDORM ("Moldorm", "boss-moldorm"),
+		ARGHUS ("Arrghus", "boss-arrghus"),
+		MOTHULA ("Mothula", "boss-mothula"),
+		BLIND ("Blind", "boss-blind"),
+		VITREOUS ("Vitreous", "boss-vitreous");
 
 	// local
 	private String name;
@@ -37,13 +46,14 @@ public enum Background {
 			String bgFilename = "images/bg-" + path + ".png";
 			img = ImageIO.read(Background.class.getResourceAsStream(bgFilename));
 		} catch (IOException e) {
+			// idk what to do here
 		};
 	}
 
 	public String toString() {
 		return name;
 	}
-	
+
 	public BufferedImage getImage() {
 		return img;
 	}
