@@ -108,11 +108,10 @@ public enum Animation {
 	// local vars
 	private final ArrayList<StepData> steps;
 	private final String name;
-	private int curStep = 0;
 
 	private Animation(String n) {
 		steps = new ArrayList<StepData>();
-		JSONObject data = DatabaseJSON.ALL_DATA.getJSONObject(n);
+		JSONObject data = DatabaseJSON.ALL_DATA.getJSONObject("stand");
 
 		JSONArray steps = data.getJSONArray("steps");
 		for (Object o : steps) {
@@ -139,13 +138,5 @@ public enum Animation {
 			customized.add(s.customizeStep(swordLevel, shieldLevel, showShadow, showEquipment));
 		}
 		return StepData.mergeAll(customized);
-	}
-
-	public StepData getNext() {
-		curStep++;
-		if (curStep == steps.size()) {
-			curStep = 0;
-		}
-		return steps.get(curStep);
 	}
 }

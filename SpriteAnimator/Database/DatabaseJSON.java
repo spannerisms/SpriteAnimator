@@ -23,7 +23,6 @@ public class DatabaseJSON {
 			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("A");
 			System.exit(1);
 		}
 
