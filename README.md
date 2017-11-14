@@ -6,9 +6,9 @@
 
 Along with animating sprites, SpriteAnimator also includes various features to control the display:
 * Backgrounds to test how a sprite looks in various areas
-  * Link can be moved against the background by clicking or dragging your mouse pointer. (v1.5+)
+  * Character sprites can be moved against the background by clicking or dragging your mouse pointer. (v1.5+)
 * The ability to view animations with a sword or shield of any level
-* The ability to view sprites in any of the 4 mail palettes
+* The ability to view character sprites in any of the 4 mail palettes
 * The ability to toggle shadows
 * The ability to toggle sprites that don't fall under the above categories (NOTE: Swag duck cannot be turned off)
 * The ability to toggle neutral poses (default standing position) to assess how smoothly a sprite moves into an animation
@@ -31,13 +31,13 @@ Some terms we need to use are overloaded (they can mean multiple things). To avo
   * *Link's dungeon map icon is **index** K7 on his sprite sheet.*
 
 ## Notes about animation decisions
-* SpriteAnimator tries its best to emulate the timing of the SNES (60 FPS); however, it is slightly slower in its repaint cycles. 1/60 of a second is approximately 16.66ms. The closest this program can achieve without massive overhead is 17ms.
+* SpriteAnimator tries its best to emulate the timing of the SNES (60 FPS); however, it is slightly slower with its repaint cycles. 1/60 of a second is approximately 16.66ms. The closest this program can achieve without massive overhead is 17ms.
 * Most left-facing animations are simply a mirror of the right-facing animation, and as such have been omitted.
-* Every bug net animation uses the same frames, but in a different order. As such, only the right-facing swing was included.
-* Miscellaneous sprites were included to make sure held items could be held as best as possible.
-* For end-user control, consecutive identical animation steps are merged. For example: when neutral poses are off, attack right has 9 steps with a sword and 7 steps without. This is because in step pairs [1,2] and [8,9], Link does not change position, but the sword still moves.
-* The zap animation disappears every other frame. This is to emulate Link's invincibility flicker, which the animation is never seen without.
-* Ether is a very long animatin because there are palette swaps every 4 frames in Link's final pose. It might even need to be longer to be truly accurate, as spanda got bored and frustrated with counting.
+* Every bug net animation uses the same poses, but in a different order. As such, only the right-facing swing was included.
+* Miscellaneous sprites were included to make sure held items could be held as best as possible; however, other effects (such as dust clouds and sparkles) were omitted to decrease the workload in creating a finished product.
+* For end-user control, consecutive identical animation steps are merged. For example: when neutral poses are off, attack right has 9 steps with a sword and 7 steps without. This is because in step pairs [1,2] and [8,9], Link does not change his pose, but the sword still moves.
+* The character sprite in the zap animation disappears every other frame. This is to emulate Link's invincibility flicker, which the animation is never seen without.
+* Ether is a very long animation because there are palette swaps every 4 frames in Link's final pose. It might even need to be longer to be truly accurate, as spanda got bored and frustrated with counting.
 
 ## Animation oddities that are not errors
 The following apparent errors are problems directly with the game itself, and not this program. They are best seen with the vanilla Link sprite. Unless otherwise stated, animation steps referenced have no equipment displayed and no neutral poses (Sword level: Off; Shield level: Off; Misc. sprites: Off; Neutral: Off).
