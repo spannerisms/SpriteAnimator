@@ -36,13 +36,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import SpriteAnimator.Database.*;
 import SpriteAnimator.Listeners.*;
 import SpriteManipulator.*;
 
 public class GUI {
 	// version number
 	static final String VERSION = SpriteAnimator.VERSION;
-	static final String[] ALLFRAMES = OldDatabase.ALLFRAMES;
 
 	private static final String[] ACCEPTED_FILE_TYPES =
 			new String[] { ZSPRFile.EXTENSION, "sfc" /*, "png"*/ };
@@ -75,9 +75,24 @@ public class GUI {
 			"Bunny"
 	};
 
+	/**
+	 * Perform
+	 */
+	public static void main(String[] args) throws IOException {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					new GUI().printGUI();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 	// use func
 	public void printGUI() throws IOException {
-		//try to set LaF
+		// try to set LaF
 		try {
 			UIManager.setLookAndFeel("metal");
 		} catch (UnsupportedLookAndFeelException
@@ -153,7 +168,7 @@ public class GUI {
 		c.gridy = -1;
 
 		// animation playing
-		final JComboBox<String> animOptions = new JComboBox<String>(getAnimNames());
+		final JComboBox<Animation> animOptions = new JComboBox<Animation>(Animation.values());
 		final JLabel theWordAnimation = new JLabel("Animation:", SwingConstants.RIGHT);
 		theWordAnimation.setBorder(rightPad);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -672,7 +687,7 @@ public class GUI {
 
 				// reset animator, forcing it to update
 				try {
-					run.setAnimation(animOptions.getSelectedIndex());
+					run.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing
 				}
@@ -720,7 +735,7 @@ public class GUI {
 
 				// reset animator, forcing it to update
 				try {
-					run.setAnimation(animOptions.getSelectedIndex());
+					run.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing
 				}
@@ -730,10 +745,10 @@ public class GUI {
 		animOptions.addActionListener(
 			arg0 -> {
 				try {
-					run.setAnimation(animOptions.getSelectedIndex());
+					run.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					String animName = animOptions.getSelectedItem().toString();
-					run.setAnimation(0);
+					run.setAnimation(Animation.STAND);
 					animOptions.setSelectedIndex(0);
 					JOptionPane.showMessageDialog(frame,
 							"There's a problem with the animation:\n" +
@@ -899,34 +914,6 @@ public class GUI {
 				break;
 		}
 		return allowed;
-	}
-
-	public static String[] getAnimNames() {
-		String[] ret = new String[ALLFRAMES.length];
-		for (int i = 0; i < ALLFRAMES.length; i++) {
-			String r = ALLFRAMES[i];
-			String[] animDataX = r.split("[\\[\\]]");
-			r = animDataX[1];
-			r = r.replaceAll("(Up|Down|Right|Left)$", "($1)");
-			char r2[] = r.toCharArray();
-			r = "";
-			r += Character.toUpperCase(r2[0]);
-
-			for (int j = 1; j < r2.length; j++) {
-				char c = r2[j];
-				if (Character.isUpperCase(c)) {
-					if (Character.isAlphabetic(r2[j-1])) {
-						r += " ";
-					}
-				} else if (Character.isDigit(c) || (c == '(')) {
-					r += " ";
-				}
-				c = Character.toLowerCase(c);
-				r += c;
-			}
-			ret[i] = r;
-		}
-		return ret;
 	}
 
 	/**

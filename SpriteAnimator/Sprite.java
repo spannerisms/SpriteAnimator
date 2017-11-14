@@ -3,89 +3,48 @@ package SpriteAnimator;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-/**
- * Sprite class to handle drawing better
- */
+import SpriteAnimator.Database.DrawSize;
+import SpriteAnimator.Database.SpriteData;
+import SpriteAnimator.Database.Transformation;
+
 public class Sprite {
 	private int x;
 	private int y;
-	private String name;
-	private String size;
-	private String trans;
 	private BufferedImage img;
 	private String[] info;
-	public Sprite(BufferedImage image, int xpos, int ypos, String t, String s, String tr) {
-		img = image;
-		x = xpos;
-		y = ypos;
-		name = t;
-		size = s;
-		trans = tr;
-		makeInfo();
-	}
 
-	/**
-	 * If the sprite is part of link, it is listed. If it isn't, send out null.
-	 */
-	private final static String[][] FLAGS_TO_VAL = {
-			// ignore Flag 'F' - full 16x16 is implicit default
-			{ "T", "Top half" },
-			{ "B", "Bottom half" },
-			{ "R", "Right half" },
-			{ "L", "Left half" },
-			{ "TR", "Top-right" },
-			{ "TL", "Top-left" },
-			{ "BR", "Bottom-right" },
-			{ "BL", "Bottom-left" },
-			{ "E", "" },
-	};
-	private final static String[][] TRANS_TO_VAL = {
-			// ignore Flag '0' - no transformation is implicit default
-			{ "U", "X-flipped" },
-			{ "M", "Y-flipped" },
-			{ "UM", "XY-flipped" },
-			{ "MU", "XY-flipped" },
-	};
-
-	private void makeInfo() {
-		// Remove ZAP palette references
-		String n = name.replace("ZAP", "");
-		// long strings aren't part of Link, so ignore.
-		if (n.length() > 2) {
-			info = null;
-			return;
-		}
-		// replace Alpha and Beta with Mike's index codes
-		if (n.charAt(0) == Character.toUpperCase('α')) {
-			n = "AA" + n.charAt(1);
-		} else if (n.charAt(0) == Character.toUpperCase('β')) {
-			n = "AB" + n.charAt(1);
-		}
-		// get draw size
-		String flagW = "";
-		if (size.equalsIgnoreCase("E")) {
-			n = "Empty step";
-		} else {
-			for (String[] f : FLAGS_TO_VAL) {
-				if (size.equalsIgnoreCase(f[0])) {
-					flagW = f[1];
-					break;
-				}
-			}
-		}
-
-		// get transformation
-		String transW = "";
-
-		// get draw size
-		for (String[] t : TRANS_TO_VAL) {
-			if (trans.equalsIgnoreCase(t[0])) {
-				transW = t[1];
+	public Sprite(BufferedImage i, SpriteData s) {
+		x = s.x;
+		y = s.y;
+		DrawSize d = s.d;
+		Transformation t = s.t;
+		switch (d) {
+			case EMPTY :
+				new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 				break;
-			}
+			default :
+				img = i.getSubimage(d.x, d.y, d.w, d.h);
+				if (t != null) {
+					img = t.trans(img);
+				}
+				break;
 		}
-		
-		info = new String[] {n,flagW,transW};
+
+		char[] size = d.name().toLowerCase().toCharArray();
+		size[0] = Character.toUpperCase(size[0]);
+		char[] trans;
+		if (t == null) {
+			trans = new char[0];
+		} else {
+			trans= s.t.name().toLowerCase().toCharArray();
+			trans[0] = Character.toUpperCase(trans[0]);
+		}
+
+		info = new String[] {
+				s.row.name() + s.col,
+				size.toString(),
+				trans.toString()
+		};
 	}
 
 	public String[] getInfo() {

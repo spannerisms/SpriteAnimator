@@ -7,7 +7,6 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +16,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
+import SpriteAnimator.Database.Animation;
+import SpriteAnimator.Database.SpriteData;
+import SpriteAnimator.Database.StepData;
 import SpriteAnimator.Listeners.*;
 
 public class SpriteAnimator extends Component {
@@ -30,9 +32,6 @@ public class SpriteAnimator extends Component {
 					"images/equipment.png"));
 		} catch (IOException e) {
 	}};
-
-	// frame data
-	static final String[] ALLFRAMES = Database.ALLFRAMES;
 
 	// Almost the length of a frame at 60 FPS
 	// 1/60 approx. 16.66666...
@@ -62,7 +61,7 @@ public class SpriteAnimator extends Component {
 
 	// locals
 	private BufferedImage[] mailImages = null; // sprite sheet
-	private int anime; // animation id
+	private Animation anime; // current animation
 	private int speed; // speed; 0 = normal; positive = faster; negative = slower
 	private int mode; // animation mode
 	private int frame; // animation step (not 0 indexed)
@@ -93,7 +92,7 @@ public class SpriteAnimator extends Component {
 
 	// default initialization
 	public SpriteAnimator() {
-		anime = 0;
+		anime = Animation.STAND;
 		speed = 0;
 		mode = 0;
 		frame = 0;
@@ -154,11 +153,11 @@ public class SpriteAnimator extends Component {
 	 * Set animation ID
 	 * @param id
 	 */
-	public void setAnimation(int id) {
+	public void setAnimation(Animation a) {
 		if (mailImages == null) {
 			return;
 		}
-		anime = id;
+		anime = a;
 		makeAnimationFrames();
 		fireRebuildEvent();
 		reset();
@@ -313,7 +312,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Increments step speed by 1.
+	 * Increments step speed by 1
 	 */
 	public void faster() {
 		setSpeed(speed+1);
@@ -661,8 +660,6 @@ public class SpriteAnimator extends Component {
 
 	/**
 	 * Makes an array of {@link Sprite}s based on the frame data.
-	 * <br><br>
-	 * Complex, pain in the ass function.
 	 */
 	// @link Sprite - lol get it?
 	private void makeAnimationFrames() {
@@ -673,531 +670,30 @@ public class SpriteAnimator extends Component {
 
 		// find which sheet to use for image
 		BufferedImage sheet;
-
-		// Raw data, without spaces, capitalized for comparing
-		String animData = ALLFRAMES[anime].toUpperCase().replace(" ", ""); // CAPS and remove all whitespace
-
-		// split into sections
-		String[] animDataX = animData.split("[\\[\\]]+");
-
-		// for rebuilding and reorganizing frame data
-		String[] eachFrameRaw = animDataX[2].split(";"); // split by frame
-		maxFrame = eachFrameRaw.length;
-		String[] eachFrameMinusNeutral = new String[maxFrame]; // to remove neutral frames
-
-		// check for and replace neutrals
-		int fcount = 0;
-		for (String checkN : eachFrameRaw) {
-			if (isNeutral(checkN)) {
-				if (showNeutral) {
-					eachFrameMinusNeutral[fcount] = getNeutral(checkN);
-					fcount++;
-				}
-			} else {
-				eachFrameMinusNeutral[fcount] = checkN;
-				fcount++;
-			}
-		}
-
-		// replace raw data with neutral changed data
-		eachFrameRaw = eachFrameMinusNeutral;
-		maxFrame = fcount;
-
-		String[] eachFrameBuilt = new String[maxFrame+1]; // +1 for a ghost
-		String[] eachFrameRebuilt = new String[maxFrame+1];
-		String[] eachFrame;
-
-		// remove unnecessary sprites from each frame
-		for (int i = 0; i < maxFrame; i++) {
-			String[] wholeFrame = eachFrameRaw[i].split("@");
-			String[] eachSprite = wholeFrame[0].split(":");
-			String[] frameSprites = new String[eachSprite.length];
-
-			// remove sprites we don't want
-			// change equipment names
-			String indexName;
-			String frameBuilt;
-			int sprct = 0;
-			for (String fs : eachSprite) {
-				indexName = stopAtNumber(fs);
-				if (indexName.equalsIgnoreCase("SHADOW")) { // check for shadow
-					if (showShadow) {
-						frameSprites[sprct] = fs;
-						sprct++;
-					} // otherwise do nothing
-				} else if (isEquipment(indexName)) { // check for equipment
-					if (showEquipment || indexName.equalsIgnoreCase("DUCK")) {
-						frameSprites[sprct] = fs;
-						sprct++;
-					} // otherwise do nothing
-				} else if (indexName.equalsIgnoreCase("SWORD")) { // check and replace for sword
-					switch (swordLevel) {
-						default : // catch all
-						case 0 : // no sword
-							// do nothing
-							break;
-						case 1 : // fighter sword
-						case 2 : // master sword
-						case 3 : // tempered sword
-						case 4 : // butter sword
-							frameSprites[sprct] = (SWORDPREFIX[swordLevel] + fs);
-							sprct++;
-							break;
+		ArrayList<StepData> config = anime.customizeMergeAndFinalize(
+				swordLevel, shieldLevel, showShadow, showEquipment);
+		frames = new Anime[config.size()];
+		for (int i = 0; i < frames.length; i++) {
+			StepData frameX = config.get(i);
+			int sprCount = frameX.countSprites();
+			Sprite[] list = new Sprite[sprCount];
+			for (int j = 0; j < sprCount; j++) {
+				SpriteData curSprite = frameX.getSprite(j);
+				if (curSprite.row.isLinkPart) {
+					if (curSprite.isZap) {
+						sheet = mailImages[4];
+					} else {
+						sheet = mailImages[mailLevel];
 					}
-				} else if (indexName.equalsIgnoreCase("SHIELD")) { // check and replace for shield
-					switch (shieldLevel) {
-						default : // catch all
-						case 0 : // no shield
-							// do nothing
-							break;
-						case 1 : // fighter shield
-						case 2 : // red shield
-						case 3 : // mirror shield
-							frameSprites[sprct] = (SHIELDPREFIX[shieldLevel] + fs);
-							sprct++;
-							break;
-					}
-				} else { // everything else can be added
-					frameSprites[sprct] = fs;
-					sprct++;
-				}
-			} // end of each sprite
-
-			// add duration to frame raw
-			String[] usedSprites = new String[sprct];
-			for (int h = 0; h < sprct; h++) {
-				usedSprites[h] = frameSprites[h];
-			}
-			frameBuilt = String.join(":", usedSprites);
-			frameBuilt += ("@" + wholeFrame[1]);
-
-			eachFrameBuilt[i] = frameBuilt;
-		}
-
-		// add a ghost frame to halt duplicate process (it won't be added)
-		eachFrameBuilt[maxFrame] = "GARBAGE0@0";
-
-		// try to remove duplicates by comparing frames
-		// only do it for > 1 frame
-		if (maxFrame == 1) { // for 1 frame animations, just copy the frame over
-			eachFrame = new String[1];
-			eachFrame[0] = eachFrameBuilt[0];
-		} else {
-			// for longer animations, prep the first frame
-			String addFrame, curFrame;
-			String addFrameData, curFrameData;
-			int addFrameLength, curFrameLength;
-
-			addFrame = eachFrameBuilt[0];
-			addFrameData = addFrame.substring(0, addFrame.indexOf('@'));
-			addFrameLength = Integer.parseInt(
-					addFrame.substring(addFrame.indexOf('@') + 1)
-					);
-			int builtFramesCount = 0;
-
-			for (int n = 1; n < maxFrame+1; n++) {
-				curFrame = eachFrameBuilt[n];
-				curFrameData = curFrame.substring(0, curFrame.indexOf('@'));
-				curFrameLength = Integer.parseInt(
-						curFrame.substring(curFrame.indexOf('@') + 1)
-						);
-				// compare the frames
-				// if the data is the same
-				// just increase the length of the frame to add
-				if (curFrameData.equalsIgnoreCase(addFrameData)) {
-					addFrameLength += curFrameLength;
-
-				// if different
-				// replace add with cur
-				// add the frame to be added in
-				} else {
-					eachFrameRebuilt[builtFramesCount] = addFrameData + "@" + addFrameLength;
-					addFrameData = curFrameData;
-					addFrameLength = curFrameLength;
-					builtFramesCount++;
-				}
-			} // end loop
-
-			// build a final list of frames with removed dupes
-			eachFrame = new String[builtFramesCount];
-			for (int x = 0; x < builtFramesCount; x++) {
-				eachFrame[x] = eachFrameRebuilt[x];
-			}
-		}
-
-		// build each frame with sprites
-		maxFrame = eachFrame.length;
-		frames = new Anime[maxFrame];
-		int spriteCount = 0;
-
-		for (int i = 0; i < maxFrame; i++) {
-			String[] wholeFrame = eachFrame[i].split("@");// each sprite in frame
-			
-			int frameLength; // length of animation step in frames
-			try {
-				frameLength = Integer.parseInt(wholeFrame[1]);
-			} catch (Exception e) {
-				frameLength = 100;
-			}
-
-			String[] eachSprite = wholeFrame[0].split(":");
-			spriteCount = eachSprite.length;
-			Sprite[] sprList = new Sprite[spriteCount];
-			frames[i] = new Anime(sprList, frameLength);
-			for (int j = 0; j < spriteCount; j++) {
-				String[] spriteSplit = eachSprite[j].split("[\\{\\}]{1,2}"); // split into info sections
-
-				// sprite sheet and index
-				String sprIndex = spriteSplit[0];
-				String sprIndexRow = stopAtNumber(sprIndex);
-				int sprIndexRowVal = getIndexRow(sprIndexRow);
-				String sprIndexCol = sprIndex.substring(sprIndexRow.length());
-
-				// assume 1 character rows are always link
-				// and all equipment is named longer than 0
-				if (sprIndexRow.length() == 1) {
-					sheet = mailImages[mailLevel];
-				} else if (sprIndexRow.indexOf("ZAP") == 0) {
-					sheet = mailImages[4];
 				} else {
 					sheet = EQUIPMENT;
 				}
-
-				// sprite position
-				String[] pos = spriteSplit[1].split(",");
-				int xpos = Integer.parseInt(pos[0]);
-				int ypos = Integer.parseInt(pos[1]);
-
-				// sprite cell location, size, and transformation
-				int drawY = sprIndexRowVal * 16;
-				int drawX = Integer.parseInt((sprIndexCol + "")) * 16;
-				int drawYoffset, drawXoffset;
-				int width, height;
-				String[] sprSizeAndTrans = spriteSplit[2].split(",");
-				String sprSize = sprSizeAndTrans[0];
-				String sprTrans;
-
-				if (sprSizeAndTrans.length == 1) {
-					sprTrans = "0";
-				} else {
-					sprTrans = sprSizeAndTrans[1];
-				}
-
-				// determine offset from initial position
-				switch (sprSize) {
-					case "F" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 16;
-						height = 16;
-						break;
-					case "T" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 16;
-						height = 8;
-						break;
-					case "B" :
-						drawYoffset = 8;
-						drawXoffset = 0;
-						width = 16;
-						height = 8;
-						break;
-					case "R" :
-						drawYoffset = 0;
-						drawXoffset = 8;
-						width = 8;
-						height = 16;
-						break;
-					case "L" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 8;
-						height = 16;
-						break;
-					case "TR" :
-						drawYoffset = 0;
-						drawXoffset = 8;
-						width = 8;
-						height = 8;
-						break;
-					case "TL" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 8;
-						height = 8;
-						break;
-					case "BR" :
-						drawYoffset = 8;
-						drawXoffset = 8;
-						width = 8;
-						height = 8;
-						break;
-					case "BL" :
-						drawYoffset = 8;
-						drawXoffset = 0;
-						width = 8;
-						height = 8;
-						break;
-					case "XT" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 8;
-						height = 24;
-						break;
-					case "XW" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 24;
-						height = 8;
-						break;
-					case "XL" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 16;
-						height = 24;
-						break;
-					case "XXL" :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 32;
-						height = 24;
-						break;
-					default :
-						drawYoffset = 0;
-						drawXoffset = 0;
-						width = 16;
-						height = 16;
-						break;
-				}
-
-				drawX += drawXoffset;
-				drawY += drawYoffset;
-				BufferedImage spreet;
-
-				// draw cell image
-				if (sprSize.equals("E")) { // blank
-					spreet = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR_PRE);
-				} else {
-					spreet = sheet.getSubimage(drawX, drawY, width, height);
-				}
-
-				// transformations
-				switch (sprTrans) {
-					case "M" :
-						spreet = flipH(spreet);
-						break;
-					case "U" :
-						spreet = flipV(spreet);
-						break;
-					case "UM" :
-					case "MU" :
-						spreet = flipH(spreet);
-						spreet = flipV(spreet);
-						break;
-					default :
-						// nothing
-						break;
-				}
-
-				// put it in backwards to preserve draw order
-				sprList[spriteCount-1-j] =
-						new Sprite(spreet, xpos, ypos, sprIndex, sprSize, sprTrans);
-			} // end per sprite
-		} // end per frame
+				Sprite newSpr = new Sprite(sheet, curSprite);
+				list[sprCount-j-1] = newSpr;
+			}
+			frames[i] = new Anime(frameX, list);
+		}
 	} // end makeAnimationFrames
-
-	// transformations
-	/**
-	 * Wrapper for flip()
-	 */
-	private static BufferedImage flipV(BufferedImage image){
-		return flip(image, true);
-	}
-
-	/**
-	 * Wrapper for flip()
-	 */
-	private static BufferedImage flipH(BufferedImage image){
-		return flip(image, false);
-	}
-
-	/**
-	 * Flips an image vertically if the second argument is {@code true}
-	 * or horizontally if it is {@code false}
-	 * @param image
-	 * @param vertical - orientation
-	 * @return
-	 */
-	private static BufferedImage flip(BufferedImage image, boolean vertical) {
-		AffineTransform at = new AffineTransform();
-		if (vertical) {
-			at.concatenate(AffineTransform.getScaleInstance(1, -1));
-			at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
-		} else {
-			at.concatenate(AffineTransform.getScaleInstance(-1, 1));
-			at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
-		}
-		BufferedImage newImage =
-				new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = newImage.createGraphics();
-		g.transform(at);
-		g.drawImage(image, 0, 0, null);
-		g.dispose();
-		return newImage;
-	}
-
-	/**
-	 * Converts a named equipment index to a numbered row.
-	 * @param n
-	 */
-	private static int getIndexRow(String n) {
-		int ret = 0;
-		if (n.length() == 1) {
-			ret = ALPHA.indexOf(n);
-		// look for zap palette
-		} else if (n.indexOf("ZAP") == 0) {
-			char nAfterZap = n.charAt(3);
-			ret = ALPHA.indexOf(nAfterZap);
-		} else {
-			switch (n) {
-				case "FSWORD" : // fighter's sword
-					ret = 0;
-					break;
-				case "MSWORD" : // master sword
-					ret = 2;
-					break;
-				case "TSWORD" : // tempered sword
-					ret = 4;
-					break;
-				case "BSWORD" : // butter sword
-					ret = 6;
-					break;
-				case "SHADOW" : // right under butter
-				case "ITEMSHADOW" :
-				case "BOOK" :
-				case "PENDANT" :
-				case "CRYSTAL" :
-				case "BUSH" :
-					ret = 7;
-					break;
-				case "FSHIELD" : // figher's shield
-					ret = 8;
-					break;
-				case "RSHIELD" : // red shield
-					ret = 9;
-					break;
-				case "MSHIELD" : // mirror shield
-					ret = 10;
-					break;
-				case "SOMARIA" : // canes
-				case "BYRNA" :
-				case "CANE" :
-					ret = 11;
-					break;
-				case "FIREROD" : // rods
-				case "ICEROD" :
-				case "ROD" :
-					ret = 12;
-					break;
-				case "HAMMER" : // hammer
-					ret = 13;
-					break;
-				case "HOOKSHOT" : // shooty shoots
-				case "BOOMERANG" :
-					ret = 14;
-					break;
-				case "NET" : // aga's weakness
-					ret = 15;
-					break;
-				case "BOW" : // more shooty shoots
-					ret = 16;
-					break;
-				case "SHOVEL" : // *plays minigame music*
-				case "DUCK" : // mostly for mike
-					ret = 17;
-					break;
-				case "BED" : // this big fucker
-					ret = 18;
-					break;
-				case "GRASS" : // effects
-					ret = 20;
-					break;
-			}
-		}
-
-		return ret;
-	}
-
-	/**
-	 * Finds a substring that starts at index 0 and contains
-	 * all non-number characters up until the first number character.
-	 * @param n - Index name
-	 */
-	private static String stopAtNumber(String n) {
-		String ret = "";
-		char[] split = n.toCharArray();
-		for (char c : split) {
-			if (Character.getType(c) == Character.DECIMAL_DIGIT_NUMBER) {
-				break;
-			} else {
-				ret += c;
-			}
-		}
-		return ret;
-	}
-
-	/**
-	 * Tests to see if the name passed is considered equipment.
-	 * @param item - test case
-	 */
-	private static boolean isEquipment(String item) {
-		boolean ret = false;
-		for (String s : EQUIPNAMES) {
-			if (item.equalsIgnoreCase(s)) {
-				ret = true;
-				break;
-			}
-		}
-		return ret;
-	}
-
-	/**
-	 * Tests to see if a frame is a neutral frame
-	 */
-	private static boolean isNeutral(String n) {
-		boolean ret = false;
-		if (n.equalsIgnoreCase(Database.NEUTRAL_RIGHT_TEST)
-				|| n.equalsIgnoreCase(Database.NEUTRAL_LEFT_TEST)
-				|| n.equalsIgnoreCase(Database.NEUTRAL_UP_TEST)
-				|| n.equalsIgnoreCase(Database.NEUTRAL_DOWN_TEST)) {
-			ret = true;
-		}
-		return ret;
-	}
-
-	/**
-	 * Map a neutral frame name to its data.
-	 * <br><br>
-	 * If nothing found, return the original string.
-	 * @param n
-	 */
-	private static String getNeutral(String n) {
-		String ret = n;
-		if (n.equalsIgnoreCase(Database.NEUTRAL_RIGHT_TEST)) {
-			ret = Database.NEUTRAL_RIGHT_FRAME;
-		} else	if (n.equalsIgnoreCase(Database.NEUTRAL_LEFT_TEST)) {
-			ret = Database.NEUTRAL_LEFT_FRAME;
-		} else	if (n.equalsIgnoreCase(Database.NEUTRAL_UP_TEST)) {
-			ret = Database.NEUTRAL_UP_FRAME;
-		} else	if (n.equalsIgnoreCase(Database.NEUTRAL_DOWN_TEST)) {
-			ret = Database.NEUTRAL_DOWN_FRAME;
-		}
-
-		// kill whitespace
-		ret = ret.replaceAll("[ \t]","");
-		return ret;
-	}
 
 	/**
 	 * Used to add mouse listeners
@@ -1238,20 +734,5 @@ public class SpriteAnimator extends Component {
 				p.x, p.y, posX, posY
 				));
 		repaint();
-	}
-
-	/**
-	 * Perform
-	 */
-	public static void main(String[] args) throws IOException {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new GUI().printGUI();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 }

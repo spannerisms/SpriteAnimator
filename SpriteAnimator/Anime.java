@@ -2,34 +2,41 @@ package SpriteAnimator;
 
 import java.awt.Graphics2D;
 
+import SpriteAnimator.Database.StepData;
+import SpriteAnimator.Database.SpriteData;
+
 public class Anime {
-	private int d; // duration
-	private Sprite[] l; // list of sprites in frame
+	private int length; // duration
+	private Sprite[] list; // list of sprites in frame
 	private int xOffset;
 	private int yOffset;
 
 	public Anime(Sprite[] spriteList, int duration) {
-		d = duration;
-		l = spriteList;
+		length = duration;
+		list = spriteList;
 		xOffset = 0;
 		yOffset = 0;
 	}
 
 	public Anime(Sprite[] spriteList, int duration, int x, int y) {
-		d = duration;
-		l = spriteList;
+		length = duration;
+		
 		xOffset = x;
 		yOffset = y;
 	}
 
-	public void draw(Graphics2D g, int scaleOffsetX, int scaleOffsetY) {
-		for (Sprite s : l) {
-			s.draw(g, xOffset + scaleOffsetX, yOffset + scaleOffsetY);
-		}
+	public Anime(StepData step, Sprite[] spriteList) {
+		list = spriteList;
+		length = step.l;
+		list = new Sprite[step.countSprites()];
+		xOffset = 0;
+		yOffset = 0;
 	}
 
-	public Sprite[] list() {
-		return l;
+	public void draw(Graphics2D g, int scaleOffsetX, int scaleOffsetY) {
+		for (Sprite s : list) {
+			s.draw(g, xOffset + scaleOffsetX, yOffset + scaleOffsetY);
+		}
 	}
 
 	// TODO: Can this be done without HTML? lol
@@ -37,8 +44,8 @@ public class Anime {
 		String ret = "<html>" +
 				"<b>Sprite indices used:</b>" +
 				"<table style=\"width: 150px;\">";
-		for (int i = l.length - 1; i >= 0; i--) {
-			String[] spriteInfo = l[i].getInfo();
+		for (int i = list.length - 1; i >= 0; i--) {
+			String[] spriteInfo = list[i].getInfo();
 			if (spriteInfo != null) {
 				ret += "<tr>" +
 						"<td style=\"width: 20%; text-align: right;\">" + spriteInfo[0] + "</td>" +
@@ -57,6 +64,6 @@ public class Anime {
 	 * @param m - multiplier
 	 */	
 	public long nextTick(double m) {
-		return (long) (d * m * SpriteAnimator.FPS);
+		return (long) (length * m * SpriteAnimator.FPS);
 	}
 }
