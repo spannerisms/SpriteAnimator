@@ -12,6 +12,6 @@ public enum NeutralPose {
 
 	private NeutralPose(String s) {
 		JSONObject d = DatabaseJSON.ALL_DATA.getJSONObject(s);
-		data = StepData.makeStep(d);
+		data = StepData.makeStep(d.getJSONArray("steps").getJSONObject(0));
 	}
 }

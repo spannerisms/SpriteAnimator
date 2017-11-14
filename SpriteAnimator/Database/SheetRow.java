@@ -1,36 +1,36 @@
 package SpriteAnimator.Database;
 
 public enum SheetRow {
-	A (0),
-	B (1),
-	C (2),
-	D (3),
-	E (4),
-	F (5),
-	G (6),
-	H (7),
-	I (8),
-	J (9),
-	K (10),
-	L (11),
-	M (12),
-	N (13),
-	O (14),
-	P (15),
-	Q (16),
-	R (17),
-	S (18),
-	T (19),
-	U (20),
-	V (21),
-	W (22),
-	X (23),
-	Y (24),
-	Z (25),
-	AA (26),
-	ALPHA (26),
-	AB (27),
-	BETA (27),
+	A (0, true),
+	B (1, true),
+	C (2, true),
+	D (3, true),
+	E (4, true),
+	F (5, true),
+	G (6, true),
+	H (7, true),
+	I (8, true),
+	J (9, true),
+	K (10, true),
+	L (11, true),
+	M (12, true),
+	N (13, true),
+	O (14, true),
+	P (15, true),
+	Q (16, true),
+	R (17, true),
+	S (18, true),
+	T (19, true),
+	U (20, true),
+	V (21, true),
+	W (22, true),
+	X (23, true),
+	Y (24, true),
+	Z (25, true),
+	AA (26, true),
+	ALPHA (26, true),
+	AB (27, true),
+	BETA (27, true),
 	// equipment
 	// swords
 	SWORD (0), // use generic sword and swap later
@@ -63,7 +63,14 @@ public enum SheetRow {
 	GRASS (20);
 
 	public final int val;
+	public final boolean isLinkPart;
+
 	private SheetRow(int n) {
+		this(n, false);
+	}
+
+	private SheetRow(int n, boolean isLink) {
 		val = n;
+		isLinkPart = isLink;
 	}
 }

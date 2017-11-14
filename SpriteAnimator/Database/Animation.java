@@ -106,12 +106,14 @@ public enum Animation {
 	AWAKE ("awake");
 
 	// local vars
-	private JSONObject data;
-	private final ArrayList<StepData> steps = new ArrayList<StepData>();
+	private final ArrayList<StepData> steps;
 	private final String name;
+	private int curStep = 0;
 
 	private Animation(String n) {
-		this.data = DatabaseJSON.ALL_DATA.getJSONObject(n);
+		steps = new ArrayList<StepData>();
+		JSONObject data = DatabaseJSON.ALL_DATA.getJSONObject(n);
+
 		JSONArray steps = data.getJSONArray("steps");
 		for (Object o : steps) {
 			assert o instanceof JSONObject;
@@ -121,7 +123,29 @@ public enum Animation {
 		this.name = data.getString("name");
 	}
 
+	private Animation(String name, ArrayList<StepData> steps) {
+		this.name = name;
+		this.steps = steps;
+	}
+
 	public String toString() {
 		return name;
+	}
+
+	public ArrayList<StepData> customizeMergeAndFinalize(int swordLevel, int shieldLevel,
+			boolean showShadow, boolean showEquipment) {
+		ArrayList<StepData> customized = new ArrayList<StepData>();
+		for (StepData s : steps) {
+			customized.add(s.customizeStep(swordLevel, shieldLevel, showShadow, showEquipment));
+		}
+		return StepData.mergeAll(steps);
+	}
+
+	public StepData getNext() {
+		curStep++;
+		if (curStep == steps.size()) {
+			curStep = 0;
+		}
+		return steps.get(curStep);
 	}
 }

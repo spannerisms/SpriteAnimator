@@ -16,6 +16,8 @@ public class SpriteData {
 	public final int y;
 	public final DrawSize d;
 	public final boolean isEquipment;
+	public final boolean isZap;
+	public final Transformation t;
 
 	public SpriteData(JSONObject jo) {
 		this(jo, 0);
@@ -46,7 +48,25 @@ public class SpriteData {
 		} catch (JSONException e) {
 			equipment = false;
 		}
+
 		isEquipment = equipment;
+		
+		boolean zap;
+		try {
+			zap = jo.getBoolean("useZapMail");
+		} catch (JSONException e) {
+			zap = false;
+		}
+		isZap = zap;
+		
+		Transformation t1;
+		try {
+			t1 = Transformation.valueOf(jo.getString("trans"));
+		} catch (JSONException e) {
+			t1 = null;
+		}
+
+		t = t1;
 	}
 
 	// compares all data points

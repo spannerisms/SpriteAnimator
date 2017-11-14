@@ -7,7 +7,6 @@ import org.json.*;
 public class StepData {
 	private final ArrayList<SpriteData> sprites = new ArrayList<SpriteData>();
 	public final int l; // length
-	public final char shadow;
 
 	// used for each sword in a step, replacing generic sword later
 	private final SpriteData[] swords = new SpriteData[5];
@@ -15,9 +14,8 @@ public class StepData {
 	private final SpriteData[] shields = new SpriteData[4];
 
 	// makes a step from sprite objects
-	private StepData(char shadow, int l, ArrayList<SpriteData> s) {
-		this.shadow = shadow;
-		this.l = l;
+	private StepData(ArrayList<SpriteData> s, int length) {
+		this.l = length;
 		for (SpriteData e : s) {
 			sprites.add(e);
 		}
@@ -43,24 +41,28 @@ public class StepData {
 			this.sprites.add(new SpriteData(sprObj));
 		}
 
-		l = jo.getInt("length");
-		String shadow = jo.getString("shadow");
-		switch (shadow) {
-			case "TRUE" :
-				this.shadow = 'b';
+		// add shadow to sprite list
+		Shadow shad = Shadow.valueOf(jo.getString("shadow"));
+
+		switch (shad) {
+			case NORM :
+			case SMALL :
+				this.sprites.add(shad.spr);
 				break;
-			default :
-			case "FALSE" :
-				this.shadow = '0';
-				break;
-			case "SMALL" :
-				this.shadow = 's';
+			case NONE :
 				break;
 		}
+
+		l = jo.getInt("length");
+		
 	}
 
 	public int countSprites() {
 		return sprites.size();
+	}
+
+	public ArrayList<SpriteData> getSprites() {
+		return sprites;
 	}
 
 	/**
@@ -72,7 +74,7 @@ public class StepData {
 	 * @param showEquipment
 	 */
 	public StepData customizeStep(int swordLevel, int shieldLevel,
-			char shadow, boolean showEquipment) {
+			boolean showShadow, boolean showEquipment) {
 		ArrayList<SpriteData> s = new ArrayList<SpriteData>();
 		for (SpriteData e : sprites) {
 			if (e.row == SheetRow.SWORD) { // replace sword with correct sword
@@ -93,12 +95,18 @@ public class StepData {
 				} else {
 					// do nothing; don't add
 				}
+			} else if (e.row == SheetRow.SHADOW) { // check for shadow
+				if (showShadow) {
+					s.add(e);
+				} else {
+					// do nothing; don't add
+				}
 			} else { // add everything else
 				s.add(e);
 			}
 		}
 
-		return new StepData(shadow, this.l, s);
+		return new StepData(s, this.l);
 	}
 
 	// no other way to get neutral steps sorted properly
@@ -113,11 +121,10 @@ public class StepData {
 		}
 
 		if (isNeutral) {
-			return NeutralPose.valueOf(neutralPose).data;
+			return NeutralPose.valueOf("NEUTRAL_"+neutralPose).data;
 		} else {
 			return new StepData(jo);
 		}
-		
 	}
 
 	// compares all data points
@@ -127,9 +134,55 @@ public class StepData {
 		}
 		assert o instanceof StepData;
 		StepData f = (StepData) o;
-		// compare number of sprites first
+
 		boolean ret = true;
-		
-		return false;
+		ArrayList<SpriteData> fSpr = f.getSprites();
+		if (fSpr.size() != sprites.size()) { // compare number of sprites first
+			return false;
+		}
+
+		// compare each sprite
+		for (int i = 0; i < sprites.size(); i++) {
+			if (!sprites.get(i).equals(fSpr.get(i))) {
+				ret = false;
+				break;
+			}
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Merges any and all consecutive and identical frames
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static ArrayList<StepData> mergeAll(ArrayList<StepData> list) {
+		// don't bother with 1 step animations
+		if (list.size() == 1) {
+			return list;
+		}
+		ArrayList<StepData> ret = new ArrayList<StepData>();
+		int pos = 0; // current position, changes after merging to prevent double merge
+		while (pos < list.size()) {
+			StepData cur = list.get(pos);
+			ArrayList<SpriteData> curPose = cur.getSprites();
+			int curLength = cur.l;
+
+			matchFind:
+			for (int i = pos+1; i < list.size(); i++, pos++) {
+				StepData next = list.get(i);
+				if (next.equals(cur)) {
+					curLength += next.l; // only increase length of animation
+				} else {
+					break matchFind;
+				}
+			}
+
+			StepData newStep = new StepData(curPose, curLength);
+			ret.add(newStep);
+		} // end merging
+		return ret;
 	}
 }
