@@ -64,7 +64,7 @@ The following apparent errors are problems directly with the game itself, and no
 ## Animation data
 The bulk of the groundwork for this program was researched by Mike Trethewey and TWRoxas, available [here](http://alttp.mymm1.com/sprites/includes/animations.txt). From there, individual animations were adjusted and researched frame-by-frame, with some help from RyuTech.
 
-As of v1.5, animation data is stored in a `json` format, free for anyone. It is only asked that you credit the time devoted here for that data.
+As of v1.5, animation data is stored in a `json` format, free for anyone to use. It is only asked that you credit the research time devoted here for that data.
 
 SpriteAnimator imports the [`org.json` library](https://github.com/stleary/JSON-java) created by user stleary (Sean Leary).
 
