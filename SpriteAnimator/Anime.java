@@ -3,7 +3,6 @@ package SpriteAnimator;
 import java.awt.Graphics2D;
 
 import SpriteAnimator.Database.StepData;
-import SpriteAnimator.Database.SpriteData;
 
 public class Anime {
 	private int length; // duration
