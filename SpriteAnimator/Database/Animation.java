@@ -111,7 +111,7 @@ public enum Animation {
 
 	private Animation(String n) {
 		steps = new ArrayList<StepData>();
-		JSONObject data = DatabaseJSON.ALL_DATA.getJSONObject("stand");
+		JSONObject data = DatabaseJSON.ALL_DATA.getJSONObject(n);
 
 		JSONArray steps = data.getJSONArray("steps");
 		for (Object o : steps) {
