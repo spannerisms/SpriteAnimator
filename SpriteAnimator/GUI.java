@@ -755,6 +755,7 @@ public class GUI {
 									animName,
 							"OH NO",
 							JOptionPane.WARNING_MESSAGE);
+					e.printStackTrace();
 					return;
 				}
 				resetBtn.getActionListeners()[0].actionPerformed(

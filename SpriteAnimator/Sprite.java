@@ -8,6 +8,10 @@ import SpriteAnimator.Database.SpriteData;
 import SpriteAnimator.Database.Transformation;
 
 public class Sprite {
+	// class constants
+	public static final int CELL_SIZE = 16;
+
+	// local vars
 	private int x;
 	private int y;
 	private BufferedImage img;
@@ -23,7 +27,9 @@ public class Sprite {
 				img = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 				break;
 			default :
-				img = i.getSubimage(d.x, d.y, d.w, d.h);
+				int r = s.row.val * CELL_SIZE;
+				int c = s.col * CELL_SIZE;
+				img = i.getSubimage(c + d.x, r + d.y, d.w, d.h);
 				if (t != null) {
 					img = t.trans(img);
 				}

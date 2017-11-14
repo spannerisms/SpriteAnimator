@@ -542,12 +542,12 @@ public class SpriteAnimator extends Component {
 		int offsetX = (zoom-1) * -7;
 		int offsetY = (zoom-1) * -7;
 		Graphics2D g2 = (Graphics2D) g;
-		
+
 		g2.scale(zoom, zoom);
-		
+
 		g2.drawImage(bg.getImage(), offsetX, offsetY, null);
 		// Catch null frames
-		if (frames==null || frames[frame] == null) {
+		if (frames == null || frames[frame] == null) {
 			return;
 		}
 		// catch other errors
@@ -713,14 +713,14 @@ public class SpriteAnimator extends Component {
 			public void mouseExited(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
-		
+
 		this.addMouseMotionListener(new MouseMotionListener() {
 			public void mouseDragged(MouseEvent arg0) {
 				moveToPoint(arg0.getPoint());
 			}
 
 			public void mouseMoved(MouseEvent arg0) {
-				
+
 			}});
 	} // end addMouse
 
