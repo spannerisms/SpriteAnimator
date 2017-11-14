@@ -10,24 +10,9 @@ public class Anime {
 	private int xOffset;
 	private int yOffset;
 
-	public Anime(Sprite[] spriteList, int duration) {
-		length = duration;
-		list = spriteList;
-		xOffset = 0;
-		yOffset = 0;
-	}
-
-	public Anime(Sprite[] spriteList, int duration, int x, int y) {
-		length = duration;
-		
-		xOffset = x;
-		yOffset = y;
-	}
-
 	public Anime(StepData step, Sprite[] spriteList) {
 		list = spriteList;
 		length = step.l;
-		list = new Sprite[step.countSprites()];
 		xOffset = 0;
 		yOffset = 0;
 	}

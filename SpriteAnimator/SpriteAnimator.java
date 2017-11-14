@@ -673,6 +673,7 @@ public class SpriteAnimator extends Component {
 		ArrayList<StepData> config = anime.customizeMergeAndFinalize(
 				swordLevel, shieldLevel, showShadow, showEquipment);
 		frames = new Anime[config.size()];
+		maxFrame = config.size();
 		for (int i = 0; i < frames.length; i++) {
 			StepData frameX = config.get(i);
 			int sprCount = frameX.countSprites();

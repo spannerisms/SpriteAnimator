@@ -501,7 +501,7 @@ public class GUI {
 		frame.setIconImages(icons);
 
 		// other frame organization
-		final SpriteAnimator run = new SpriteAnimator(); // just a shorter name
+		final SpriteAnimator run = new SpriteAnimator();
 		setAllSizes(run, new Dimension(550,550));
 		l.putConstraint(SpringLayout.WEST, run, -5,
 				SpringLayout.WEST, fullWrap);
@@ -869,6 +869,14 @@ public class GUI {
 
 		// turn on
 		frame.setVisible(true);
+		try {
+			loadSprite(run,"C:\\Users\\CR\\Documents\\arrghus.zspr");
+			run.setAnimation(Animation.WALK);
+			System.out.println(run.maxFrame());
+		} catch (NotZSPRException | ObsoleteSPRFormatException | BadChecksumException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
