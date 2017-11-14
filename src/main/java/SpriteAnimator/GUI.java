@@ -462,7 +462,7 @@ public class GUI {
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
 		ImageIcon mirror = new ImageIcon(
-				getClass().getResource("images/mirror.png")
+				getClass().getResource("/images/mirror.png")
 			);
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
@@ -477,7 +477,7 @@ public class GUI {
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
 		ImageIcon mapIcon = new ImageIcon(
-				getClass().getResource("images/map.png")
+				getClass().getResource("/images/map.png")
 			);
 		peeps.setIcon(mapIcon);
 		helpMenu.add(peeps);
@@ -490,10 +490,10 @@ public class GUI {
 
 		// But what if Ganon dabs back?
 		ImageIcon ico = new ImageIcon(
-				getClass().getResource("images/DABSMALL.png")
+				getClass().getResource("/images/DABSMALL.png")
 			);
 		ImageIcon icoTask = new ImageIcon(
-				getClass().getResource("images/DAB.png")
+				getClass().getResource("/images/DAB.png")
 			);
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());

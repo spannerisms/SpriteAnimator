@@ -43,7 +43,7 @@ public enum Background {
 	private Background(String name, String path) {
 		this.name = name;
 		try {
-			String bgFilename = "images/bg-" + path + ".png";
+			String bgFilename = "/images/bg-" + path + ".png";
 			img = ImageIO.read(Background.class.getResourceAsStream(bgFilename));
 		} catch (IOException e) {
 			// idk what to do here

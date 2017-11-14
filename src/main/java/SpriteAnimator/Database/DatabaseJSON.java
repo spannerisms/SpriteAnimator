@@ -9,7 +9,7 @@ public class DatabaseJSON {
 	public static final JSONObject ALL_DATA;
 
 	private static final String DATA_PATH =
-			"C:\\Users\\CR\\eclipse-workspace\\ALttPNG\\src\\SpriteAnimator\\Database\\AnimationData.json";
+			"./AnimationData.json";
 	static {
 		StringBuilder ret = new StringBuilder();
 		FileReader fr;
