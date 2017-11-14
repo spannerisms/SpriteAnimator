@@ -42,7 +42,7 @@ import SpriteManipulator.*;
 public class GUI {
 	// version number
 	static final String VERSION = SpriteAnimator.VERSION;
-	static final String[] ALLFRAMES = Database.ALLFRAMES;
+	static final String[] ALLFRAMES = OldDatabase.ALLFRAMES;
 
 	private static final String[] ACCEPTED_FILE_TYPES =
 			new String[] { ZSPRFile.EXTENSION, "sfc" /*, "png"*/ };
@@ -282,7 +282,7 @@ public class GUI {
 		theWordShadowsWithAColon.setBorder(rightPad);
 		setToolTip(theWordShadowsWithAColon,
 				"When <b>shadows</b> are on, " +
-						"certain animations will display a shadow below the sprite.",
+						"certain animations will display a shadow below the character sprite.",
 				"This option will not affect shadows that belong to other sprites.",
 				REBUILDS);
 		c.gridwidth = 1;
@@ -300,8 +300,8 @@ public class GUI {
 		final JLabel neutralStatus = new JLabel("--", SwingConstants.CENTER);
 		theWordNeutralWithAColon.setBorder(rightPad);
 		setToolTip(theWordNeutralWithAColon,
-				"When <b>neutral frames</b> are on, " +
-						"certain animations will begin or end with the sprite at a " +
+				"When <b>neutral poses</b> are on, " +
+						"certain animations will begin or end with the character sprite at a " +
 						"neutral standing position.",
 				REBUILDS);
 		c.gridwidth = 1;
