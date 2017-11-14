@@ -138,7 +138,7 @@ public enum Animation {
 		for (StepData s : steps) {
 			customized.add(s.customizeStep(swordLevel, shieldLevel, showShadow, showEquipment));
 		}
-		return StepData.mergeAll(steps);
+		return StepData.mergeAll(customized);
 	}
 
 	public StepData getNext() {

@@ -65,6 +65,10 @@ public class StepData {
 		return sprites;
 	}
 
+	public SpriteData getSprite(int i) {
+		return sprites.get(i);
+	}
+
 	/**
 	 * Creates a new {@code StepData} object based on this one,
 	 * but with the requested changes
@@ -159,17 +163,13 @@ public class StepData {
 	 * @return
 	 */
 	public static ArrayList<StepData> mergeAll(ArrayList<StepData> list) {
-		// don't bother with 1 step animations
-		if (list.size() == 1) {
-			return list;
-		}
 		ArrayList<StepData> ret = new ArrayList<StepData>();
 		int pos = 0; // current position, changes after merging to prevent double merge
 		while (pos < list.size()) {
 			StepData cur = list.get(pos);
 			ArrayList<SpriteData> curPose = cur.getSprites();
 			int curLength = cur.l;
-
+			System.out.println("SIZE: " + list.size());
 			matchFind:
 			for (int i = pos+1; i < list.size(); i++, pos++) {
 				StepData next = list.get(i);
@@ -178,10 +178,10 @@ public class StepData {
 				} else {
 					break matchFind;
 				}
+				
 			}
-
-			StepData newStep = new StepData(curPose, curLength);
-			ret.add(newStep);
+			System.out.println(pos++);
+			ret.add(new StepData(curPose, curLength));
 		} // end merging
 		return ret;
 	}
