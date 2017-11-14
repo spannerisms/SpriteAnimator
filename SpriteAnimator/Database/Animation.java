@@ -107,16 +107,16 @@ public enum Animation {
 
 	// local vars
 	private JSONObject data;
-	private final ArrayList<FrameData> frames = new ArrayList<FrameData>();
+	private final ArrayList<StepData> steps = new ArrayList<StepData>();
 	private final String name;
 
 	private Animation(String n) {
 		this.data = DatabaseJSON.ALL_DATA.getJSONObject(n);
-		JSONArray frames = data.getJSONArray("frames");
-		for (Object o : frames) {
+		JSONArray steps = data.getJSONArray("steps");
+		for (Object o : steps) {
 			assert o instanceof JSONObject;
 			JSONObject fObj = (JSONObject) o;
-			this.frames.add(FrameData.makeFrame(fObj));
+			this.steps.add(StepData.makeStep(fObj));
 		}
 		this.name = data.getString("name");
 	}

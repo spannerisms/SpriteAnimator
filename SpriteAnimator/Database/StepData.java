@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 import org.json.*;
 
-public class FrameData {
+public class StepData {
 	private final ArrayList<SpriteData> sprites = new ArrayList<SpriteData>();
 	public final int l; // length
 	public final char shadow;
 
-	// used for each sword in a frame, replacing generic sword later
+	// used for each sword in a step, replacing generic sword later
 	private final SpriteData[] swords = new SpriteData[5];
-	// used for each shield in a frame, replacing generic shield later
+	// used for each shield in a step, replacing generic shield later
 	private final SpriteData[] shields = new SpriteData[4];
 
-	// makes a frame from sprite objects
-	private FrameData(char shadow, int l, ArrayList<SpriteData> s) {
+	// makes a step from sprite objects
+	private StepData(char shadow, int l, ArrayList<SpriteData> s) {
 		this.shadow = shadow;
 		this.l = l;
 		for (SpriteData e : s) {
@@ -23,19 +23,19 @@ public class FrameData {
 		}
 	}
 
-	private FrameData(JSONObject jo) {
+	private StepData(JSONObject jo) {
 		JSONArray sprites = (JSONArray) jo.get("sprites");
 		for (Object o : sprites) {
 			assert o instanceof JSONObject;
 			JSONObject sprObj = (JSONObject) o;
 			// place all swords and all shields into the same thing
 			// take them out later
-			FrameRow row = FrameRow.valueOf(sprObj.getString("row"));
-			if (row == FrameRow.SWORD) {
+			SheetRow row = SheetRow.valueOf(sprObj.getString("row"));
+			if (row == SheetRow.SWORD) {
 				for (int i = 0; i < 5; i++) {
 					swords[i] = new SpriteData(sprObj, i);
 				}
-			} else if (row == FrameRow.SHIELD) {
+			} else if (row == SheetRow.SHIELD) {
 				for (int i = 0; i < 4; i++) {
 					shields[i] = new SpriteData(sprObj, i);
 				}
@@ -64,24 +64,24 @@ public class FrameData {
 	}
 
 	/**
-	 * Creates a new {@code FrameData} object based on this one,
+	 * Creates a new {@code StepData} object based on this one,
 	 * but with the requested changes
 	 * @param swordLevel
 	 * @param shieldLevel
 	 * @param shadow
 	 * @param showEquipment
 	 */
-	public FrameData customizeFrame(int swordLevel, int shieldLevel,
+	public StepData customizeStep(int swordLevel, int shieldLevel,
 			char shadow, boolean showEquipment) {
 		ArrayList<SpriteData> s = new ArrayList<SpriteData>();
 		for (SpriteData e : sprites) {
-			if (e.row == FrameRow.SWORD) { // replace sword with correct sword
+			if (e.row == SheetRow.SWORD) { // replace sword with correct sword
 				if (swordLevel > 0) {
 					s.add(swords[swordLevel]);
 				} else {
 					// do nothing; don't add
 				}
-			} else if (e.row == FrameRow.SHIELD) { // replace shield with correct shield
+			} else if (e.row == SheetRow.SHIELD) { // replace shield with correct shield
 				if (shieldLevel > 0) {
 					s.add(shields[shieldLevel]);
 				} else {
@@ -98,35 +98,35 @@ public class FrameData {
 			}
 		}
 
-		return new FrameData(shadow, this.l, s);
+		return new StepData(shadow, this.l, s);
 	}
 
-	// no other way to get neutral frames sorted properly
-	public static FrameData makeFrame(JSONObject jo) {
-		// catch neutral frames
+	// no other way to get neutral steps sorted properly
+	public static StepData makeStep(JSONObject jo) {
+		// catch neutral poses
 		boolean isNeutral = true;
-		String neutralFrame = "";
+		String neutralPose = "";
 		try { 
-			neutralFrame = jo.getString("neutralFrame");
+			neutralPose = jo.getString("neutralPose");
 		} catch (JSONException e) { // catch an error for no value
-			isNeutral = false; // that means we're not a neutral frame
+			isNeutral = false; // that means we're not a neutral step
 		}
 
 		if (isNeutral) {
-			return NeutralFrames.valueOf(neutralFrame).data;
+			return NeutralPose.valueOf(neutralPose).data;
 		} else {
-			return new FrameData(jo);
+			return new StepData(jo);
 		}
 		
 	}
 
 	// compares all data points
 	public boolean equals(Object o) {
-		if (!(o instanceof FrameData)) {
+		if (!(o instanceof StepData)) {
 			return false;
 		}
-		assert o instanceof FrameData;
-		FrameData f = (FrameData) o;
+		assert o instanceof StepData;
+		StepData f = (StepData) o;
 		// compare number of sprites first
 		boolean ret = true;
 		

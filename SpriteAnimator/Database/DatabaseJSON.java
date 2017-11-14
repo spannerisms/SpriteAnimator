@@ -8,10 +8,10 @@ import org.json.JSONObject;
 import SpriteAnimator.OldDatabase;
 
 public class DatabaseJSON {
-	public static final JSONObject ALL_DATA = new JSONObject(getDataString());
+	public static final JSONObject ALL_DATA;
 
 	private static final String DATA_PATH = "AnimationData.json";
-	private static final String getDataString() {
+	static {
 		StringBuilder ret = new StringBuilder();
 		String path = OldDatabase.class.getResource(DATA_PATH).getPath();
 		FileReader fr;
@@ -24,9 +24,9 @@ public class DatabaseJSON {
 			}
 			br.close();
 		} catch (Exception e) {
-			return "";
+			e.printStackTrace();
+			System.exit(1);
 		}
-
-		return ret.toString();
+		ALL_DATA = new JSONObject(ret.toString());
 	}
 }

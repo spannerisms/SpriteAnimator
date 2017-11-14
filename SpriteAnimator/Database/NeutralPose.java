@@ -2,15 +2,16 @@ package SpriteAnimator.Database;
 
 import org.json.JSONObject;
 
-public enum NeutralFrames {
+public enum NeutralPose {
 	NEUTRAL_RIGHT ("neutralRight"),
 	NEUTRAL_LEFT ("neutralLeft"),
 	NEUTRAL_UP ("neutralUp"),
 	NEUTRAL_DOWN ("neutralDown");
 
-	public final FrameData data;
-	private NeutralFrames(String s) {
+	public final StepData data;
+
+	private NeutralPose(String s) {
 		JSONObject d = DatabaseJSON.ALL_DATA.getJSONObject(s);
-		data = FrameData.makeFrame(d);
+		data = StepData.makeStep(d);
 	}
 }

@@ -1,6 +1,6 @@
 package SpriteAnimator.Database;
 
-public enum FrameRow {
+public enum SheetRow {
 	A (0),
 	B (1),
 	C (2),
@@ -63,7 +63,7 @@ public enum FrameRow {
 	GRASS (20);
 
 	public final int val;
-	private FrameRow(int n) {
+	private SheetRow(int n) {
 		val = n;
 	}
 }

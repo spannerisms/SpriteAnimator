@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-public enum FrameTransformations {
+public enum Transformation {
 	Y_FLIP ( img -> {
 			return flip(img, false);
 		}),
@@ -18,7 +18,7 @@ public enum FrameTransformations {
 	// operation
 	private final Transform T;
 
-	private FrameTransformations (Transform T) {
+	private Transformation (Transform T) {
 		this.T = T;
 	}
 

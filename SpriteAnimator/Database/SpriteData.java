@@ -10,12 +10,13 @@ public class SpriteData {
 	private static final String[] SHIELD_PREFIX = { "", "F", "R", "M" };
 
 	// local vars
-	public final FrameRow row;
+	public final SheetRow row;
 	public final int col;
 	public final int x;
 	public final int y;
 	public final DrawSize d;
 	public final boolean isEquipment;
+
 	public SpriteData(JSONObject jo) {
 		this(jo, 0);
 	}
@@ -23,12 +24,12 @@ public class SpriteData {
 	// for swords and shields
 	public SpriteData(JSONObject jo, int level) {
 		String rowName = jo.getString("row");
-		FrameRow passedRow = FrameRow.valueOf(rowName);
+		SheetRow passedRow = SheetRow.valueOf(rowName);
 
-		if (passedRow == FrameRow.SWORD) {
-			row = FrameRow.valueOf(SWORD_PREFIX[level] + rowName);
-		} else if (passedRow == FrameRow.SHIELD) {
-			row = FrameRow.valueOf(SHIELD_PREFIX[level] + rowName);
+		if (passedRow == SheetRow.SWORD) {
+			row = SheetRow.valueOf(SWORD_PREFIX[level] + rowName);
+		} else if (passedRow == SheetRow.SHIELD) {
+			row = SheetRow.valueOf(SHIELD_PREFIX[level] + rowName);
 		} else {
 			row = passedRow;
 		}
