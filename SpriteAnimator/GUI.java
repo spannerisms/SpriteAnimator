@@ -114,9 +114,9 @@ public class GUI {
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
 		final Dimension d = new Dimension(800, 600);
-		Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
-		Border fullPad = BorderFactory.createEmptyBorder(3,3,3,3);
-		Dimension textDimension = new Dimension(50,20);
+		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
+		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
+		Dimension textDimension = new Dimension(50, 20);
 
 		// layout
 		final Container fullWrap = frame.getContentPane();
@@ -175,7 +175,7 @@ public class GUI {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordAnimation,c);
+		controls.add(theWordAnimation, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(animOptions, c);
@@ -188,7 +188,7 @@ public class GUI {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordMode,c);
+		controls.add(theWordMode, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(modeOptions, c);
@@ -209,7 +209,7 @@ public class GUI {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordBackground,c);
+		controls.add(theWordBackground, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(bgDisp, c);
@@ -233,7 +233,7 @@ public class GUI {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordSword,c);
+		controls.add(theWordSword, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(swordLevel, c);
@@ -246,7 +246,7 @@ public class GUI {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordShield,c);
+		controls.add(theWordShield, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(shieldLevel, c);
@@ -259,7 +259,7 @@ public class GUI {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordMail,c);
+		controls.add(theWordMail, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(mailLevel, c);
@@ -338,7 +338,7 @@ public class GUI {
 		final JLabel zoomLevel = new JLabel("x-", SwingConstants.RIGHT);
 		final JButton bigBtn = new JButton("Zoom+");
 		final JButton lilBtn = new JButton("Zoom-");
-		setAllSizes(zoomLevel,textDimension);
+		setAllSizes(zoomLevel, textDimension);
 		zoomLevel.setBorder(rightPad);
 		c.gridy++;
 		c.gridwidth = 1;
@@ -353,7 +353,7 @@ public class GUI {
 		final JButton fasterBtn = new JButton("Speed+");
 		final JButton slowerBtn = new JButton("Speed-");
 		final JLabel speedLevel = new JLabel("--%", SwingConstants.RIGHT);
-		setAllSizes(speedLevel,textDimension);
+		setAllSizes(speedLevel, textDimension);
 		speedLevel.setBorder(rightPad);
 		c.gridy++;
 		c.gridx = 0;
@@ -371,11 +371,11 @@ public class GUI {
 
 		// frame counter
 		final JLabel theWordFrameWithAColon = new JLabel("Animation step:", SwingConstants.RIGHT);
-		final JLabel frameCur = new JLabel("-", SwingConstants.RIGHT);
-		final JLabel frameMax = new JLabel("/ -");
-		frameCur.setBorder(rightPad);
-		frameMax.setBorder(rightPad);
-		setAllSizes(frameCur,textDimension);
+		final JLabel stepCur = new JLabel("-", SwingConstants.RIGHT);
+		final JLabel stepMax = new JLabel("/ -");
+		stepCur.setBorder(rightPad);
+		stepMax.setBorder(rightPad);
+		setAllSizes(stepCur, textDimension);
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
@@ -383,9 +383,9 @@ public class GUI {
 		controls.add(theWordFrameWithAColon, c);
 		c.weightx = 0;
 		c.gridx = 1;
-		controls.add(frameCur, c);
+		controls.add(stepCur, c);
 		c.gridx = 2;
-		controls.add(frameMax, c);
+		controls.add(stepMax, c);
 
 		// play step reset
 		final JButton playBtn = new JButton("Play");
@@ -396,9 +396,9 @@ public class GUI {
 		c.gridx = 0;
 		controls.add(playBtn, c);
 		c.gridx = 1;
-		controls.add(stepBtn,c);
+		controls.add(stepBtn, c);
 		c.gridx = 2;
-		controls.add(resetBtn,c);
+		controls.add(resetBtn, c);
 
 		// blank
 		c.gridy++;
@@ -411,13 +411,13 @@ public class GUI {
 		c.gridwidth = 3;
 		c.gridy++;
 		c.gridx = 0;
-		controls.add(frameInfo,c);
+		controls.add(frameInfo, c);
 
 		// control panel done
 
 		// Credits
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
-		final TextArea peepsList = new TextArea("", 0,0,TextArea.SCROLLBARS_VERTICAL_ONLY);
+		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
 		peepsList.append("\n\nAnimation research:\n");
@@ -449,8 +449,8 @@ public class GUI {
 				}));
 		aboutFrame.add(peepsList);
 
-		aboutFrame.setSize(600,300);
-		aboutFrame.setLocation(150,150);
+		aboutFrame.setSize(600, 300);
+		aboutFrame.setLocation(150, 150);
 		aboutFrame.setResizable(false);
 		// end credits
 
@@ -502,7 +502,7 @@ public class GUI {
 
 		// other frame organization
 		final SpriteAnimator animator = new SpriteAnimator();
-		setAllSizes(animator, new Dimension(550,550));
+		setAllSizes(animator, new Dimension(550, 550));
 		l.putConstraint(SpringLayout.WEST, animator, 5,
 				SpringLayout.WEST, fullWrap);
 		l.putConstraint(SpringLayout.NORTH, animator, 5,
@@ -513,7 +513,7 @@ public class GUI {
 		frame.setSize(d);
 		frame.setMinimumSize(d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocation(150,150);
+		frame.setLocation(150, 150);
 
 		// file explorer
 		final BetterJFileChooser explorer = new BetterJFileChooser();
@@ -548,7 +548,7 @@ public class GUI {
 		// read steps and count them
 		animator.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
-				frameCur.setText(animator.getFrame());
+				stepCur.setText(animator.getFrame());
 			}
 		});
 
@@ -632,7 +632,7 @@ public class GUI {
 				} catch (Exception e) {
 					// do nothing
 				}
-				frameMax.setText("/ " + animator.maxFrame());
+				stepMax.setText("/ " + animator.maxStep());
 				equipStatus.setText(animator.equipmentOn() ? "ON" : "OFF");
 				shadowStatus.setText(animator.shadowOn() ? "ON" : "OFF");
 				neutralStatus.setText(animator.neutralOn() ? "ON" : "OFF");
@@ -669,7 +669,7 @@ public class GUI {
 					return;
 				}
 
-				if (SpriteManipulator.testFileType(n,ACCEPTED_FILE_TYPES)) {
+				if (SpriteManipulator.testFileType(n, ACCEPTED_FILE_TYPES)) {
 					fileName.setText(n);
 				}
 
@@ -684,7 +684,7 @@ public class GUI {
 		reloadBtn.addActionListener(
 			arg0 -> {
 				String n = fileName.getText();
-				if (!SpriteManipulator.testFileType(n,ACCEPTED_FILE_TYPES)) {
+				if (!SpriteManipulator.testFileType(n, ACCEPTED_FILE_TYPES)) {
 					JOptionPane.showMessageDialog(frame,
 							"Please select a sprite first.",
 							"C'mon dude",
@@ -735,7 +735,7 @@ public class GUI {
 					return;
 				}
 				resetBtn.getActionListeners()[0].actionPerformed(
-						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"",0,0));
+						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"", 0, 0));
 			});
 
 		// mode select

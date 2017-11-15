@@ -26,34 +26,26 @@ public class SpriteAnimator extends Component {
 	public static final String VERSION = "v1.5";
 	private static final long serialVersionUID = 2114886855236406900L;
 
-	private BufferedImage EQUIPMENT; {
+	// set equipment image
+	private static final BufferedImage EQUIPMENT;
+	static {
+		BufferedImage temp;
 		try {
-			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
+			temp = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
 					"images/equipment.png"));
 		} catch (IOException e) {
-	}};
+			temp = new BufferedImage(192, 448, BufferedImage.TYPE_4BYTE_ABGR);
+		}
+		EQUIPMENT = temp;
+	};
 
 	// Almost the length of a frame at 60 FPS
 	// 1/60 approx. 16.66666...
 	public static final int FPS = 17;
 
-	// used for parsing frame data
-	static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZαβ"
-			.toUpperCase(); // toUppercase to visually distinguish alpha/beta
-
-	// equipment names and prefixes
-	static final String[] EQUIPNAMES = {
-			"CANE", "BYRNA", "SOMARIA", "BLOCK", "SPARKLE",
-			"ROD", "FIREROD", "ICEROD", "POWDER", "ITEMSHADOW",
-			"HAMMER", "NET", "HOOKSHOT", "BOOMERANG", "BUSH",
-			"BOW", "BOOK", "PENDANT", "CRYSTAL", "SHOVEL", "BED", "DUCK"
-	};
-
-	// (default: Fighter), Fighter, Master, Tempered, Butter
-	static final String[] SWORDPREFIX = { "F", "F", "M", "T", "B" };
-
-	// (default: Fighter), Fighter, Red, Mirror
-	static final String[] SHIELDPREFIX = { "F", "F", "R", "M" };
+	// background size
+	private static final int BG_WIDTH = 224;
+	private static final int BG_HEIGHT = 208;
 
 	// maximums
 	private static final int MAXSPEED = 5; // maximum speed magnitude
@@ -64,11 +56,11 @@ public class SpriteAnimator extends Component {
 	private Animation anime; // current animation
 	private int speed; // speed; 0 = normal; positive = faster; negative = slower
 	private int mode; // animation mode
-	private int frame; // animation step (not 0 indexed)
-	private int maxFrame; // highest animation step (not 0 indexed)
+	private int step; // animation step (not 0 indexed)
+	private int maxStep; // highest animation step (not 0 indexed)
 	private boolean running; // self-running status
 	private int zoom = 3; // default zoom
-	private Anime[] frames = null; // each frame of animation, as an object
+	private Anime[] steps = null; // each step of animation, as an object
 	private Timer tick; // runs for steps
 	private TimerTask next; // controls steps
 
@@ -95,8 +87,8 @@ public class SpriteAnimator extends Component {
 		anime = Animation.STAND;
 		speed = 0;
 		mode = 0;
-		frame = 0;
-		maxFrame = 0;
+		step = 0;
+		maxStep = 0;
 		tick = new Timer();
 		setRunning();
 		addMouse();
@@ -111,14 +103,14 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Current frame of current animation, not 0-indexed
+	 * Current step of current animation, not 0-indexed
 	 */
 	public String getFrame() {
-		return "" + (frame + 1);
+		return "" + (step + 1);
 	}
 
 	/**
-	 * Current frame's sprite list
+	 * Current step's sprite list
 	 */
 	public String getFrameInfo() {
 		String ret = "";
@@ -128,17 +120,17 @@ public class SpriteAnimator extends Component {
 				ret = "Sprite information disabled in this mode.";
 				break;
 			case 1 :
-				ret = frames[frame].printAll();
+				ret = steps[step].printAll();
 				break;
 		}
 		return ret;
 	}
 
 	/**
-	 * Highest frame of current animation, not 0-indexed
+	 * Highest step of current animation, not 0-indexed
 	 */
-	public int maxFrame() {
-		return maxFrame;
+	public int maxStep() {
+		return maxStep;
 	}
 
 	/**
@@ -175,7 +167,7 @@ public class SpriteAnimator extends Component {
 	 * <ul style="list-style:none">
 	 * <li>{@code 0} - normal animation</li>
 	 * <li>{@code 1} - step-by-step</li>
-	 * <li>{@code 2} - all frames</li>
+	 * <li>{@code 2} - all steps</li>
 	 * </ul>
 	 * @param m - mode 
 	 */
@@ -187,18 +179,18 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Step forward 1 animation frame.
-	 * Resets frame to 0 if we reach the end in modes that loop.
-	 * Stops running if we reach the end of the animation in "All frames" mode.
+	 * Step forward 1 animation step.
+	 * Resets step to 0 if we reach the end in modes that loop.
+	 * Stops running if we reach the end of the animation in "All steps" mode.
 	 */
 	public void step() {
-		frame++;
-		if (frame >= maxFrame) {
+		step++;
+		if (step >= maxStep) {
 			if (mode == 2) {
-				frame = maxFrame-1;
+				step = maxStep-1;
 				running = false;
 			} else {
-				frame = 0;
+				step = 0;
 			}
 		}
 		repaint();
@@ -276,11 +268,11 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Resets frame to 0
+	 * Resets step to 0
 	 */
 	private void resetFrame() {
 		// forcing a step to get to 0 will fire step events and run animation functions
-		frame = -1;
+		step = -1;
 		step();
 	}
 
@@ -435,7 +427,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Adjust timer based on speed and current frame
+	 * Adjust timer based on speed and current step
 	 */
 	private void adjustTimer() {
 		if (!running) {
@@ -444,7 +436,7 @@ public class SpriteAnimator extends Component {
 		}
 		try {
 			double speedM = speedFactor();
-			long wait = frames[frame].nextTick(speedM);
+			long wait = steps[step].nextTick(speedM);
 			next = new SpriteTask(this);
 			tick.schedule(next, wait);
 		} catch (Exception e) {
@@ -539,33 +531,42 @@ public class SpriteAnimator extends Component {
 	 */
 	public void paint(Graphics g) {
 		// draw background
-		int offsetX = (zoom-1) * -7;
-		int offsetY = (zoom-1) * -7;
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.scale(zoom, zoom);
-
-		g2.drawImage(bg.getImage(), offsetX, offsetY, null);
-		// Catch null frames
-		if (frames == null || frames[frame] == null) {
+		if (zoom > 1) {
+			int xOffset = -posX;
+			int yOffset = -posY;
+		
+			if (posX > 50) {
+				xOffset += 50;
+			}
+			
+			if (posX > 50) {
+				xOffset += 50;
+			}
+			g2.translate(xOffset, yOffset);
+		}
+		g2.drawImage(bg.getImage(), 0, 0, null);
+		// Catch null steps
+		if (steps == null || steps[step] == null) {
 			return;
 		}
 		// catch other errors
 		try {
-			int scaleOffsetX = posX + offsetX;
-			int scaleOffsetY = posY + offsetY;
-			Anime t = frames[frame];
-			t.draw(g2, scaleOffsetX, scaleOffsetY);
+			Anime t = steps[step];
+			t.draw(g2, posX, posY);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	/*
 	 * Change listeners
 	 */
 	/**
-	 * Step listeners look for frame advances.
+	 * Step listeners look for step advances.
 	 * @param s
 	 */
 	public synchronized void addStepListener(StepListener s) {
@@ -642,7 +643,7 @@ public class SpriteAnimator extends Component {
 	 * <li>Misc. sprites</li>
 	 * <li>Shadows</li>
 	 * </ul>
-	 * All these categories may require new sprites to be added to each frame,
+	 * All these categories may require new sprites to be added to each step,
 	 * and as such should also prompt a "hard reset" from the listener.
 	 * @param s
 	 */
@@ -659,7 +660,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Makes an array of {@link Sprite}s based on the frame data.
+	 * Makes an array of {@link Sprite}s based on the step data.
 	 */
 	// @link Sprite - lol get it?
 	private void makeAnimationFrames() {
@@ -672,14 +673,14 @@ public class SpriteAnimator extends Component {
 		BufferedImage sheet;
 		ArrayList<StepData> config = anime.customizeMergeAndFinalize(
 				swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
-		frames = new Anime[config.size()];
-		maxFrame = config.size();
-		for (int i = 0; i < frames.length; i++) {
-			StepData frameX = config.get(i);
-			int sprCount = frameX.countSprites();
+		steps = new Anime[config.size()];
+		maxStep = config.size();
+		for (int i = 0; i < steps.length; i++) {
+			StepData stepX = config.get(i);
+			int sprCount = stepX.countSprites();
 			Sprite[] list = new Sprite[sprCount];
 			for (int j = 0; j < sprCount; j++) {
-				SpriteData curSprite = frameX.getSprite(j);
+				SpriteData curSprite = stepX.getSprite(j);
 				if (curSprite.row.isLinkPart) {
 					if (curSprite.isZap) {
 						sheet = mailImages[4];
@@ -692,7 +693,7 @@ public class SpriteAnimator extends Component {
 				Sprite newSpr = new Sprite(sheet, curSprite);
 				list[sprCount-j-1] = newSpr;
 			}
-			frames[i] = new Anime(frameX, list);
+			steps[i] = new Anime(stepX, list);
 		}
 	} // end makeAnimationFrames
 
@@ -728,17 +729,17 @@ public class SpriteAnimator extends Component {
 	 * Moves to a point
 	 */
 	private void moveToPoint(Point p) {
-		posX = p.x / zoom + 7 * (zoom-1) - 8;
-		posY = p.y / zoom + 7 * (zoom-1) - 8;
-		if (posX > 216) {
-			posX = 216;
-		} else if (posX < 8) {
-			posX = 8;
+		posX = (p.x / zoom) - 8;
+		posY = (p.y / zoom) - 8;
+		if (posX > BG_WIDTH - 20) {
+			posX = BG_WIDTH - 20;
+		} else if (posX < 4) {
+			posX = 4;
 		}
-		if (posY > 200) {
-			posY = 200;
-		} else if (posY < 8) {
-			posY = 8;
+		if (posY > BG_HEIGHT - 24) {
+			posY = BG_HEIGHT - 24;
+		} else if (posY < 4) {
+			posY = 4;
 		}
 		System.out.println(String.format(
 				"{%s, %s} : {%s, %s}",
