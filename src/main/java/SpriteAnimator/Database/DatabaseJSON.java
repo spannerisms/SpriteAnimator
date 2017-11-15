@@ -2,30 +2,29 @@ package SpriteAnimator.Database;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import org.json.JSONObject;
 
 public class DatabaseJSON {
 	public static final JSONObject ALL_DATA;
 
 	private static final String DATA_PATH =
-			"./AnimationData.json";
+			"AnimationData.json";
 	static {
-		StringBuilder ret = new StringBuilder();
-		FileReader fr;
+
+		URL url = Resources.getResource(DATA_PATH);
+		String text = null;
 		try {
-			fr = new FileReader(DATA_PATH);
-			BufferedReader br = new BufferedReader(fr);
-			String line;
-			while ((line = br.readLine()) != null) {
-				ret.append(line);
-			}
-			br.close();
-		} catch (Exception e) {
+			text = Resources.toString(url, Charsets.UTF_8);
+		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
 
-		ALL_DATA = new JSONObject(ret.toString());
+		ALL_DATA = new JSONObject(text);
 	}
 }
