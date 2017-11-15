@@ -74,8 +74,8 @@ public class SpriteAnimator extends Component {
 
 	// display
 	private Background bg = Background.EMPTY;
-	private int posX = 0;
-	private int posY = 0;
+	private int posX = 40;
+	private int posY = 40;
 	private int mailLevel = 0;
 	private int swordLevel = 0;
 	private int shieldLevel = 0;
@@ -639,7 +639,7 @@ public class SpriteAnimator extends Component {
 	 * <li>Mail</li>
 	 * <li>Sword</li>
 	 * <li>Shield</li>
-	 * <li>Misc sprites</li>
+	 * <li>Misc. sprites</li>
 	 * <li>Shadows</li>
 	 * </ul>
 	 * All these categories may require new sprites to be added to each frame,
@@ -728,8 +728,18 @@ public class SpriteAnimator extends Component {
 	 * Moves to a point
 	 */
 	private void moveToPoint(Point p) {
-		posX = p.x / zoom;
-		posY = p.y / zoom;
+		posX = p.x / zoom + 7 * (zoom-1) - 8;
+		posY = p.y / zoom + 7 * (zoom-1) - 8;
+		if (posX > 216) {
+			posX = 216;
+		} else if (posX < 8) {
+			posX = 8;
+		}
+		if (posY > 200) {
+			posY = 200;
+		} else if (posY < 8) {
+			posY = 8;
+		}
 		System.out.println(String.format(
 				"{%s, %s} : {%s, %s}",
 				p.x, p.y, posX, posY
