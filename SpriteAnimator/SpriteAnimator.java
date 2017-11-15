@@ -671,7 +671,7 @@ public class SpriteAnimator extends Component {
 		// find which sheet to use for image
 		BufferedImage sheet;
 		ArrayList<StepData> config = anime.customizeMergeAndFinalize(
-				swordLevel, shieldLevel, showShadow, showEquipment);
+				swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
 		frames = new Anime[config.size()];
 		maxFrame = config.size();
 		for (int i = 0; i < frames.length; i++) {
