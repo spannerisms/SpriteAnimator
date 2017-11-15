@@ -2,6 +2,7 @@ package SpriteAnimator.Database;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.json.JSONObject;
 
@@ -16,7 +17,7 @@ public class DatabaseJSON {
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(
 							DatabaseJSON.class.getResourceAsStream(DATA_PATH),
-							"UTF-8")
+							StandardCharsets.UTF_8)
 					);
 			String line;
 			while ((line = br.readLine()) != null) {
