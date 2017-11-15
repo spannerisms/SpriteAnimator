@@ -9468,7 +9468,6 @@
 						"col": 2,
 						"pos": [8,-21],
 						"size": "FULL",
-						"isEquipment": true
 					},
 					{
 						"row": "L",
@@ -9493,7 +9492,6 @@
 						"col": 3,
 						"pos": [8,-21],
 						"size": "FULL",
-						"isEquipment": true
 					},
 					{
 						"row": "L",
