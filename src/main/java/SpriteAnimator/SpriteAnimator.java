@@ -31,7 +31,7 @@ public class SpriteAnimator extends Component {
 	static {
 		BufferedImage temp;
 		try {
-			EQUIPMENT = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
+			temp = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
 					"/images/equipment.png"));
 		} catch (IOException e) {
 			temp = new BufferedImage(192, 448, BufferedImage.TYPE_4BYTE_ABGR);

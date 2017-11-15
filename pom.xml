@@ -30,6 +30,12 @@
 
     <build>
         <finalName>SpriteAnimator</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/java/SpriteManipulator/images/</directory>
+                <targetPath>images/</targetPath>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
