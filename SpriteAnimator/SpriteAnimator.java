@@ -534,16 +534,15 @@ public class SpriteAnimator extends Component {
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.scale(zoom, zoom);
-		if (zoom > 1) {
-			int xOffset = -posX;
-			int yOffset = -posY;
+		if (zoom > 2) {
+			int xOffset = -posX + 75 - 10 * (zoom - 1);
+			int yOffset = -posY + 75 - 10 * (zoom - 1);
 		
-			if (posX > 50) {
-				xOffset += 50;
+			if (xOffset > 0) {
+				xOffset = 0;
 			}
-			
-			if (posX > 50) {
-				xOffset += 50;
+			if (yOffset > 0) {
+				yOffset = 0;
 			}
 			g2.translate(xOffset, yOffset);
 		}
@@ -729,22 +728,21 @@ public class SpriteAnimator extends Component {
 	 * Moves to a point
 	 */
 	private void moveToPoint(Point p) {
-		posX = (p.x / zoom) - 8;
-		posY = (p.y / zoom) - 8;
+		posX = (p.x - 8) / zoom - posX;
+		posY = (p.y - 8) / zoom - posY;
+
 		if (posX > BG_WIDTH - 20) {
 			posX = BG_WIDTH - 20;
 		} else if (posX < 4) {
 			posX = 4;
 		}
+
 		if (posY > BG_HEIGHT - 24) {
 			posY = BG_HEIGHT - 24;
 		} else if (posY < 4) {
 			posY = 4;
 		}
-		System.out.println(String.format(
-				"{%s, %s} : {%s, %s}",
-				p.x, p.y, posX, posY
-				));
+
 		repaint();
 	}
 }
