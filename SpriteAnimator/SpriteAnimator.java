@@ -32,7 +32,7 @@ public class SpriteAnimator extends Component {
 		BufferedImage temp;
 		try {
 			temp = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
-					"images/equipment.png"));
+					"/SpriteAnimator/images/equipment.png"));
 		} catch (IOException e) {
 			temp = new BufferedImage(192, 448, BufferedImage.TYPE_4BYTE_ABGR);
 		}
@@ -526,6 +526,17 @@ public class SpriteAnimator extends Component {
 		repaint(); // shouldn't need a new event
 	}
 
+	private int offset(int i) {
+		int offset = 0;
+		if (zoom > 2) {
+			offset = -i + 75 - 10 * (zoom - 1);
+			if (offset > 0) {
+				offset = 0;
+			}
+		}
+		return offset;
+	}
+
 	/**
 	 * Draw every sprite
 	 */
@@ -534,18 +545,9 @@ public class SpriteAnimator extends Component {
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.scale(zoom, zoom);
-		if (zoom > 2) {
-			int xOffset = -posX + 75 - 10 * (zoom - 1);
-			int yOffset = -posY + 75 - 10 * (zoom - 1);
-		
-			if (xOffset > 0) {
-				xOffset = 0;
-			}
-			if (yOffset > 0) {
-				yOffset = 0;
-			}
-			g2.translate(xOffset, yOffset);
-		}
+		int xOffset = offset(posX);
+		int yOffset = offset(posY);
+		g2.translate(xOffset, yOffset);
 		g2.drawImage(bg.getImage(), 0, 0, null);
 		// Catch null steps
 		if (steps == null || steps[step] == null) {
@@ -705,10 +707,7 @@ public class SpriteAnimator extends Component {
 				moveToPoint(arg0.getPoint());
 			}
 
-			public void mousePressed(MouseEvent arg0) {
-				moveToPoint(arg0.getPoint());
-			}
-
+			public void mousePressed(MouseEvent arg0) {}
 			public void mouseEntered(MouseEvent arg0) {}
 			public void mouseExited(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
@@ -728,11 +727,11 @@ public class SpriteAnimator extends Component {
 	 * Moves to a point
 	 */
 	private void moveToPoint(Point p) {
-		posX = (p.x - 8) / zoom - posX;
-		posY = (p.y - 8) / zoom - posY;
+		posX = (p.x - 8) / zoom - offset(posX);
+		posY = (p.y - 8) / zoom - offset(posY);
 
-		if (posX > BG_WIDTH - 20) {
-			posX = BG_WIDTH - 20;
+		if (posX > BG_WIDTH - 18) {
+			posX = BG_WIDTH - 18;
 		} else if (posX < 4) {
 			posX = 4;
 		}
