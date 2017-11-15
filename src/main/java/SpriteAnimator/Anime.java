@@ -7,23 +7,18 @@ import SpriteAnimator.Database.StepData;
 public class Anime {
 	private int length; // duration
 	private Sprite[] list; // list of sprites in frame
-	private int xOffset;
-	private int yOffset;
 
 	public Anime(StepData step, Sprite[] spriteList) {
 		list = spriteList;
 		length = step.l;
-		xOffset = 0;
-		yOffset = 0;
 	}
 
-	public void draw(Graphics2D g, int scaleOffsetX, int scaleOffsetY) {
+	public void draw(Graphics2D g, int offsetX, int offsetY) {
 		for (Sprite s : list) {
-			s.draw(g, xOffset + scaleOffsetX, yOffset + scaleOffsetY);
+			s.draw(g, offsetX, offsetY);
 		}
 	}
 
-	// TODO: Can this be done without HTML? lol
 	public String printAll() {
 		String ret = "<html>" +
 				"<b>Sprite indices used:</b>" +
@@ -44,8 +39,8 @@ public class Anime {
 	}
 
 	/**
-	 * Send length of current frame.
-	 * @param m - multiplier
+	 * Send length of current frame
+	 * @param m - speed multiplier
 	 */	
 	public long nextTick(double m) {
 		return (long) (length * m * SpriteAnimator.FPS);

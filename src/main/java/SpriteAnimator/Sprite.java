@@ -8,6 +8,10 @@ import SpriteAnimator.Database.SpriteData;
 import SpriteAnimator.Database.Transformation;
 
 public class Sprite {
+	// class constants
+	public static final int CELL_SIZE = 16;
+
+	// local vars
 	private int x;
 	private int y;
 	private BufferedImage img;
@@ -20,30 +24,45 @@ public class Sprite {
 		Transformation t = s.t;
 		switch (d) {
 			case EMPTY :
-				new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR_PRE);
+				img = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 				break;
 			default :
-				img = i.getSubimage(d.x, d.y, d.w, d.h);
+				int r = s.row.val * CELL_SIZE;
+				int c = s.col * CELL_SIZE;
+				img = i.getSubimage(c + d.x, r + d.y, d.w, d.h);
 				if (t != null) {
 					img = t.trans(img);
 				}
 				break;
 		}
 
-		char[] size = d.name().toLowerCase().toCharArray();
-		size[0] = Character.toUpperCase(size[0]);
+		// make info
+		if (!s.row.isLinkPart) {
+			return; // just stop if not part of link
+		} else if (d == DrawSize.EMPTY) {
+			info = new String[] { "Empty step", "", "" }; // unique thing for empty steps
+			return; // and then quit here
+		}
+		char[] size;
+		if (d == DrawSize.FULL) {
+			size = new char[0]; // don't show "full", as it is an implicit default
+		} else {
+			size = d.name().toLowerCase().replace("_", "-").toCharArray();
+			size[0] = Character.toUpperCase(size[0]);
+		}
+
 		char[] trans;
 		if (t == null) {
-			trans = new char[0];
+			trans = new char[0]; // don't show "none", as it is an implicit default
 		} else {
-			trans= s.t.name().toLowerCase().toCharArray();
+			trans= s.t.name().toLowerCase().replace("_", "-").toCharArray();
 			trans[0] = Character.toUpperCase(trans[0]);
 		}
 
 		info = new String[] {
 				s.row.name() + s.col,
-				size.toString(),
-				trans.toString()
+				String.valueOf(size),
+				String.valueOf(trans)
 		};
 	}
 

@@ -17,7 +17,7 @@ Along with animating sprites, SpriteAnimator also includes various features to c
 * The ability to view animations step-by-step, which also includes a table of what sprite sheet cells are used and how they are transformed.
 
 ## Terminology used in this project
-Some terms we need to use are overloaded (they can mean multiple things). To avoid confusion, here's a brief glossary and what means what when we say it. Not everything is perfectly written, so feel free to ask questions if something doesn't seem to mean what you think.
+Some terms we need to use are overloaded (they can mean multiple things). To avoid confusion, here's a brief glossary of what means what when we say it. Not everything is perfectly written, so feel free to ask questions if something doesn't seem to mean what you think.
 * **Frame** - A repaint cycle of the SNES.
   * *The SNES runs at 60 **frames** per second.*
 * **Step** - A distinct section of a full animation. Steps last for a variable number of frames. *Note: The same animation can have a variable number of steps, as identical steps will be merged when possible; see notes below.*

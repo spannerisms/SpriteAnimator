@@ -132,9 +132,14 @@ public enum Animation {
 	}
 
 	public ArrayList<StepData> customizeMergeAndFinalize(int swordLevel, int shieldLevel,
-			boolean showShadow, boolean showEquipment) {
+			boolean showShadow, boolean showEquipment, boolean showNeutral) {
 		ArrayList<StepData> customized = new ArrayList<StepData>();
 		for (StepData s : steps) {
+			if (NeutralPose.isNeutral(s)) {
+				if (!showNeutral) {
+					continue;
+				}
+			}
 			customized.add(s.customizeStep(swordLevel, shieldLevel, showShadow, showEquipment));
 		}
 		return StepData.mergeAll(customized);

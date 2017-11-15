@@ -25,6 +25,7 @@ public enum Background {
 		PALACE_OF_DARKNESS ("Palace of Darkness", "dungeon-palaceofdarkness"),
 		SWAMP_PALACE ("Swamp Palace", "dungeon-swamppalace"),
 		SKULL_WOODS ("Skull Woods", "dungeon-skullwoods"),
+		THIEVES_TOWN ("Thieves' Town", "dungeon-thievestown"),
 		ICE_PALACE ("Ice Palace", "dungeon-icepalace"),
 		MISERY_MIRE ("Misery Mire", "dungeon-miserymire"),
 		TURTLE_ROCK ("Turtle Rock", "dungeon-turtlerock"),
