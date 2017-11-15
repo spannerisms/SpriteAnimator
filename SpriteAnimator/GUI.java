@@ -501,13 +501,13 @@ public class GUI {
 		frame.setIconImages(icons);
 
 		// other frame organization
-		final SpriteAnimator run = new SpriteAnimator();
-		setAllSizes(run, new Dimension(550,550));
-		l.putConstraint(SpringLayout.WEST, run, -5,
+		final SpriteAnimator animator = new SpriteAnimator();
+		setAllSizes(animator, new Dimension(550,550));
+		l.putConstraint(SpringLayout.WEST, animator, 5,
 				SpringLayout.WEST, fullWrap);
-		l.putConstraint(SpringLayout.NORTH, run, 5,
+		l.putConstraint(SpringLayout.NORTH, animator, 5,
 				SpringLayout.SOUTH, fileName);
-		fullWrap.add(run);
+		fullWrap.add(animator);
 
 		// frame setting
 		frame.setSize(d);
@@ -546,9 +546,9 @@ public class GUI {
 		 * Action listeners
 		 */
 		// read steps and count them
-		run.addStepListener(new StepListener() {
+		animator.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
-				frameCur.setText(run.getFrame());
+				frameCur.setText(animator.getFrame());
 			}
 		});
 
@@ -556,19 +556,19 @@ public class GUI {
 		StepListener frameInfoWatcher = new StepListener() {
 			public void eventReceived(StepEvent arg0) {
 				try {
-					frameInfo.setText(run.getFrameInfo());
+					frameInfo.setText(animator.getFrameInfo());
 				} catch (Exception e) {
 					// nothing
 				}
 			}};
 
 		// listen for speed changes
-		run.addSpeedListener(
+		animator.addSpeedListener(
 			arg0 -> {
-				if (btnAllowed("speed", run.getMode())) {
-					fasterBtn.setEnabled(!run.atMaxSpeed());
-					slowerBtn.setEnabled(!run.atMinSpeed());
-					speedLevel.setText(run.getSpeedPercent());
+				if (btnAllowed("speed", animator.getMode())) {
+					fasterBtn.setEnabled(!animator.atMaxSpeed());
+					slowerBtn.setEnabled(!animator.atMinSpeed());
+					speedLevel.setText(animator.getSpeedPercent());
 				} else {
 					speedLevel.setText("");
 					fasterBtn.setEnabled(false);
@@ -577,9 +577,9 @@ public class GUI {
 			});
 
 		// listen for mode changes
-		run.addModeListener(
+		animator.addModeListener(
 			arg0 -> {
-				int mode = run.getMode();
+				int mode = animator.getMode();
 				stepBtn.setEnabled(btnAllowed("step", mode));
 				slowerBtn.setEnabled(btnAllowed("speed", mode));
 				fasterBtn.setEnabled(btnAllowed("speed", mode));
@@ -590,56 +590,56 @@ public class GUI {
 				switch (mode) {
 					case 0 :
 						stepWord = "Pause";
-						run.removeStepListener(frameInfoWatcher);
+						animator.removeStepListener(frameInfoWatcher);
 						break;
 					case 1 :
 						stepWord = "Step";
-						run.addStepListener(frameInfoWatcher);
+						animator.addStepListener(frameInfoWatcher);
 						break;
 					case 2 :
 						stepWord = "Pause";
-						run.removeStepListener(frameInfoWatcher);
+						animator.removeStepListener(frameInfoWatcher);
 						break;
 					default :
 						stepWord = "Step";
-						run.removeStepListener(frameInfoWatcher);
+						animator.removeStepListener(frameInfoWatcher);
 						break;
 				}
 				stepBtn.setText(stepWord);
 				modeOptions.setSelectedIndex(mode);
-				playBtn.setEnabled(!run.isRunning());
+				playBtn.setEnabled(!animator.isRunning());
 
 				try {
-					frameInfo.setText(run.getFrameInfo());
+					frameInfo.setText(animator.getFrameInfo());
 				} catch (Exception e) {
 					// nothing
 				}
 			});
 
 		// listen for Zoom changes
-		run.addZoomListener(
+		animator.addZoomListener(
 			arg0 -> {
-				bigBtn.setEnabled(!run.tooBig());
-				lilBtn.setEnabled(!run.vanillaSize());
-				zoomLevel.setText("x" + run.getZoom());
+				bigBtn.setEnabled(!animator.tooBig());
+				lilBtn.setEnabled(!animator.vanillaSize());
+				zoomLevel.setText("x" + animator.getZoom());
 			});
 
 		// listen for display changes
-		run.addRebuildListener(
+		animator.addRebuildListener(
 			arg0 -> {
 				try {
-					run.hardReset();
+					animator.hardReset();
 				} catch (Exception e) {
 					// do nothing
 				}
-				frameMax.setText("/ " + run.maxFrame());
-				equipStatus.setText(run.equipmentOn() ? "ON" : "OFF");
-				shadowStatus.setText(run.shadowOn() ? "ON" : "OFF");
-				neutralStatus.setText(run.neutralOn() ? "ON" : "OFF");
+				frameMax.setText("/ " + animator.maxFrame());
+				equipStatus.setText(animator.equipmentOn() ? "ON" : "OFF");
+				shadowStatus.setText(animator.shadowOn() ? "ON" : "OFF");
+				neutralStatus.setText(animator.neutralOn() ? "ON" : "OFF");
 			});
 
 		// update GUI
-		run.firePurge();
+		animator.firePurge();
 
 		// load sprite file
 		loadBtn.addActionListener(
@@ -654,7 +654,7 @@ public class GUI {
 				// read the file
 				try {
 					n = explorer.getSelectedFile().getPath();
-					loadSprite(run, n);
+					loadSprite(animator, n);
 				} catch (ZSPRFormatException e) {
 					JOptionPane.showMessageDialog(frame,
 							e.getMessage(),
@@ -675,7 +675,7 @@ public class GUI {
 
 				// reset animator, forcing it to update
 				try {
-					run.setAnimation((Animation) animOptions.getSelectedItem());
+					animator.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing
 				}
@@ -694,7 +694,7 @@ public class GUI {
 
 				// read the file
 				try {
-					loadSprite(run, fileName.getText());
+					loadSprite(animator, fileName.getText());
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
@@ -711,7 +711,7 @@ public class GUI {
 
 				// reset animator, forcing it to update
 				try {
-					run.setAnimation((Animation) animOptions.getSelectedItem());
+					animator.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing
 				}
@@ -721,10 +721,10 @@ public class GUI {
 		animOptions.addActionListener(
 			arg0 -> {
 				try {
-					run.setAnimation((Animation) animOptions.getSelectedItem());
+					animator.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					String animName = animOptions.getSelectedItem().toString();
-					run.setAnimation(Animation.STAND);
+					animator.setAnimation(Animation.STAND);
 					animOptions.setSelectedIndex(0);
 					JOptionPane.showMessageDialog(frame,
 							"There's a problem with the animation:\n" +
@@ -742,7 +742,7 @@ public class GUI {
 		modeOptions.addActionListener(
 			arg0 -> {
 				try {
-					run.setMode(modeOptions.getSelectedIndex());
+					animator.setMode(modeOptions.getSelectedIndex());
 				} catch (Exception e) {
 					// do nothing
 				}
@@ -751,40 +751,40 @@ public class GUI {
 		// zoom buttons
 		bigBtn.addActionListener(
 			arg0 -> {
-				run.embiggen();
+				animator.embiggen();
 			});
 
 		lilBtn.addActionListener(
 			arg0 -> {
-				run.ensmallen();
+				animator.ensmallen();
 			});
 
 		// speed buttons
 		fasterBtn.addActionListener(
 			arg0 -> {
-				run.faster();
+				animator.faster();
 			});
 
 		slowerBtn.addActionListener(
 			arg0 -> {
-				run.slower();
+				animator.slower();
 			});
 
 		// play button
 		playBtn.addActionListener(
 			arg0 -> {
-				run.setMode(0);
+				animator.setMode(0);
 			});
 
 		// step button
 		stepBtn.addActionListener(
 			arg0 -> {
-				switch (run.getMode()) {
+				switch (animator.getMode()) {
 					case 0 :
-						run.pause();
+						animator.pause();
 						break;
 					case 1 :
-						run.step();
+						animator.step();
 						break;
 				}
 			});
@@ -793,8 +793,8 @@ public class GUI {
 		resetBtn.addActionListener(
 			arg0 -> {
 				try {
-					run.repaint();
-					run.reset();
+					animator.repaint();
+					animator.reset();
 				} catch (Exception e) {
 					// do nothing
 				}
@@ -803,45 +803,45 @@ public class GUI {
 		// item toggle
 		equipBtn.addActionListener(
 			arg0 -> {
-				run.switchEquipment();
+				animator.switchEquipment();
 			});
 
 		// shadow toggle
 		shadowBtn.addActionListener(
 			arg0 -> {
-				run.switchShadow();
+				animator.switchShadow();
 			});
 
 		// neutral toggle
 		neutralBtn.addActionListener(
 			arg0 -> {
-				run.switchNeutral();
+				animator.switchNeutral();
 			});
 
 		// gear settings
 		mailLevel.addActionListener(
 			arg0 -> {
 				int level = mailLevel.getSelectedIndex();
-				run.setMail(level);
+				animator.setMail(level);
 			});
 
 		swordLevel.addActionListener(
 			arg0 -> {
 				int level = swordLevel.getSelectedIndex();
-				run.setSword(level);
+				animator.setSword(level);
 			});
 
 		shieldLevel.addActionListener(
 			arg0 -> {
 				int level = shieldLevel.getSelectedIndex();
-				run.setShield(level);
+				animator.setShield(level);
 			});
 
 		// background display
 		bgDisp.addActionListener(
 			arg0 -> {
 				Background bg = (Background) bgDisp.getSelectedItem();
-				run.setBackground(bg);
+				animator.setBackground(bg);
 			});
 
 		// turn on
