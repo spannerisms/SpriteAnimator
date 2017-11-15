@@ -1,7 +1,7 @@
 package SpriteAnimator.Database;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 
 import org.json.JSONObject;
 
@@ -9,13 +9,15 @@ public class DatabaseJSON {
 	public static final JSONObject ALL_DATA;
 
 	private static final String DATA_PATH =
-			"C:\\Users\\CR\\eclipse-workspace\\ALttPNG\\src\\SpriteAnimator\\Database\\AnimationData.json";
+			"AnimationData.json";
 	static {
 		StringBuilder ret = new StringBuilder();
-		FileReader fr;
 		try {
-			fr = new FileReader(DATA_PATH);
-			BufferedReader br = new BufferedReader(fr);
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(
+							DatabaseJSON.class.getResourceAsStream(DATA_PATH),
+							"UTF-8")
+					);
 			String line;
 			while ((line = br.readLine()) != null) {
 				ret.append(line);
