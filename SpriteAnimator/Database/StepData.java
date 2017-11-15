@@ -169,7 +169,6 @@ public class StepData {
 			StepData cur = list.get(pos);
 			ArrayList<SpriteData> curPose = cur.getSprites();
 			int curLength = cur.l;
-			System.out.println("SIZE: " + list.size());
 			matchFind:
 			for (int i = pos+1; i < list.size(); i++, pos++) {
 				StepData next = list.get(i);
@@ -180,7 +179,7 @@ public class StepData {
 				}
 				
 			}
-			System.out.println(pos++);
+			pos++;
 			ret.add(new StepData(curPose, curLength));
 		} // end merging
 		return ret;
