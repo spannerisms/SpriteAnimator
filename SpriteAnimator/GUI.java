@@ -655,22 +655,10 @@ public class GUI {
 				try {
 					n = explorer.getSelectedFile().getPath();
 					loadSprite(run, n);
-				} catch (ObsoleteSPRFormatException e) {
+				} catch (ZSPRFormatException e) {
 					JOptionPane.showMessageDialog(frame,
 							e.getMessage(),
-							"Y'all old",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				} catch (NotZSPRException e) {
-					JOptionPane.showMessageDialog(frame,
-							"File is not a " + ZSPRFile.EXTENSION + " file",
-							"Not my job",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				} catch (BadChecksumException e) {
-					JOptionPane.showMessageDialog(frame,
-							"Bad checksum; file may be corrupted",
-							"Invalid",
+							"PROBLEM",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				} catch (Exception e) { // all other errors
@@ -713,22 +701,10 @@ public class GUI {
 							"Oops",
 							JOptionPane.WARNING_MESSAGE);
 					return;
-				} catch (ObsoleteSPRFormatException e) {
+				} catch (ZSPRFormatException e) {
 					JOptionPane.showMessageDialog(frame,
 							e.getMessage(),
-							"Y'all old",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				} catch (NotZSPRException e) {
-					JOptionPane.showMessageDialog(frame,
-							"File is not a " + ZSPRFile.EXTENSION +" file",
-							"Not my job",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				} catch (BadChecksumException e) {
-					JOptionPane.showMessageDialog(frame,
-							"Bad checksum; file may be corrupted",
-							"Invalid",
+							"PROBLEM",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
@@ -965,7 +941,7 @@ public class GUI {
 	}
 
 	public static void loadSprite(SpriteAnimator a, String fileName)
-			throws IOException, NotZSPRException, ObsoleteSPRFormatException, BadChecksumException {
+			throws IOException, ZSPRFormatException {
 		// read the file
 		String fileType = SpriteManipulator.getFileType(fileName);
 
