@@ -37,7 +37,7 @@ Some terms we need to use are overloaded (they can mean multiple things). To avo
 * Miscellaneous sprites were included to make sure held items could be held as best as possible; however, other effects (such as dust clouds and sparkles) were omitted to decrease the workload in creating a finished product.
 * For end-user control, consecutive identical animation steps are merged. For example: when neutral poses are off, attack right has 9 steps with a sword and 7 steps without. This is because in step pairs [1,2] and [8,9], Link does not change his pose, but the sword still moves.
 * The character sprite in the zap animation disappears every other frame. This is to emulate Link's invincibility flicker, which the animation is never seen without.
-* Ether is a very long animation because there are palette swaps every 4 frames in Link's final pose. It might even need to be longer to be truly accurate, as spanda got bored and frustrated with counting.
+* Ether is a very long animation because there are palette swaps every 4 frames in Link's final pose.
 
 ## Animation oddities that are not errors
 The following apparent errors are problems directly with the game itself, and not this program. They are best seen with the vanilla Link sprite. Unless otherwise stated, animation steps referenced have no equipment displayed and no neutral poses (Sword level: Off; Shield level: Off; Misc. sprites: Off; Neutral: Off).
@@ -55,7 +55,7 @@ The following apparent errors are problems directly with the game itself, and no
   * Swim (step 4)
   * Grab down (steps 2, 3, 4)
   * Push down (all steps)
-  * Ether (steps 10–51)
+  * Ether (steps 10–47)
 
 ## Known bugs/issues
 * Very rarely, the animation process will enter a hyperspeed mode. The problem appears to be a thread conflict that comes down to frame-perfect timing, making it difficult to reproduce. This error is fixed by pressing the reset button.
