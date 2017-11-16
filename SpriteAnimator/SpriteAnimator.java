@@ -84,6 +84,7 @@ public class SpriteAnimator extends Component {
 
 	// default initialization
 	public SpriteAnimator() {
+		this.setFocusable(true);
 		anime = Animation.STAND;
 		speed = 0;
 		mode = 0;
@@ -703,24 +704,37 @@ public class SpriteAnimator extends Component {
 	 */
 	private final void addMouse() {
 		this.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent arg0) {
-				moveToPoint(arg0.getPoint());
+			public void mousePressed(MouseEvent arg0) {
+				if (SpriteAnimator.this.hasFocus()) {
+					moveToPoint(arg0.getPoint());
+				} else {
+					SpriteAnimator.this.requestFocus();
+				}
 			}
 
-			public void mousePressed(MouseEvent arg0) {}
+			public void mouseClicked(MouseEvent arg0) {}
 			public void mouseEntered(MouseEvent arg0) {}
 			public void mouseExited(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
 
 		this.addMouseMotionListener(new MouseMotionListener() {
+			final int WAIT_TIME = 4;
+			int throttle = WAIT_TIME;
+
 			public void mouseDragged(MouseEvent arg0) {
-				moveToPoint(arg0.getPoint());
+				if (SpriteAnimator.this.hasFocus()) {
+					if (throttle == 0) {
+						moveToPoint(arg0.getPoint());
+						throttle = WAIT_TIME;
+					} else {
+						throttle--;
+					}
+				}
 			}
 
-			public void mouseMoved(MouseEvent arg0) {
-
-			}});
+			public void mouseMoved(MouseEvent arg0) {}
+		});
 	} // end addMouse
 
 	/**
