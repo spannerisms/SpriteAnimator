@@ -52,15 +52,15 @@ public class SpriteAnimator extends Component {
 	private static final int MAXZOOM = 5; // maximum zoom level
 
 	// locals
-	private BufferedImage[] mailImages = null; // sprite sheet
-	private Animation anime; // current animation
 	private int speed; // speed; 0 = normal; positive = faster; negative = slower
 	private int mode; // animation mode
 	private int step; // animation step (not 0 indexed)
 	private int maxStep; // highest animation step (not 0 indexed)
-	private boolean running; // self-running status
 	private int zoom = 2; // default zoom
+	private boolean running; // self-running status
+	private Animation anime; // current animation
 	private Anime[] steps = null; // each step of animation, as an object
+	private BufferedImage[] mailImages = null; // sprite sheet
 	private Timer tick; // runs for steps
 	private TimerTask next; // controls steps
 
@@ -106,14 +106,14 @@ public class SpriteAnimator extends Component {
 	/**
 	 * Current step of current animation, not 0-indexed
 	 */
-	public String getFrame() {
+	public String getStep() {
 		return "" + (step + 1);
 	}
 
 	/**
 	 * Current step's sprite list
 	 */
-	public String getFrameInfo() {
+	public String getSpriteInfo() {
 		String ret = "";
 		switch (mode) {
 			case 0 :
@@ -151,7 +151,7 @@ public class SpriteAnimator extends Component {
 			return;
 		}
 		anime = a;
-		makeAnimationFrames();
+		makeAnimation();
 		fireRebuildEvent();
 		reset();
 	}
@@ -209,15 +209,15 @@ public class SpriteAnimator extends Component {
 		switch (mode) {
 			case 0 :
 				setRunning();
-				resetFrame();
+				resetStep();
 				break;
 			case 1 :
 				setRunning();
-				resetFrame();
+				resetStep();
 				break;
 			case 2 :
 				setRunning();
-				resetFrame();
+				resetStep();
 				break;
 		}
 		fireModeEvent();
@@ -236,7 +236,7 @@ public class SpriteAnimator extends Component {
 	 */
 	public void hardReset() {
 		tick.cancel();
-		makeAnimationFrames();
+		makeAnimation();
 		reset();
 	}
 
@@ -271,7 +271,7 @@ public class SpriteAnimator extends Component {
 	/**
 	 * Resets step to 0
 	 */
-	private void resetFrame() {
+	private void resetStep() {
 		// forcing a step to get to 0 will fire step events and run animation functions
 		step = -1;
 		step();
@@ -527,11 +527,17 @@ public class SpriteAnimator extends Component {
 		repaint(); // shouldn't need a new event
 	}
 
+	/*
+	 * When zoom level is higher than 2,
+	 * the image doesn't fit in the window at lowest size
+	 * This function tries to pad offset the image to
+	 * put Link in sort of the middle
+	 */
 	private int offset(int i) {
 		int offset = 0;
 		if (zoom > 2) {
-			offset = -i + 75 - 10 * (zoom - 1);
-			if (offset > 0) {
+			offset = -i + 75 - 10 * (zoom - 1); // these numbers are random, because I'm stupid
+			if (offset > 0) { // don't offset at all if the top left corner is at the origin
 				offset = 0;
 			}
 		}
@@ -542,15 +548,16 @@ public class SpriteAnimator extends Component {
 	 * Draw every sprite
 	 */
 	public void paint(Graphics g) {
-		// draw background
 		Graphics2D g2 = (Graphics2D) g;
-
-		g2.scale(zoom, zoom);
+		g2.scale(zoom, zoom); // zoom in
 		int xOffset = offset(posX);
 		int yOffset = offset(posY);
 		g2.translate(xOffset, yOffset);
+
+		// draw background
 		g2.drawImage(bg.getImage(), 0, 0, null);
-		// Catch null steps
+
+		// Catch null steps; but they shouldn't happen
 		if (steps == null || steps[step] == null) {
 			return;
 		}
@@ -559,7 +566,7 @@ public class SpriteAnimator extends Component {
 			Anime t = steps[step];
 			t.draw(g2, posX, posY);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); // thread conflicts cause errors? idk
 		}
 	}
 
@@ -664,9 +671,8 @@ public class SpriteAnimator extends Component {
 	 * Makes an array of {@link Sprite}s based on the step data.
 	 */
 	// @link Sprite - lol get it?
-	private void makeAnimationFrames() {
-		// break if we have no images
-		if (mailImages == null) {
+	private void makeAnimation() {
+		if (mailImages == null) { // break if we have no images
 			return;
 		}
 
@@ -676,13 +682,16 @@ public class SpriteAnimator extends Component {
 				swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
 		steps = new Anime[config.size()];
 		maxStep = config.size();
-		for (int i = 0; i < steps.length; i++) {
+
+		for (int i = 0; i < steps.length; i++) { // for each animation step
 			StepData stepX = config.get(i);
 			int sprCount = stepX.countSprites();
-			Sprite[] list = new Sprite[sprCount];
-			for (int j = 0; j < sprCount; j++) {
+			
+			Sprite[] list = new Sprite[sprCount]; // list of sprites for step
+			for (int j = 0; j < sprCount; j++) { // for each sprite in step
 				SpriteData curSprite = stepX.getSprite(j);
-				if (curSprite.row.isLinkPart) {
+
+				if (curSprite.row.isLinkPart) { // find image to use
 					if (curSprite.isZap) {
 						sheet = mailImages[4];
 					} else {
@@ -691,12 +700,14 @@ public class SpriteAnimator extends Component {
 				} else {
 					sheet = EQUIPMENT;
 				}
+
 				Sprite newSpr = new Sprite(sheet, curSprite);
-				list[sprCount-j-1] = newSpr;
+				list[sprCount-j-1] = newSpr; // put it in backwards to preserve z-order
 			}
+
 			steps[i] = new Anime(stepX, list);
 		}
-	} // end makeAnimationFrames
+	} // end makeAnimation
 
 	/**
 	 * Used to add mouse listeners
@@ -740,16 +751,16 @@ public class SpriteAnimator extends Component {
 	 * Moves to a point
 	 */
 	private void moveToPoint(Point p) {
-		posX = (p.x - 8) / zoom - offset(posX);
+		posX = (p.x - 8) / zoom - offset(posX); // subtract 8 to use the middle of sprite
 		posY = (p.y - 8) / zoom - offset(posY);
 
-		if (posX > BG_WIDTH - 18) {
+		if (posX > BG_WIDTH - 18) { // try to pad a little
 			posX = BG_WIDTH - 18;
 		} else if (posX < 4) {
 			posX = 4;
 		}
 
-		if (posY > BG_HEIGHT - 24) {
+		if (posY > BG_HEIGHT - 24) { // try to pad a little
 			posY = BG_HEIGHT - 24;
 		} else if (posY < 4) {
 			posY = 4;

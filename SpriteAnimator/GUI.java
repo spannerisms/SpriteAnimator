@@ -50,7 +50,7 @@ public class GUI {
 	private static final String[] MODES = {
 			"Normal play",
 			"Step-by-step",
-			//"All frames" disabled for now
+			// "All steps" disabled for now
 	};
 
 	private static final String[] SWORDLEVELS = {
@@ -74,6 +74,8 @@ public class GUI {
 			"Red mail",
 			"Bunny"
 	};
+
+	private static final int BLANK_HEIGHT = 10;
 
 	/**
 	 * Perform
@@ -123,150 +125,129 @@ public class GUI {
 		SpringLayout l = new SpringLayout();
 		fullWrap.setLayout(l);
 
-		// image loading
-		final JTextField fileName = new JTextField("");
-		final JButton loadBtn = new JButton("Load sprite");
-		final JButton reloadBtn = new JButton("Reload");
-		l.putConstraint(SpringLayout.EAST, reloadBtn, -5,
-				SpringLayout.EAST, fullWrap);
-		l.putConstraint(SpringLayout.NORTH, reloadBtn, 5,
-				SpringLayout.NORTH, fullWrap);
-
-		l.putConstraint(SpringLayout.EAST, loadBtn, -5,
-				SpringLayout.WEST, reloadBtn);
-		l.putConstraint(SpringLayout.NORTH, loadBtn, 5,
-				SpringLayout.NORTH, fullWrap);
-
-		l.putConstraint(SpringLayout.WEST, fileName, 5,
-				SpringLayout.WEST, fullWrap);
-		l.putConstraint(SpringLayout.EAST, fileName, -5,
-				SpringLayout.WEST, loadBtn);
-		l.putConstraint(SpringLayout.NORTH, fileName, 7,
-				SpringLayout.NORTH, fullWrap);
-		fullWrap.add(fileName);
-		fullWrap.add(loadBtn);
-		fullWrap.add(reloadBtn);
-
 		// Tool Tip constants info
 		final String REBUILDS =
-				"This action requires a rebuild of the animation data, resetting the current frame to 1.";
+				"This action requires a rebuild of the animation data, resetting the current step to 1.";
 		final String REBUILDS_PLURAL =
-				"These actions require a rebuild of the animation data, resetting the current frame to 1.";
+				"These actions require a rebuild of the animation data, resetting the current step to 1.";
 
-		// controls panel
+		// control panel
 		final JPanel controls = new JPanel(new GridBagLayout());
 		controls.setBorder(fullPad);
 		GridBagConstraints c = new GridBagConstraints();
 
 		l.putConstraint(SpringLayout.EAST, controls, -5,
 				SpringLayout.EAST, fullWrap);
-		l.putConstraint(SpringLayout.NORTH, controls, 0,
-				SpringLayout.SOUTH, loadBtn);
+		l.putConstraint(SpringLayout.NORTH, controls, 5,
+				SpringLayout.NORTH, frame);
 		frame.add(controls);
 
 		// negative so everything can just ++
 		c.gridy = -1;
-
-		// animation playing
-		final JComboBox<Animation> animOptions = new JComboBox<Animation>(Animation.values());
-		final JLabel theWordAnimation = new JLabel("Animation:", SwingConstants.RIGHT);
-		theWordAnimation.setBorder(rightPad);
-		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
-		c.gridx = 0;
-		c.gridy++;
-		controls.add(theWordAnimation, c);
-		c.gridwidth = 2;
-		c.gridx = 1;
-		controls.add(animOptions, c);
-
-		// animation mode
-		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
-		final JLabel theWordMode = new JLabel(" ", SwingConstants.RIGHT);
-		theWordMode.setBorder(rightPad);
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 0;
+
+		// image loading
+		final JTextField fileName = new JTextField("");
 		c.gridy++;
-		controls.add(theWordMode, c);
-		c.gridwidth = 2;
+		c.gridx = 0;
+		c.gridwidth = 3;
+		controls.add(fileName, c);
+
+		// load buttons
+		final JButton loadBtn = new JButton("Load sprite");
+		final JButton reloadBtn = new JButton("Reload");
+		c.gridy++;
 		c.gridx = 1;
-		controls.add(modeOptions, c);
+		c.gridwidth = 1;
+		controls.add(loadBtn, c);
+		c.gridx = 2;
+		c.gridwidth = 1;
+		controls.add(reloadBtn, c);
 
 		// blank
 		c.gridy++;
-		c.ipady = 10;
+		c.ipady = BLANK_HEIGHT;
+		controls.add(new JLabel(), c);
+		c.ipady = 0;
+
+		// animation playing
+		final JComboBox<Animation> animOptions = new JComboBox<Animation>(Animation.values());
+		final JLabel animationLabel = new JLabel("Animation:", SwingConstants.RIGHT);
+		animationLabel.setBorder(rightPad);
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(animationLabel, c);
+		c.gridwidth = 2;
+		c.gridx = 1;
+		controls.add(animOptions, c);
+		c.gridwidth = 1;
+
+		// animation mode
+		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
+		final JLabel modeLabel = new JLabel(" ", SwingConstants.RIGHT);
+		modeLabel.setBorder(rightPad);
+		c.gridwidth = 2;
+		c.gridy++;
+		c.gridx = 1;
+		controls.add(modeOptions, c);
+		c.gridwidth = 1;
+
+		// blank
+		c.gridy++;
+		c.ipady = BLANK_HEIGHT;
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
 		// background
 		final JComboBox<Background> bgDisp = new JComboBox<Background>(Background.values());
-		final JLabel theWordBackground = new JLabel("Background:", SwingConstants.RIGHT);
-		theWordBackground.setBorder(rightPad);
-		setToolTip(theWordBackground,
-					"Changes the backdrop.");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 0;
+		final JLabel backgroundLabel = new JLabel("Background:", SwingConstants.RIGHT);
+		backgroundLabel.setBorder(rightPad);
 		c.gridy++;
-		controls.add(theWordBackground, c);
+		c.gridx = 0;
+		controls.add(backgroundLabel, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(bgDisp, c);
+		c.gridwidth = 1;
 
 		// blank
 		c.gridy++;
-		c.ipady = 10;
+		c.ipady = BLANK_HEIGHT;
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
 		// sword level
 		final JComboBox<String> swordLevel = new JComboBox<String>(SWORDLEVELS);
-		final JLabel theWordSword = new JLabel("Gear:", SwingConstants.RIGHT); // not actually the word "Sword"
-		theWordSword.setBorder(rightPad);
-		setToolTip(theWordSword,
+		final JLabel gearLabel = new JLabel("Gear:", SwingConstants.RIGHT); // not actually the word "Sword"
+		gearLabel.setBorder(rightPad);
+		setToolTip(gearLabel,
 				"Controls the level and display of the sword and shield, " +
 				"and the current mail palette.",
 				REBUILDS_PLURAL);
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordSword, c);
+		c.gridx = 0;
+		controls.add(gearLabel, c);
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(swordLevel, c);
 
 		// shield level
 		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELDLEVELS);
-		final JLabel theWordShield = new JLabel("", SwingConstants.RIGHT);
-		theWordShield.setBorder(rightPad);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 0;
 		c.gridy++;
-		controls.add(theWordShield, c);
-		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(shieldLevel, c);
 
 		// mail level
-		final JComboBox<String> mailLevel = new JComboBox<String>(MAILLEVELS);
-		final JLabel theWordMail = new JLabel("", SwingConstants.RIGHT);
-		theWordMail.setBorder(rightPad);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 0;
+		final JComboBox<String> mailLevel = new JComboBox<String>(MAILLEVELS);		
 		c.gridy++;
-		controls.add(theWordMail, c);
-		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(mailLevel, c);
+		c.gridwidth = 1;
 
 		// blank
 		c.gridy++;
-		c.ipady = 10;
+		c.ipady = BLANK_HEIGHT;
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
@@ -281,7 +262,6 @@ public class GUI {
 						"will display their relevant sprites.",
 				"This option does not affect the display of swords, shields, or swag duck.",
 				REBUILDS);
-		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(thePhraseMiscellaneousSpritesWithAColon, c);
@@ -292,18 +272,17 @@ public class GUI {
 
 		// shadows
 		final JButton shadowBtn = new JButton("Toggle");
-		final JLabel theWordShadowsWithAColon = new JLabel("Shadows:", SwingConstants.RIGHT);
+		final JLabel shadowLabel = new JLabel("Shadows:", SwingConstants.RIGHT);
 		final JLabel shadowStatus = new JLabel("--", SwingConstants.CENTER);
-		theWordShadowsWithAColon.setBorder(rightPad);
-		setToolTip(theWordShadowsWithAColon,
+		shadowLabel.setBorder(rightPad);
+		setToolTip(shadowLabel,
 				"When <b>shadows</b> are on, " +
 						"certain animations will display a shadow below the character sprite.",
 				"This option will not affect shadows that belong to other sprites.",
 				REBUILDS);
-		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
-		controls.add(theWordShadowsWithAColon, c);
+		controls.add(shadowLabel, c);
 		c.gridx = 1;
 		controls.add(shadowStatus, c);
 		c.gridx = 2;
@@ -311,18 +290,17 @@ public class GUI {
 
 		// shadows
 		final JButton neutralBtn = new JButton("Toggle");
-		final JLabel theWordNeutralWithAColon = new JLabel("Neutral:", SwingConstants.RIGHT);
+		final JLabel neutralLabel = new JLabel("Neutral:", SwingConstants.RIGHT);
 		final JLabel neutralStatus = new JLabel("--", SwingConstants.CENTER);
-		theWordNeutralWithAColon.setBorder(rightPad);
-		setToolTip(theWordNeutralWithAColon,
+		neutralLabel.setBorder(rightPad);
+		setToolTip(neutralLabel,
 				"When <b>neutral poses</b> are on, " +
 						"certain animations will begin or end with the character sprite at a " +
 						"neutral standing position.",
 				REBUILDS);
-		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
-		controls.add(theWordNeutralWithAColon, c);
+		controls.add(neutralLabel, c);
 		c.gridx = 1;
 		controls.add(neutralStatus, c);
 		c.gridx = 2;
@@ -330,7 +308,7 @@ public class GUI {
 
 		// blank
 		c.gridy++;
-		c.ipady = 20;
+		c.ipady = BLANK_HEIGHT * 2;
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
@@ -341,7 +319,6 @@ public class GUI {
 		setAllSizes(zoomLevel, textDimension);
 		zoomLevel.setBorder(rightPad);
 		c.gridy++;
-		c.gridwidth = 1;
 		c.gridx = 0;
 		controls.add(zoomLevel, c);
 		c.gridx = 1;
@@ -369,18 +346,17 @@ public class GUI {
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
-		// frame counter
-		final JLabel theWordFrameWithAColon = new JLabel("Animation step:", SwingConstants.RIGHT);
+		// step counter
+		final JLabel stepLabel = new JLabel("Animation step:", SwingConstants.RIGHT);
 		final JLabel stepCur = new JLabel("-", SwingConstants.RIGHT);
 		final JLabel stepMax = new JLabel("/ -");
 		stepCur.setBorder(rightPad);
 		stepMax.setBorder(rightPad);
 		setAllSizes(stepCur, textDimension);
-		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
 		c.weightx = 9;
-		controls.add(theWordFrameWithAColon, c);
+		controls.add(stepLabel, c);
 		c.weightx = 0;
 		c.gridx = 1;
 		controls.add(stepCur, c);
@@ -391,7 +367,6 @@ public class GUI {
 		final JButton playBtn = new JButton("Play");
 		final JButton stepBtn = new JButton("--");
 		final JButton resetBtn = new JButton("Reset");
-		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(playBtn, c);
@@ -406,16 +381,16 @@ public class GUI {
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
-		// frame info
-		final JLabel frameInfo = new JLabel("");
+		// sprite info
+		final JLabel spriteInfo = new JLabel("");
 		c.gridwidth = 3;
 		c.gridy++;
 		c.gridx = 0;
-		controls.add(frameInfo, c);
+		controls.add(spriteInfo, c);
 
 		// control panel done
 
-		// Credits
+		// acknowledgements
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
@@ -456,8 +431,11 @@ public class GUI {
 
 		// menu
 		final JMenuBar menu = new JMenuBar();
-		final JMenu fileMenu = new JMenu("File");
 		frame.setJMenuBar(menu);
+
+		// file menu
+		final JMenu fileMenu = new JMenu("File");
+		menu.add(fileMenu);
 
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
@@ -468,11 +446,11 @@ public class GUI {
 		fileMenu.add(exit);
 		exit.addActionListener(arg0 -> System.exit(0));
 
-		menu.add(fileMenu);
 		// end file menu
 
 		// help menu
 		final JMenu helpMenu = new JMenu("Help");
+		menu.add(helpMenu);
 
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
@@ -480,21 +458,17 @@ public class GUI {
 				GUI.class.getResource("/SpriteAnimator/images/map.png")
 			);
 		peeps.setIcon(mapIcon);
+		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true));
 		helpMenu.add(peeps);
 
-		// Acknowledgements
-		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true));
-
-		menu.add(helpMenu);
 		// end help menu
 
 		// But what if Ganon dabs back?
-		ImageIcon ico = new ImageIcon(
-				GUI.class.getResource("/SpriteAnimator/images/DABSMALL.png")
-			);
-		ImageIcon icoTask = new ImageIcon(
-				GUI.class.getResource("/SpriteAnimator/images/DAB.png")
-			);
+		ImageIcon ico =
+			new ImageIcon(GUI.class.getResource("/SpriteAnimator/images/DABSMALL.png"));
+		ImageIcon icoTask =
+			new ImageIcon(GUI.class.getResource("/SpriteAnimator/images/DAB.png"));
+	
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());
 		icons.add(icoTask.getImage());
@@ -506,7 +480,7 @@ public class GUI {
 		l.putConstraint(SpringLayout.WEST, animator, 5,
 				SpringLayout.WEST, fullWrap);
 		l.putConstraint(SpringLayout.NORTH, animator, 5,
-				SpringLayout.SOUTH, fileName);
+				SpringLayout.NORTH, fullWrap);
 		fullWrap.add(animator);
 
 		// frame setting
@@ -548,15 +522,15 @@ public class GUI {
 		// read steps and count them
 		animator.addStepListener(new StepListener() {
 			public void eventReceived(StepEvent arg0) {
-				stepCur.setText(animator.getFrame());
+				stepCur.setText(animator.getStep());
 			}
 		});
 
-		// Updates frame info, but only in the correct mode
-		StepListener frameInfoWatcher = new StepListener() {
+		// Updates sprite info, but only in the correct mode
+		StepListener spriteInfoWatcher = new StepListener() {
 			public void eventReceived(StepEvent arg0) {
 				try {
-					frameInfo.setText(animator.getFrameInfo());
+					spriteInfo.setText(animator.getSpriteInfo());
 				} catch (Exception e) {
 					// nothing
 				}
@@ -583,40 +557,37 @@ public class GUI {
 				stepBtn.setEnabled(btnAllowed("step", mode));
 				slowerBtn.setEnabled(btnAllowed("speed", mode));
 				fasterBtn.setEnabled(btnAllowed("speed", mode));
+
 				if (!btnAllowed("speed", mode)) {
 					speedLevel.setText("");
 				}
+
 				String stepWord;
 				switch (mode) {
 					case 0 :
-						stepWord = "Pause";
-						animator.removeStepListener(frameInfoWatcher);
-						break;
-					case 1 :
-						stepWord = "Step";
-						animator.addStepListener(frameInfoWatcher);
-						break;
 					case 2 :
 						stepWord = "Pause";
-						animator.removeStepListener(frameInfoWatcher);
+						animator.removeStepListener(spriteInfoWatcher);
 						break;
+					case 1 :
 					default :
 						stepWord = "Step";
-						animator.removeStepListener(frameInfoWatcher);
+						animator.addStepListener(spriteInfoWatcher);
 						break;
 				}
+
 				stepBtn.setText(stepWord);
 				modeOptions.setSelectedIndex(mode);
 				playBtn.setEnabled(!animator.isRunning());
 
 				try {
-					frameInfo.setText(animator.getFrameInfo());
+					spriteInfo.setText(animator.getSpriteInfo());
 				} catch (Exception e) {
 					// nothing
 				}
 			});
 
-		// listen for Zoom changes
+		// listen for zoom changes
 		animator.addZoomListener(
 			arg0 -> {
 				bigBtn.setEnabled(!animator.tooBig());
