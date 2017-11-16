@@ -59,7 +59,7 @@ public class SpriteAnimator extends Component {
 	private int step; // animation step (not 0 indexed)
 	private int maxStep; // highest animation step (not 0 indexed)
 	private boolean running; // self-running status
-	private int zoom = 3; // default zoom
+	private int zoom = 2; // default zoom
 	private Anime[] steps = null; // each step of animation, as an object
 	private Timer tick; // runs for steps
 	private TimerTask next; // controls steps
