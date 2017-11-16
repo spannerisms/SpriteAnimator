@@ -80,6 +80,7 @@ public class SpriteData {
 				(this.col == s.col) &&
 				(this.x == s.x) &&
 				(this.y == s.y) &&
-				(this.d == s.d);
+				(this.d == s.d) &&
+				(this.isZap == s.isZap);
 	}
 }
