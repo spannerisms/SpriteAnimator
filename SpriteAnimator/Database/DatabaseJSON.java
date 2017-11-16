@@ -10,7 +10,7 @@ public class DatabaseJSON {
 	public static final JSONObject ALL_DATA;
 
 	private static final String DATA_PATH =
-			"AnimationData.json";
+			"/SpriteAnimator/Database/AnimationData.json";
 	static {
 		StringBuilder ret = new StringBuilder();
 		try {
