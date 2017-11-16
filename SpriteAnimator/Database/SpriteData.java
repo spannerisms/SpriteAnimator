@@ -41,7 +41,7 @@ public class SpriteData {
 		x = pos.getInt(0);
 		y = pos.getInt(1);
 		d = DrawSize.valueOf(jo.getString("size"));
-		
+
 		boolean equipment;
 		try {
 			equipment = jo.getBoolean("isEquipment");
@@ -50,7 +50,7 @@ public class SpriteData {
 		}
 
 		isEquipment = equipment;
-		
+
 		boolean zap;
 		try {
 			zap = jo.getBoolean("useZapMail");
@@ -58,7 +58,7 @@ public class SpriteData {
 			zap = false;
 		}
 		isZap = zap;
-		
+
 		Transformation t1;
 		try {
 			t1 = Transformation.valueOf(jo.getString("trans"));
