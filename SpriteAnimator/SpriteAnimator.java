@@ -561,7 +561,6 @@ public class SpriteAnimator extends Component {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	/*
