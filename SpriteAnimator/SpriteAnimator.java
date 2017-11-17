@@ -561,6 +561,7 @@ public class SpriteAnimator extends Component {
 		if (steps == null || steps[step] == null) {
 			return;
 		}
+
 		// catch other errors
 		try {
 			Anime t = steps[step];
@@ -728,7 +729,7 @@ public class SpriteAnimator extends Component {
 		});
 
 		this.addMouseMotionListener(new MouseMotionListener() {
-			final int WAIT_TIME = 4;
+			final int WAIT_TIME = 3;
 			int throttle = WAIT_TIME;
 
 			public void mouseDragged(MouseEvent arg0) {
@@ -750,8 +751,8 @@ public class SpriteAnimator extends Component {
 	 * Moves to a point
 	 */
 	private void moveToPoint(Point p) {
-		posX = (p.x - 8) / zoom - offset(posX); // subtract 8 to use the middle of sprite
-		posY = (p.y - 8) / zoom - offset(posY);
+		posX = (p.x / zoom) - 8 - offset(posX); // subtract 8 to use the middle of sprite
+		posY = (p.y / zoom) - 8 - offset(posY);
 
 		if (posX > BG_WIDTH - 18) { // try to pad a little
 			posX = BG_WIDTH - 18;
