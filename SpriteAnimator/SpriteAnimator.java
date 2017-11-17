@@ -550,7 +550,6 @@ public class SpriteAnimator extends JComponent {
 	 * Draw every sprite
 	 */
 	public void paint(Graphics g) {
-		
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom); // zoom in
 		int xOffset = offset(posX);
