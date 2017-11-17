@@ -574,8 +574,7 @@ public class SpriteAnimator extends Component {
 	 * Change listeners
 	 */
 	/**
-	 * Step listeners look for step advances.
-	 * @param s
+	 * Step listeners look for step advances
 	 */
 	public synchronized void addStepListener(StepListener s) {
 		stepListen.add(s);
@@ -594,7 +593,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Speed listeners look for changes in speed.
+	 * Speed listeners look for changes in speed
 	 * @param s
 	 */
 	public synchronized void addSpeedListener(SpeedListener s) {
@@ -610,7 +609,7 @@ public class SpriteAnimator extends Component {
 	}
 
 	/**
-	 * Mode listeners look for changes in animation mode.
+	 * Mode listeners look for changes in animation mode
 	 * @param s
 	 */
 	public synchronized void addModeListener(ModeListener s) {
@@ -686,7 +685,7 @@ public class SpriteAnimator extends Component {
 		for (int i = 0; i < steps.length; i++) { // for each animation step
 			StepData stepX = config.get(i);
 			int sprCount = stepX.countSprites();
-			
+
 			Sprite[] list = new Sprite[sprCount]; // list of sprites for step
 			for (int j = 0; j < sprCount; j++) { // for each sprite in step
 				SpriteData curSprite = stepX.getSprite(j);
