@@ -42,14 +42,7 @@ public class SpriteData {
 		y = pos.getInt(1);
 		d = DrawSize.valueOf(jo.getString("size"));
 
-		boolean equipment;
-		try {
-			equipment = jo.getBoolean("isEquipment");
-		} catch (JSONException e) {
-			equipment = false;
-		}
-
-		isEquipment = equipment;
+		isEquipment = row.isEquipment;
 
 		boolean zap;
 		try {

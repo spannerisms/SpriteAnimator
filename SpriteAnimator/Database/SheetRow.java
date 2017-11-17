@@ -1,76 +1,74 @@
 package SpriteAnimator.Database;
 
 public enum SheetRow {
-	A (0, true),
-	B (1, true),
-	C (2, true),
-	D (3, true),
-	E (4, true),
-	F (5, true),
-	G (6, true),
-	H (7, true),
-	I (8, true),
-	J (9, true),
-	K (10, true),
-	L (11, true),
-	M (12, true),
-	N (13, true),
-	O (14, true),
-	P (15, true),
-	Q (16, true),
-	R (17, true),
-	S (18, true),
-	T (19, true),
-	U (20, true),
-	V (21, true),
-	W (22, true),
-	X (23, true),
-	Y (24, true),
-	Z (25, true),
-	AA (26, true),
-	ALPHA (26, true),
-	AB (27, true),
-	BETA (27, true),
+	A (0, true, false),
+	B (1, true, false),
+	C (2, true, false),
+	D (3, true, false),
+	E (4, true, false),
+	F (5, true, false),
+	G (6, true, false),
+	H (7, true, false),
+	I (8, true, false),
+	J (9, true, false),
+	K (10, true, false),
+	L (11, true, false),
+	M (12, true, false),
+	N (13, true, false),
+	O (14, true, false),
+	P (15, true, false),
+	Q (16, true, false),
+	R (17, true, false),
+	S (18, true, false),
+	T (19, true, false),
+	U (20, true, false),
+	V (21, true, false),
+	W (22, true, false),
+	X (23, true, false),
+	Y (24, true, false),
+	Z (25, true, false),
+	AA (26, true, false),
+	ALPHA (26, true, false),
+	AB (27, true, false),
+	BETA (27, true, false),
 	// equipment
 	// swords
-	SWORD (0), // use generic sword and swap later
-	FSWORD (0),
-	MSWORD (2),
-	TSWORD (4),
-	BSWORD (6),
+	SWORD (0, false, false), // use generic sword and swap later
+	FSWORD (0, false, false),
+	MSWORD (2, false, false),
+	TSWORD (4, false, false),
+	BSWORD (6, false, false),
 	// shields
-	SHIELD (8), // use any shield and swap later
-	FSHIELD (8),
-	RSHIELD (9),
-	MSHIELD (10),
+	SHIELD (8, false, false), // use any shield and swap later
+	FSHIELD (8, false, false),
+	RSHIELD (9, false, false),
+	MSHIELD (10, false, false),
 	// items
-	SHADOW (7),
-	ITEMSHADOW (7),
-	BOOK (7),
-	PENDANT (7),
-	CRYSTAL (7),
-	BUSH (7),
-	CANE (11),
-	ROD (12),
-	HAMMER (13),
-	HOOKSHOT (14),
-	BOOMERANG (14),
-	NET (15),
-	BOW (16),
-	SHOVEL (17),
-	DUCK (17),
-	BED (18),
-	GRASS (20);
+	SHADOW (7, false, false),
+	ITEMSHADOW (7, false, true),
+	BOOK (7, false, true),
+	PENDANT (7, false, true),
+	CRYSTAL (7, false, true),
+	BUSH (7, false, true),
+	CANE (11, false, true),
+	ROD (12, false, true),
+	HAMMER (13, false, true),
+	HOOKSHOT (14, false, true),
+	BOOMERANG (14, false, true),
+	NET (15, false, true),
+	BOW (16, false, true),
+	SHOVEL (17, false, true),
+	DUCK (17, false, true),
+	BED (18, false, true),
+	GRASS (20, false, true);
 
 	public final int val;
 	public final boolean isLinkPart;
+	public final boolean isEquipment;
 
-	private SheetRow(int n) {
-		this(n, false);
-	}
-
-	private SheetRow(int n, boolean isLink) {
+	private SheetRow(int n, boolean isLink, boolean isEquipment) {
 		val = n;
 		isLinkPart = isLink;
+		this.isEquipment = isEquipment;
 	}
 }
