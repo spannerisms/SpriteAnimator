@@ -479,8 +479,12 @@ public class GUI {
 		setAllSizes(animator, new Dimension(550, 550));
 		l.putConstraint(SpringLayout.WEST, animator, 5,
 				SpringLayout.WEST, fullWrap);
+		l.putConstraint(SpringLayout.EAST, animator, -5,
+				SpringLayout.WEST, controls);
 		l.putConstraint(SpringLayout.NORTH, animator, 5,
 				SpringLayout.NORTH, fullWrap);
+		l.putConstraint(SpringLayout.SOUTH, animator, -5,
+				SpringLayout.SOUTH, fullWrap);
 		fullWrap.add(animator);
 
 		// frame setting
