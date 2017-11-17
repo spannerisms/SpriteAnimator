@@ -3,7 +3,6 @@ package SpriteAnimator;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -165,7 +164,7 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Set image mode and reset.
+	 * Set image mode and reset
 	 * <ul style="list-style:none">
 	 * <li>{@code 0} - normal animation</li>
 	 * <li>{@code 1} - step-by-step</li>
@@ -251,7 +250,7 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Fires every event to refresh the GUI.
+	 * Fires every event to refresh the GUI
 	 */
 	public void firePurge() {
 		fireStepEvent();
@@ -354,14 +353,14 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Compares current step speed to maximum speed allowed.
+	 * Compares current step speed to maximum speed allowed
 	 */
 	public boolean atMaxSpeed() {
 		return speed == MAXSPEED;
 	}
 
 	/**
-	 * Compares current step speed to minimum speed allowed.
+	 * Compares current step speed to minimum speed allowed
 	 */
 	public boolean atMinSpeed() {
 		return (speed * -1) == MAXSPEED;
@@ -628,7 +627,7 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Zoom listeners look for changes in zoom level.
+	 * Zoom listeners look for changes in zoom level
 	 * @param s
 	 */
 	public synchronized void addZoomListener(ZoomListener s) {
@@ -670,7 +669,7 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Makes an array of {@link Sprite}s based on the step data.
+	 * Makes an array of {@link Sprite}s based on the step data
 	 */
 	// @link Sprite - lol get it?
 	private void makeAnimation() {
