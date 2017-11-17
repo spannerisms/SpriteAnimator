@@ -21,6 +21,7 @@ public class StepData {
 		}
 	}
 
+	// make a step from json data
 	private StepData(JSONObject jo) {
 		JSONArray sprites = (JSONArray) jo.get("sprites");
 		for (Object o : sprites) {
@@ -54,7 +55,6 @@ public class StepData {
 		}
 
 		l = jo.getInt("length");
-		
 	}
 
 	public int countSprites() {
@@ -72,10 +72,6 @@ public class StepData {
 	/**
 	 * Creates a new {@code StepData} object based on this one,
 	 * but with the requested changes
-	 * @param swordLevel
-	 * @param shieldLevel
-	 * @param shadow
-	 * @param showEquipment
 	 */
 	public StepData customizeStep(int swordLevel, int shieldLevel,
 			boolean showShadow, boolean showEquipment) {
@@ -158,9 +154,6 @@ public class StepData {
 
 	/**
 	 * Merges any and all consecutive and identical frames
-	 * @param a
-	 * @param b
-	 * @return
 	 */
 	public static ArrayList<StepData> mergeAll(ArrayList<StepData> list) {
 		ArrayList<StepData> ret = new ArrayList<StepData>();
