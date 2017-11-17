@@ -476,7 +476,6 @@ public class GUI {
 
 		// other frame organization
 		final SpriteAnimator animator = new SpriteAnimator();
-		setAllSizes(animator, new Dimension(550, 550));
 		l.putConstraint(SpringLayout.WEST, animator, 5,
 				SpringLayout.WEST, fullWrap);
 		l.putConstraint(SpringLayout.EAST, animator, -5,

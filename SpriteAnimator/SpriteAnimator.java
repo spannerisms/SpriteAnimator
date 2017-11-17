@@ -535,8 +535,9 @@ public class SpriteAnimator extends Component {
 	 */
 	private int offset(int i) {
 		int offset = 0;
-		if (zoom > 2) {
-			offset = -i + 75 - 10 * (zoom - 1); // these numbers are random, because I'm stupid
+		if (this.getWidth() < zoom * BG_WIDTH - 20 ||
+				this.getHeight() < zoom * BG_HEIGHT - 20) {
+			offset = -i + 100 - 5 * (zoom - 1); // these numbers are random, because I'm stupid
 			if (offset > 0) { // don't offset at all if the top left corner is at the origin
 				offset = 0;
 			}
