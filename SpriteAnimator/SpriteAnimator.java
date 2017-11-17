@@ -1,9 +1,9 @@
 package SpriteAnimator;
 
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,13 +15,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 
 import SpriteAnimator.Database.Animation;
 import SpriteAnimator.Database.SpriteData;
 import SpriteAnimator.Database.StepData;
 import SpriteAnimator.Listeners.*;
 
-public class SpriteAnimator extends Component {
+public class SpriteAnimator extends JComponent {
 	// version and serial
 	public static final String VERSION = "v1.5";
 	private static final long serialVersionUID = 2114886855236406900L;
@@ -549,6 +550,7 @@ public class SpriteAnimator extends Component {
 	 * Draw every sprite
 	 */
 	public void paint(Graphics g) {
+		
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(zoom, zoom); // zoom in
 		int xOffset = offset(posX);
