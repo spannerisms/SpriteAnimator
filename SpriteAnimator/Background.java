@@ -17,6 +17,7 @@ public enum Background {
 		// meme rooms
 		SPIKE_CAVE ("Spike cave", "spikecave"),
 		TILE_ROOM ("Tile room", "tileroom"),
+		EXPLORATION_GLITCH ("Exploration glitch", "explorationglitch"),
 		// light world dungeons
 		EASTERN_PALACE ("Eastern Palace", "dungeon-easternpalace"),
 		DESERT_PALACE ("Desert Palace", "dungeon-desertpalace"),
