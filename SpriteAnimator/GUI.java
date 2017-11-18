@@ -468,7 +468,7 @@ public class GUI {
 			new ImageIcon(GUI.class.getResource("/SpriteAnimator/images/DABSMALL.png"));
 		ImageIcon icoTask =
 			new ImageIcon(GUI.class.getResource("/SpriteAnimator/images/DAB.png"));
-	
+
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());
 		icons.add(icoTask.getImage());
@@ -508,7 +508,6 @@ public class GUI {
 		// have to set a blank file instead
 		final File EEE = new File("");
 
-		// TODO: uncomment this for exports
 		explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
 		// clear focusability of all useless components
@@ -623,9 +622,9 @@ public class GUI {
 				if (option == JFileChooser.CANCEL_OPTION) {
 					return;
 				}
-				String n = "";
 
 				// read the file
+				String n = "";
 				try {
 					n = explorer.getSelectedFile().getPath();
 					loadSprite(animator, n);
