@@ -33,7 +33,7 @@ public enum Background {
 		GANONS_TOWER ("Ganon's Tower", "dungeon-ganonstower"),
 		// boss rooms
 		MOLDORM ("Moldorm", "boss-moldorm"),
-		ARGHUS ("Arrghus", "boss-arrghus"),
+		ARRGHUS ("Arrghus", "boss-arrghus"),
 		MOTHULA ("Mothula", "boss-mothula"),
 		BLIND ("Blind", "boss-blind"),
 		VITREOUS ("Vitreous", "boss-vitreous");
