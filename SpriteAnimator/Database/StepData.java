@@ -170,7 +170,6 @@ public class StepData {
 				} else {
 					break matchFind;
 				}
-				
 			}
 			pos++;
 			ret.add(new StepData(curPose, curLength));
