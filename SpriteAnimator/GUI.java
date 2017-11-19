@@ -32,7 +32,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -96,21 +95,10 @@ public class GUI {
 	public void printGUI() throws IOException {
 		// try to set LaF
 		try {
-			UIManager.setLookAndFeel("metal");
-		} catch (UnsupportedLookAndFeelException
-				| ClassNotFoundException
-				| InstantiationException
-				| IllegalAccessException e) {
-			// try to set System default
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (UnsupportedLookAndFeelException
-					| ClassNotFoundException
-					| InstantiationException
-					| IllegalAccessException e2) {
-					// do nothing
-			} //end System
-		} // end Metal
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e2) {
+				// do nothing
+		} //end System
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
