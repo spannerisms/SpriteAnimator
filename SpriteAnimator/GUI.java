@@ -126,6 +126,8 @@ public class GUI {
 
 		l.putConstraint(SpringLayout.EAST, controls, -5,
 				SpringLayout.EAST, fullWrap);
+		l.putConstraint(SpringLayout.WEST, controls, -250,
+				SpringLayout.EAST, fullWrap);
 		l.putConstraint(SpringLayout.NORTH, controls, 5,
 				SpringLayout.NORTH, frame);
 		frame.add(controls);
