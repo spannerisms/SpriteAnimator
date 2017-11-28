@@ -39,7 +39,7 @@ public enum SheetRow {
 	TSWORD (4, false, false),
 	BSWORD (6, false, false),
 	// shields
-	SHIELD (8, false, false), // use any shield and swap later
+	SHIELD (8, false, false), // use generic shield and swap later
 	FSHIELD (8, false, false),
 	RSHIELD (9, false, false),
 	MSHIELD (10, false, false),
