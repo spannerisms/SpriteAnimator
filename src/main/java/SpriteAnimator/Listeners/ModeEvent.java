@@ -1,6 +1,7 @@
 package SpriteAnimator.Listeners;
 
 import java.util.EventObject;
+
 import SpriteAnimator.SpriteAnimator;
 
 public class ModeEvent extends EventObject {
