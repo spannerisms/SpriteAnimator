@@ -36,6 +36,7 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import SpriteManipulator.*;
+import animator.cellsearch.CellFrame;
 import animator.database.*;
 
 public class GUI {
@@ -427,11 +428,17 @@ public class GUI {
 		final JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
 
+		// reverse lookup
+		CellFrame looker = new CellFrame(frame);
+		final JMenuItem lookUp = new JMenuItem("Sprite lookup");
+		ImageIcon net = new ImageIcon(GUI.class.getResource("/images/net.png"));
+		lookUp.setIcon(net);
+		fileMenu.add(lookUp);
+		lookUp.addActionListener(arg0 -> looker.setVisible(true));
+
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
-		ImageIcon mirror = new ImageIcon(
-				GUI.class.getResource("/images/mirror.png")
-			);
+		ImageIcon mirror = new ImageIcon(GUI.class.getResource("/images/mirror.png"));
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
 		exit.addActionListener(arg0 -> System.exit(0));
@@ -444,9 +451,7 @@ public class GUI {
 
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
-		ImageIcon mapIcon = new ImageIcon(
-				GUI.class.getResource("/images/map.png")
-			);
+		ImageIcon mapIcon = new ImageIcon(GUI.class.getResource("/images/map.png"));
 		peeps.setIcon(mapIcon);
 		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true));
 		helpMenu.add(peeps);
@@ -454,10 +459,8 @@ public class GUI {
 		// end help menu
 
 		// But what if Ganon dabs back?
-		ImageIcon ico =
-			new ImageIcon(GUI.class.getResource("/images/DABSMALL.png"));
-		ImageIcon icoTask =
-			new ImageIcon(GUI.class.getResource("/images/DAB.png"));
+		ImageIcon ico = new ImageIcon(GUI.class.getResource("/images/DABSMALL.png"));
+		ImageIcon icoTask = new ImageIcon(GUI.class.getResource("/images/DAB.png"));
 
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());
@@ -637,6 +640,7 @@ public class GUI {
 
 				// reset animator, forcing it to update
 				try {
+					looker.setSprite(animator.getGreenMail());
 					animator.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing
@@ -673,6 +677,7 @@ public class GUI {
 
 				// reset animator, forcing it to update
 				try {
+					looker.setSprite(animator.getGreenMail());
 					animator.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing

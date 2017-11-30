@@ -61,7 +61,11 @@ public class StepData {
 		return sprites.size();
 	}
 
-	public ArrayList<SpriteData> getSprites() {
+	public SpriteData[] getSprites() {
+		return sprites.toArray(new SpriteData[sprites.size()]);
+	}
+
+	private ArrayList<SpriteData> getSpritesList() {
 		return sprites;
 	}
 
@@ -136,7 +140,7 @@ public class StepData {
 		StepData f = (StepData) o;
 
 		boolean ret = true;
-		ArrayList<SpriteData> fSpr = f.getSprites();
+		ArrayList<SpriteData> fSpr = f.getSpritesList();
 		if (fSpr.size() != sprites.size()) { // compare number of sprites first
 			return false;
 		}
@@ -160,7 +164,7 @@ public class StepData {
 		int pos = 0; // current position, changes after merging to prevent double merge
 		while (pos < list.size()) {
 			StepData cur = list.get(pos);
-			ArrayList<SpriteData> curPose = cur.getSprites();
+			ArrayList<SpriteData> curPose = cur.getSpritesList();
 			int curLength = cur.l;
 			matchFind:
 			for (int i = pos+1; i < list.size(); i++, pos++) {

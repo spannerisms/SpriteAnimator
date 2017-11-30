@@ -131,6 +131,10 @@ public enum Animation {
 		return name;
 	}
 
+	public StepData[] getSteps() {
+		return steps.toArray(new StepData[steps.size()]);
+	}
+
 	public ArrayList<StepData> customizeMergeAndFinalize(int swordLevel, int shieldLevel,
 			boolean showShadow, boolean showEquipment, boolean showNeutral) {
 		ArrayList<StepData> customized = new ArrayList<StepData>();

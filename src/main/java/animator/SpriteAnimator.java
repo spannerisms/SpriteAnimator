@@ -142,6 +142,16 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
+	 * Get first image
+	 */
+	public BufferedImage getGreenMail() {
+		if (mailImages == null) {
+			return null;
+		}
+		return mailImages[0];
+	}
+
+	/**
 	 * Set animation ID
 	 * @param id
 	 */

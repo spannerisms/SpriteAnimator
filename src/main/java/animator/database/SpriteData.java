@@ -2,6 +2,8 @@ package animator.database;
 
 import org.json.*;
 
+import animator.cellsearch.SpriteCell;
+
 public class SpriteData {
 	// class constants
 	// Fighter, Master, Tempered, Butter
@@ -75,5 +77,12 @@ public class SpriteData {
 				(this.y == s.y) &&
 				(this.d == s.d) &&
 				(this.isZap == s.isZap);
+	}
+
+	public boolean equalsIndex(SpriteCell cell) {
+		return (this.row == cell.row &&
+				this.col == cell.c &&
+				this.d == cell.d);
+				
 	}
 }
