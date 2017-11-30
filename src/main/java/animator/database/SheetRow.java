@@ -1,4 +1,4 @@
-package SpriteAnimator.Database;
+package animator.database;
 
 public enum SheetRow {
 	A (0, true, false),

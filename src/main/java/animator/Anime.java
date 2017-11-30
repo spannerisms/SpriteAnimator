@@ -1,8 +1,8 @@
-package SpriteAnimator;
+package animator;
 
 import java.awt.Graphics2D;
 
-import SpriteAnimator.Database.StepData;
+import animator.database.StepData;
 
 public class Anime {
 	private int length; // duration

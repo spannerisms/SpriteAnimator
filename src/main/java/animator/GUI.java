@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package animator;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -35,9 +35,9 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import SpriteAnimator.Database.*;
-import SpriteAnimator.Listeners.*;
 import SpriteManipulator.*;
+import animator.database.*;
+import animator.listeners.*;
 
 public class GUI {
 	// version number
@@ -398,7 +398,8 @@ public class GUI {
 				new String[]{
 						"MikeTrethewey", // God dammit, stop being so helpful
 						"Zarby89", // spr conversion
-						"Roxas232" // reload button
+						"Roxas232", // reload button
+						"Hyphen-ated" // mavenizing shit
 				}));
 		peepsList.append("\n\nResources and development:\n");
 		peepsList.append(String.join(", ",

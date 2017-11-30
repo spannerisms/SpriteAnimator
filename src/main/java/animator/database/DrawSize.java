@@ -1,4 +1,4 @@
-package SpriteAnimator.Database;
+package animator.database;
 
 public enum DrawSize {
 	FULL (0, 0, 16, 16), // old token: F

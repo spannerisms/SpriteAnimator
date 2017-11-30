@@ -1,4 +1,4 @@
-package SpriteAnimator.Database;
+package animator.database;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

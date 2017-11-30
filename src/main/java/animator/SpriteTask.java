@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package animator;
 
 import java.util.TimerTask;
 

@@ -1,4 +1,4 @@
-package SpriteAnimator;
+package animator;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,14 +16,14 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-import SpriteAnimator.Database.Animation;
-import SpriteAnimator.Database.SpriteData;
-import SpriteAnimator.Database.StepData;
-import SpriteAnimator.Listeners.*;
+import animator.database.Animation;
+import animator.database.SpriteData;
+import animator.database.StepData;
+import animator.listeners.*;
 
 public class SpriteAnimator extends JComponent {
 	// version and serial
-	public static final String VERSION = "v1.6";
+	public static final String VERSION = "v1.7";
 	private static final long serialVersionUID = 2114886855236406900L;
 
 	// set equipment image

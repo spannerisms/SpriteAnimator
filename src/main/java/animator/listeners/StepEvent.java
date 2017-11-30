@@ -1,8 +1,8 @@
-package SpriteAnimator.Listeners;
+package animator.listeners;
 
 import java.util.EventObject;
 
-import SpriteAnimator.SpriteAnimator;
+import animator.SpriteAnimator;
 
 public class StepEvent extends EventObject {
 	private static final long serialVersionUID = -5576103844258368996L;

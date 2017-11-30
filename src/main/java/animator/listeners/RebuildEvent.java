@@ -1,8 +1,8 @@
-package SpriteAnimator.Listeners;
+package animator.listeners;
 
 import java.util.EventObject;
 
-import SpriteAnimator.SpriteAnimator;
+import animator.SpriteAnimator;
 
 public class RebuildEvent extends EventObject {
 	private static final long serialVersionUID = 1344319042400882891L;

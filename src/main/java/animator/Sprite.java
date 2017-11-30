@@ -1,11 +1,11 @@
-package SpriteAnimator;
+package animator;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import SpriteAnimator.Database.DrawSize;
-import SpriteAnimator.Database.SpriteData;
-import SpriteAnimator.Database.Transformation;
+import animator.database.DrawSize;
+import animator.database.SpriteData;
+import animator.database.Transformation;
 
 public class Sprite {
 	// class constants
