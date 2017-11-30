@@ -69,13 +69,13 @@ As of v1.5, animation data is stored in a `json` format, free for anyone to use.
 SpriteAnimator imports the [`org.json` library](https://github.com/stleary/JSON-java) created by user stleary (Sean Leary).
 
 JSON file:
-* [/Database/AnimationData.json](https://github.com/fatmanspanda/SpriteAnimator/blob/master/SpriteAnimator/Database/AnimationData.json)
+* [/resources/AnimationData.json](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/AnimationData.json)
 
 Definitions:
-* key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/blob/master/SpriteAnimator/Database/SheetRow.java)
-* key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/blob/master/SpriteAnimator/Database/DrawSize.java)
-* key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/blob/master/SpriteAnimator/Database/Transformation.java)
+* key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/SpriteAnimator/Database/SheetRow.java)
+* key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/SpriteAnimator/Database/DrawSize.java)
+* key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/SpriteAnimator/Database/Transformation.java)
 
 Resources:
-* Item sprites: [/images/equipment.png](https://github.com/fatmanspanda/SpriteAnimator/blob/master/images/equipment.png)
+* Item sprites: [/resources/images/equipment.png](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/images/equipment.png)
 * Zap palette colors: `static final byte[][] ZAP_PALETTE` (signed bytes) in [SpriteManipulator/SpriteManipulator.java](https://github.com/fatmanspanda/SpriteManipulator/blob/master/SpriteManipulator.java)
