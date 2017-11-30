@@ -29,7 +29,7 @@ public class SpriteBlock extends JComponent {
 	private final boolean unused;
 
 	public final ActionEvent CLICK = new ActionEvent(this, 1, "click");
-	public final ActionEvent HOV = new ActionEvent(this, 2, "click");
+	public final ActionEvent HOV = new ActionEvent(this, 2, "hover");
 
 	public final SpriteCell cell;
 
