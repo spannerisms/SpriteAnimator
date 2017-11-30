@@ -19,7 +19,6 @@ import javax.swing.JComponent;
 import animator.database.Animation;
 import animator.database.SpriteData;
 import animator.database.StepData;
-import animator.listeners.*;
 
 public class SpriteAnimator extends JComponent {
 	// version and serial
@@ -76,11 +75,11 @@ public class SpriteAnimator extends JComponent {
 	private boolean showNeutral = true;
 
 	// change listeners
-	private List<StepListener> stepListen = new ArrayList<StepListener>();
-	private List<ModeListener> modeListen = new ArrayList<ModeListener>();
-	private List<SpeedListener> speedListen = new ArrayList<SpeedListener>();
-	private List<ZoomListener> zoomListen = new ArrayList<ZoomListener>();
-	private List<RebuildListener> rebuildListen = new ArrayList<RebuildListener>();
+	private List<AnimatorListener> stepListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> modeListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> speedListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> zoomListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> rebuildListen = new ArrayList<AnimatorListener>();
 
 	// default initialization
 	public SpriteAnimator() {
@@ -578,17 +577,17 @@ public class SpriteAnimator extends JComponent {
 	/**
 	 * Step listeners look for step advances
 	 */
-	public synchronized void addStepListener(StepListener s) {
+	public synchronized void addStepListener(AnimatorListener s) {
 		stepListen.add(s);
 	}
 
-	public synchronized void removeStepListener(StepListener s) {
+	public synchronized void removeStepListener(AnimatorListener s) {
 		stepListen.remove(s);
 	}
 
 	private synchronized void fireStepEvent() {
-		StepEvent s = new StepEvent(this);
-		Iterator<StepListener> listening = stepListen.iterator();
+		AnimatorEvent s = new AnimatorEvent(this);
+		Iterator<AnimatorListener> listening = stepListen.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
@@ -598,13 +597,13 @@ public class SpriteAnimator extends JComponent {
 	 * Speed listeners look for changes in speed
 	 * @param s
 	 */
-	public synchronized void addSpeedListener(SpeedListener s) {
+	public synchronized void addSpeedListener(AnimatorListener s) {
 		speedListen.add(s);
 	}
 
 	private synchronized void fireSpeedEvent() {
-		SpeedEvent s = new SpeedEvent(this);
-		Iterator<SpeedListener> listening = speedListen.iterator();
+		AnimatorEvent s = new AnimatorEvent(this);
+		Iterator<AnimatorListener> listening = speedListen.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
@@ -614,13 +613,13 @@ public class SpriteAnimator extends JComponent {
 	 * Mode listeners look for changes in animation mode
 	 * @param s
 	 */
-	public synchronized void addModeListener(ModeListener s) {
+	public synchronized void addModeListener(AnimatorListener s) {
 		modeListen.add(s);
 	}
 
 	private synchronized void fireModeEvent() {
-		ModeEvent s = new ModeEvent(this);
-		Iterator<ModeListener> listening = modeListen.iterator();
+		AnimatorEvent s = new AnimatorEvent(this);
+		Iterator<AnimatorListener> listening = modeListen.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
@@ -630,13 +629,13 @@ public class SpriteAnimator extends JComponent {
 	 * Zoom listeners look for changes in zoom level
 	 * @param s
 	 */
-	public synchronized void addZoomListener(ZoomListener s) {
+	public synchronized void addZoomListener(AnimatorListener s) {
 		zoomListen.add(s);
 	}
 
 	private synchronized void fireZoomEvent() {
-		ZoomEvent s = new ZoomEvent(this);
-		Iterator<ZoomListener> listening = zoomListen.iterator();
+		AnimatorEvent s = new AnimatorEvent(this);
+		Iterator<AnimatorListener> listening = zoomListen.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
@@ -656,13 +655,13 @@ public class SpriteAnimator extends JComponent {
 	 * and as such should also prompt a "hard reset" from the listener.
 	 * @param s
 	 */
-	public synchronized void addRebuildListener(RebuildListener s) {
+	public synchronized void addRebuildListener(AnimatorListener s) {
 		rebuildListen.add(s);
 	}
 
 	private synchronized void fireRebuildEvent() {
-		RebuildEvent s = new RebuildEvent(this);
-		Iterator<RebuildListener> listening = rebuildListen.iterator();
+		AnimatorEvent s = new AnimatorEvent(this);
+		Iterator<AnimatorListener> listening = rebuildListen.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}

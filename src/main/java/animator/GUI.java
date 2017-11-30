@@ -37,7 +37,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import SpriteManipulator.*;
 import animator.database.*;
-import animator.listeners.*;
 
 public class GUI {
 	// version number
@@ -513,21 +512,20 @@ public class GUI {
 		 * Action listeners
 		 */
 		// read steps and count them
-		animator.addStepListener(new StepListener() {
-			public void eventReceived(StepEvent arg0) {
+		animator.addStepListener(
+			arg0 -> {
 				stepCur.setText(animator.getStep());
-			}
-		});
+			});
 
 		// Updates sprite info, but only in the correct mode
-		StepListener spriteInfoWatcher = new StepListener() {
-			public void eventReceived(StepEvent arg0) {
+		AnimatorListener spriteInfoWatcher =
+			arg0 -> {
 				try {
 					spriteInfo.setText(animator.getSpriteInfo());
 				} catch (Exception e) {
 					// nothing
 				}
-			}};
+			};
 
 		// listen for speed changes
 		animator.addSpeedListener(
