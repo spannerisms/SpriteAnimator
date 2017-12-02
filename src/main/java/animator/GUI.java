@@ -611,9 +611,7 @@ public class GUI {
 			arg0 -> {
 				explorer.setSelectedFile(EEE);
 				int option = explorer.showOpenDialog(loadBtn);
-				if (option == JFileChooser.CANCEL_OPTION) {
-					return;
-				}
+				if (option == JFileChooser.CANCEL_OPTION) { return; }
 
 				// read the file
 				String n = "";

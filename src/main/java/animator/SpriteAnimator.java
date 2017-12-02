@@ -156,9 +156,7 @@ public class SpriteAnimator extends JComponent {
 	 * @param id
 	 */
 	public void setAnimation(Animation a) {
-		if (mailImages == null) {
-			return;
-		}
+		if (mailImages == null) { return; }
 		anime = a;
 		makeAnimation();
 		fireRebuildEvent();
@@ -568,9 +566,7 @@ public class SpriteAnimator extends JComponent {
 		g2.drawImage(bg.getImage(), 0, 0, null);
 
 		// Catch null steps; but they shouldn't happen
-		if (steps == null || steps[step] == null) {
-			return;
-		}
+		if (steps == null || steps[step] == null) { return; }
 
 		// catch other errors
 		try {
@@ -682,9 +678,7 @@ public class SpriteAnimator extends JComponent {
 	 */
 	// @link Sprite - lol get it?
 	private void makeAnimation() {
-		if (mailImages == null) { // break if we have no images
-			return;
-		}
+		if (mailImages == null) { return; }// break if we have no images
 
 		// find which sheet to use for image
 		BufferedImage sheet;

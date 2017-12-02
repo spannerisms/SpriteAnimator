@@ -341,9 +341,7 @@ public enum SpriteCell {
 	}
 
 	private final void findAnimationFrames() {
-		if (!this.isUsed) {
-			return;
-		}
+		if (!this.isUsed) { return; }
 
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		String animName;
