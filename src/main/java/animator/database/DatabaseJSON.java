@@ -1,29 +1,34 @@
 package animator.database;
 
-import java.io.IOException;
-import java.net.URL;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
 import org.json.JSONObject;
 
 public class DatabaseJSON {
 	public static final JSONObject ALL_DATA;
 
-	private static final String DATA_PATH = "/AnimationData.json";
-
+	private static final String DATA_PATH =
+			"/AnimationData.json";
 	static {
-		URL url = Resources.getResource(DATA_PATH);
-
-		String text = null;
-
+		StringBuilder ret = new StringBuilder();
 		try {
-			text = Resources.toString(url, Charsets.UTF_8);
-		} catch (IOException e) {
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(
+							DatabaseJSON.class.getResourceAsStream(DATA_PATH),
+							StandardCharsets.UTF_8)
+					);
+			String line;
+			while ((line = br.readLine()) != null) {
+				ret.append(line);
+			}
+			br.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
 
-		ALL_DATA = new JSONObject(text);
+		ALL_DATA = new JSONObject(ret.toString());
 	}
 }
