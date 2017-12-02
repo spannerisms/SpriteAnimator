@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class DatabaseJSON {
 	public static final JSONObject ALL_DATA;
 
-	private static final String DATA_PATH = "AnimationData.json";
+	private static final String DATA_PATH = "/AnimationData.json";
 
 	static {
 		URL url = Resources.getResource(DATA_PATH);
