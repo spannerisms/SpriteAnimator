@@ -39,6 +39,8 @@ import SpriteManipulator.*;
 import animator.cellsearch.CellFrame;
 import animator.database.*;
 
+import static javax.swing.SpringLayout.*;
+
 public class GUI {
 	// version number
 	static final String VERSION = SpriteAnimator.VERSION;
@@ -124,12 +126,9 @@ public class GUI {
 		controls.setBorder(fullPad);
 		GridBagConstraints c = new GridBagConstraints();
 
-		l.putConstraint(SpringLayout.EAST, controls, -5,
-				SpringLayout.EAST, fullWrap);
-		l.putConstraint(SpringLayout.WEST, controls, -250,
-				SpringLayout.EAST, fullWrap);
-		l.putConstraint(SpringLayout.NORTH, controls, 5,
-				SpringLayout.NORTH, frame);
+		l.putConstraint(EAST, controls, -5, EAST, fullWrap);
+		l.putConstraint(WEST, controls, -250, EAST, fullWrap);
+		l.putConstraint(NORTH, controls, 5, NORTH, frame);
 		frame.add(controls);
 
 		// negative so everything can just ++
@@ -469,14 +468,10 @@ public class GUI {
 
 		// other frame organization
 		final SpriteAnimator animator = new SpriteAnimator();
-		l.putConstraint(SpringLayout.WEST, animator, 5,
-				SpringLayout.WEST, fullWrap);
-		l.putConstraint(SpringLayout.EAST, animator, -5,
-				SpringLayout.WEST, controls);
-		l.putConstraint(SpringLayout.NORTH, animator, 5,
-				SpringLayout.NORTH, fullWrap);
-		l.putConstraint(SpringLayout.SOUTH, animator, -5,
-				SpringLayout.SOUTH, fullWrap);
+		l.putConstraint(WEST, animator, 5, WEST, fullWrap);
+		l.putConstraint(EAST, animator, -5, WEST, controls);
+		l.putConstraint(NORTH, animator, 5, NORTH, fullWrap);
+		l.putConstraint(SOUTH, animator, -5, SOUTH, fullWrap);
 		fullWrap.add(animator);
 
 		// frame setting

@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import static SpriteManipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
 import static SpriteManipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
+import static javax.swing.SpringLayout.*;
 
 public class CellFrame extends JDialog {
 	private static final long serialVersionUID = 2205482111878391757L;
@@ -40,35 +41,26 @@ public class CellFrame extends JDialog {
 
 		// sheet controls
 		lister = new CellLister();
-		l.putConstraint(SpringLayout.NORTH, lister, 5,
-				SpringLayout.NORTH, this);
-		l.putConstraint(SpringLayout.WEST, lister, 5,
-				SpringLayout.WEST, this);
+		l.putConstraint(NORTH, lister, 5, NORTH, this);
+		l.putConstraint(WEST, lister, 5, WEST, this);
 		this.add(lister);
 
 		// image shown
 		JComboBox<SheetOption> sheet = new JComboBox<SheetOption>(SheetOption.values());
-		l.putConstraint(SpringLayout.NORTH, sheet, 5,
-				SpringLayout.NORTH, this);
-		l.putConstraint(SpringLayout.EAST, sheet, -15,
-				SpringLayout.EAST, this);
+		l.putConstraint(NORTH, sheet, 5, NORTH, this);
+		l.putConstraint(EAST, sheet, -15, EAST, this);
 		this.add(sheet);
 
 		// unused frames
 		JCheckBox showUnused = new JCheckBox("Hide unused sprites");
-		l.putConstraint(SpringLayout.NORTH, showUnused , 5,
-				SpringLayout.SOUTH, sheet);
-		l.putConstraint(SpringLayout.EAST, showUnused , 0,
-				SpringLayout.EAST, sheet);
+		l.putConstraint(NORTH, showUnused , 5, SOUTH, sheet);
+		l.putConstraint(EAST, showUnused , 0, EAST, sheet);
 		this.add(showUnused);
 
 		JLabel info = new JLabel("Step counts are with all sprites visible.");
-		l.putConstraint(SpringLayout.SOUTH, info, 0,
-				SpringLayout.SOUTH, lister);
-		l.putConstraint(SpringLayout.WEST, info, 15,
-				SpringLayout.EAST, lister);
-		l.putConstraint(SpringLayout.EAST,  info, 0,
-				SpringLayout.EAST, sheet);
+		l.putConstraint(SOUTH, info, 0, SOUTH, lister);
+		l.putConstraint(WEST, info, 15, EAST, lister);
+		l.putConstraint(EAST,  info, 0, EAST, sheet);
 		this.add(info);
 
 		// text for frames
@@ -84,14 +76,10 @@ public class CellFrame extends JDialog {
 		JScrollPane list = new JScrollPane(listed,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
-		l.putConstraint(SpringLayout.NORTH, list, 5,
-				SpringLayout.SOUTH, showUnused );
-		l.putConstraint(SpringLayout.SOUTH, list, -5,
-				SpringLayout.NORTH,  info);
-		l.putConstraint(SpringLayout.WEST, list, 15,
-				SpringLayout.EAST, lister);
-		l.putConstraint(SpringLayout.EAST, list, 0,
-				SpringLayout.EAST, sheet);
+		l.putConstraint(NORTH, list, 5, SOUTH, showUnused );
+		l.putConstraint(SOUTH, list, -5, NORTH,  info);
+		l.putConstraint(WEST, list, 15, EAST, lister);
+		l.putConstraint(EAST, list, 0, EAST, sheet);
 		this.add(list);
 
 		sheet.addItemListener(
