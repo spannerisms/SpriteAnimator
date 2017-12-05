@@ -270,7 +270,6 @@ public class SpriteAnimator extends JComponent {
 	/**
 	 * Reset speed to 0
 	 */
-	@SuppressWarnings("unused")
 	private void resetSpeed() {
 		setSpeed(0);
 	}
