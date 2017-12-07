@@ -12,8 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import static SpriteManipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
-import static SpriteManipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
+import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
+import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
 import static javax.swing.SpringLayout.*;
 
 public class CellFrame extends JDialog {

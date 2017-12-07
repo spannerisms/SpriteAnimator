@@ -35,16 +35,13 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import SpriteManipulator.*;
+import spritemanipulator.*;
 import animator.cellsearch.CellFrame;
 import animator.database.*;
 
 import static javax.swing.SpringLayout.*;
 
 public class GUI {
-	// version number
-	static final String VERSION = SpriteAnimator.VERSION;
-
 	private static final String[] ACCEPTED_FILE_TYPES =
 			new String[] { ZSPRFile.EXTENSION, "sfc" /*, "png"*/ };
 
@@ -104,7 +101,7 @@ public class GUI {
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
-		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
+		final JFrame frame = new JFrame("Sprite animated " + SpriteManipulator.ALTTPNG_VERSION);
 		final Dimension d = new Dimension(800, 600);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
@@ -379,6 +376,14 @@ public class GUI {
 
 		// control panel done
 
+		// other frame organization
+		final SpriteAnimator animated = new SpriteAnimator();
+		l.putConstraint(WEST, animated, 5, WEST, fullWrap);
+		l.putConstraint(EAST, animated, -5, WEST, controls);
+		l.putConstraint(NORTH, animated, 5, NORTH, fullWrap);
+		l.putConstraint(SOUTH, animated, -5, SOUTH, fullWrap);
+		fullWrap.add(animated);
+
 		// acknowledgements
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
@@ -435,6 +440,39 @@ public class GUI {
 		fileMenu.add(lookUp);
 		lookUp.addActionListener(arg0 -> looker.setVisible(true));
 
+		// zoom levels
+		MakeGifAtSize gifGuy = (a) -> {
+			String loc;
+			try {
+				loc = animated.makeGif(a);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame,
+						"Error making GIF",
+						"Dang",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			JOptionPane.showMessageDialog(frame,
+					"GIF written to: \n" + loc,
+					"OH YEAH!",
+					JOptionPane.PLAIN_MESSAGE);
+		};
+
+		// animated gifs
+		// small gif
+		final JMenuItem giffer = new JMenuItem("Make GIF");
+		ImageIcon cane = new ImageIcon(GUI.class.getResource("/images/cane.png"));
+		giffer.setIcon(cane);
+		fileMenu.add(giffer);
+		giffer.addActionListener(arg0 -> gifGuy.make(1));
+
+		// big gif
+		final int bigSize = 3;
+		final JMenuItem gifferBig = new JMenuItem("Make GIF (x" + bigSize + ")");
+		gifferBig.setIcon(cane);
+		fileMenu.add(gifferBig);
+		gifferBig.addActionListener(arg0 -> gifGuy.make(bigSize));
+
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
 		ImageIcon mirror = new ImageIcon(GUI.class.getResource("/images/mirror.png"));
@@ -465,14 +503,6 @@ public class GUI {
 		icons.add(ico.getImage());
 		icons.add(icoTask.getImage());
 		frame.setIconImages(icons);
-
-		// other frame organization
-		final SpriteAnimator animator = new SpriteAnimator();
-		l.putConstraint(WEST, animator, 5, WEST, fullWrap);
-		l.putConstraint(EAST, animator, -5, WEST, controls);
-		l.putConstraint(NORTH, animator, 5, NORTH, fullWrap);
-		l.putConstraint(SOUTH, animator, -5, SOUTH, fullWrap);
-		fullWrap.add(animator);
 
 		// frame setting
 		frame.setSize(d);
@@ -510,28 +540,28 @@ public class GUI {
 		 * Action listeners
 		 */
 		// read steps and count them
-		animator.addStepListener(
+		animated.addStepListener(
 			arg0 -> {
-				stepCur.setText(animator.getStep());
+				stepCur.setText(animated.getStep());
 			});
 
 		// Updates sprite info, but only in the correct mode
 		AnimatorListener spriteInfoWatcher =
 			arg0 -> {
 				try {
-					spriteInfo.setText(animator.getSpriteInfo());
+					spriteInfo.setText(animated.getSpriteInfo());
 				} catch (Exception e) {
 					// nothing
 				}
 			};
 
 		// listen for speed changes
-		animator.addSpeedListener(
+		animated.addSpeedListener(
 			arg0 -> {
-				if (btnAllowed("speed", animator.getMode())) {
-					fasterBtn.setEnabled(!animator.atMaxSpeed());
-					slowerBtn.setEnabled(!animator.atMinSpeed());
-					speedLevel.setText(animator.getSpeedPercent());
+				if (btnAllowed("speed", animated.getMode())) {
+					fasterBtn.setEnabled(!animated.atMaxSpeed());
+					slowerBtn.setEnabled(!animated.atMinSpeed());
+					speedLevel.setText(animated.getSpeedPercent());
 				} else {
 					speedLevel.setText("");
 					fasterBtn.setEnabled(false);
@@ -540,9 +570,9 @@ public class GUI {
 			});
 
 		// listen for mode changes
-		animator.addModeListener(
+		animated.addModeListener(
 			arg0 -> {
-				int mode = animator.getMode();
+				int mode = animated.getMode();
 				stepBtn.setEnabled(btnAllowed("step", mode));
 				slowerBtn.setEnabled(btnAllowed("speed", mode));
 				fasterBtn.setEnabled(btnAllowed("speed", mode));
@@ -556,50 +586,50 @@ public class GUI {
 					case 0 :
 					case 2 :
 						stepWord = "Pause";
-						animator.removeStepListener(spriteInfoWatcher);
+						animated.removeStepListener(spriteInfoWatcher);
 						break;
 					case 1 :
 					default :
 						stepWord = "Step";
-						animator.addStepListener(spriteInfoWatcher);
+						animated.addStepListener(spriteInfoWatcher);
 						break;
 				}
 
 				stepBtn.setText(stepWord);
 				modeOptions.setSelectedIndex(mode);
-				playBtn.setEnabled(!animator.isRunning());
+				playBtn.setEnabled(!animated.isRunning());
 
 				try {
-					spriteInfo.setText(animator.getSpriteInfo());
+					spriteInfo.setText(animated.getSpriteInfo());
 				} catch (Exception e) {
 					// nothing
 				}
 			});
 
 		// listen for zoom changes
-		animator.addZoomListener(
+		animated.addZoomListener(
 			arg0 -> {
-				bigBtn.setEnabled(!animator.tooBig());
-				lilBtn.setEnabled(!animator.vanillaSize());
-				zoomLevel.setText("x" + animator.getZoom());
+				bigBtn.setEnabled(!animated.tooBig());
+				lilBtn.setEnabled(!animated.vanillaSize());
+				zoomLevel.setText("x" + animated.getZoom());
 			});
 
 		// listen for display changes
-		animator.addRebuildListener(
+		animated.addRebuildListener(
 			arg0 -> {
 				try {
-					animator.hardReset();
+					animated.hardReset();
 				} catch (Exception e) {
 					// do nothing
 				}
-				stepMax.setText("/ " + animator.maxStep());
-				equipStatus.setText(animator.equipmentOn() ? "ON" : "OFF");
-				shadowStatus.setText(animator.shadowOn() ? "ON" : "OFF");
-				neutralStatus.setText(animator.neutralOn() ? "ON" : "OFF");
+				stepMax.setText("/ " + animated.maxStep());
+				equipStatus.setText(animated.equipmentOn() ? "ON" : "OFF");
+				shadowStatus.setText(animated.shadowOn() ? "ON" : "OFF");
+				neutralStatus.setText(animated.neutralOn() ? "ON" : "OFF");
 			});
 
 		// update GUI
-		animator.firePurge();
+		animated.firePurge();
 
 		// load sprite file
 		loadBtn.addActionListener(
@@ -612,7 +642,7 @@ public class GUI {
 				String n = "";
 				try {
 					n = explorer.getSelectedFile().getPath();
-					loadSprite(animator, n);
+					loadSprite(animated, n);
 				} catch (ZSPRFormatException e) {
 					JOptionPane.showMessageDialog(frame,
 							e.getMessage(),
@@ -631,10 +661,10 @@ public class GUI {
 					fileName.setText(n);
 				}
 
-				// reset animator, forcing it to update
+				// reset animated, forcing it to update
 				try {
-					looker.setSprite(animator.getGreenMail());
-					animator.setAnimation((Animation) animOptions.getSelectedItem());
+					looker.setSprite(animated.getGreenMail());
+					animated.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing
 				}
@@ -653,7 +683,7 @@ public class GUI {
 
 				// read the file
 				try {
-					loadSprite(animator, fileName.getText());
+					loadSprite(animated, fileName.getText());
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(frame,
 							"Error reading sprite",
@@ -668,10 +698,10 @@ public class GUI {
 					return;
 				}
 
-				// reset animator, forcing it to update
+				// reset animated, forcing it to update
 				try {
-					looker.setSprite(animator.getGreenMail());
-					animator.setAnimation((Animation) animOptions.getSelectedItem());
+					looker.setSprite(animated.getGreenMail());
+					animated.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					// nothing
 				}
@@ -681,10 +711,10 @@ public class GUI {
 		animOptions.addActionListener(
 			arg0 -> {
 				try {
-					animator.setAnimation((Animation) animOptions.getSelectedItem());
+					animated.setAnimation((Animation) animOptions.getSelectedItem());
 				} catch(Exception e) {
 					String animName = animOptions.getSelectedItem().toString();
-					animator.setAnimation(Animation.STAND);
+					animated.setAnimation(Animation.STAND);
 					animOptions.setSelectedIndex(0);
 					JOptionPane.showMessageDialog(frame,
 							"There's a problem with the animation:\n" +
@@ -702,7 +732,7 @@ public class GUI {
 		modeOptions.addActionListener(
 			arg0 -> {
 				try {
-					animator.setMode(modeOptions.getSelectedIndex());
+					animated.setMode(modeOptions.getSelectedIndex());
 				} catch (Exception e) {
 					// do nothing
 				}
@@ -711,40 +741,40 @@ public class GUI {
 		// zoom buttons
 		bigBtn.addActionListener(
 			arg0 -> {
-				animator.embiggen();
+				animated.embiggen();
 			});
 
 		lilBtn.addActionListener(
 			arg0 -> {
-				animator.ensmallen();
+				animated.ensmallen();
 			});
 
 		// speed buttons
 		fasterBtn.addActionListener(
 			arg0 -> {
-				animator.faster();
+				animated.faster();
 			});
 
 		slowerBtn.addActionListener(
 			arg0 -> {
-				animator.slower();
+				animated.slower();
 			});
 
 		// play button
 		playBtn.addActionListener(
 			arg0 -> {
-				animator.setMode(0);
+				animated.setMode(0);
 			});
 
 		// step button
 		stepBtn.addActionListener(
 			arg0 -> {
-				switch (animator.getMode()) {
+				switch (animated.getMode()) {
 					case 0 :
-						animator.pause();
+						animated.pause();
 						break;
 					case 1 :
-						animator.step();
+						animated.step();
 						break;
 				}
 			});
@@ -753,8 +783,8 @@ public class GUI {
 		resetBtn.addActionListener(
 			arg0 -> {
 				try {
-					animator.repaint();
-					animator.reset();
+					animated.repaint();
+					animated.reset();
 				} catch (Exception e) {
 					// do nothing
 				}
@@ -763,45 +793,45 @@ public class GUI {
 		// item toggle
 		equipBtn.addActionListener(
 			arg0 -> {
-				animator.switchEquipment();
+				animated.switchEquipment();
 			});
 
 		// shadow toggle
 		shadowBtn.addActionListener(
 			arg0 -> {
-				animator.switchShadow();
+				animated.switchShadow();
 			});
 
 		// neutral toggle
 		neutralBtn.addActionListener(
 			arg0 -> {
-				animator.switchNeutral();
+				animated.switchNeutral();
 			});
 
 		// gear settings
 		mailLevel.addActionListener(
 			arg0 -> {
 				int level = mailLevel.getSelectedIndex();
-				animator.setMail(level);
+				animated.setMail(level);
 			});
 
 		swordLevel.addActionListener(
 			arg0 -> {
 				int level = swordLevel.getSelectedIndex();
-				animator.setSword(level);
+				animated.setSword(level);
 			});
 
 		shieldLevel.addActionListener(
 			arg0 -> {
 				int level = shieldLevel.getSelectedIndex();
-				animator.setShield(level);
+				animated.setShield(level);
 			});
 
 		// background display
 		bgDisp.addActionListener(
 			arg0 -> {
 				Background bg = (Background) bgDisp.getSelectedItem();
-				animator.setBackground(bg);
+				animated.setBackground(bg);
 			});
 
 		// turn on
@@ -904,6 +934,8 @@ public class GUI {
 			throws IOException, ZSPRFormatException {
 		// read the file
 		String fileType = SpriteManipulator.getFileType(fileName);
+		String[] tempN = fileName.split("/");
+		String spriteName = tempN[tempN.length-1].replace("." + fileType,"");
 
 		// sprite data
 		byte[] spriteData;
@@ -927,6 +959,10 @@ public class GUI {
 		byte[][][] ebe = SpriteManipulator.makeSpr8x8(spriteData);
 		byte[][] palette = SpriteManipulator.getPal(palData);
 		BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
-		a.setImage(mails);
+		a.setSprite(spriteName, mails);
+	}
+
+	interface MakeGifAtSize {
+		void make(int s);
 	}
 }

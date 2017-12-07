@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 public enum Background {
 		// empty
 		EMPTY ("Empty", "empty"),
+		WHITE ("White", "empty (white)"),
 		// overworld areas
 		HOUSE ("House", "house"),
 		GRASS ("Grass", "grass"),

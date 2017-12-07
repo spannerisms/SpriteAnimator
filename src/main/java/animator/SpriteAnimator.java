@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,7 +24,6 @@ import animator.database.StepData;
 
 public class SpriteAnimator extends JComponent {
 	// version and serial
-	public static final String VERSION = "v1.7";
 	private static final long serialVersionUID = 2114886855236406900L;
 
 	// set equipment image
@@ -57,6 +58,7 @@ public class SpriteAnimator extends JComponent {
 	private int maxStep; // highest animation step (not 0 indexed)
 	private int zoom = 2; // default zoom
 	private boolean running; // self-running status
+	private String spriteName;
 	private Animation anime; // current animation
 	private Anime[] steps = null; // each step of animation, as an object
 	private BufferedImage[] mailImages = null; // sprite sheet
@@ -102,6 +104,10 @@ public class SpriteAnimator extends JComponent {
 		return m;
 	}
 
+	public String getSpriteName() {
+		return spriteName;
+	}
+
 	/**
 	 * Current step of current animation, not 0-indexed
 	 */
@@ -137,7 +143,8 @@ public class SpriteAnimator extends JComponent {
 	 * Set images to animate
 	 * @param image
 	 */
-	public void setImage(BufferedImage[] image) {
+	public void setSprite(String name, BufferedImage[] image) {
+		spriteName = name;
 		mailImages = image;
 	}
 
@@ -770,5 +777,43 @@ public class SpriteAnimator extends JComponent {
 		}
 
 		repaint();
+	}
+
+	public String makeGif(int z) throws Exception {
+		if (anime == null) {
+			throw new Exception();
+		}
+		System.out.println(z);
+		String zoomWord = (z > 1) ? String.format(" (x%s zoom)", z) : "";
+		File animGif = new File(spriteName + " - " + anime.toString() + zoomWord + ".gif");
+		FileOutputStream output = new FileOutputStream(animGif);
+
+		AnimatedGIFWriter writer = new AnimatedGIFWriter(false);
+		AnimatedGIFWriter.GIFFrame[] frames = new AnimatedGIFWriter.GIFFrame[steps.length];
+		BufferedImage cur;
+		Graphics2D g;
+		final int X = posX;
+		final int Y = posY;
+		final BufferedImage BG;
+		if (bg == Background.EMPTY) {
+			BG = Background.WHITE.getImage();
+		} else {
+			BG = bg.getImage();
+		}
+
+		for (int i = 0; i < steps.length; i++) {
+			Anime a = steps[i];
+			cur = new BufferedImage(BG_WIDTH * z, BG_HEIGHT * z, BufferedImage.TYPE_4BYTE_ABGR);
+
+			g = cur.createGraphics();
+			g.scale(z, z);
+			g.drawImage(BG, 0, 0, null);
+			a.draw(g, X, Y);
+
+			frames[i] = new AnimatedGIFWriter.GIFFrame(cur, a.getLength() * FPS);
+		}
+		writer.writeAnimatedGIF(frames, output);
+
+		return animGif.getPath();
 	}
 }

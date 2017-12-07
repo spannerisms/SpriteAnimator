@@ -24,7 +24,11 @@
             <artifactId>manip</artifactId>
             <version>1.0</version>
         </dependency>
-        
+        <dependency>
+            <groupId>com.icafe4j</groupId>
+            <artifactId>icafe</artifactId>
+            <version>1.1</version>
+        </dependency>
     </dependencies>
 
 

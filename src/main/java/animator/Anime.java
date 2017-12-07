@@ -38,6 +38,10 @@ public class Anime {
 		return ret;
 	}
 
+	public int getLength() {
+		return length;
+	}
+
 	/**
 	 * Send length of current frame
 	 * @param m - speed multiplier

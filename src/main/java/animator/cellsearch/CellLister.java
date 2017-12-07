@@ -12,8 +12,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import static animator.cellsearch.CellFrame.ZOOM;
-import static SpriteManipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
-import static SpriteManipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
+import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
+import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
 
 public class CellLister extends JComponent {
 	private static final long serialVersionUID = -1654440890005532326L;
