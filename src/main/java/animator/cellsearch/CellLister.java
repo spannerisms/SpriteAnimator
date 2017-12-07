@@ -18,31 +18,36 @@ import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
 public class CellLister extends JComponent {
 	private static final long serialVersionUID = -1654440890005532326L;
 
-	private static final Dimension D = new Dimension(SPRITE_SHEET_WIDTH * ZOOM + 2, SPRITE_SHEET_HEIGHT * ZOOM + 2);
+	private static final Dimension D = new Dimension(SPRITE_SHEET_WIDTH * ZOOM, SPRITE_SHEET_HEIGHT * ZOOM);
 
 	static final BufferedImage LINK;
 	static final BufferedImage INDEX_NAMES;
 	static final BufferedImage NOTHING;
-
+	static final BufferedImage CHECKER;
 	static {
 		BufferedImage temp;
 		try {
-			temp = ImageIO.read(CellLister.class.getResourceAsStream(
-					"/images/Vanilla Link.png"));
+			temp = ImageIO.read(CellLister.class.getResourceAsStream("/images/Vanilla Link.png"));
 		} catch (IOException e) {
 			temp = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 		}
 		LINK = temp;
 
 		try {
-			temp = ImageIO.read(CellLister.class.getResourceAsStream(
-					"/images/Index names.png"));
+			temp = ImageIO.read(CellLister.class.getResourceAsStream("/images/Index names.png"));
 		} catch (IOException e) {
 			temp = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 		}
 		INDEX_NAMES = temp;
 
 		NOTHING = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
+
+		try {
+			temp = ImageIO.read(CellLister.class.getResourceAsStream("/images/Checker.png"));
+		} catch (IOException e) {
+			temp = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
+		}
+		CHECKER = temp;
 	}
 
 	private SpriteBlock[] list = new SpriteBlock[SpriteCell.values().length];
@@ -88,6 +93,7 @@ public class CellLister extends JComponent {
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(ZOOM, ZOOM);
+		g2.drawImage(CHECKER, 0, 0, null);
 		g2.drawImage(curBGImg, 0, 0, null);
 		for (SpriteBlock c : list) {
 			c.paint(g);

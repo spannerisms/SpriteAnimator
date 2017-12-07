@@ -96,7 +96,7 @@ public class GUI {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e2) {
-				// do nothing
+			// do nothing
 		} //end System
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
@@ -304,6 +304,7 @@ public class GUI {
 		final JButton lilBtn = new JButton("Zoom-");
 		setAllSizes(zoomLevel, textDimension);
 		zoomLevel.setBorder(rightPad);
+
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(zoomLevel, c);
@@ -318,6 +319,7 @@ public class GUI {
 		final JLabel speedLevel = new JLabel("--%", SwingConstants.RIGHT);
 		setAllSizes(speedLevel, textDimension);
 		speedLevel.setBorder(rightPad);
+
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(speedLevel, c);
@@ -339,6 +341,7 @@ public class GUI {
 		stepCur.setBorder(rightPad);
 		stepMax.setBorder(rightPad);
 		setAllSizes(stepCur, textDimension);
+
 		c.gridy++;
 		c.gridx = 0;
 		c.weightx = 9;
@@ -353,6 +356,7 @@ public class GUI {
 		final JButton playBtn = new JButton("Play");
 		final JButton stepBtn = new JButton("--");
 		final JButton resetBtn = new JButton("Reset");
+
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(playBtn, c);
@@ -418,10 +422,10 @@ public class GUI {
 						"Jighart",
 				}));
 		aboutFrame.add(peepsList);
-
 		aboutFrame.setSize(600, 300);
 		aboutFrame.setLocation(150, 150);
 		aboutFrame.setResizable(false);
+
 		// end credits
 
 		// menu
@@ -440,18 +444,32 @@ public class GUI {
 		fileMenu.add(lookUp);
 		lookUp.addActionListener(arg0 -> looker.setVisible(true));
 
+		// gif message
+		final Dimension waitD = new Dimension(200, 60);
+		JDialog gifWait = new JDialog(frame, "Making gif");
+		JLabel waitingText = new JLabel("Creating GIF", SwingConstants.CENTER);
+		gifWait.add(waitingText);
+
+		gifWait.setPreferredSize(waitD);
+		gifWait.setMinimumSize(waitD);
+		gifWait.setResizable(false);
+
 		// zoom levels
 		MakeGifAtSize gifGuy = (a) -> {
 			String loc;
+			gifWait.setLocation(menu.getLocationOnScreen());
+			gifWait.setVisible(true);
 			try {
 				loc = animated.makeGif(a);
 			} catch (Exception e) {
+				gifWait.setVisible(false);
 				JOptionPane.showMessageDialog(frame,
 						"Error making GIF",
 						"Dang",
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			gifWait.setVisible(false);
 			JOptionPane.showMessageDialog(frame,
 					"GIF written to: \n" + loc,
 					"OH YEAH!",
