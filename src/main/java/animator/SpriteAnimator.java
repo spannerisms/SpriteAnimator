@@ -780,9 +780,8 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	public String makeGif(int z) throws Exception {
-		if (steps == null) {
-			throw new Exception();
-		}
+		if (steps == null) { throw new Exception(); }
+
 		String zoomWord = (z > 1) ? String.format(" (x%s zoom)", z) : "";
 		File animGif = new File(spriteName + " - " + anime.toString() + zoomWord + ".gif");
 		FileOutputStream output = new FileOutputStream(animGif);
