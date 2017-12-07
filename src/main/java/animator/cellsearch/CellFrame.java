@@ -57,8 +57,8 @@ public class CellFrame extends JDialog {
 		//listScroll.getViewport().setBackground(new Color(102,102,102));
 		l.putConstraint(NORTH, listScroll, 5, NORTH, this);
 		l.putConstraint(SOUTH, listScroll,
-				tooBig ? (SPRITE_SHEET_HEIGHT * 3 / 2) - 50: SPRITE_SHEET_HEIGHT * ZOOM,
-				NORTH, this);
+				tooBig ? (SPRITE_SHEET_HEIGHT * 3 / 2) - 50: SPRITE_SHEET_HEIGHT * ZOOM + 2,
+				NORTH, listScroll);
 		l.putConstraint(WEST, listScroll, 5, WEST, this);
 		this.add(listScroll);
 
