@@ -49,29 +49,35 @@ public class GUI {
 			"Normal play",
 			"Step-by-step",
 			// "All steps" disabled for now
-	};
+		};
 
-	private static final String[] SWORDLEVELS = {
+	private static final String[] SWORD_LEVELS = {
 			"No sword",
 			"Fighter's sword",
 			"Master sword",
 			"Tempered sword",
 			"Butter sword"
-	};
+		};
 
-	private static final String[] SHIELDLEVELS = {
+	private static final String[] SHIELD_LEVELS = {
 			"No shield",
 			"Fighter's shield",
 			"Red shield",
 			"Mirror shield"
-	};
+		};
 
-	private static final String[] MAILLEVELS = {
+	private static final String[] MAIL_LEVELS = {
 			"Green mail",
 			"Blue mail",
 			"Red mail",
 			"Bunny"
-	};
+		};
+
+	public static final String[] GLOVE_LEVELS = {
+			"No upgrade",
+			"Power glove",
+			"Titans mitt"
+		};
 
 	private static final int BLANK_HEIGHT = 10;
 
@@ -204,7 +210,7 @@ public class GUI {
 		c.ipady = 0;
 
 		// sword level
-		final JComboBox<String> swordLevel = new JComboBox<String>(SWORDLEVELS);
+		final JComboBox<String> swordLevel = new JComboBox<String>(SWORD_LEVELS);
 		final JLabel gearLabel = new JLabel("Gear:", SwingConstants.RIGHT); // not actually the word "Sword"
 		gearLabel.setBorder(rightPad);
 		setToolTip(gearLabel,
@@ -219,16 +225,23 @@ public class GUI {
 		controls.add(swordLevel, c);
 
 		// shield level
-		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELDLEVELS);
+		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELD_LEVELS);
 		c.gridy++;
 		c.gridx = 1;
 		controls.add(shieldLevel, c);
 
 		// mail level
-		final JComboBox<String> mailLevel = new JComboBox<String>(MAILLEVELS);		
+		final JComboBox<String> mailLevel = new JComboBox<String>(MAIL_LEVELS);		
 		c.gridy++;
 		c.gridx = 1;
 		controls.add(mailLevel, c);
+
+		// glove level
+		final JComboBox<String> gloveLevel = new JComboBox<String>(GLOVE_LEVELS);		
+		c.gridy++;
+		c.gridx = 1;
+		controls.add(gloveLevel, c);
+
 		c.gridwidth = 1;
 
 		// blank
@@ -833,6 +846,12 @@ public class GUI {
 				animated.setMail(level);
 			});
 
+		gloveLevel.addActionListener(
+			arg0 -> {
+				int level = gloveLevel.getSelectedIndex();
+				animated.setGlove(level);
+			});
+
 		swordLevel.addActionListener(
 			arg0 -> {
 				int level = swordLevel.getSelectedIndex();
@@ -960,13 +979,18 @@ public class GUI {
 
 		// palette data
 		byte[] palData;
+		byte[] glovesData;
+
 		if (fileType.equalsIgnoreCase(ZSPRFile.EXTENSION)) {
 			ZSPRFile temp = ZSPRFile.readFile(fileName);
 			spriteData = temp.getSpriteData();
 			palData = temp.getPalData();
+			glovesData = temp.getGlovesData();
 		} else if (fileType.equalsIgnoreCase("sfc")) {
-			spriteData = SpriteManipulator.getSprFromROM(fileName);
-			palData = SpriteManipulator.getPalFromROM(fileName);
+			byte[] temp = SpriteManipulator.readFile(fileName);
+			spriteData = SpriteManipulator.getSpriteDataFromROM(temp);
+			palData = SpriteManipulator.getPaletteDataFromROM(temp);
+			glovesData = SpriteManipulator.getGlovesDataFromROM(temp);
 		} else if (fileType.equalsIgnoreCase("png")) {
 			return;
 		} else {
@@ -975,8 +999,7 @@ public class GUI {
 
 		// turn spr into useable images
 		byte[][][] ebe = SpriteManipulator.makeSpr8x8(spriteData);
-		byte[][] palette = SpriteManipulator.getPal(palData);
-		BufferedImage[] mails = SpriteManipulator.makeAllMails(ebe, palette);
+		BufferedImage[][] mails = SpriteManipulator.makeAllMails(ebe, palData, glovesData);
 		a.setSprite(spriteName, mails);
 	}
 

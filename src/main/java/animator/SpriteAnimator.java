@@ -61,7 +61,7 @@ public class SpriteAnimator extends JComponent {
 	private String spriteName;
 	private Animation anime; // current animation
 	private Anime[] steps = null; // each step of animation, as an object
-	private BufferedImage[] mailImages = null; // sprite sheet
+	private BufferedImage[][] mailImages = null; // sprite sheet
 	private Timer tick; // runs for steps
 	private TimerTask next; // controls steps
 
@@ -70,6 +70,7 @@ public class SpriteAnimator extends JComponent {
 	private int posX = 40;
 	private int posY = 40;
 	private int mailLevel = 0;
+	private int gloveLevel = 0;
 	private int swordLevel = 0;
 	private int shieldLevel = 0;
 	private boolean showShadow = true;
@@ -143,9 +144,9 @@ public class SpriteAnimator extends JComponent {
 	 * Set images to animate
 	 * @param image
 	 */
-	public void setSprite(String name, BufferedImage[] image) {
+	public void setSprite(String name, BufferedImage[][] images) {
 		spriteName = name;
-		mailImages = image;
+		mailImages = images;
 	}
 
 	/**
@@ -155,7 +156,7 @@ public class SpriteAnimator extends JComponent {
 		if (mailImages == null) {
 			return null;
 		}
-		return mailImages[0];
+		return mailImages[0][0];
 	}
 
 	/**
@@ -514,6 +515,15 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
+	 * Set lift level
+	 * @param gl
+	 */
+	public void setGlove(int gl) {
+		gloveLevel = gl;
+		fireRebuildEvent();
+	}
+
+	/**
 	 * Set sword level
 	 * @param sl
 	 */
@@ -703,9 +713,9 @@ public class SpriteAnimator extends JComponent {
 
 				if (curSprite.row.isLinkPart) { // find image to use
 					if (curSprite.isZap) {
-						sheet = mailImages[4];
+						sheet = mailImages[4][0];
 					} else {
-						sheet = mailImages[mailLevel];
+						sheet = mailImages[mailLevel][gloveLevel];
 					}
 				} else {
 					sheet = EQUIPMENT;
