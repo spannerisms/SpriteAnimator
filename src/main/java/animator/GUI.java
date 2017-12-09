@@ -27,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -107,7 +108,7 @@ public class GUI {
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
-		final JFrame frame = new JFrame("Sprite animated " + SpriteManipulator.ALTTPNG_VERSION);
+		final JFrame frame = new JFrame("Sprite Animator " + SpriteManipulator.ALTTPNG_VERSION);
 		final Dimension d = new Dimension(800, 600);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
@@ -457,52 +458,121 @@ public class GUI {
 		fileMenu.add(lookUp);
 		lookUp.addActionListener(arg0 -> looker.setVisible(true));
 
-		// gif message
-		final Dimension waitD = new Dimension(200, 60);
-		JDialog gifWait = new JDialog(frame, "Making gif");
-		JLabel waitingText = new JLabel("Creating GIF", SwingConstants.CENTER);
-		gifWait.add(waitingText);
+		// gif creation
+		final Dimension gifD = new Dimension(300, 150);
+		JDialog gifGuy = new JDialog(frame, "Make a GIF");
 
-		gifWait.setPreferredSize(waitD);
-		gifWait.setMinimumSize(waitD);
-		gifWait.setResizable(false);
+		gifGuy.setPreferredSize(gifD);
+		gifGuy.setMinimumSize(gifD);
+		gifGuy.setResizable(false);
+		gifGuy.setModal(true);
+
+		JPanel gifControls = new JPanel();
+		gifControls.setLayout(new GridBagLayout());
+		GridBagConstraints x = new GridBagConstraints();
+		gifControls.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		gifGuy.add(gifControls);
+
+		x.fill = GridBagConstraints.HORIZONTAL;
+		x.gridy = -1;
+		x.weightx = 0;
+
+		// label
+		final JLabel gifLabel = new JLabel("Choose GIF settings", SwingConstants.CENTER);
+		x.gridy++;
+		x.gridx = 0;
+		x.gridwidth = 3;
+		gifControls.add(gifLabel, x);
+		x.gridwidth = 1;
+
+		// gif zoom
+		final JLabel gifZoomLabel = new JLabel("Zoom", SwingConstants.RIGHT);
+		final JSlider gifZoomLevel = new JSlider(JSlider.HORIZONTAL, 1, 5, 2);
+		gifZoomLevel.setPaintTicks(true);
+		gifZoomLevel.setMajorTickSpacing(1);
+		gifZoomLevel.setSnapToTicks(true);
+
+		final JLabel gifZoomText = new JLabel("x2", SwingConstants.RIGHT);
+		x.gridy++;
+		x.gridx = 0;
+		gifControls.add(gifZoomLabel, x);
+		x.gridx = 1;
+		x.weightx = 5;
+		gifControls.add(gifZoomLevel, x);
+		x.gridx = 2;
+		x.weightx = 0;
+		gifControls.add(gifZoomText, x);
+
+		gifZoomLevel.addChangeListener(
+			arg0 -> {
+				gifZoomText.setText("x" + gifZoomLevel.getValue());
+			});
+
+		// gif speed
+		final JLabel gifSpeedLabel = new JLabel("Speed", SwingConstants.RIGHT);
+		final JSlider gifSpeedLevel = new JSlider(JSlider.HORIZONTAL, 1, 4, 1);
+		final JLabel gifSpeedText = new JLabel("100%", SwingConstants.RIGHT);
+		setAllSizes(gifSpeedText, textDimension);
+
+		gifSpeedLevel.setPaintTicks(true);
+		gifSpeedLevel.setMajorTickSpacing(1);
+		gifSpeedLevel.setSnapToTicks(true);
+
+		x.gridy++;
+		x.gridx = 0;
+		gifControls.add(gifSpeedLabel, x);
+		x.gridx = 1;
+		x.weightx = 5;
+		gifControls.add(gifSpeedLevel, x);
+		x.gridx = 2;
+		x.weightx = 0;
+		gifControls.add(gifSpeedText, x);
+
+		gifSpeedLevel.addChangeListener(
+				arg0 -> {
+					int spd = 10000 / gifSpeedLevel.getValue();
+					String perc = String.format("%s.%02d%%", spd/100, spd%100);
+					gifSpeedText.setText(perc);
+				});
+
+		// create button
+		final JButton makeGif = new JButton("Create");
+		x.gridy++;
+		x.gridx = 1;
+		gifControls.add(makeGif, x);
 
 		// zoom levels
-		MakeGifAtSize gifGuy = (a) -> {
-			String loc;
-			gifWait.setLocation(menu.getLocationOnScreen());
-			gifWait.setVisible(true);
-			try {
-				loc = animated.makeGif(a);
-			} catch (Exception e) {
-				gifWait.setVisible(false);
+		makeGif.addActionListener(
+			arg0 -> {
+				String loc;
+				try {
+					loc = animated.makeGif(gifSpeedLevel.getValue(), gifZoomLevel.getValue());
+				} catch (Exception e) {
+					gifGuy.setVisible(false);
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(frame,
+							"Error making GIF",
+							"Dang",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				gifGuy.setVisible(false);
 				JOptionPane.showMessageDialog(frame,
-						"Error making GIF",
-						"Dang",
-						JOptionPane.WARNING_MESSAGE);
-				return;
-			}
-			gifWait.setVisible(false);
-			JOptionPane.showMessageDialog(frame,
-					"GIF written to: \n" + loc,
-					"OH YEAH!",
-					JOptionPane.PLAIN_MESSAGE);
-		};
+						"GIF written to: \n" + loc,
+						"OH YEAH!",
+						JOptionPane.PLAIN_MESSAGE);
+			});
 
 		// animated gifs
-		// small gif
 		final JMenuItem giffer = new JMenuItem("Make GIF");
 		ImageIcon cane = new ImageIcon(GUI.class.getResource("/images/cane.png"));
 		giffer.setIcon(cane);
 		fileMenu.add(giffer);
-		giffer.addActionListener(arg0 -> gifGuy.make(1));
-
-		// big gif
-		final int bigSize = 3;
-		final JMenuItem gifferBig = new JMenuItem("Make GIF (x" + bigSize + ")");
-		gifferBig.setIcon(cane);
-		fileMenu.add(gifferBig);
-		gifferBig.addActionListener(arg0 -> gifGuy.make(bigSize));
+		giffer.addActionListener(
+			arg0 -> {
+				gifGuy.setLocation(menu.getLocationOnScreen());
+				gifGuy.setVisible(true);
+			});
 
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");

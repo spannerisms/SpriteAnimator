@@ -789,10 +789,10 @@ public class SpriteAnimator extends JComponent {
 		repaint();
 	}
 
-	public String makeGif(int z) throws Exception {
+	public String makeGif(int size, int speed) throws Exception {
 		if (steps == null) { throw new Exception(); }
 
-		String zoomWord = (z > 1) ? String.format(" (x%s zoom)", z) : "";
+		String zoomWord = (size > 1) ? String.format(" (x%s zoom)", size) : "";
 		File animGif = new File(spriteName + " - " + anime.toString() + zoomWord + ".gif");
 		FileOutputStream output = new FileOutputStream(animGif);
 
@@ -800,9 +800,11 @@ public class SpriteAnimator extends JComponent {
 		AnimatedGIFWriter.GIFFrame[] frames = new AnimatedGIFWriter.GIFFrame[steps.length];
 		BufferedImage cur;
 		Graphics2D g;
+
 		final int X = posX;
 		final int Y = posY;
 		final BufferedImage BG;
+
 		if (bg == Background.EMPTY) {
 			BG = Background.WHITE.getImage();
 		} else {
@@ -811,14 +813,14 @@ public class SpriteAnimator extends JComponent {
 
 		for (int i = 0; i < steps.length; i++) {
 			Anime a = steps[i];
-			cur = new BufferedImage(BG_WIDTH * z, BG_HEIGHT * z, BufferedImage.TYPE_4BYTE_ABGR);
+			cur = new BufferedImage(BG_WIDTH * size, BG_HEIGHT * size, BufferedImage.TYPE_4BYTE_ABGR);
 
 			g = cur.createGraphics();
-			g.scale(z, z);
+			g.scale(size, size);
 			g.drawImage(BG, 0, 0, null);
 			a.draw(g, X, Y);
 
-			frames[i] = new AnimatedGIFWriter.GIFFrame(cur, a.getLength() * FPS);
+			frames[i] = new AnimatedGIFWriter.GIFFrame(cur, a.getLength() * FPS * speed);
 		}
 		writer.writeAnimatedGIF(frames, output);
 
