@@ -75,7 +75,7 @@ public class GUI {
 		};
 
 	public static final String[] GLOVE_LEVELS = {
-			"No upgrade",
+			"No glove",
 			"Power glove",
 			"Titans mitt"
 		};
@@ -442,7 +442,6 @@ public class GUI {
 		aboutFrame.setSize(600, 300);
 		aboutFrame.setLocation(150, 150);
 		aboutFrame.setResizable(false);
-
 		// end credits
 
 		// menu
@@ -659,10 +658,7 @@ public class GUI {
 		 * Action listeners
 		 */
 		// read steps and count them
-		animated.addStepListener(
-			arg0 -> {
-				stepCur.setText(animated.getStep());
-			});
+		animated.addStepListener(arg0 -> stepCur.setText(animated.getStep()));
 
 		// Updates sprite info, but only in the correct mode
 		AnimatorListener spriteInfoWatcher =
@@ -858,32 +854,15 @@ public class GUI {
 			});
 
 		// zoom buttons
-		bigBtn.addActionListener(
-			arg0 -> {
-				animated.embiggen();
-			});
-
-		lilBtn.addActionListener(
-			arg0 -> {
-				animated.ensmallen();
-			});
+		bigBtn.addActionListener(arg0 ->animated.embiggen());
+		lilBtn.addActionListener(arg0 ->animated.ensmallen());
 
 		// speed buttons
-		fasterBtn.addActionListener(
-			arg0 -> {
-				animated.faster();
-			});
-
-		slowerBtn.addActionListener(
-			arg0 -> {
-				animated.slower();
-			});
+		fasterBtn.addActionListener(arg0 -> animated.faster());
+		slowerBtn.addActionListener(arg0 -> animated.slower());
 
 		// play button
-		playBtn.addActionListener(
-			arg0 -> {
-				animated.setMode(0);
-			});
+		playBtn.addActionListener(arg0 -> animated.setMode(0));
 
 		// step button
 		stepBtn.addActionListener(
@@ -1055,7 +1034,7 @@ public class GUI {
 		}
 	}
 
-	public static void loadSprite(SpriteAnimator a, String fileName)
+	private static void loadSprite(SpriteAnimator a, String fileName)
 			throws IOException, ZSPRFormatException {
 		// read the file
 		String fileType = SpriteManipulator.getFileType(fileName);
@@ -1089,9 +1068,5 @@ public class GUI {
 		byte[][][] ebe = SpriteManipulator.makeSpr8x8(spriteData);
 		BufferedImage[][] mails = SpriteManipulator.makeAllMails(ebe, palData, glovesData);
 		a.setSprite(spriteName, mails);
-	}
-
-	interface MakeGifAtSize {
-		void make(int s);
 	}
 }
