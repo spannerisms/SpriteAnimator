@@ -403,7 +403,10 @@ public class GUI {
 		fullWrap.add(animated);
 
 		// acknowledgements
+		ImageIcon mapIcon = new ImageIcon(GUI.class.getResource("/images/map.png"));
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
+		aboutFrame.setIconImage(mapIcon.getImage());
+
 		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
@@ -454,14 +457,16 @@ public class GUI {
 		CellFrame looker = new CellFrame(frame);
 		final JMenuItem lookUp = new JMenuItem("Sprite lookup");
 		ImageIcon net = new ImageIcon(GUI.class.getResource("/images/net.png"));
+		looker.setIconImage(net.getImage());
 		lookUp.setIcon(net);
 		fileMenu.add(lookUp);
 		lookUp.addActionListener(arg0 -> looker.setVisible(true));
 
 		// gif creation
+		ImageIcon cane = new ImageIcon(GUI.class.getResource("/images/cane.png"));
 		final Dimension gifD = new Dimension(300, 150);
 		JDialog gifGuy = new JDialog(frame, "Make a GIF");
-
+		gifGuy.setIconImage(cane.getImage());
 		gifGuy.setPreferredSize(gifD);
 		gifGuy.setMinimumSize(gifD);
 		gifGuy.setResizable(false);
@@ -529,11 +534,11 @@ public class GUI {
 		gifControls.add(gifSpeedText, x);
 
 		gifSpeedLevel.addChangeListener(
-				arg0 -> {
-					int spd = 10000 / gifSpeedLevel.getValue();
-					String perc = String.format("%s.%02d%%", spd/100, spd%100);
-					gifSpeedText.setText(perc);
-				});
+			arg0 -> {
+				int spd = 10000 / gifSpeedLevel.getValue();
+				String perc = String.format("%s.%02d%%", spd / 100, spd % 100);
+				gifSpeedText.setText(perc);
+			});
 
 		// create button
 		final JButton makeGif = new JButton("Create");
@@ -541,14 +546,29 @@ public class GUI {
 		x.gridx = 1;
 		gifControls.add(makeGif, x);
 
-		// zoom levels
+		// wait for gif
+		final Dimension waitD = new Dimension(200, 30);
+		JDialog gifWait = new JDialog(frame, "Making gif");
+
+		ImageIcon clockIcon = new ImageIcon(GUI.class.getResource("/images/clock.png"));
+		gifWait.setIconImage(clockIcon.getImage());
+
+		gifWait.setPreferredSize(waitD);
+		gifWait.setMinimumSize(waitD);
+		gifWait.setResizable(false);
+
 		makeGif.addActionListener(
 			arg0 -> {
+				gifGuy.setVisible(false);
+
+				gifWait.setLocation(menu.getLocationOnScreen());
+				gifWait.setVisible(true);
+
 				String loc;
 				try {
-					loc = animated.makeGif(gifSpeedLevel.getValue(), gifZoomLevel.getValue());
+					loc = animated.makeGif(gifZoomLevel.getValue(), gifSpeedLevel.getValue());
 				} catch (Exception e) {
-					gifGuy.setVisible(false);
+					gifWait.setVisible(false);
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(frame,
 							"Error making GIF",
@@ -556,7 +576,7 @@ public class GUI {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				gifGuy.setVisible(false);
+				gifWait.setVisible(false);
 				JOptionPane.showMessageDialog(frame,
 						"GIF written to: \n" + loc,
 						"OH YEAH!",
@@ -565,7 +585,6 @@ public class GUI {
 
 		// animated gifs
 		final JMenuItem giffer = new JMenuItem("Make GIF");
-		ImageIcon cane = new ImageIcon(GUI.class.getResource("/images/cane.png"));
 		giffer.setIcon(cane);
 		fileMenu.add(giffer);
 		giffer.addActionListener(
@@ -589,7 +608,6 @@ public class GUI {
 
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
-		ImageIcon mapIcon = new ImageIcon(GUI.class.getResource("/images/map.png"));
 		peeps.setIcon(mapIcon);
 		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true));
 		helpMenu.add(peeps);

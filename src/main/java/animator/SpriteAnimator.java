@@ -21,6 +21,7 @@ import javax.swing.JComponent;
 import animator.database.Animation;
 import animator.database.SpriteData;
 import animator.database.StepData;
+import spritemanipulator.SpriteManipulator;
 
 public class SpriteAnimator extends JComponent {
 	// version and serial
@@ -792,12 +793,37 @@ public class SpriteAnimator extends JComponent {
 	public String makeGif(int size, int speed) throws Exception {
 		if (steps == null) { throw new Exception(); }
 
-		String zoomWord = (size > 1) ? String.format(" (x%s zoom)", size) : "";
-		File animGif = new File(spriteName + " - " + anime.toString() + zoomWord + ".gif");
+		File s = new File(spriteName);
+
+		String dir = s.getParent();
+		File gifDir = new File(dir + "\\gifs");
+		String[] fNameParts = spriteName.split("[/\\\\]");
+		String spriteFileName = fNameParts[fNameParts.length-1];
+
+		if (gifDir.exists()) {
+			if (gifDir.isDirectory()) {
+				dir = gifDir.getPath() + "\\";
+			} else {
+				// nothing
+			}
+		} else {
+			gifDir.mkdir();
+			dir = gifDir.getPath() + "\\";
+		}
+
+		File animGif = new File(
+				String.format(
+					"%s%s - %s (x%s zoom; %s%% speed).gif",
+					dir,
+					spriteFileName,
+					anime.toString(),
+					size,
+					100 / speed
+				));
+
 		FileOutputStream output = new FileOutputStream(animGif);
 
-		AnimatedGIFWriter writer = new AnimatedGIFWriter(false);
-		AnimatedGIFWriter.GIFFrame[] frames = new AnimatedGIFWriter.GIFFrame[steps.length];
+
 		BufferedImage cur;
 		Graphics2D g;
 
@@ -811,16 +837,71 @@ public class SpriteAnimator extends JComponent {
 			BG = bg.getImage();
 		}
 
+		// draw images
+		BufferedImage[] images = new BufferedImage[steps.length];
 		for (int i = 0; i < steps.length; i++) {
 			Anime a = steps[i];
+			cur = new BufferedImage(BG_WIDTH, BG_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
+
+			g = cur.createGraphics();
+			g.drawImage(BG, 0, 0, null);
+			a.draw(g, X, Y);
+			images[i] = cur;
+		}
+
+		// combine remove pixels that are the same, starting backwards
+		BufferedImage[] newImages = new BufferedImage[steps.length];
+		newImages[0] = images[0]; // background stays the same
+
+		for (int i = steps.length - 1; i > 0; i--) {
+			byte[] curRaster = SpriteManipulator.getImageRaster(images[i]);
+			byte[] nextRaster = SpriteManipulator.getImageRaster(images[i-1]);
+
+			pixelCompare :
+			for (int j = 0; j < curRaster.length; j += 4) {
+
+				for (int k = 0; k < 4; k++) { // check each pixel
+					if (curRaster[j+k] != nextRaster[j+k]) {
+						continue pixelCompare;
+					}
+				}
+
+				for (int k = 0; k < 4; k++) { // overwrite pixels
+					curRaster[j+k] = 0;
+				}
+			}
+
+			// set image
+			cur = new BufferedImage(BG_WIDTH, BG_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
+			int[] rgb = new int[BG_WIDTH * BG_HEIGHT];
+
+			for (int v = 0, j = 0; v < rgb.length; v++) {
+				int a1 = curRaster[j++] & 0xFF;
+				int b1 = curRaster[j++] & 0xFF;
+				int g1 = curRaster[j++] & 0xFF;
+				int r1 = curRaster[j++] & 0xFF;
+				rgb[v] = (a1 << 24) | (r1 << 16) | (g1 << 8) | b1;
+			}
+
+			cur.setRGB(0, 0, BG_WIDTH, BG_HEIGHT, rgb, 0, BG_WIDTH);
+			newImages[i] = cur;
+		}
+
+		// images to frames
+		AnimatedGIFWriter writer = new AnimatedGIFWriter(false);
+		AnimatedGIFWriter.GIFFrame[] frames = new AnimatedGIFWriter.GIFFrame[steps.length];
+
+		for (int i = 0; i < steps.length; i++) {
+			BufferedImage a = newImages[i];
+			int l = steps[i].getLength();
 			cur = new BufferedImage(BG_WIDTH * size, BG_HEIGHT * size, BufferedImage.TYPE_4BYTE_ABGR);
 
 			g = cur.createGraphics();
 			g.scale(size, size);
-			g.drawImage(BG, 0, 0, null);
-			a.draw(g, X, Y);
+			g.drawImage(a, 0, 0, null);
 
-			frames[i] = new AnimatedGIFWriter.GIFFrame(cur, a.getLength() * FPS * speed);
+			frames[i] = new AnimatedGIFWriter.GIFFrame(cur, l * FPS * speed,
+					AnimatedGIFWriter.GIFFrame.DISPOSAL_LEAVE_AS_IS);
 		}
 		writer.writeAnimatedGIF(frames, output);
 
