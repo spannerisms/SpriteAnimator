@@ -42,7 +42,7 @@ import animator.database.*;
 
 import static javax.swing.SpringLayout.*;
 
-public class GUI {
+public class AnimatorGUI {
 	private static final String[] ACCEPTED_FILE_TYPES =
 			new String[] { ZSPRFile.EXTENSION, "sfc" /*, "png"*/ };
 
@@ -89,7 +89,7 @@ public class GUI {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new GUI().printGUI();
+					printGUI();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -98,7 +98,7 @@ public class GUI {
 	}
 
 	// use func
-	public void printGUI() throws IOException {
+	private static void printGUI() throws IOException {
 		// try to set LaF
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -403,7 +403,7 @@ public class GUI {
 		fullWrap.add(animated);
 
 		// acknowledgements
-		ImageIcon mapIcon = new ImageIcon(GUI.class.getResource("/images/map.png"));
+		ImageIcon mapIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/map.png"));
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 		aboutFrame.setIconImage(mapIcon.getImage());
 
@@ -455,14 +455,14 @@ public class GUI {
 		// reverse lookup
 		CellFrame looker = new CellFrame(frame);
 		final JMenuItem lookUp = new JMenuItem("Sprite lookup");
-		ImageIcon net = new ImageIcon(GUI.class.getResource("/images/net.png"));
+		ImageIcon net = new ImageIcon(AnimatorGUI.class.getResource("/images/net.png"));
 		looker.setIconImage(net.getImage());
 		lookUp.setIcon(net);
 		fileMenu.add(lookUp);
 		lookUp.addActionListener(arg0 -> looker.setVisible(true));
 
 		// gif creation
-		ImageIcon cane = new ImageIcon(GUI.class.getResource("/images/cane.png"));
+		ImageIcon cane = new ImageIcon(AnimatorGUI.class.getResource("/images/cane.png"));
 		final Dimension gifD = new Dimension(300, 150);
 		JDialog gifGuy = new JDialog(frame, "Make a GIF");
 		gifGuy.setIconImage(cane.getImage());
@@ -507,10 +507,7 @@ public class GUI {
 		x.weightx = 0;
 		gifControls.add(gifZoomText, x);
 
-		gifZoomLevel.addChangeListener(
-			arg0 -> {
-				gifZoomText.setText("x" + gifZoomLevel.getValue());
-			});
+		gifZoomLevel.addChangeListener(arg0 -> gifZoomText.setText("x" + gifZoomLevel.getValue()));
 
 		// gif speed
 		final int maxSpeed = 4;
@@ -550,7 +547,7 @@ public class GUI {
 		final Dimension waitD = new Dimension(200, 30);
 		JDialog gifWait = new JDialog(frame, "Making gif");
 
-		ImageIcon clockIcon = new ImageIcon(GUI.class.getResource("/images/clock.png"));
+		ImageIcon clockIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/clock.png"));
 		gifWait.setIconImage(clockIcon.getImage());
 
 		gifWait.setPreferredSize(waitD);
@@ -594,7 +591,7 @@ public class GUI {
 
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
-		ImageIcon mirror = new ImageIcon(GUI.class.getResource("/images/mirror.png"));
+		ImageIcon mirror = new ImageIcon(AnimatorGUI.class.getResource("/images/mirror.png"));
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
 		exit.addActionListener(arg0 -> System.exit(0));
@@ -614,8 +611,8 @@ public class GUI {
 		// end help menu
 
 		// But what if Ganon dabs back?
-		ImageIcon ico = new ImageIcon(GUI.class.getResource("/images/DABSMALL.png"));
-		ImageIcon icoTask = new ImageIcon(GUI.class.getResource("/images/DAB.png"));
+		ImageIcon ico = new ImageIcon(AnimatorGUI.class.getResource("/images/DABSMALL.png"));
+		ImageIcon icoTask = new ImageIcon(AnimatorGUI.class.getResource("/images/DAB.png"));
 
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());
@@ -889,22 +886,13 @@ public class GUI {
 			});
 
 		// item toggle
-		equipBtn.addActionListener(
-			arg0 -> {
-				animated.switchEquipment();
-			});
+		equipBtn.addActionListener(arg0 ->animated.switchEquipment());
 
 		// shadow toggle
-		shadowBtn.addActionListener(
-			arg0 -> {
-				animated.switchShadow();
-			});
+		shadowBtn.addActionListener(arg0 -> animated.switchShadow());
 
 		// neutral toggle
-		neutralBtn.addActionListener(
-			arg0 -> {
-				animated.switchNeutral();
-			});
+		neutralBtn.addActionListener(arg0 -> animated.switchNeutral());
 
 		// gear settings
 		mailLevel.addActionListener(
@@ -992,7 +980,7 @@ public class GUI {
 	 * @param c
 	 * @param d
 	 */
-	private void setAllSizes(Component c, Dimension d) {
+	private static void setAllSizes(Component c, Dimension d) {
 		c.setPreferredSize(d);
 		c.setMaximumSize(d);
 		c.setMinimumSize(d);
@@ -1014,7 +1002,7 @@ public class GUI {
 	 * @param text
 	 * @param warning
 	 */
-	private void setToolTip(JComponent c, String... text) {
+	private static void setToolTip(JComponent c, String... text) {
 		c.setToolTipText(
 				"<html>" +
 				"<div style=\"" + String.join(";", TOOLTIP_STYLES) + "\">" +
