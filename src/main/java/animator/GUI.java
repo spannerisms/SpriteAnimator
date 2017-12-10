@@ -491,12 +491,12 @@ public class GUI {
 
 		// gif zoom
 		final JLabel gifZoomLabel = new JLabel("Zoom", SwingConstants.RIGHT);
-		final JSlider gifZoomLevel = new JSlider(JSlider.HORIZONTAL, 1, 5, 2);
+		final JSlider gifZoomLevel = new JSlider(JSlider.HORIZONTAL, 1, 5, 1);
 		gifZoomLevel.setPaintTicks(true);
 		gifZoomLevel.setMajorTickSpacing(1);
 		gifZoomLevel.setSnapToTicks(true);
 
-		final JLabel gifZoomText = new JLabel("x2", SwingConstants.RIGHT);
+		final JLabel gifZoomText = new JLabel("x1", SwingConstants.RIGHT);
 		x.gridy++;
 		x.gridx = 0;
 		gifControls.add(gifZoomLabel, x);
@@ -513,8 +513,9 @@ public class GUI {
 			});
 
 		// gif speed
+		final int maxSpeed = 4;
 		final JLabel gifSpeedLabel = new JLabel("Speed", SwingConstants.RIGHT);
-		final JSlider gifSpeedLevel = new JSlider(JSlider.HORIZONTAL, 1, 4, 1);
+		final JSlider gifSpeedLevel = new JSlider(JSlider.HORIZONTAL, 1, maxSpeed, maxSpeed);
 		final JLabel gifSpeedText = new JLabel("100%", SwingConstants.RIGHT);
 		setAllSizes(gifSpeedText, textDimension);
 
@@ -534,7 +535,7 @@ public class GUI {
 
 		gifSpeedLevel.addChangeListener(
 			arg0 -> {
-				int spd = 10000 / gifSpeedLevel.getValue();
+				int spd = 10000 / (maxSpeed + 1 - gifSpeedLevel.getValue());
 				String perc = String.format("%s.%02d%%", spd / 100, spd % 100);
 				gifSpeedText.setText(perc);
 			});
@@ -565,10 +566,9 @@ public class GUI {
 
 				String loc;
 				try {
-					loc = animated.makeGif(gifZoomLevel.getValue(), gifSpeedLevel.getValue());
+					loc = animated.makeGif(gifZoomLevel.getValue(), (maxSpeed + 1 - gifSpeedLevel.getValue()));
 				} catch (Exception e) {
 					gifWait.setVisible(false);
-					e.printStackTrace();
 					JOptionPane.showMessageDialog(frame,
 							"Error making GIF",
 							"Dang",
