@@ -43,6 +43,8 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
+	public static final String VERSION = "v1.9";
+
 	private static final String[] ACCEPTED_FILE_TYPES =
 			new String[] { ZSPRFile.EXTENSION, "sfc" /*, "png"*/ };
 
@@ -108,7 +110,7 @@ public class AnimatorGUI {
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
-		final JFrame frame = new JFrame("Sprite Animator " + SpriteManipulator.ALTTPNG_VERSION);
+		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
 		final Dimension d = new Dimension(800, 600);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
@@ -138,7 +140,7 @@ public class AnimatorGUI {
 		// negative so everything can just ++
 		c.gridy = -1;
 		c.gridwidth = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 
 		// image loading
 		final JTextField fileName = new JTextField("");
@@ -177,12 +179,14 @@ public class AnimatorGUI {
 		c.gridwidth = 1;
 
 		// animation mode
+		final JButton animListBtn = new JButton("As list"); // button for popup window here
 		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
-		final JLabel modeLabel = new JLabel(" ", SwingConstants.RIGHT);
-		modeLabel.setBorder(rightPad);
-		c.gridwidth = 2;
+		animListBtn.setBorder(rightPad);
 		c.gridy++;
+		c.gridx = 0;
+		controls.add(animListBtn, c);
 		c.gridx = 1;
+		c.gridwidth = 2;
 		controls.add(modeOptions, c);
 		c.gridwidth = 1;
 
@@ -212,7 +216,7 @@ public class AnimatorGUI {
 
 		// sword level
 		final JComboBox<String> swordLevel = new JComboBox<String>(SWORD_LEVELS);
-		final JLabel gearLabel = new JLabel("Gear:", SwingConstants.RIGHT); // not actually the word "Sword"
+		final JLabel gearLabel = new JLabel("Gear:", SwingConstants.RIGHT);
 		gearLabel.setBorder(rightPad);
 		setToolTip(gearLabel,
 				"Controls the level and display of the sword and shield, " +
@@ -394,7 +398,7 @@ public class AnimatorGUI {
 
 		// control panel done
 
-		// other frame organization
+		// animation panel
 		final SpriteAnimator animated = new SpriteAnimator();
 		l.putConstraint(WEST, animated, 5, WEST, fullWrap);
 		l.putConstraint(EAST, animated, -5, WEST, controls);
@@ -402,13 +406,37 @@ public class AnimatorGUI {
 		l.putConstraint(SOUTH, animated, -5, SOUTH, fullWrap);
 		fullWrap.add(animated);
 
+		// animations as buttons
+		final AnimationListDialog animList =
+				new AnimationListDialog(frame,
+					arg0 -> {
+						Object o = arg0.getSource();
+						assert o instanceof AnimationListDialog.AnimButton;
+						AnimationListDialog.AnimButton b = (AnimationListDialog.AnimButton) o;
+						Animation a = b.anim;
+						animated.setAnimation(a);
+						animOptions.setSelectedItem(a);
+					});
+		animListBtn.addActionListener(
+			arg0 -> {
+				if (animList.isVisible()) {
+					animList.requestFocus();
+				} else {
+					animList.setLocation(animListBtn.getLocationOnScreen());
+					animList.setVisible(true);
+				}
+			});
+
 		// acknowledgements
 		ImageIcon mapIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/map.png"));
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
+
 		aboutFrame.setIconImage(mapIcon.getImage());
 
 		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
+		peepsList.append(String.format("Sprite Animator version %s\n", VERSION));
+		peepsList.append(String.format("ALttPNG version %s\n\n", SpriteManipulator.ALTTPNG_VERSION));
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
 		peepsList.append("\n\nAnimation research:\n");
 		peepsList.append("http://alttp.mymm1.com/sprites/includes/animations.txt\n");
@@ -851,8 +879,8 @@ public class AnimatorGUI {
 			});
 
 		// zoom buttons
-		bigBtn.addActionListener(arg0 ->animated.embiggen());
-		lilBtn.addActionListener(arg0 ->animated.ensmallen());
+		bigBtn.addActionListener(arg0 -> animated.embiggen());
+		lilBtn.addActionListener(arg0 -> animated.ensmallen());
 
 		// speed buttons
 		fasterBtn.addActionListener(arg0 -> animated.faster());

@@ -8,8 +8,4 @@ public class AnimatorEvent extends EventObject {
 	public AnimatorEvent(Object o) {
 		super(o);
 	}
-
-	public AnimatorEvent(SpriteAnimator o) {
-		super(o);
-	}
 }

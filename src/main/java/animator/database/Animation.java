@@ -30,11 +30,11 @@ public enum Animation {
 	DASH_RELEASE ("dashRelease"),
 	DASH_RELEASE_UP ("dashReleaseUp"),
 	DASH_RELEASE_DOWN ("dashReleaseDown"),
-	FALL ("fall"),
-	ZAP ("zap"),
 	BONK ("bonk"),
 	BONK_UP ("bonkUp"),
 	BONK_DOWN ("bonkDown"),
+	FALL ("fall"),
+	ZAP ("zap"),
 	DEATH_SPIN ("deathSpin"),
 	GRAB ("grab"),
 	GRAB_UP ("grabUp"),
@@ -52,10 +52,9 @@ public enum Animation {
 	PUSH_UP ("pushUp"),
 	PUSH_DOWN ("pushDown"),
 	TREE_PULL ("treePull"),
-	SALUTE ("salute"),
 	ITEM_GET ("itemGet"),
 	CRYSTAL_GET ("crystalGet"),
-	SWAG_DUCK ("swagDuck"),
+	SALUTE ("salute"),
 	BOW ("bow"),
 	BOW_UP ("bowUp"),
 	BOW_DOWN ("bowDown"),
@@ -78,6 +77,7 @@ public enum Animation {
 	HAMMER_UP ("hammerUp"),
 	HAMMER_DOWN ("hammerDown"),
 	SHOVEL ("shovel"),
+	SWAG_DUCK ("swagDuck"),
 	BUG_NET ("bugNet"),
 	READ_BOOK ("readBook"),
 	PRAYER ("prayer"),
@@ -108,6 +108,9 @@ public enum Animation {
 	// local vars
 	private final ArrayList<StepData> steps;
 	private final String name;
+	private final String vague;
+	private final String disambig;
+	private final Category ctg;
 
 	private Animation(String n) {
 		steps = new ArrayList<StepData>();
@@ -120,15 +123,25 @@ public enum Animation {
 			this.steps.add(StepData.makeStep(fObj));
 		}
 		this.name = data.getString("name");
-	}
+		this.vague = data.getString("vague");
 
-	private Animation(String name, ArrayList<StepData> steps) {
-		this.name = name;
-		this.steps = steps;
+		if (this.name.indexOf('(') > -1) {
+			this.disambig = this.name.replace(this.vague, "").trim();
+		} else {
+			this.disambig = this.name;
+		}
+
+		this.ctg = Category.valueOf(data.getString("category"));
+		ctg.addToList(this);
+		Category.ALL.addToList(this);
 	}
 
 	public String toString() {
 		return name;
+	}
+
+	public String getDisambig() {
+		return disambig;
 	}
 
 	public StepData[] getSteps() {
@@ -147,5 +160,39 @@ public enum Animation {
 			customized.add(s.customizeStep(swordLevel, shieldLevel, showShadow, showEquipment));
 		}
 		return StepData.mergeAll(customized);
+	}
+
+	public boolean compareVague(Animation e) {
+		if (e == null) {
+			return false;
+		}
+		return this.vague.equalsIgnoreCase(e.vague);
+	}
+
+	public static enum Category {
+		ALL ("All"),
+		NEUTRAL ("Neutral poses"),
+		MOVEMENT ("Movement animations"),
+		SWIMMING ("Swimming animations"),
+		COMBAT ("Combat animations"),
+		INTERACTIONS ("Basic interactions"),
+		ITEMS ("Item-use animations"),
+		BUNNY ("Bunny sprite");
+
+		public final String name;
+		private final ArrayList<Animation> list;
+
+		private Category(String name) {
+			this.name = name;
+			list = new ArrayList<Animation>();
+		}
+
+		private void addToList(Animation a) {
+			list.add(a);
+		}
+
+		public Animation[] getList() {
+			return list.toArray(new Animation[list.size()]);
+		}
 	}
 }

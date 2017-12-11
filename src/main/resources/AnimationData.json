@@ -1,6 +1,8 @@
 {
 	"neutralRight": {
 		"name": "Neutral (right)",
+		"vague": "Neutral",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -30,6 +32,8 @@
 	},
 	"neutralLeft": {
 		"name": "Neutral (left)",
+		"vague": "Neutral",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -62,6 +66,8 @@
 	},
 	"neutralUp": {
 		"name": "Neutral (up)",
+		"vague": "Neutral",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -91,6 +97,8 @@
 	},
 	"neutralDown": {
 		"name": "Neutral (down)",
+		"vague": "Neutral",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -120,6 +128,8 @@
 	},
 	"stand": {
 		"name": "Stand",
+		"vague": "Stand",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -149,6 +159,8 @@
 	},
 	"standUp": {
 		"name": "Stand (up)",
+		"vague": "Stand",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -178,6 +190,8 @@
 	},
 	"standDown": {
 		"name": "Stand (down)",
+		"vague": "Stand",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -207,6 +221,8 @@
 	},
 	"walk": {
 		"name": "Walk",
+		"vague": "Walk",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -404,6 +420,8 @@
 	},
 	"walkUp": {
 		"name": "Walk (up)",
+		"vague": "Walk",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -601,6 +619,8 @@
 	},
 	"walkDown": {
 		"name": "Walk (down)",
+		"vague": "Walk",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -803,6 +823,8 @@
 	},
 	"swim": {
 		"name": "Swim",
+		"vague": "Swim",
+		"category": "SWIMMING",
 		"steps": [
 			{
 				"sprites": [
@@ -900,6 +922,8 @@
 	},
 	"swimUp": {
 		"name": "Swim (up)",
+		"vague": "Swim",
+		"category": "SWIMMING",
 		"steps": [
 			{
 				"sprites": [
@@ -1020,6 +1044,8 @@
 	},
 	"swimDown": {
 		"name": "Swim (down)",
+		"vague": "Swim",
+		"category": "SWIMMING",
 		"steps": [
 			{
 				"sprites": [
@@ -1138,6 +1164,8 @@
 	},
 	"treadingWater": {
 		"name": "Treading water",
+		"vague": "Treading water",
+		"category": "SWIMMING",
 		"steps": [
 			{
 				"sprites": [
@@ -1180,6 +1208,8 @@
 	},
 	"treadingWaterUp": {
 		"name": "Treading water (up)",
+		"vague": "Treading water",
+		"category": "SWIMMING",
 		"steps": [
 			{
 				"sprites": [
@@ -1222,6 +1252,8 @@
 	},
 	"treadingWaterDown": {
 		"name": "Treading water (down)",
+		"vague": "Treading water",
+		"category": "SWIMMING",
 		"steps": [
 			{
 				"sprites": [
@@ -1264,6 +1296,8 @@
 	},
 	"attack": {
 		"name": "Attack",
+		"vague": "Attack",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -1509,6 +1543,8 @@
 	},
 	"attackUp": {
 		"name": "Attack (up)",
+		"vague": "Attack",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -1790,6 +1826,8 @@
 	},
 	"attackDown": {
 		"name": "Attack (down)",
+		"vague": "Attack",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -2086,6 +2124,8 @@
 	},
 	"spinAttack": {
 		"name": "Spin attack",
+		"vague": "Spin attack",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"sprites": [
@@ -2393,6 +2433,8 @@
 	},
 	"spinAttackLeft": {
 		"name": "Spin attack (left)",
+		"vague": "Spin attack",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"sprites": [
@@ -2703,6 +2745,8 @@
 	},
 	"spinAttackUp": {
 		"name": "Spin attack (up)",
+		"vague": "Spin attack",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"sprites": [
@@ -3015,6 +3059,8 @@
 	},
 	"spinAttackDown": {
 		"name": "Spin attack (down)",
+		"vague": "Spin attack",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"sprites": [
@@ -3324,6 +3370,8 @@
 	},
 	"dashSpinup": {
 		"name": "Dash spinup",
+		"vague": "Dash spinup",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -3812,6 +3860,8 @@
 	},
 	"dashSpinupUp": {
 		"name": "Dash spinup (up)",
+		"vague": "Dash spinup",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -4372,6 +4422,8 @@
 	},
 	"dashSpinupDown": {
 		"name": "Dash spinup (down)",
+		"vague": "Dash spinup",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -4921,6 +4973,8 @@
 	},
 	"dashRelease": {
 		"name": "Dash release",
+		"vague": "Dash release",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -4998,6 +5052,8 @@
 	},
 	"dashReleaseUp": {
 		"name": "Dash release (up)",
+		"vague": "Dash release",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -5185,6 +5241,8 @@
 	},
 	"dashReleaseDown": {
 		"name": "Dash release (down)",
+		"vague": "Dash release",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -5380,8 +5438,123 @@
 			}
 		]
 	},
+	"bonk": {
+		"name": "Bonk",
+		"vague": "Bonk",
+		"category": "COMBAT",
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "SWORD",
+						"col": 0,
+						"pos": [0,4],
+						"size": "RIGHT_HALF",
+						"trans": "Y_FLIP"
+					},
+					{
+						"row": "F",
+						"col": 3,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "G",
+						"col": 3,
+						"pos": [0,16],
+						"size": "TOP_HALF"
+					},
+					{
+						"row": "SHIELD",
+						"col": 2,
+						"pos": [-3,5],
+						"size": "FULL"
+					}
+				],
+				"length": 10000,
+				"shadow": "NONE"
+			}
+		]
+	},
+	"bonkUp": {
+		"name": "Bonk (up)",
+		"vague": "Bonk",
+		"category": "COMBAT",
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "F",
+						"col": 4,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "G",
+						"col": 4,
+						"pos": [0,16],
+						"size": "TOP_HALF"
+					},
+					{
+						"row": "SWORD",
+						"col": 0,
+						"pos": [-4,0],
+						"size": "RIGHT_HALF",
+						"trans": "Y_FLIP"
+					},
+					{
+						"row": "SHIELD",
+						"col": 2,
+						"pos": [8,3],
+						"size": "FULL"
+					}
+				],
+				"length": 10000,
+				"shadow": "NONE"
+			}
+		]
+	},
+	"bonkDown": {
+		"name": "Bonk (down)",
+		"vague": "Bonk",
+		"category": "COMBAT",
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "SHIELD",
+						"col": 0,
+						"pos": [-4,6],
+						"size": "FULL"
+					},
+					{
+						"row": "F",
+						"col": 2,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "G",
+						"col": 2,
+						"pos": [0,16],
+						"size": "TOP_HALF"
+					},
+					{
+						"row": "SWORD",
+						"col": 0,
+						"pos": [12,1],
+						"size": "RIGHT_HALF"
+					}
+				],
+				"length": 10000,
+				"shadow": "NONE"
+			}
+		]
+	},
 	"fall": {
 		"name": "Fall",
+		"vague": "Damage",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -5489,6 +5662,8 @@
 	},
 	"zap": {
 		"name": "Zap",
+		"vague": "Damage",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -5871,115 +6046,10 @@
 			}
 		]
 	},
-	"bonk": {
-		"name": "Bonk",
-		"steps": [
-			{
-				"sprites": [
-					{
-						"row": "SWORD",
-						"col": 0,
-						"pos": [0,4],
-						"size": "RIGHT_HALF",
-						"trans": "Y_FLIP"
-					},
-					{
-						"row": "F",
-						"col": 3,
-						"pos": [0,0],
-						"size": "FULL"
-					},
-					{
-						"row": "G",
-						"col": 3,
-						"pos": [0,16],
-						"size": "TOP_HALF"
-					},
-					{
-						"row": "SHIELD",
-						"col": 2,
-						"pos": [-3,5],
-						"size": "FULL"
-					}
-				],
-				"length": 10000,
-				"shadow": "NONE"
-			}
-		]
-	},
-	"bonkUp": {
-		"name": "Bonk (up)",
-		"steps": [
-			{
-				"sprites": [
-					{
-						"row": "F",
-						"col": 4,
-						"pos": [0,0],
-						"size": "FULL"
-					},
-					{
-						"row": "G",
-						"col": 4,
-						"pos": [0,16],
-						"size": "TOP_HALF"
-					},
-					{
-						"row": "SWORD",
-						"col": 0,
-						"pos": [-4,0],
-						"size": "RIGHT_HALF",
-						"trans": "Y_FLIP"
-					},
-					{
-						"row": "SHIELD",
-						"col": 2,
-						"pos": [8,3],
-						"size": "FULL"
-					}
-				],
-				"length": 10000,
-				"shadow": "NONE"
-			}
-		]
-	},
-	"bonkDown": {
-		"name": "Bonk (down)",
-		"steps": [
-			{
-				"sprites": [
-					{
-						"row": "SHIELD",
-						"col": 0,
-						"pos": [-4,6],
-						"size": "FULL"
-					},
-					{
-						"row": "F",
-						"col": 2,
-						"pos": [0,0],
-						"size": "FULL"
-					},
-					{
-						"row": "G",
-						"col": 2,
-						"pos": [0,16],
-						"size": "TOP_HALF"
-					},
-					{
-						"row": "SWORD",
-						"col": 0,
-						"pos": [12,1],
-						"size": "RIGHT_HALF"
-					}
-				],
-				"length": 10000,
-				"shadow": "NONE"
-			}
-		]
-	},
 	"deathSpin": {
 		"name": "Death spin",
+		"vague": "Damage",
+		"category": "COMBAT",
 		"steps": [
 			{
 				"sprites": [
@@ -6249,6 +6319,8 @@
 	},
 	"grab": {
 		"name": "Grab",
+		"vague": "Grab",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -6340,6 +6412,8 @@
 	},
 	"grabUp": {
 		"name": "Grab (up)",
+		"vague": "Grab",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -6445,6 +6519,8 @@
 	},
 	"grabDown": {
 		"name": "Grab (down)",
+		"vague": "Grab",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -6548,6 +6624,8 @@
 	},
 	"lift": {
 		"name": "Lift",
+		"vague": "Lift",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -6747,6 +6825,8 @@
 	},
 	"liftUp": {
 		"name": "Lift (up)",
+		"vague": "Lift",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -6967,6 +7047,8 @@
 	},
 	"liftDown": {
 		"name": "Lift (down)",
+		"vague": "Lift",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -7157,6 +7239,8 @@
 	},
 	"carry": {
 		"name": "Carry",
+		"vague": "Carry",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -7234,6 +7318,8 @@
 	},
 	"carryUp": {
 		"name": "Carry (up)",
+		"vague": "Carry",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -7385,6 +7471,8 @@
 	},
 	"carryDown": {
 		"name": "Carry (down)",
+		"vague": "Carry",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -7536,6 +7624,8 @@
 	},
 	"throw": {
 		"name": "Throw",
+		"vague": "Throw",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -7895,6 +7985,8 @@
 	},
 	"throwUp": {
 		"name": "Throw (up)",
+		"vague": "Throw",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -8254,6 +8346,8 @@
 	},
 	"throwDown": {
 		"name": "Throw (down)",
+		"vague": "Throw",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -8613,6 +8707,8 @@
 	},
 	"push": {
 		"name": "Push",
+		"vague": "Push",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -8762,6 +8858,8 @@
 	},
 	"pushUp": {
 		"name": "Push (up)",
+		"vague": "Push",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -8912,6 +9010,8 @@
 	},
 	"pushDown": {
 		"name": "Push (down)",
+		"vague": "Push",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -9062,6 +9162,8 @@
 	},
 	"treePull": {
 		"name": "Tree pull",
+		"vague": "Tree pull",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -9249,44 +9351,10 @@
 			}
 		]
 	},
-	"salute": {
-		"name": "Salute",
-		"steps": [
-			{
-				"sprites": [
-					{
-						"row": "SWORD",
-						"col": 0,
-						"pos": [11,-7],
-						"size": "RIGHT_HALF"
-					},
-					{
-						"row": "SHIELD",
-						"col": 0,
-						"pos": [-5,9],
-						"size": "FULL"
-					},
-					{
-						"row": "A",
-						"col": 3,
-						"pos": [0,0],
-						"size": "FULL"
-					},
-					{
-						"row": "P",
-						"col": 4,
-						"pos": [0,8],
-						"size": "FULL",
-						"trans": "Y_FLIP"
-					}
-				],
-				"length": 10000,
-				"shadow": "NORM"
-			}
-		]
-	},
 	"itemGet": {
 		"name": "Item get",
+		"vague": "Get",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -9323,6 +9391,8 @@
 	},
 	"crystalGet": {
 		"name": "Crystal get",
+		"vague": "Get",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -9350,61 +9420,48 @@
 			}
 		]
 	},
-	"swagDuck": {
-		"name": "Swag duck",
+	"salute": {
+		"name": "Salute",
+		"vague": "Get",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
 					{
-						"row": "DUCK",
-						"col": 2,
-						"pos": [8,-21],
-						"size": "FULL",
+						"row": "SWORD",
+						"col": 0,
+						"pos": [11,-7],
+						"size": "RIGHT_HALF"
 					},
 					{
-						"row": "L",
-						"col": 1,
-						"pos": [-1,-8],
+						"row": "SHIELD",
+						"col": 0,
+						"pos": [-5,9],
 						"size": "FULL"
 					},
 					{
-						"row": "L",
-						"col": 2,
-						"pos": [-1,0],
-						"size": "FULL"
-					}
-				],
-				"length": 4,
-				"shadow": "NONE"
-			},
-			{
-				"sprites": [
-					{
-						"row": "DUCK",
+						"row": "A",
 						"col": 3,
-						"pos": [8,-21],
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "P",
+						"col": 4,
+						"pos": [0,8],
 						"size": "FULL",
-					},
-					{
-						"row": "L",
-						"col": 1,
-						"pos": [-1,-8],
-						"size": "FULL"
-					},
-					{
-						"row": "L",
-						"col": 2,
-						"pos": [-1,0],
-						"size": "FULL"
+						"trans": "Y_FLIP"
 					}
 				],
-				"length": 8,
-				"shadow": "NONE"
+				"length": 10000,
+				"shadow": "NORM"
 			}
 		]
 	},
 	"bow": {
 		"name": "Bow",
+		"vague": "Bow",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -9503,6 +9560,8 @@
 	},
 	"bowUp": {
 		"name": "Bow (up)",
+		"vague": "Bow",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -9602,6 +9661,8 @@
 	},
 	"bowDown": {
 		"name": "Bow (down)",
+		"vague": "Bow",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -9702,6 +9763,8 @@
 	},
 	"boomerang": {
 		"name": "Boomerang",
+		"vague": "Boomerang",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -10226,6 +10289,8 @@
 	},
 	"boomerangUp": {
 		"name": "Boomerang (up)",
+		"vague": "Boomerang",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -10657,6 +10722,8 @@
 	},
 	"boomerangDown": {
 		"name": "Boomerang (down)",
+		"vague": "Boomerang",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -11188,6 +11255,8 @@
 	},
 	"hookshot": {
 		"name": "Hookshot",
+		"vague": "Hookshot",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -11546,6 +11615,8 @@
 	},
 	"hookshotUp": {
 		"name": "Hookshot (up)",
+		"vague": "Hookshot",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -11963,6 +12034,8 @@
 	},
 	"hookshotDown": {
 		"name": "Hookshot (down)",
+		"vague": "Hookshot",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -12325,6 +12398,8 @@
 	},
 	"powder": {
 		"name": "Powder",
+		"vague": "Powder",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -12429,6 +12504,8 @@
 	},
 	"powderUp": {
 		"name": "Powder (up)",
+		"vague": "Powder",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -12533,6 +12610,8 @@
 	},
 	"powderDown": {
 		"name": "Powder (down)",
+		"vague": "Powder",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -12639,6 +12718,8 @@
 	},
 	"rod": {
 		"name": "Rod",
+		"vague": "Rod",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -12749,6 +12830,8 @@
 	},
 	"rodUp": {
 		"name": "Rod (up)",
+		"vague": "Rod",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -12859,6 +12942,8 @@
 	},
 	"rodDown": {
 		"name": "Rod (down)",
+		"vague": "Rod",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -12973,6 +13058,8 @@
 	},
 	"bombos": {
 		"name": "Bombos",
+		"vague": "Medallion",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -13515,6 +13602,8 @@
 	},
 	"ether": {
 		"name": "Ether",
+		"vague": "Medallion",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -15020,6 +15109,8 @@
 	},
 	"quake": {
 		"name": "Quake",
+		"vague": "Medallion",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -16365,6 +16456,8 @@
 	},
 	"hammer": {
 		"name": "Hammer",
+		"vague": "Hammer",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -16475,6 +16568,8 @@
 	},
 	"hammerUp": {
 		"name": "Hammer (up)",
+		"vague": "Hammer",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -16585,6 +16680,8 @@
 	},
 	"hammerDown": {
 		"name": "Hammer (down)",
+		"vague": "Hammer",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -16699,6 +16796,8 @@
 	},
 	"shovel": {
 		"name": "Shovel",
+		"vague": "Flute",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -16777,8 +16876,65 @@
 			}
 		]
 	},
+	"swagDuck": {
+		"name": "Swag duck",
+		"vague": "Flute",
+		"category": "ITEMS",
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "DUCK",
+						"col": 2,
+						"pos": [8,-21],
+						"size": "FULL",
+					},
+					{
+						"row": "L",
+						"col": 1,
+						"pos": [-1,-8],
+						"size": "FULL"
+					},
+					{
+						"row": "L",
+						"col": 2,
+						"pos": [-1,0],
+						"size": "FULL"
+					}
+				],
+				"length": 4,
+				"shadow": "NONE"
+			},
+			{
+				"sprites": [
+					{
+						"row": "DUCK",
+						"col": 3,
+						"pos": [8,-21],
+						"size": "FULL",
+					},
+					{
+						"row": "L",
+						"col": 1,
+						"pos": [-1,-8],
+						"size": "FULL"
+					},
+					{
+						"row": "L",
+						"col": 2,
+						"pos": [-1,0],
+						"size": "FULL"
+					}
+				],
+				"length": 8,
+				"shadow": "NONE"
+			}
+		]
+	},
 	"bugNet": {
 		"name": "Bug net",
+		"vague": "Bug net",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -17033,6 +17189,8 @@
 	},
 	"readBook": {
 		"name": "Read book",
+		"vague": "Book",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"sprites": [
@@ -17062,6 +17220,8 @@
 	},
 	"prayer": {
 		"name": "Prayer",
+		"vague": "Book",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"sprites": [
@@ -17139,6 +17299,8 @@
 	},
 	"cane": {
 		"name": "Cane",
+		"vague": "Cane",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -17222,6 +17384,8 @@
 	},
 	"caneUp": {
 		"name": "Cane (up)",
+		"vague": "Cane",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -17306,6 +17470,8 @@
 	},
 	"caneDown": {
 		"name": "Cane (down)",
+		"vague": "Cane",
+		"category": "ITEMS",
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -17390,6 +17556,8 @@
 	},
 	"bunnyStand": {
 		"name": "Bunny stand",
+		"vague": "Bunny stand",
+		"category": "BUNNY",
 		"steps": [
 			{
 				"sprites": [
@@ -17413,6 +17581,8 @@
 	},
 	"bunnyStandUp": {
 		"name": "Bunny stand (up)",
+		"vague": "Bunny stand",
+		"category": "BUNNY",
 		"steps": [
 			{
 				"sprites": [
@@ -17436,6 +17606,8 @@
 	},
 	"bunnyStandDown": {
 		"name": "Bunny stand (down)",
+		"vague": "Bunny stand",
+		"category": "BUNNY",
 		"steps": [
 			{
 				"sprites": [
@@ -17459,6 +17631,8 @@
 	},
 	"bunnyWalk": {
 		"name": "Bunny walk",
+		"vague": "Bunny walk",
+		"category": "BUNNY",
 		"steps": [
 			{
 				"sprites": [
@@ -17644,6 +17818,8 @@
 	},
 	"bunnyWalkUp": {
 		"name": "Bunny walk (up)",
+		"vague": "Bunny walk",
+		"category": "BUNNY",
 		"steps": [
 			{
 				"sprites": [
@@ -17722,6 +17898,8 @@
 	},
 	"bunnyWalkDown": {
 		"name": "Bunny walk (down)",
+		"vague": "Bunny walk",
+		"category": "BUNNY",
 		"steps": [
 			{
 				"sprites": [
@@ -17800,6 +17978,8 @@
 	},
 	"walkUpstairs1F": {
 		"name": "Walk upstairs (1F)",
+		"vague": "Walk upstairs",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -18338,6 +18518,8 @@
 	},
 	"walkUpstairs2F": {
 		"name": "Walk upstairs (2F)",
+		"vague": "Walk upstairs",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -18787,6 +18969,8 @@
 	},
 	"walkDownstairs2F": {
 		"name": "Walk downstairs (2F)",
+		"vague": "Walk downstairs",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -19500,6 +19684,8 @@
 	},
 	"walkDownstairs1F": {
 		"name": "Walk downstairs (1F)",
+		"vague": "Walk downstairs",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -19925,6 +20111,8 @@
 	},
 	"poke": {
 		"name": "Poke",
+		"vague": "Poke",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -20020,6 +20208,8 @@
 	},
 	"pokeUp": {
 		"name": "Poke (up)",
+		"vague": "Poke",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -20115,6 +20305,8 @@
 	},
 	"pokeDown": {
 		"name": "Poke (down)",
+		"vague": "Poke",
+		"category": "INTERACTIONS",
 		"steps": [
 			{
 				"sprites": [
@@ -20216,6 +20408,8 @@
 	},
 	"tallGrass": {
 		"name": "Tall grass",
+		"vague": "Tall grass",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -20311,6 +20505,8 @@
 	},
 	"tallGrassUp": {
 		"name": "Tall grass (up)",
+		"vague": "Tall grass",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -20497,6 +20693,8 @@
 	},
 	"tallGrassDown": {
 		"name": "Tall grass (down)",
+		"vague": "Tall grass",
+		"category": "MOVEMENT",
 		"steps": [
 			{
 				"sprites": [
@@ -20684,6 +20882,8 @@
 	},
 	"mapDungeon": {
 		"name": "Map dungeon",
+		"vague": "Map",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -20701,6 +20901,8 @@
 	},
 	"mapWorld": {
 		"name": "Map world",
+		"vague": "Map",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -20730,6 +20932,8 @@
 	},
 	"sleep": {
 		"name": "Sleep",
+		"vague": "Bed",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
@@ -20759,6 +20963,8 @@
 	},
 	"awake": {
 		"name": "Awake",
+		"vague": "Bed",
+		"category": "NEUTRAL",
 		"steps": [
 			{
 				"sprites": [
