@@ -78,13 +78,6 @@ public class SpriteAnimator extends JComponent {
 	private boolean showEquipment = true;
 	private boolean showNeutral = true;
 
-	// change listeners
-	private List<AnimatorListener> stepListen = new ArrayList<AnimatorListener>();
-	private List<AnimatorListener> modeListen = new ArrayList<AnimatorListener>();
-	private List<AnimatorListener> speedListen = new ArrayList<AnimatorListener>();
-	private List<AnimatorListener> zoomListen = new ArrayList<AnimatorListener>();
-	private List<AnimatorListener> rebuildListen = new ArrayList<AnimatorListener>();
-
 	// default initialization
 	public SpriteAnimator() {
 		this.setFocusable(true);
@@ -597,6 +590,12 @@ public class SpriteAnimator extends JComponent {
 	/*
 	 * Change listeners
 	 */
+	private List<AnimatorListener> stepListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> modeListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> speedListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> zoomListen = new ArrayList<AnimatorListener>();
+	private List<AnimatorListener> rebuildListen = new ArrayList<AnimatorListener>();
+
 	/**
 	 * Step listeners look for step advances
 	 */
@@ -906,5 +905,91 @@ public class SpriteAnimator extends JComponent {
 		writer.writeAnimatedGIF(frames, output);
 
 		return animGif.getPath();
+	} // end gif make
+
+	// Crossproduct tracker images
+	private static final int CP_MAX = 128;
+	private static final int CP_ZOOM = 4;
+	private static final int CP_X = 0;
+	private static final int CP_Y = 0;
+
+	private static enum CP_FILE {
+		G_SALUT ("tunic1", Animation.SALUTE, 0),
+		B_SALUT ("tunic2", Animation.SALUTE, 1),
+		R_SALUT ("tunic3", Animation.SALUTE, 2),
+		BUNNY_G ("tunicbunny1", Animation.BUNNY_STAND_DOWN, 3),
+		BUNNY_B ("tunicbunny2", Animation.BUNNY_STAND_DOWN, 1),
+		BUNNY_R ("tunicbunny3", Animation.BUNNY_STAND_DOWN, 2);
+
+		final String fileName;
+		final Animation pose;
+		final int mail;
+
+		CP_FILE (String fileName, Animation pose, int mail) {
+			this.fileName = fileName;
+			this.pose = pose;
+			this.mail = mail;
+		}
 	}
+
+	public String makeCrossproduct() throws Exception {
+		if (mailImages == null) { throw new Exception(); }
+
+		File s = new File(spriteName);
+
+		long time = System.currentTimeMillis();
+		String dir = s.getParent();
+		String[] fNameParts = spriteName.split("[/\\\\]");
+		String spriteFileName = fNameParts[fNameParts.length-1];
+		File cDir = new File(dir + String.format("\\%s (%s)", spriteFileName, time));
+
+		if (cDir.exists()) {
+			if (cDir.isDirectory()) {
+				dir = cDir.getPath();
+			} else {
+				// nothing
+			}
+		} else {
+			cDir.mkdir();
+			dir = cDir.getPath();
+		}
+
+		for (CP_FILE c : CP_FILE.values()) {
+			/*
+			 * Makes the sprite image
+			 * Mostly copied from makeAnimation()
+			 */
+			BufferedImage sheet = mailImages[c.mail][0];
+			ArrayList<StepData> config = c.pose.customizeMergeAndFinalize(0, 0, false, false, false);
+			StepData stepX = config.get(0);
+			int sprCount = stepX.countSprites();
+			Sprite[] list = new Sprite[sprCount]; // list of sprites for pose
+
+			for (int j = 0; j < sprCount; j++) { // for each sprite in step
+				SpriteData curSprite = stepX.getSprite(j);
+				Sprite newSpr = new Sprite(sheet, curSprite);
+				list[sprCount-j-1] = newSpr; // put it in backwards to preserve z-order
+			}
+
+			Anime pose = new Anime(stepX, list); // we only care about this first step
+			// end of copied code
+
+			BufferedImage spriteImg = new BufferedImage(CP_MAX, CP_MAX, BufferedImage.TYPE_4BYTE_ABGR);
+			Graphics2D sprg = spriteImg.createGraphics();
+			sprg.scale(CP_ZOOM, CP_ZOOM);
+			pose.draw(sprg, 3, 3);
+
+			BufferedImage output = new BufferedImage(CP_MAX, CP_MAX, BufferedImage.TYPE_4BYTE_ABGR);
+			Graphics2D imgg = output.createGraphics();
+			imgg.drawImage(spriteImg, 16, 16, null);
+
+			File f = new File(String.format("%s\\%s.png", dir, c.fileName));
+			try(FileOutputStream wr = new FileOutputStream(f)) {
+				ImageIO.write(output, "png", wr); // try to write image
+				wr.close();
+			}
+		} // end of file loop
+
+		return dir;
+	} // end tracker images
 }
