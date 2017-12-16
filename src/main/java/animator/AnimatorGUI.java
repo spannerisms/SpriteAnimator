@@ -500,7 +500,7 @@ public class AnimatorGUI {
 
 		// crossproduct tracker images
 		final JMenuItem cross = new JMenuItem("Make tracker images");
-		ImageIcon crossProductsFace = new ImageIcon(AnimatorGUI.class.getResource("/images/cane.png"));
+		ImageIcon crossProductsFace = new ImageIcon(AnimatorGUI.class.getResource("/images/cross.png"));
 		cross.setIcon(crossProductsFace);
 		fileMenu.add(cross);
 
