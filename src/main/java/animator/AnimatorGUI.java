@@ -458,9 +458,9 @@ public class AnimatorGUI {
 		peepsList.append("\n\nResources and development:\n");
 		peepsList.append(String.join(", ",
 				new String[]{
-						"Veetorp", // provided most valuable documentation
-						"Zarby89", // various documentation and answers
-						"Sosuke3" // various snes code answers
+						"Veetorp", // documentation
+						"Sosuke3", // various snes code answers
+						"Fish" // Crossproduct tracker icon
 				}));
 		peepsList.append("\n\nTesting and feedback:\n");
 		peepsList.append(String.join(", ",
