@@ -16887,7 +16887,7 @@
 						"row": "DUCK",
 						"col": 2,
 						"pos": [8,-21],
-						"size": "FULL",
+						"size": "FULL"
 					},
 					{
 						"row": "L",
@@ -16911,7 +16911,7 @@
 						"row": "DUCK",
 						"col": 3,
 						"pos": [8,-21],
-						"size": "FULL",
+						"size": "FULL"
 					},
 					{
 						"row": "L",
@@ -20991,5 +20991,5 @@
 				"shadow": "NONE"
 			}
 		]
-	},
+	}
 }
