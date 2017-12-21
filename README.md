@@ -2,19 +2,30 @@
 
 [SpriteAnimator](https://github.com/fatmanspanda/SpriteAnimator/wiki/Sprite-Animator) is a program designed to help debug the appearance of a sprite as it's being created. It uses information based off of Link's animations in game to recreate every animation with an imported sprite. It is downloadable as a runnable `JAR` file from [the super project's release page](https://github.com/fatmanspanda/ALttPNG/releases).
 
-## Features
+## Display features
 
 Along with animating sprites, SpriteAnimator also includes various features to control the display:
-* Backgrounds to test how a sprite looks in various areas
+* Backgrounds to test how a sprite looks in various areas.
   * Character sprites can be moved against the background by clicking or dragging your mouse pointer. (v1.5+)
-* The ability to view animations with a sword or shield of any level
-* The ability to view character sprites in any of the 4 mail palettes
-* The ability to toggle shadows
-* The ability to toggle sprites that don't fall under the above categories (NOTE: Swag duck cannot be turned off)
-* The ability to toggle neutral poses (default standing position) to assess how smoothly a sprite moves into an animation
-* The ability to zoom in on sprites, up to 500%
-* The ability to speed up or slow down animations
+* The ability to view animations with a sword or shield of any level.
+* The ability to view character sprites in any of the 4 mail palettes.
+* The ability to toggle shadows.
+* The ability to toggle sprites that don't fall under the above categories. (*Note: Swag duck cannot be turned off.*)
+* The ability to toggle neutral poses (default standing position) to assess how smoothly a sprite moves into an animation.
+* The ability to zoom in on sprites, up to 500%.
+* The ability to speed up or slow down animations.
 * The ability to view animations step-by-step, which also includes a table of what sprite sheet cells are used and how they are transformed.
+
+## Other features
+
+* Sprite look up chart
+  * Includes 3 display options:
+    1. Vanilla Link
+    1. Named indices
+    1. Green mail of currently loaded sprite
+* Animated GIF export
+  * *Note: the GIF specification only allows for a minimum delay time of 10ms; as such, exported GIF files will run at incorrect speeds.*
+* Tracker images export for [Crossproduct's tracker](https://github.com/crossproduct42/alttprandohelper/releases)
 
 ## Terminology used in this project
 Some terms we need to use are overloaded (they can mean multiple things). To avoid confusion, here's a brief glossary of what means what when we say it. Not everything is perfectly written, so feel free to ask questions if something doesn't seem to mean what you think.
@@ -66,16 +77,18 @@ The bulk of the groundwork for this program was researched by Mike Trethewey and
 
 As of v1.5, animation data is stored in a `json` format, free for anyone to use. It is only asked that you credit the research time devoted here for that data.
 
-SpriteAnimator imports the [`org.json` library](https://github.com/stleary/JSON-java) created by user stleary (Sean Leary).
-
 JSON file:
 * [/resources/AnimationData.json](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/AnimationData.json)
 
 Definitions:
-* key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/SheetRow.java)
-* key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/DrawSize.java)
-* key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/Transformation.java)
+* Key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/SheetRow.java)
+* Key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/DrawSize.java)
+* Key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/Transformation.java)
 
 Resources:
 * Item sprites: [/resources/images/equipment.png](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/images/equipment.png)
 * Zap palette colors: `static final byte[][] ZAP_PALETTE` (signed bytes) in [SpriteManipulator/SpriteManipulator.java](https://github.com/fatmanspanda/SpriteManipulator/blob/master/src/main/java/spritemanipulator/SpriteManipulator.java)
+
+# Dependencies
+* [Sean Leary's `org.json` library](https://github.com/stleary/JSON-java)
+* [Dragon66's `AnimatedGIFWriter`](https://github.com/dragon66/animated-gif-writer/blob/master/src/com/github/dragon66/AnimatedGIFWriter.java)
