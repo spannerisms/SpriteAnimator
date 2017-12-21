@@ -72,10 +72,10 @@ JSON file:
 * [/resources/AnimationData.json](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/AnimationData.json)
 
 Definitions:
-* key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/SpriteAnimator/Database/SheetRow.java)
-* key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/SpriteAnimator/Database/DrawSize.java)
-* key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/SpriteAnimator/Database/Transformation.java)
+* key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/SheetRow.java)
+* key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/DrawSize.java)
+* key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/Transformation.java)
 
 Resources:
 * Item sprites: [/resources/images/equipment.png](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/images/equipment.png)
-* Zap palette colors: `static final byte[][] ZAP_PALETTE` (signed bytes) in [SpriteManipulator/SpriteManipulator.java](https://github.com/fatmanspanda/SpriteManipulator/blob/master/SpriteManipulator.java)
+* Zap palette colors: `static final byte[][] ZAP_PALETTE` (signed bytes) in [SpriteManipulator/SpriteManipulator.java](https://github.com/fatmanspanda/SpriteManipulator/blob/master/src/main/java/spritemanipulator/SpriteManipulator.java)
