@@ -9430,18 +9430,12 @@
 					{
 						"row": "SWORD",
 						"col": 0,
-						"pos": [11,-7],
-						"size": "RIGHT_HALF"
-					},
-					{
-						"row": "SHIELD",
-						"col": 0,
-						"pos": [-5,9],
-						"size": "FULL"
+						"pos": [13,-6],
+						"size": "LEFT_HALF"
 					},
 					{
 						"row": "A",
-						"col": 3,
+						"col": 1,
 						"pos": [0,0],
 						"size": "FULL"
 					},

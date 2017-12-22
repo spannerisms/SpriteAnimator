@@ -566,6 +566,13 @@ public class AnimatorGUI {
 
 		explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
+		// try to set current sprite to vanilla
+		try {
+			loadSprite(animated, AnimatorGUI.class.getResource("/Link.zspr").getPath());
+		} catch (Exception e) {
+			// do nothing
+		}
+
 		// clear focusability of all useless components
 		for (Component comp : controls.getComponents()) {
 			if (comp instanceof JLabel ||
