@@ -87,9 +87,6 @@ public class AnimatorGUI {
 
 	private static final int BLANK_HEIGHT = 10;
 
-	/**
-	 * Perform
-	 */
 	public static void main(String[] args) throws IOException {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -114,7 +111,7 @@ public class AnimatorGUI {
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
-		final Dimension d = new Dimension(800, 700);
+		final Dimension d = new Dimension(1000, 700);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 		Dimension textDimension = new Dimension(50, 20);
@@ -305,7 +302,7 @@ public class AnimatorGUI {
 
 		// shields
 		ButtonGroup shieldChoice = new ButtonGroup();
-		final JLabel shieldLabel = new JLabel("Sheild:", SwingConstants.RIGHT);
+		final JLabel shieldLabel = new JLabel("Shield:", SwingConstants.RIGHT);
 		shieldLabel.setBorder(rightPad);
 
 		IconButton noShield = new IconButton(clearGear);

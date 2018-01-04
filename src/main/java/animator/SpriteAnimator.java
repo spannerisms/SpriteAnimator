@@ -57,7 +57,7 @@ public class SpriteAnimator extends JComponent {
 	private int mode; // animation mode
 	private int step; // animation step (not 0 indexed)
 	private int maxStep; // highest animation step (not 0 indexed)
-	private int zoom = 2; // default zoom
+	private int zoom = 3; // default zoom
 	private boolean running; // self-running status
 	private String spriteName;
 	private Animation anime; // current animation
