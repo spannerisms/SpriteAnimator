@@ -455,10 +455,11 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Switch equipment display status
+	 * Set equipment display status
 	 */
-	public void switchEquipment() {
-		showEquipment = !showEquipment;
+	public void setEquipment(boolean b) {
+		if (showEquipment == b) { return; }
+		showEquipment = b;
 		fireRebuildEvent();
 	}
 
@@ -470,10 +471,11 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Switch shadow display status
+	 * Set shadow display status
 	 */
-	public void switchShadow() {
-		showShadow = !showShadow;
+	public void setShadow(boolean b) {
+		if (showShadow == b) { return; }
+		showShadow = b;
 		fireRebuildEvent();
 	}
 
@@ -485,10 +487,11 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Switch neutral display status
+	 * Set neutral display status
 	 */
-	public void switchNeutral() {
-		showNeutral = !showNeutral;
+	public void setNeutral(boolean b) {
+		if (showNeutral == b) { return; }
+		showNeutral = b;
 		fireRebuildEvent();
 	}
 
@@ -504,16 +507,8 @@ public class SpriteAnimator extends JComponent {
 	 * @param ml
 	 */
 	public void setMail(int ml) {
+		if (mailLevel == ml) { return; }
 		mailLevel = ml;
-		fireRebuildEvent();
-	}
-
-	/**
-	 * Set lift level
-	 * @param gl
-	 */
-	public void setGlove(int gl) {
-		gloveLevel = gl;
 		fireRebuildEvent();
 	}
 
@@ -522,6 +517,7 @@ public class SpriteAnimator extends JComponent {
 	 * @param sl
 	 */
 	public void setSword(int sl) {
+		if (swordLevel == sl) { return; }
 		swordLevel = sl;
 		fireRebuildEvent();
 	}
@@ -531,7 +527,19 @@ public class SpriteAnimator extends JComponent {
 	 * @param sl
 	 */
 	public void setShield(int sl) {
+		if (shieldLevel == sl) { return; }
 		shieldLevel = sl;
+		fireRebuildEvent();
+	}
+
+
+	/**
+	 * Set lift level
+	 * @param gl
+	 */
+	public void setGlove(int gl) {
+		if (gloveLevel == gl) { return; }
+		gloveLevel = gl;
 		fireRebuildEvent();
 	}
 

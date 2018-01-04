@@ -13,7 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -54,6 +56,14 @@ public class AnimatorGUI {
 			// "All steps" disabled for now
 		};
 
+	private static final String[] MAIL_LEVELS = {
+			"No mail",
+			"Green mail",
+			"Blue mail",
+			"Red mail",
+			"Bunny"
+		};
+
 	private static final String[] SWORD_LEVELS = {
 			"No sword",
 			"Fighter's sword",
@@ -67,13 +77,6 @@ public class AnimatorGUI {
 			"Fighter's shield",
 			"Red shield",
 			"Mirror shield"
-		};
-
-	private static final String[] MAIL_LEVELS = {
-			"Green mail",
-			"Blue mail",
-			"Red mail",
-			"Bunny"
 		};
 
 	public static final String[] GLOVE_LEVELS = {
@@ -111,7 +114,7 @@ public class AnimatorGUI {
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
-		final Dimension d = new Dimension(800, 600);
+		final Dimension d = new Dimension(800, 700);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 		Dimension textDimension = new Dimension(50, 20);
@@ -120,12 +123,6 @@ public class AnimatorGUI {
 		final Container fullWrap = frame.getContentPane();
 		SpringLayout l = new SpringLayout();
 		fullWrap.setLayout(l);
-
-		// Tool Tip constants info
-		final String REBUILDS =
-				"This action requires a rebuild of the animation data, resetting the current step to 1.";
-		final String REBUILDS_PLURAL =
-				"These actions require a rebuild of the animation data, resetting the current step to 1.";
 
 		// control panel
 		final JPanel controls = new JPanel(new GridBagLayout());
@@ -137,6 +134,15 @@ public class AnimatorGUI {
 		l.putConstraint(NORTH, controls, 5, NORTH, frame);
 		frame.add(controls);
 
+		// animation panel
+		final SpriteAnimator animated = new SpriteAnimator();
+		l.putConstraint(WEST, animated, 5, WEST, fullWrap);
+		l.putConstraint(EAST, animated, -5, WEST, controls);
+		l.putConstraint(NORTH, animated, 5, NORTH, fullWrap);
+		l.putConstraint(SOUTH, animated, -5, SOUTH, fullWrap);
+		fullWrap.add(animated);
+
+		// controls formatting
 		// negative so everything can just ++
 		c.gridy = -1;
 		c.gridwidth = 1;
@@ -214,101 +220,266 @@ public class AnimatorGUI {
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
-		// sword level
-		final JComboBox<String> swordLevel = new JComboBox<String>(SWORD_LEVELS);
-		final JLabel gearLabel = new JLabel("Gear:", SwingConstants.RIGHT);
+		// gear label
+		final JLabel gearLabel = new JLabel("<html><b>Display:</b></html>", SwingConstants.RIGHT);
+		gearLabel.setVerticalAlignment(SwingConstants.TOP);
 		gearLabel.setBorder(rightPad);
 		setToolTip(gearLabel,
 				"Controls the level and display of the sword and shield, " +
 				"and the current mail palette.",
-				REBUILDS_PLURAL);
+				"These actions require a rebuild of the animation data, resetting the current step to 1.");
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(gearLabel, c);
-		c.gridwidth = 2;
-		c.gridx = 1;
-		controls.add(swordLevel, c);
 
-		// shield level
-		final JComboBox<String> shieldLevel = new JComboBox<String>(SHIELD_LEVELS);
+		// gear
+		final JPanel gearControls = new JPanel(new GridBagLayout());
+		GridBagConstraints g = new GridBagConstraints();
+		Image clearGear = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/no-thing.png"));
+		g.fill = GridBagConstraints.HORIZONTAL;
+		g.gridy = -1;
+		g.ipadx = 4;
+		g.ipady = 4;
+
+		// mails
+		ButtonGroup mailChoice = new ButtonGroup();
+		final JLabel mailLabel = new JLabel("Mail:", SwingConstants.RIGHT);
+		mailLabel.setBorder(rightPad);
+
+		GearChange mailChange = (i) -> {
+				animated.setMail(i);
+				frame.repaint();
+			};
+
+		g.gridy++;
+		g.gridx = 0;
+		gearControls.add(mailLabel, g);
+		g.gridx++;
+
+		for (int i = 1; i < 5; i++) {
+			Image mailXIco = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/mail-" + i + ".png"));
+			IconButton mailX = new IconButton(mailXIco);
+			mailChoice.add(mailX);
+			g.gridx++;
+			gearControls.add(mailX, g);
+			int a = i - 1;
+			mailX.addActionListener(arg0 -> mailChange.go(a));
+			mailX.setToolTipText(MAIL_LEVELS[i]);
+			if (i == 1) {
+				mailX.setSelected(true);
+			}
+		}
+
+		// swords
+		ButtonGroup swordChoice = new ButtonGroup();
+		final JLabel swordLabel = new JLabel("Sword:", SwingConstants.RIGHT);
+		swordLabel.setBorder(rightPad);
+
+		IconButton noSword = new IconButton(clearGear);
+		swordChoice.add(noSword);
+
+		GearChange swordChange = (i) -> {
+				animated.setSword(i);
+				frame.repaint();
+			};
+		noSword.addActionListener(arg0 -> swordChange.go(0));
+		noSword.setSelected(true);
+		noSword.setToolTipText(SWORD_LEVELS[0]);
+
+		g.gridy++;
+		g.gridx = 0;
+		gearControls.add(swordLabel, g);
+		g.gridx++;
+		gearControls.add(noSword, g);
+
+		for (int i = 1; i < 5; i++) {
+			Image swordXIco = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/sword-" + i + ".png"));
+			IconButton swordX = new IconButton(swordXIco);
+			swordChoice.add(swordX);
+			g.gridx++;
+			gearControls.add(swordX, g);
+			int a = i;
+			swordX.addActionListener(arg0 -> swordChange.go(a));
+			swordX.setToolTipText(SWORD_LEVELS[i]);
+		}
+
+		// shields
+		ButtonGroup shieldChoice = new ButtonGroup();
+		final JLabel shieldLabel = new JLabel("Sheild:", SwingConstants.RIGHT);
+		shieldLabel.setBorder(rightPad);
+
+		IconButton noShield = new IconButton(clearGear);
+		shieldChoice.add(noShield);
+
+		GearChange shieldChange = (i) -> {
+				animated.setShield(i);
+				frame.repaint();
+			};
+		noShield.addActionListener(arg0 -> shieldChange.go(0));
+		noShield.setSelected(true);
+		noShield.setToolTipText(SHIELD_LEVELS[0]);
+
+		g.gridy++;
+		g.gridx = 0;
+		gearControls.add(shieldLabel, g);
+		g.gridx++;
+		gearControls.add(noShield, g);
+
+		for (int i = 1; i < 4; i++) {
+			Image shieldXIco = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/shield-" + i + ".png"));
+			IconButton shieldX = new IconButton(shieldXIco);
+			shieldChoice.add(shieldX);
+			g.gridx++;
+			gearControls.add(shieldX, g);
+			int a = i;
+			shieldX.addActionListener(arg0 -> shieldChange.go(a));
+			shieldX.setToolTipText(SHIELD_LEVELS[i]);
+		}
+
+		// gloves
+		ButtonGroup glovesChoice = new ButtonGroup();
+		final JLabel glovesLabel = new JLabel("Glove:", SwingConstants.RIGHT);
+		glovesLabel.setBorder(rightPad);
+
+		IconButton noGloves = new IconButton(clearGear);
+		glovesChoice.add(noGloves);
+
+		GearChange glovesChange = (i) -> {
+				animated.setGlove(i);
+				frame.repaint();
+			};
+		noGloves.addActionListener(arg0 -> glovesChange.go(0));
+		noGloves.setSelected(true);
+		noGloves.setToolTipText(GLOVE_LEVELS[0]);
+
+		g.gridy++;
+		g.gridx = 0;
+		gearControls.add(glovesLabel, g);
+		g.gridx++;
+		gearControls.add(noGloves, g);
+
+		for (int i = 1; i < 3; i++) {
+			Image glovesXIco = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/gloves-" + i + ".png"));
+			IconButton glovesX = new IconButton(glovesXIco);
+			glovesChoice.add(glovesX);
+			g.gridx++;
+			gearControls.add(glovesX, g);
+			int a = i;
+			glovesX.addActionListener(arg0 -> glovesChange.go(a));
+			glovesX.setToolTipText(GLOVE_LEVELS[i]);
+		}
+
 		c.gridy++;
-		c.gridx = 1;
-		controls.add(shieldLevel, c);
-
-		// mail level
-		final JComboBox<String> mailLevel = new JComboBox<String>(MAIL_LEVELS);		
-		c.gridy++;
-		c.gridx = 1;
-		controls.add(mailLevel, c);
-
-		// glove level
-		final JComboBox<String> gloveLevel = new JComboBox<String>(GLOVE_LEVELS);		
-		c.gridy++;
-		c.gridx = 1;
-		controls.add(gloveLevel, c);
-
+		c.gridwidth = 3;
+		controls.add(gearControls, c);
 		c.gridwidth = 1;
 
 		// blank
-		c.gridy++;
-		c.ipady = BLANK_HEIGHT;
-		controls.add(new JLabel(), c);
-		c.ipady = 0;
+		g.gridy++;
+		g.ipady = BLANK_HEIGHT;
+		gearControls.add(new JLabel(), g);
+		g.ipady = 0;
 
-		// other equipment
-		final JButton equipBtn = new JButton("Toggle");
+		// misc
 		final JLabel thePhraseMiscellaneousSpritesWithAColon = new JLabel("Misc. sprites:", SwingConstants.RIGHT);
-		final JLabel equipStatus = new JLabel("ON", SwingConstants.CENTER);
 		thePhraseMiscellaneousSpritesWithAColon.setBorder(rightPad);
 		setToolTip(thePhraseMiscellaneousSpritesWithAColon,
 				"When <b>miscellaneous sprites</b> are on, " +
 						"animations that contain sprites other than the playable character " +
 						"will display their relevant sprites.",
-				"This option does not affect the display of swords, shields, or swag duck.",
-				REBUILDS);
-		c.gridy++;
-		c.gridx = 0;
-		controls.add(thePhraseMiscellaneousSpritesWithAColon, c);
-		c.gridx = 1;
-		controls.add(equipStatus, c);
-		c.gridx = 2;
-		controls.add(equipBtn, c);
+				"This option does not affect the display of swords, shields, or swag duck.");
 
-		// shadows
-		final JButton shadowBtn = new JButton("Toggle");
+		ButtonGroup miscChoice = new ButtonGroup();
+		IconButton noMisc = new IconButton(clearGear);
+		miscChoice.add(noMisc);
+		Image miscIco = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/misc-on.png"));
+		IconButton yesMisc = new IconButton(miscIco);
+		miscChoice.add(yesMisc);
+
+		MiscChange miscChange = (b) -> {
+			animated.setEquipment(b);
+			frame.repaint();
+		};
+		noMisc.addActionListener(arg0 -> miscChange.go(false));
+		yesMisc.addActionListener(arg0 -> miscChange.go(true));
+		yesMisc.setSelected(true);
+
+		g.gridy++;
+		g.gridx = 0;
+		gearControls.add(thePhraseMiscellaneousSpritesWithAColon, g);
+		g.gridx = 1;
+		gearControls.add(noMisc, g);
+		g.gridx = 2;
+		gearControls.add(yesMisc, g);
+
+		// shadow
 		final JLabel shadowLabel = new JLabel("Shadows:", SwingConstants.RIGHT);
-		final JLabel shadowStatus = new JLabel("--", SwingConstants.CENTER);
 		shadowLabel.setBorder(rightPad);
 		setToolTip(shadowLabel,
 				"When <b>shadows</b> are on, " +
 						"certain animations will display a shadow below the character sprite.",
-				"This option will not affect shadows that belong to other sprites.",
-				REBUILDS);
-		c.gridy++;
-		c.gridx = 0;
-		controls.add(shadowLabel, c);
-		c.gridx = 1;
-		controls.add(shadowStatus, c);
-		c.gridx = 2;
-		controls.add(shadowBtn, c);
+				"This option will not affect shadows that belong to other sprites.");
 
-		// shadows
-		final JButton neutralBtn = new JButton("Toggle");
-		final JLabel neutralLabel = new JLabel("Neutral:", SwingConstants.RIGHT);
-		final JLabel neutralStatus = new JLabel("--", SwingConstants.CENTER);
+		ButtonGroup shadowChoice = new ButtonGroup();
+		IconButton noShadow = new IconButton(clearGear);
+		shadowChoice.add(noShadow);
+		Image shadowIco = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/shadow-on.png"));
+		IconButton yesShadow = new IconButton(shadowIco);
+		shadowChoice.add(yesShadow);
+
+		MiscChange shadowChange = (b) -> {
+			animated.setShadow(b);
+			frame.repaint();
+		};
+		noShadow.addActionListener(arg0 -> shadowChange.go(false));
+		yesShadow.addActionListener(arg0 -> shadowChange.go(true));
+		yesShadow.setSelected(true);
+
+		g.gridy++;
+		g.gridx = 0;
+		gearControls.add(shadowLabel, g);
+		g.gridx = 1;
+		gearControls.add(noShadow, g);
+		g.gridx = 2;
+		gearControls.add(yesShadow, g);
+
+		// neutral
+		final JLabel neutralLabel = new JLabel("Neutral poses:", SwingConstants.RIGHT);
 		neutralLabel.setBorder(rightPad);
 		setToolTip(neutralLabel,
 				"When <b>neutral poses</b> are on, " +
 						"certain animations will begin or end with the character sprite at a " +
-						"neutral standing position.",
-				REBUILDS);
+						"neutral standing position.");
+
+		ButtonGroup neutralChoice = new ButtonGroup();
+		IconButton noNeutral = new IconButton(clearGear);
+		neutralChoice.add(noNeutral);
+		Image neutralIco = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/neutral-on.png"));
+		IconButton yesNeutral = new IconButton(neutralIco);
+		neutralChoice.add(yesNeutral);
+
+		MiscChange neutralChange = (b) -> {
+			animated.setNeutral(b);
+			frame.repaint();
+		};
+		noNeutral.addActionListener(arg0 -> neutralChange.go(false));
+		yesNeutral.addActionListener(arg0 -> neutralChange.go(true));
+		yesNeutral.setSelected(true);
+
+		g.gridy++;
+		g.gridx = 0;
+		gearControls.add(neutralLabel, g);
+		g.gridx = 1;
+		gearControls.add(noNeutral, g);
+		g.gridx = 2;
+		gearControls.add(yesNeutral, g);
+
+		// add gear
 		c.gridy++;
 		c.gridx = 0;
-		controls.add(neutralLabel, c);
-		c.gridx = 1;
-		controls.add(neutralStatus, c);
-		c.gridx = 2;
-		controls.add(neutralBtn, c);
+		c.gridwidth = 3;
+		controls.add(gearControls, c);
+		c.gridwidth = 1;
 
 		// blank
 		c.gridy++;
@@ -397,14 +568,6 @@ public class AnimatorGUI {
 		controls.add(spriteInfo, c);
 
 		// control panel done
-
-		// animation panel
-		final SpriteAnimator animated = new SpriteAnimator();
-		l.putConstraint(WEST, animated, 5, WEST, fullWrap);
-		l.putConstraint(EAST, animated, -5, WEST, controls);
-		l.putConstraint(NORTH, animated, 5, NORTH, fullWrap);
-		l.putConstraint(SOUTH, animated, -5, SOUTH, fullWrap);
-		fullWrap.add(animated);
 
 		// animations as buttons
 		final AnimationListDialog animList =
@@ -665,9 +828,6 @@ public class AnimatorGUI {
 					// do nothing
 				}
 				stepMax.setText("/ " + animated.maxStep());
-				equipStatus.setText(animated.equipmentOn() ? "ON" : "OFF");
-				shadowStatus.setText(animated.shadowOn() ? "ON" : "OFF");
-				neutralStatus.setText(animated.neutralOn() ? "ON" : "OFF");
 			});
 
 		// update GUI
@@ -813,40 +973,6 @@ public class AnimatorGUI {
 				} catch (Exception e) {
 					// do nothing
 				}
-			});
-
-		// item toggle
-		equipBtn.addActionListener(arg0 ->animated.switchEquipment());
-
-		// shadow toggle
-		shadowBtn.addActionListener(arg0 -> animated.switchShadow());
-
-		// neutral toggle
-		neutralBtn.addActionListener(arg0 -> animated.switchNeutral());
-
-		// gear settings
-		mailLevel.addActionListener(
-			arg0 -> {
-				int level = mailLevel.getSelectedIndex();
-				animated.setMail(level);
-			});
-
-		gloveLevel.addActionListener(
-			arg0 -> {
-				int level = gloveLevel.getSelectedIndex();
-				animated.setGlove(level);
-			});
-
-		swordLevel.addActionListener(
-			arg0 -> {
-				int level = swordLevel.getSelectedIndex();
-				animated.setSword(level);
-			});
-
-		shieldLevel.addActionListener(
-			arg0 -> {
-				int level = shieldLevel.getSelectedIndex();
-				animated.setShield(level);
 			});
 
 		// background display
@@ -1140,5 +1266,13 @@ public class AnimatorGUI {
 		byte[][][] ebe = SpriteManipulator.makeSpr8x8(spriteData);
 		BufferedImage[][] mails = SpriteManipulator.makeAllMails(ebe, palData, glovesData);
 		a.setSprite(spriteName, mails);
+	}
+
+	private static interface GearChange {
+		void go(int i);
+	}
+
+	private static interface MiscChange {
+		void go(boolean b);
 	}
 }
