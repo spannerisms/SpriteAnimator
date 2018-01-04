@@ -58,7 +58,7 @@ public enum SheetRow {
 	NET (15, false, true),
 	BOW (16, false, true),
 	SHOVEL (17, false, true),
-	DUCK (17, false, true),
+	DUCK (17, false, false),
 	BED (18, false, true),
 	GRASS (20, false, true);
 
