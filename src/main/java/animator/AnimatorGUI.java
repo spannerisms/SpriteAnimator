@@ -429,7 +429,7 @@ public class AnimatorGUI {
 			});
 
 		// acknowledgements
-		ImageIcon mapIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/map.png"));
+		ImageIcon mapIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/map.png"));
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 
 		aboutFrame.setIconImage(mapIcon.getImage());
@@ -486,7 +486,7 @@ public class AnimatorGUI {
 		// reverse lookup
 		CellFrame looker = new CellFrame(frame);
 		final JMenuItem lookUp = new JMenuItem("Sprite lookup");
-		ImageIcon net = new ImageIcon(AnimatorGUI.class.getResource("/images/net.png"));
+		ImageIcon net = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/net.png"));
 		looker.setIconImage(net.getImage());
 		lookUp.setIcon(net);
 		fileMenu.add(lookUp);
@@ -494,13 +494,13 @@ public class AnimatorGUI {
 
 		// animated gifs
 		final JMenuItem giffer = new JMenuItem("Make GIF");
-		ImageIcon cane = new ImageIcon(AnimatorGUI.class.getResource("/images/cane.png"));
+		ImageIcon cane = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/cane.png"));
 		giffer.setIcon(cane);
 		fileMenu.add(giffer);
 
 		// crossproduct tracker images
 		final JMenuItem cross = new JMenuItem("Make tracker images");
-		ImageIcon crossProductsFace = new ImageIcon(AnimatorGUI.class.getResource("/images/cross.png"));
+		ImageIcon crossProductsFace = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/cross.png"));
 		cross.setIcon(crossProductsFace);
 		fileMenu.add(cross);
 
@@ -509,7 +509,7 @@ public class AnimatorGUI {
 
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
-		ImageIcon mirror = new ImageIcon(AnimatorGUI.class.getResource("/images/mirror.png"));
+		ImageIcon mirror = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/mirror.png"));
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
 		exit.addActionListener(arg0 -> System.exit(0));
@@ -534,8 +534,8 @@ public class AnimatorGUI {
 		// end help menu
 
 		// But what if Ganon dabs back?
-		ImageIcon ico = new ImageIcon(AnimatorGUI.class.getResource("/images/DABSMALL.png"));
-		ImageIcon icoTask = new ImageIcon(AnimatorGUI.class.getResource("/images/DAB.png"));
+		ImageIcon ico = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/DABSMALL.png"));
+		ImageIcon icoTask = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/DAB.png"));
 
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());
@@ -862,7 +862,7 @@ public class AnimatorGUI {
 		final Dimension waitD = new Dimension(200, 30);
 		JDialog plsWait = new JDialog(frame, "Busy");
 
-		ImageIcon clockIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/clock.png"));
+		ImageIcon clockIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/clock.png"));
 		plsWait.setIconImage(clockIcon.getImage());
 
 		plsWait.setPreferredSize(waitD);

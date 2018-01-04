@@ -789,6 +789,7 @@ public class SpriteAnimator extends JComponent {
 		repaint();
 	}
 
+	// TODO: Fix how current directory is found
 	public String makeGif(int size, int speed) throws Exception {
 		if (steps == null) { throw new Exception(); }
 
