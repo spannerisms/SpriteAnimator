@@ -15,6 +15,7 @@ public enum Background {
 		STILL_WATER ("Still water", "stillwater"),
 		MOSAIC ("Mosaic", "mosaic"),
 		CAVE ("Cave", "cave"),
+		WORLD_MAP ("World map", "worldmap"),
 		// meme rooms
 		SPIKE_CAVE ("Spike cave", "spikecave"),
 		TILE_ROOM ("Tile room", "tileroom"),
@@ -23,6 +24,7 @@ public enum Background {
 		EASTERN_PALACE ("Eastern Palace", "dungeon-easternpalace"),
 		DESERT_PALACE ("Desert Palace", "dungeon-desertpalace"),
 		TOWER_OF_HERA ("Tower of Hera", "dungeon-towerofhera"),
+		AGAS_TOWER ("Agahnim's Tower", "dungeon-agastower"),
 		// dark world dungeons
 		PALACE_OF_DARKNESS ("Palace of Darkness", "dungeon-palaceofdarkness"),
 		SWAMP_PALACE ("Swamp Palace", "dungeon-swamppalace"),
