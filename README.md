@@ -2,6 +2,11 @@
 
 [SpriteAnimator](https://github.com/fatmanspanda/SpriteAnimator/wiki/Sprite-Animator) is a program designed to help debug the appearance of a sprite as it's being created. It uses information based off of Link's animations in game to recreate every animation with an imported sprite. It is downloadable as a runnable `JAR` file from [the super project's release page](https://github.com/fatmanspanda/ALttPNG/releases).
 
+## Loading sprites
+* `ZSPR` - Uses the preferred sprite format to create the necessary images.
+* `SFC` - Extracts sprite and palette data from a ROM file.
+* `PNG` - Uses an assembled image for previews. When using `PNG` files, the application will not attempt to apply mail or glove palette changes.
+
 ## Display features
 
 Along with animating sprites, SpriteAnimator also includes various features to control the display:

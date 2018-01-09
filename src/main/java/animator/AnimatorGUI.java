@@ -45,10 +45,10 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.11";
+	public static final String VERSION = "v1.12";
 
 	private static final String[] ACCEPTED_FILE_TYPES =
-			new String[] { ZSPRFile.EXTENSION, "sfc" /*, "png"*/ };
+			new String[] { ZSPRFile.EXTENSION, "sfc", "png" };
 
 	private static final String[] MODES = {
 			"Normal play",
@@ -714,11 +714,12 @@ public class AnimatorGUI {
 				new FileNameExtensionFilter("ALttP sprite files", new String[] { ZSPRFile.EXTENSION });
 		FileNameExtensionFilter romFilter =
 				new FileNameExtensionFilter("ALttP rom files", new String[] { "sfc" });
-//		FileNameExtensionFilter pngFilter =
-//				new FileNameExtensionFilter("PNG images", new String[] { "png" });
+		FileNameExtensionFilter pngFilter =
+				new FileNameExtensionFilter("PNG images", new String[] { "png" });
 		explorer.setAcceptAllFileFilterUsed(false);
 		explorer.setFileFilter(sprFilter);
 		explorer.addChoosableFileFilter(romFilter);
+		explorer.addChoosableFileFilter(pngFilter);
 
 		// can't clear text due to wonky code
 		// have to set a blank file instead
@@ -1243,17 +1244,38 @@ public class AnimatorGUI {
 		byte[] palData;
 		byte[] glovesData;
 
+		// sprite files
 		if (fileType.equalsIgnoreCase(ZSPRFile.EXTENSION)) {
 			ZSPRFile temp = ZSPRFile.readFile(fileName);
 			spriteData = temp.getSpriteData();
 			palData = temp.getPalData();
 			glovesData = temp.getGlovesData();
+		// rom files
 		} else if (fileType.equalsIgnoreCase("sfc")) {
 			byte[] temp = SpriteManipulator.readFile(fileName);
 			spriteData = SpriteManipulator.getSpriteDataFromROM(temp);
 			palData = SpriteManipulator.getPaletteDataFromROM(temp);
 			glovesData = SpriteManipulator.getGlovesDataFromROM(temp);
+		// png files
 		} else if (fileType.equalsIgnoreCase("png")) {
+			File temp = new File(fileName);
+			BufferedImage img = ImageIO.read(temp);
+			int w = img.getWidth();
+			int h = img.getHeight();
+			if (w != 128 || h != 448) {
+				throw new ZSPRFormatException(
+						"Invalid dimensions of {" + w + "," + h + "}\n" +
+						"Image dimensions must be 128x448");
+			}
+
+			BufferedImage mails[][] = new BufferedImage[5][3];
+			for (int i = 0; i < mails.length; i++) {
+				for (int j = 0; j < mails[i].length; j++) {
+					mails[i][j] = img;
+				}
+			}
+
+			a.setSprite(spriteName, mails);
 			return;
 		} else {
 			return;
