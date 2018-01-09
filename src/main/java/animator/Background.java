@@ -8,6 +8,7 @@ public enum Background {
 		// empty
 		EMPTY ("Empty", "empty"),
 		WHITE ("White", "empty (white)"),
+		GREEN ("Green screen", "greenscreen"),
 		// overworld areas
 		HOUSE ("House", "house"),
 		GRASS ("Grass", "grass"),
