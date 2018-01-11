@@ -53,8 +53,8 @@ public class AnimatorGUI {
 	private static final String[] MODES = {
 			"Normal play",
 			"Step-by-step",
-			// "All steps" disabled for now
-		};
+			"Play once"
+	};
 
 	private static final String[] MAIL_LEVELS = {
 			"No mail",
@@ -685,6 +685,9 @@ public class AnimatorGUI {
 		fileMenu.add(lookUp);
 		lookUp.addActionListener(arg0 -> looker.setVisible(true));
 
+		// separator
+		fileMenu.addSeparator();
+
 		// animated gifs
 		final JMenuItem giffer = new JMenuItem("Make GIF");
 		ImageIcon cane = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/cane.png"));
@@ -696,6 +699,12 @@ public class AnimatorGUI {
 		ImageIcon crossProductsFace = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/cross.png"));
 		cross.setIcon(crossProductsFace);
 		fileMenu.add(cross);
+
+		// collages
+		final JMenuItem collage = new JMenuItem("Make collage");
+		ImageIcon openBook = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/openbook.png"));
+		collage.setIcon(openBook);
+		fileMenu.add(collage);
 
 		// separator
 		fileMenu.addSeparator();
@@ -753,6 +762,10 @@ public class AnimatorGUI {
 		explorer.setFileFilter(sprFilter);
 		explorer.addChoosableFileFilter(romFilter);
 		explorer.addChoosableFileFilter(pngFilter);
+
+		if (VT_DIRECTORY != null) {
+			explorer.setCurrentDirectory(VT_DIRECTORY);
+		}
 
 		// can't clear text due to wonky code
 		// have to set a blank file instead
@@ -1166,6 +1179,34 @@ public class AnimatorGUI {
 				plsWait.setVisible(false);
 				JOptionPane.showMessageDialog(frame,
 						"Files written to folder: \n" + loc,
+						"OH YEAH!",
+						JOptionPane.PLAIN_MESSAGE);
+			});
+
+		/*
+		 * Collage images
+		 */
+		collage.addActionListener(
+			arg0 -> {
+				plsWait.setTitle("Making images");
+				plsWait.setLocation(menu.getLocationOnScreen());
+				plsWait.setVisible(true);
+
+				String loc;
+				try {
+					loc = animated.makeCollage();
+				} catch (Exception e) {
+					e.printStackTrace();
+					plsWait.setVisible(false);
+					JOptionPane.showMessageDialog(frame,
+							"Error making images",
+							"Dang",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				plsWait.setVisible(false);
+				JOptionPane.showMessageDialog(frame,
+						"Files written to: \n" + loc,
 						"OH YEAH!",
 						JOptionPane.PLAIN_MESSAGE);
 			});

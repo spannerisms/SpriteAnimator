@@ -995,4 +995,84 @@ public class SpriteAnimator extends JComponent {
 
 		return dir;
 	} // end tracker images
+
+	// collages
+	private static final int COLLAGE_PAD = 1;
+
+	public String makeCollage() throws Exception {
+		if (mailImages == null) { throw new Exception(); }
+
+		String dir = AnimatorGUI.MIKES_DIRECTORY.getAbsolutePath();
+		String[] fNameParts = spriteName.split("[/\\\\]");
+		String spriteFileName = fNameParts[fNameParts.length-1];
+		File cDir = new File(String.format("%s\\%s", dir, spriteFileName));
+
+		if (cDir.exists()) {
+			if (cDir.isDirectory()) {
+				dir = cDir.getPath();
+			} else {
+				throw new Exception("/" + cDir.getName() + " is not a folder.");
+			}
+		} else {
+			cDir.mkdirs();
+			dir = cDir.getPath();
+		}
+
+		// recreate the config info so we can find min and max draw points
+		ArrayList<StepData> config = anime.customizeMergeAndFinalize(
+				swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
+		int minDX, minDY, maxDX, maxDY;
+		minDX = minDY = 999;
+		maxDX = maxDY = -999;
+		for (StepData sd : config) {
+			for (SpriteData spd : sd.getSprites()) {
+				int curX = spd.x;
+				int curY = spd.y;
+				if (curX > maxDX) {
+					maxDX = curX;
+				}
+				if (curX < minDX) {
+					minDX = curX;
+				}
+				if (curY > maxDY) {
+					maxDY = curY;
+				}
+				if (curY < minDY) {
+					minDY = curY;
+				}
+			}
+		}
+
+		// calculate size of draw area sans padding
+		int drawX = maxDX - minDX + 16;
+		int drawY = maxDY - minDY + 16;
+
+		// calculate drawing offset
+		int offsetX = 0 - minDX;
+		int offsetY = 0 - minDY;
+
+		// calculate size of collage
+		int imageX = (drawX + 2 * COLLAGE_PAD) * maxStep;
+		int imageY = drawY + 2 * COLLAGE_PAD;
+		BufferedImage collageImg = new BufferedImage(imageX, imageY, BufferedImage.TYPE_4BYTE_ABGR);
+
+		// create animation steps
+		Graphics2D g = (Graphics2D) collageImg.getGraphics();
+		for (int i = 0; i < maxStep; i++) {
+			Anime a = steps[i];
+			int x = COLLAGE_PAD + (i * (drawX + COLLAGE_PAD));
+			a.draw(g, x + offsetX, offsetY + COLLAGE_PAD);
+		}
+
+		File f = new File(String.format("%s\\%s.png", dir, anime.toString()));
+		System.out.println("Creating: " + f.getAbsolutePath());
+		f.createNewFile();
+
+		try(FileOutputStream wr = new FileOutputStream(f)) {
+			ImageIO.write(collageImg, "png", wr); // try to write image
+			wr.close();
+		}
+
+		return f.getAbsolutePath();
+	} // end collage
 }
