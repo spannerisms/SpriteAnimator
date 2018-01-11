@@ -1,13 +1,11 @@
 package animator;
 
-import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.awt.TextArea;
@@ -113,7 +111,7 @@ public class AnimatorGUI {
 			GIF_DIRECTORY = new File(folderPath + "/gifs");
 			CROSSPRODUCT_DIRECTORY = new File(folderPath + "/CPTrackerImages");
 			MIKES_DIRECTORY = new File(folderPath + "/collages");
-			VT_DIRECTORY = new File(folderPath + "/vt");
+			VT_DIRECTORY = new File(folderPath + "/VT");
 		}
 	}
 
@@ -768,15 +766,11 @@ public class AnimatorGUI {
 		explorer.addChoosableFileFilter(romFilter);
 		explorer.addChoosableFileFilter(pngFilter);
 
-		if (VT_DIRECTORY != null) {
-			explorer.setCurrentDirectory(VT_DIRECTORY);
-		}
+		explorer.setCurrentDirectory(VT_DIRECTORY);
 
 		// can't clear text due to wonky code
 		// have to set a blank file instead
 		final File EEE = new File("");
-
-		explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
 		// try to set current sprite to vanilla
 		try {
