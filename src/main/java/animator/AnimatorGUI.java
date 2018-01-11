@@ -50,12 +50,6 @@ public class AnimatorGUI {
 	private static final String[] ACCEPTED_FILE_TYPES =
 			new String[] { ZSPRFile.EXTENSION, "sfc", "png" };
 
-	private static final String[] MODES = {
-			"Normal play",
-			"Step-by-step",
-			"Play once"
-	};
-
 	private static final String[] MAIL_LEVELS = {
 			"No mail",
 			"Green mail",
@@ -203,27 +197,25 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// animation playing
-		final JComboBox<Animation> animOptions = new JComboBox<Animation>(Animation.values());
 		final JLabel animationLabel = new JLabel("Animation:", SwingConstants.RIGHT);
+		final JComboBox<Animation> animOptions = new JComboBox<Animation>(Animation.values());
 		animationLabel.setBorder(rightPad);
+		c.gridheight = 2;
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(animationLabel, c);
+		c.gridheight = 1;
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(animOptions, c);
 		c.gridwidth = 1;
 
-		// animation mode
+		// animation button
 		final JButton animListBtn = new JButton("As list"); // button for popup window here
-		final JComboBox<String> modeOptions = new JComboBox<String>(MODES);
-		animListBtn.setBorder(rightPad);
+		c.gridwidth = 1;
 		c.gridy++;
-		c.gridx = 0;
+		c.gridx = 2;
 		controls.add(animListBtn, c);
-		c.gridx = 1;
-		c.gridwidth = 2;
-		controls.add(modeOptions, c);
 		c.gridwidth = 1;
 
 		// blank
@@ -573,8 +565,9 @@ public class AnimatorGUI {
 
 		// play step reset
 		final JButton playBtn = new JButton("Play");
+		final JButton playOnceBtn = new JButton("Play once");
 		final JButton stepBtn = new JButton("--");
-		final JButton resetBtn = new JButton("Reset");
+
 
 		c.gridy++;
 		c.gridx = 0;
@@ -582,7 +575,15 @@ public class AnimatorGUI {
 		c.gridx = 1;
 		controls.add(stepBtn, c);
 		c.gridx = 2;
+		controls.add(playOnceBtn, c);
+
+		// reset
+		final JButton resetBtn = new JButton("Reset");
+		c.gridy++;
+		c.gridx = 0;
+		c.gridwidth = 3;
 		controls.add(resetBtn, c);
+		c.gridwidth = 1;
 
 		// blank
 		c.gridy++;
@@ -822,7 +823,7 @@ public class AnimatorGUI {
 		// listen for mode changes
 		animated.addModeListener(
 			arg0 -> {
-				int mode = animated.getMode();
+				AnimationMode mode = animated.getMode();
 				stepBtn.setEnabled(btnAllowed("step", mode));
 				slowerBtn.setEnabled(btnAllowed("speed", mode));
 				fasterBtn.setEnabled(btnAllowed("speed", mode));
@@ -833,21 +834,25 @@ public class AnimatorGUI {
 
 				String stepWord;
 				switch (mode) {
-					case 0 :
-					case 2 :
+					case PLAY :
 						stepWord = "Pause";
 						animated.removeStepListener(spriteInfoWatcher);
+						playBtn.setEnabled(true);
 						break;
-					case 1 :
+					case ONCE :
+						stepWord = "Pause";
+						animated.removeStepListener(spriteInfoWatcher);
+						playBtn.setEnabled(true);
+						break;
+					case STEP :
 					default :
 						stepWord = "Step";
 						animated.addStepListener(spriteInfoWatcher);
+						playBtn.setEnabled(true);
 						break;
 				}
 
 				stepBtn.setText(stepWord);
-				modeOptions.setSelectedIndex(mode);
-				playBtn.setEnabled(!animated.isRunning());
 
 				try {
 					spriteInfo.setText(animated.getSpriteInfo());
@@ -975,16 +980,6 @@ public class AnimatorGUI {
 						new ActionEvent(resetBtn, ActionEvent.ACTION_PERFORMED,"", 0, 0));
 			});
 
-		// mode select
-		modeOptions.addActionListener(
-			arg0 -> {
-				try {
-					animated.setMode(modeOptions.getSelectedIndex());
-				} catch (Exception e) {
-					// do nothing
-				}
-			});
-
 		// zoom buttons
 		bigBtn.addActionListener(arg0 -> animated.embiggen());
 		lilBtn.addActionListener(arg0 -> animated.ensmallen());
@@ -993,17 +988,23 @@ public class AnimatorGUI {
 		fasterBtn.addActionListener(arg0 -> animated.faster());
 		slowerBtn.addActionListener(arg0 -> animated.slower());
 
-		// play button
-		playBtn.addActionListener(arg0 -> animated.setMode(0));
+		// play buttons
+		playBtn.addActionListener(arg0 -> animated.setMode(AnimationMode.PLAY));
+		playOnceBtn.addActionListener(
+			arg0 -> {
+				animated.reset();
+				animated.setMode(AnimationMode.ONCE);
+			});
 
 		// step button
 		stepBtn.addActionListener(
 			arg0 -> {
 				switch (animated.getMode()) {
-					case 0 :
+					case PLAY :
+					case ONCE :
 						animated.pause();
 						break;
-					case 1 :
+					case STEP :
 						animated.step();
 						break;
 				}
@@ -1218,18 +1219,18 @@ public class AnimatorGUI {
 	/**
 	 * See what buttons are allowed for what modes
 	 */
-	private static boolean btnAllowed(String n, int mode) {
+	private static boolean btnAllowed(String n, AnimationMode mode) {
 		boolean allowed = false;
 		n = n.toLowerCase();
 		switch (n) {
 			// both speed buttons
 			case "speed" : {
 				switch (mode) {
-					case 0 :
-					case 2 :
+					case PLAY :
+					case ONCE :
 						allowed = true;
 						break;
-					case 1 :
+					case STEP :
 						allowed = false;
 						break;
 				} // end mode switch
@@ -1238,11 +1239,11 @@ public class AnimatorGUI {
 			// step button
 			case "step" : {
 				switch (mode) {
-					case 2 :
+					case ONCE :
 						allowed = false;
 						break;
-					case 0 :
-					case 1 :
+					case PLAY :
+					case STEP :
 						allowed = true;
 						break;
 				} // end mode switch

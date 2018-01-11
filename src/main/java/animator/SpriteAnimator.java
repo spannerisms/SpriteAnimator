@@ -54,13 +54,13 @@ public class SpriteAnimator extends JComponent {
 
 	// locals
 	private int speed; // speed; 0 = normal; positive = faster; negative = slower
-	private int mode; // animation mode
 	private int step; // animation step (not 0 indexed)
 	private int maxStep; // highest animation step (not 0 indexed)
 	private int zoom = 3; // default zoom
 	private boolean running; // self-running status
 	private String spriteName;
 	private Animation anime; // current animation
+	private AnimationMode mode; // animation mode
 	private Anime[] steps = null; // each step of animation, as an object
 	private BufferedImage[][] mailImages = null; // sprite sheet
 	private Timer tick; // runs for steps
@@ -83,9 +83,9 @@ public class SpriteAnimator extends JComponent {
 		this.setFocusable(true);
 		anime = Animation.STAND;
 		speed = 0;
-		mode = 0;
 		step = 0;
 		maxStep = 0;
+		mode = AnimationMode.PLAY;
 		tick = new Timer();
 		setRunning();
 		addMouse();
@@ -116,11 +116,11 @@ public class SpriteAnimator extends JComponent {
 	public String getSpriteInfo() {
 		String ret = "";
 		switch (mode) {
-			case 0 :
-			case 2 :
+			case PLAY :
+			case ONCE :
 				ret = "Sprite information disabled in this mode.";
 				break;
-			case 1 :
+			case STEP :
 				ret = steps[step].printAll();
 				break;
 		}
@@ -168,7 +168,7 @@ public class SpriteAnimator extends JComponent {
 	/**
 	 * Get animation mode ID#
 	 */
-	public int getMode() {
+	public AnimationMode getMode() {
 		return mode;
 	}
 
@@ -181,7 +181,7 @@ public class SpriteAnimator extends JComponent {
 	 * </ul>
 	 * @param m - mode 
 	 */
-	public void setMode(int m) {
+	public void setMode(AnimationMode m) {
 		mode = m;
 		setRunning();
 		adjustTimer();
@@ -196,7 +196,7 @@ public class SpriteAnimator extends JComponent {
 	public void step() {
 		step++;
 		if (step >= maxStep) {
-			if (mode == 2) {
+			if (mode == AnimationMode.ONCE) {
 				step = maxStep-1;
 				running = false;
 			} else {
@@ -216,15 +216,15 @@ public class SpriteAnimator extends JComponent {
 			resetTimer();
 		} catch(Exception e) {};
 		switch (mode) {
-			case 0 :
+			case PLAY :
 				setRunning();
 				resetStep();
 				break;
-			case 1 :
+			case STEP :
 				setRunning();
 				resetStep();
 				break;
-			case 2 :
+			case ONCE :
 				setRunning();
 				resetStep();
 				break;
@@ -237,7 +237,7 @@ public class SpriteAnimator extends JComponent {
 	 * Set mode to 1, allowing stepwise animation
 	 */
 	public void pause() {
-		setMode(1);
+		setMode(AnimationMode.STEP);
 	}
 
 	/**
@@ -290,14 +290,12 @@ public class SpriteAnimator extends JComponent {
 	 */
 	private void setRunning() {
 		switch (mode) {
-			case 0 :
+			case PLAY :
+			case ONCE :
 				running = true;
 				break;
-			case 1 :
+			case STEP :
 				running = false;
-				break;
-			case 2 :
-				running = true;
 				break;
 		}
 		if (running) {
