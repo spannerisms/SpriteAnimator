@@ -822,7 +822,6 @@ public class SpriteAnimator extends JComponent {
 
 		FileOutputStream output = new FileOutputStream(animGif);
 
-
 		BufferedImage cur;
 		Graphics2D g;
 

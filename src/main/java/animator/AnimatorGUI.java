@@ -91,6 +91,7 @@ public class AnimatorGUI {
 	public static final File VT_DIRECTORY;
 
 	static {
+		new VTGrabber();
 		File temp;
 		try {
 			temp = new File(AnimatorGUI.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
@@ -725,7 +726,13 @@ public class AnimatorGUI {
 		final JMenu helpMenu = new JMenu("Help");
 		menu.add(helpMenu);
 
-		// Acknowledgements
+		// refresh VT sprites fold
+		final JMenuItem vtRefresh = new JMenuItem("Refresh live sprites");
+		ImageIcon quack = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/vtduck.png"));
+		vtRefresh.setIcon(quack);
+		helpMenu.add(vtRefresh);
+
+		// acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
 		peeps.setIcon(mapIcon);
 		peeps.addActionListener(
@@ -1195,7 +1202,7 @@ public class AnimatorGUI {
 		 */
 		collage.addActionListener(
 			arg0 -> {
-				plsWait.setTitle("Making images");
+				plsWait.setTitle("Making image");
 				plsWait.setLocation(menu.getLocationOnScreen());
 				plsWait.setVisible(true);
 
@@ -1218,6 +1225,15 @@ public class AnimatorGUI {
 						JOptionPane.PLAIN_MESSAGE);
 			});
 
+		// sprite fetching
+		vtRefresh.addActionListener(
+			arg0 -> {
+				plsWait.setTitle("Fetching sprites");
+				plsWait.setLocation(menu.getLocationOnScreen());
+				plsWait.setVisible(true);
+				VTGrabber.run();
+				plsWait.setVisible(false);
+			});
 		// turn on
 		frame.setVisible(true);
 	}

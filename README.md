@@ -4,7 +4,7 @@
 
 ## Loading sprites
 * `ZSPR` - Uses the preferred sprite format to create the necessary images.
-  * SpriteAnimator 1.13 and newer include a folder of every sprite live on the randomizer site at time of release.
+  * SpriteAnimator 1.13 and newer includes a folder of every sprite live on the randomizer site.
 * `SFC` - Extracts sprite and palette data from a ROM file.
 * `PNG` - Uses an assembled image for previews. When using `PNG` files, the application will not attempt to apply mail or glove palette changes.
 
