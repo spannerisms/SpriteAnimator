@@ -1213,14 +1213,14 @@ public class AnimatorGUI {
 					e.printStackTrace();
 					plsWait.setVisible(false);
 					JOptionPane.showMessageDialog(frame,
-							"Error making images",
+							"Error making image",
 							"Dang",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 				plsWait.setVisible(false);
 				JOptionPane.showMessageDialog(frame,
-						"Files written to: \n" + loc,
+						"File written to: \n" + loc,
 						"OH YEAH!",
 						JOptionPane.PLAIN_MESSAGE);
 			});
