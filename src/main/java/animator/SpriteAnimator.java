@@ -797,32 +797,25 @@ public class SpriteAnimator extends JComponent {
 		repaint();
 	}
 
-	// TODO: Fix how current directory is found
 	public String makeGif(int size, int speed) throws Exception {
 		if (steps == null) { throw new Exception(); }
 
-		File s = new File(spriteName);
-
-		String dir = s.getParent();
-		File gifDir = new File(dir + "\\gifs");
+		File gifDir = AnimatorGUI.GIF_DIRECTORY;
 		String[] fNameParts = spriteName.split("[/\\\\]");
 		String spriteFileName = fNameParts[fNameParts.length-1];
 
 		if (gifDir.exists()) {
-			if (gifDir.isDirectory()) {
-				dir = gifDir.getPath() + "\\";
-			} else {
-				// nothing
+			if (!gifDir.isDirectory()) {
+				throw new Exception("/" + gifDir.getName() + " is not a folder.");
 			}
 		} else {
 			gifDir.mkdir();
-			dir = gifDir.getPath() + "\\";
 		}
 
 		File animGif = new File(
 				String.format(
-					"%s%s - %s (x%s zoom; %s%% speed).gif",
-					dir,
+					"%s\\%s - %s (x%s zoom; %s%% speed).gif",
+					gifDir.getPath(),
 					spriteFileName,
 					anime.toString(),
 					size,
@@ -944,22 +937,20 @@ public class SpriteAnimator extends JComponent {
 	public String makeCrossproduct() throws Exception {
 		if (mailImages == null) { throw new Exception(); }
 
-		File s = new File(spriteName);
-
 		long time = System.currentTimeMillis();
-		String dir = s.getParent();
+		String dir = AnimatorGUI.CROSSPRODUCT_DIRECTORY.getAbsolutePath();
 		String[] fNameParts = spriteName.split("[/\\\\]");
 		String spriteFileName = fNameParts[fNameParts.length-1];
-		File cDir = new File(dir + String.format("\\%s (%s)", spriteFileName, time));
+		File cDir = new File(String.format("%s\\%s (%s)", dir, spriteFileName, time));
 
 		if (cDir.exists()) {
 			if (cDir.isDirectory()) {
 				dir = cDir.getPath();
 			} else {
-				// nothing
+				throw new Exception("/" + cDir.getName() + " is not a folder.");
 			}
 		} else {
-			cDir.mkdir();
+			cDir.mkdirs();
 			dir = cDir.getPath();
 		}
 
@@ -993,6 +984,9 @@ public class SpriteAnimator extends JComponent {
 			imgg.drawImage(spriteImg, 16, 16, null);
 
 			File f = new File(String.format("%s\\%s.png", dir, c.fileName));
+			System.out.println("Creating: " + f.getAbsolutePath());
+			f.createNewFile();
+
 			try(FileOutputStream wr = new FileOutputStream(f)) {
 				ImageIO.write(output, "png", wr); // try to write image
 				wr.close();

@@ -45,7 +45,7 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.12";
+	public static final String VERSION = "v1.13";
 
 	private static final String[] ACCEPTED_FILE_TYPES =
 			new String[] { ZSPRFile.EXTENSION, "sfc", "png" };
@@ -86,6 +86,39 @@ public class AnimatorGUI {
 		};
 
 	private static final int BLANK_HEIGHT = 10;
+
+	// Animator's folder
+	public static final boolean JAR_DIR_FOUND;
+	public static final File JAR_DIRECTORY;
+	public static final File GIF_DIRECTORY;
+	public static final File CROSSPRODUCT_DIRECTORY;
+	public static final File MIKES_DIRECTORY;
+	public static final File VT_DIRECTORY;
+
+	static {
+		File temp;
+		try {
+			temp = new File(AnimatorGUI.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+		} catch (Exception e) {
+			temp = null;
+		}
+
+		JAR_DIRECTORY = new File(temp.getParent());
+		JAR_DIR_FOUND = temp != null;
+
+		if (temp == null) {
+			GIF_DIRECTORY = null;
+			CROSSPRODUCT_DIRECTORY = null;
+			MIKES_DIRECTORY = null;
+			VT_DIRECTORY = null;
+		} else {
+			final String folderPath = JAR_DIRECTORY.getAbsolutePath();
+			GIF_DIRECTORY = new File(folderPath + "/gifs");
+			CROSSPRODUCT_DIRECTORY = new File(folderPath + "/CPTrackerImages");
+			MIKES_DIRECTORY = new File(folderPath + "/collages");
+			VT_DIRECTORY = new File(folderPath + "/vt");
+		}
+	}
 
 	public static void main(String[] args) throws IOException {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -754,6 +787,7 @@ public class AnimatorGUI {
 				try {
 					spriteInfo.setText(animated.getSpriteInfo());
 				} catch (Exception e) {
+					e.printStackTrace();
 					// nothing
 				}
 			};
@@ -1087,6 +1121,7 @@ public class AnimatorGUI {
 				try {
 					loc = animated.makeGif(gifZoomLevel.getValue(), (maxSpeed + 1 - gifSpeedLevel.getValue()));
 				} catch (Exception e) {
+					e.printStackTrace();
 					plsWait.setVisible(false);
 					JOptionPane.showMessageDialog(frame,
 							"Error making GIF",
@@ -1120,6 +1155,7 @@ public class AnimatorGUI {
 				try {
 					loc = animated.makeCrossproduct();
 				} catch (Exception e) {
+					e.printStackTrace();
 					plsWait.setVisible(false);
 					JOptionPane.showMessageDialog(frame,
 							"Error making images",
