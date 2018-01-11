@@ -4,6 +4,7 @@
 
 ## Loading sprites
 * `ZSPR` - Uses the preferred sprite format to create the necessary images.
+  * SpriteAnimator 1.13 and newer include a folder of every sprite live on the randomizer site at time of release.
 * `SFC` - Extracts sprite and palette data from a ROM file.
 * `PNG` - Uses an assembled image for previews. When using `PNG` files, the application will not attempt to apply mail or glove palette changes.
 
@@ -20,6 +21,7 @@ Along with animating sprites, SpriteAnimator also includes various features to c
 * The ability to zoom in on sprites, up to 500%.
 * The ability to speed up or slow down animations.
 * The ability to view animations step-by-step, which also includes a table of what sprite sheet cells are used and how they are transformed.
+* The ability to play an animation exactly once.
 
 ## Other features
 
@@ -31,6 +33,7 @@ Along with animating sprites, SpriteAnimator also includes various features to c
 * Animated GIF export
   * *Note: the GIF specification only allows for a minimum delay time of 10ms; as such, exported GIF files will run at incorrect speeds.*
 * Tracker images export for [Crossproduct's tracker](https://github.com/crossproduct42/alttprandohelper/releases)
+* Collage export, showing every animation step once.
 
 ## Terminology used in this project
 Some terms we need to use are overloaded (they can mean multiple things). To avoid confusion, here's a brief glossary of what means what when we say it. Not everything is perfectly written, so feel free to ask questions if something doesn't seem to mean what you think.
