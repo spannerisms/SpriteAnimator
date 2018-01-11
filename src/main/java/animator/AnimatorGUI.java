@@ -1,10 +1,13 @@
 package animator;
 
+import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.awt.TextArea;
@@ -160,6 +163,7 @@ public class AnimatorGUI {
 
 		// animation panel
 		final SpriteAnimator animated = new SpriteAnimator();
+		animated.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		l.putConstraint(WEST, animated, 5, WEST, fullWrap);
 		l.putConstraint(EAST, animated, -5, WEST, controls);
 		l.putConstraint(NORTH, animated, 5, NORTH, fullWrap);
@@ -784,8 +788,16 @@ public class AnimatorGUI {
 		// clear focusability of all useless components
 		for (Component comp : controls.getComponents()) {
 			if (comp instanceof JLabel ||
-					comp instanceof JButton) {
+					comp instanceof JButton ||
+					comp instanceof IconButton) {
 				comp.setFocusable(false);
+			}
+		}
+
+		// set hand cursor on buttons
+		for (Component comp : controls.getComponents()) {
+			if (comp instanceof JButton) {
+				comp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 		}
 
@@ -1295,6 +1307,7 @@ public class AnimatorGUI {
 				String.join("<br /><br />", text) +
 				"</div>" +
 				"</html>");
+
 		// set an underline for the component
 		if (c instanceof JLabel) {
 			String s =  ((JLabel) c).getText();

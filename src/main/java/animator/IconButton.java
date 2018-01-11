@@ -1,6 +1,7 @@
 package animator;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
 
@@ -34,7 +35,6 @@ public class IconButton extends JRadioButton {
 		this.setIcon(new ImageIcon(b));
 
 		setBorderPainted(true);
-
 		this.setBorder(BORDER_OFF);
 		this.setBackground(BG_OFF);
 
@@ -48,5 +48,6 @@ public class IconButton extends JRadioButton {
 					this.setBorder(BORDER_OFF);
 				}
 			});
+		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	}
 }
