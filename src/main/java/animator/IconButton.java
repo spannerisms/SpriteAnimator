@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -23,6 +25,7 @@ public class IconButton extends JRadioButton {
 
 	private static final Color BG_ON = new Color(192, 224, 192);
 	private static final Color BG_OFF = new Color(224, 224, 224);
+	private static final Color BG_HOVER = new Color(120, 192, 248);
 
 	public IconButton(Image b) {
 		super();
@@ -49,5 +52,23 @@ public class IconButton extends JRadioButton {
 				}
 			});
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		this.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+
+			public void mouseEntered(MouseEvent e) {
+				setBackground(BG_HOVER);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				if (isSelected()) {
+					setBackground(BG_ON);
+				} else {
+					setBackground(BG_OFF);
+				}
+			}
+		});
 	}
 }

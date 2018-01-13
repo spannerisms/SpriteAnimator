@@ -79,14 +79,14 @@ public class SpriteAnimator extends JComponent {
 	private static final int MAX_ZOOM = 5;
 
 	// locals
-	private Speed speed = Speed.NORMAL; // speed
+	private Speed speed = Speed.NORMAL;
 	private int step; // animation step (not 0 indexed)
 	private int maxStep; // highest animation step (not 0 indexed)
 	private int zoom = 3; // default zoom
 	private boolean running; // self-running status
 	private String spriteName;
 	private Animation anime; // current animation
-	private AnimationMode mode; // animation mode
+	private AnimationMode mode;
 	private Anime[] steps = null; // each step of animation, as an object
 	private BufferedImage[][] mailImages = null; // sprite sheet
 	private Timer tick; // runs for steps
@@ -567,7 +567,7 @@ public class SpriteAnimator extends JComponent {
 		repaint(); // shouldn't need a new event
 	}
 
-	/*
+	/**
 	 * When zoom level is higher than 2,
 	 * the image doesn't fit in the window at lowest size
 	 * This function tries to pad offset the image to

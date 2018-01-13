@@ -18,8 +18,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -77,7 +75,7 @@ public class AnimatorGUI {
 	public static final String[] GLOVE_LEVELS = {
 			"No glove",
 			"Power glove",
-			"Titans mitt"
+			"Titan's mitt"
 		};
 
 	private static final int BLANK_HEIGHT = 10;
@@ -185,8 +183,8 @@ public class AnimatorGUI {
 		controls.add(fileName, c);
 
 		// load buttons
-		final JButton loadBtn = new JButton("Load sprite");
-		final JButton reloadBtn = new JButton("Reload");
+		final PrettyButton loadBtn = new PrettyButton("Load sprite");
+		final PrettyButton reloadBtn = new PrettyButton("Reload");
 		c.gridy++;
 		c.gridx = 1;
 		c.gridwidth = 1;
@@ -203,7 +201,7 @@ public class AnimatorGUI {
 
 		// animation playing
 		final JLabel animationLabel = new JLabel("Animation:", SwingConstants.RIGHT);
-		final JComboBox<Animation> animOptions = new JComboBox<Animation>(Animation.values());
+		final PrettyBox<Animation> animOptions = new PrettyBox<Animation>(Animation.values());
 		animationLabel.setBorder(rightPad);
 		c.gridheight = 2;
 		c.gridy++;
@@ -216,7 +214,7 @@ public class AnimatorGUI {
 		c.gridwidth = 1;
 
 		// animation button
-		final JButton animListBtn = new JButton("As list"); // button for popup window here
+		final PrettyButton animListBtn = new PrettyButton("As list"); // button for popup window here
 		c.gridwidth = 1;
 		c.gridy++;
 		c.gridx = 2;
@@ -230,7 +228,7 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// background
-		final JComboBox<Background> bgDisp = new JComboBox<Background>(Background.values());
+		final PrettyBox<Background> bgDisp = new PrettyBox<Background>(Background.values());
 		final JLabel backgroundLabel = new JLabel("Background:", SwingConstants.RIGHT);
 		backgroundLabel.setBorder(rightPad);
 		c.gridy++;
@@ -516,8 +514,8 @@ public class AnimatorGUI {
 
 		// zoom
 		final JLabel zoomLevel = new JLabel("x-", SwingConstants.RIGHT);
-		final JButton bigBtn = new JButton("Zoom+");
-		final JButton lilBtn = new JButton("Zoom-");
+		final PrettyButton bigBtn = new PrettyButton("Zoom+");
+		final PrettyButton lilBtn = new PrettyButton("Zoom-");
 		setAllSizes(zoomLevel, textDimension);
 		zoomLevel.setBorder(rightPad);
 
@@ -530,8 +528,8 @@ public class AnimatorGUI {
 		controls.add(bigBtn, c);
 
 		// speed
-		final JButton fasterBtn = new JButton("Speed+");
-		final JButton slowerBtn = new JButton("Speed-");
+		final PrettyButton fasterBtn = new PrettyButton("Speed+");
+		final PrettyButton slowerBtn = new PrettyButton("Speed-");
 		final JLabel speedLevel = new JLabel("--%", SwingConstants.RIGHT);
 		setAllSizes(speedLevel, textDimension);
 		speedLevel.setBorder(rightPad);
@@ -569,9 +567,9 @@ public class AnimatorGUI {
 		controls.add(stepMax, c);
 
 		// play step reset
-		final JButton playBtn = new JButton("Play");
-		final JButton playOnceBtn = new JButton("Play once");
-		final JButton stepBtn = new JButton("--");
+		final PrettyButton playBtn = new PrettyButton("Play");
+		final PrettyButton playOnceBtn = new PrettyButton("Play once");
+		final PrettyButton stepBtn = new PrettyButton("--");
 
 
 		c.gridy++;
@@ -583,7 +581,7 @@ public class AnimatorGUI {
 		controls.add(playOnceBtn, c);
 
 		// reset
-		final JButton resetBtn = new JButton("Reset");
+		final PrettyButton resetBtn = new PrettyButton("Reset");
 		c.gridy++;
 		c.gridx = 0;
 		c.gridwidth = 3;
@@ -767,7 +765,7 @@ public class AnimatorGUI {
 		FileNameExtensionFilter sprFilter =
 				new FileNameExtensionFilter("ALttP sprite files", new String[] { ZSPRFile.EXTENSION });
 		FileNameExtensionFilter romFilter =
-				new FileNameExtensionFilter("ALttP rom files", new String[] { "sfc" });
+				new FileNameExtensionFilter("ALttP ROM files", new String[] { "sfc" });
 		FileNameExtensionFilter pngFilter =
 				new FileNameExtensionFilter("PNG images", new String[] { "png" });
 		explorer.setAcceptAllFileFilterUsed(false);
@@ -795,7 +793,7 @@ public class AnimatorGUI {
 		// clear focusability of all useless components
 		for (Component comp : controls.getComponents()) {
 			if (comp instanceof JLabel ||
-					comp instanceof JButton ||
+					comp instanceof PrettyButton ||
 					comp instanceof IconButton) {
 				comp.setFocusable(false);
 			}
@@ -803,7 +801,7 @@ public class AnimatorGUI {
 
 		// set hand cursor on buttons
 		for (Component comp : controls.getComponents()) {
-			if (comp instanceof JButton) {
+			if (comp instanceof PrettyButton) {
 				comp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 		}
@@ -839,9 +837,6 @@ public class AnimatorGUI {
 		animated.addModeListener(
 			arg0 -> {
 				AnimationMode mode = animated.getMode();
-				//stepBtn.setEnabled(btnAllowed("step", mode));
-				//slowerBtn.setEnabled(btnAllowed("speed", mode));
-				//fasterBtn.setEnabled(btnAllowed("speed", mode));
 
 				String stepWord;
 				switch (mode) {
@@ -1130,7 +1125,7 @@ public class AnimatorGUI {
 			});
 
 		// create button
-		final JButton makeGif = new JButton("Create");
+		final PrettyButton makeGif = new PrettyButton("Create");
 		x.gridy++;
 		x.gridx = 1;
 		gifControls.add(makeGif, x);
@@ -1234,51 +1229,6 @@ public class AnimatorGUI {
 			});
 		// turn on
 		frame.setVisible(true);
-	}
-
-	/**
-	 * See what buttons are allowed for what modes
-	 */
-	private static boolean btnAllowed(String n, AnimationMode mode) {
-		boolean allowed = false;
-		n = n.toLowerCase();
-		switch (n) {
-			// both speed buttons
-			case "speed" : {
-				switch (mode) {
-					case PLAY :
-					case ONCE :
-						allowed = true;
-						break;
-					case STEP :
-						allowed = false;
-						break;
-				} // end mode switch
-				break;
-			} // end speed case
-			// step button
-			case "step" : {
-				switch (mode) {
-					case ONCE :
-						allowed = false;
-						break;
-					case PLAY :
-					case STEP :
-						allowed = true;
-						break;
-				} // end mode switch
-				break;
-			} // end step case
-			// other buttons (currently all are allowed)
-			case "reset" :
-			case "zoom" :
-				allowed = true;
-				break;
-			default :
-				allowed = false;
-				break;
-		}
-		return allowed;
 	}
 
 	/**
