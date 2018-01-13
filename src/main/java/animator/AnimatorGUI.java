@@ -44,10 +44,13 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.13";
+	public static final String VERSION = "v1.14";
 
-	private static final String[] ACCEPTED_FILE_TYPES =
-			new String[] { ZSPRFile.EXTENSION, "sfc", "png" };
+	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
+			ZSPRFile.EXTENSION,
+			"sfc",
+			"png"
+		};
 
 	private static final String[] MAIL_LEVELS = {
 			"No mail",
@@ -102,7 +105,7 @@ public class AnimatorGUI {
 		JAR_DIRECTORY = new File(temp.getParent());
 		JAR_DIR_FOUND = temp != null;
 
-		if (temp == null) {
+		if (JAR_DIR_FOUND) {
 			GIF_DIRECTORY = null;
 			CROSSPRODUCT_DIRECTORY = null;
 			MIKES_DIRECTORY = null;
@@ -139,6 +142,7 @@ public class AnimatorGUI {
 
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
+
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
 		final Dimension d = new Dimension(1000, 700);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
@@ -549,7 +553,7 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// step counter
-		final JLabel stepLabel = new JLabel("Animation step:", SwingConstants.RIGHT);
+		final JLabel stepLabel = new JLabel("Step:", SwingConstants.RIGHT);
 		final JLabel stepCur = new JLabel("-", SwingConstants.RIGHT);
 		final JLabel stepMax = new JLabel("/ -");
 		stepCur.setBorder(rightPad);
@@ -558,9 +562,7 @@ public class AnimatorGUI {
 
 		c.gridy++;
 		c.gridx = 0;
-		c.weightx = 9;
 		controls.add(stepLabel, c);
-		c.weightx = 0;
 		c.gridx = 1;
 		controls.add(stepCur, c);
 		c.gridx = 2;
@@ -570,7 +572,6 @@ public class AnimatorGUI {
 		final PrettyButton playBtn = new PrettyButton("Play");
 		final PrettyButton playOnceBtn = new PrettyButton("Play once");
 		final PrettyButton stepBtn = new PrettyButton("--");
-
 
 		c.gridy++;
 		c.gridx = 0;
@@ -787,22 +788,6 @@ public class AnimatorGUI {
 				loadSprite(animated, VT_DIRECTORY.getAbsolutePath() + "/001.link.1.zspr");
 			} catch (Exception e2) {
 				// do nothing
-			}
-		}
-
-		// clear focusability of all useless components
-		for (Component comp : controls.getComponents()) {
-			if (comp instanceof JLabel ||
-					comp instanceof PrettyButton ||
-					comp instanceof IconButton) {
-				comp.setFocusable(false);
-			}
-		}
-
-		// set hand cursor on buttons
-		for (Component comp : controls.getComponents()) {
-			if (comp instanceof PrettyButton) {
-				comp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 		}
 

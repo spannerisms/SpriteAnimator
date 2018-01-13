@@ -37,38 +37,43 @@ public class IconButton extends JRadioButton {
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 		this.setIcon(new ImageIcon(b));
 
-		setBorderPainted(true);
+		this.setBorderPainted(true);
 		this.setBorder(BORDER_OFF);
 		this.setBackground(BG_OFF);
 
-		this.addChangeListener(
-			arg0 -> {
-				if (this.isSelected()) {
-					this.setBackground(BG_ON);
-					this.setBorder(BORDER_ON);
-				} else {
-					this.setBackground(BG_OFF);
-					this.setBorder(BORDER_OFF);
-				}
-			});
+		this.setFocusable(false);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		this.addChangeListener(arg0 -> doState());
 
 		this.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {
+				setBackground(BG_HOVER);
+				setBorder(BORDER_ON);
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				doState();
+			}
 
 			public void mouseEntered(MouseEvent e) {
 				setBackground(BG_HOVER);
 			}
 
 			public void mouseExited(MouseEvent e) {
-				if (isSelected()) {
-					setBackground(BG_ON);
-				} else {
-					setBackground(BG_OFF);
-				}
+				doState();
 			}
 		});
+	}
+
+	private void doState() {
+		if (this.isSelected()) {
+			this.setBackground(BG_ON);
+			this.setBorder(BORDER_ON);
+		} else {
+			this.setBackground(BG_OFF);
+			this.setBorder(BORDER_OFF);
+		}
 	}
 }

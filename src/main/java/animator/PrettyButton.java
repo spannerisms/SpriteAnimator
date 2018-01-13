@@ -30,10 +30,11 @@ public class PrettyButton extends JButton {
 		this.setVerticalAlignment(SwingConstants.CENTER);
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 
-		setBorderPainted(true);
+		this.setBorderPainted(true);
 		this.setBorder(BORDER_OFF);
 		this.setBackground(BG_OFF);
 
+		this.setFocusable(false);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		this.addMouseListener(new MouseListener() {
