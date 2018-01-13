@@ -93,10 +93,12 @@ public class AnimatorGUI {
 	static {
 		new VTGrabber();
 		File temp;
+
 		try {
 			temp = new File(AnimatorGUI.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
 		} catch (Exception e) {
 			temp = null;
+			System.out.println("Can't find a folder to use.");
 		}
 
 		JAR_DIRECTORY = new File(temp.getParent());
@@ -781,9 +783,13 @@ public class AnimatorGUI {
 
 		// try to set current sprite to vanilla
 		try {
-			loadSprite(animated, AnimatorGUI.class.getResource("/Link.zspr").getPath());
+			loadSprite(animated, AnimatorGUI.class.getResource("/Link.zspr").getPath()); // for debugging
 		} catch (Exception e) {
-			// do nothing
+			try { // try again using the VT folder
+				loadSprite(animated, VT_DIRECTORY.getAbsolutePath() + "/001.link.1.zspr");
+			} catch (Exception e2) {
+				// do nothing
+			}
 		}
 
 		// clear focusability of all useless components
@@ -822,28 +828,20 @@ public class AnimatorGUI {
 		// listen for speed changes
 		animated.addSpeedListener(
 			arg0 -> {
-				if (btnAllowed("speed", animated.getMode())) {
+				
 					fasterBtn.setEnabled(!animated.atMaxSpeed());
 					slowerBtn.setEnabled(!animated.atMinSpeed());
 					speedLevel.setText(animated.getSpeedPercent());
-				} else {
-					speedLevel.setText("");
-					fasterBtn.setEnabled(false);
-					slowerBtn.setEnabled(false);
-				}
+				
 			});
 
 		// listen for mode changes
 		animated.addModeListener(
 			arg0 -> {
 				AnimationMode mode = animated.getMode();
-				stepBtn.setEnabled(btnAllowed("step", mode));
-				slowerBtn.setEnabled(btnAllowed("speed", mode));
-				fasterBtn.setEnabled(btnAllowed("speed", mode));
-
-				if (!btnAllowed("speed", mode)) {
-					speedLevel.setText("");
-				}
+				//stepBtn.setEnabled(btnAllowed("step", mode));
+				//slowerBtn.setEnabled(btnAllowed("speed", mode));
+				//fasterBtn.setEnabled(btnAllowed("speed", mode));
 
 				String stepWord;
 				switch (mode) {

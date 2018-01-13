@@ -48,12 +48,38 @@ public class SpriteAnimator extends JComponent {
 	private static final int BG_WIDTH = 224;
 	private static final int BG_HEIGHT = 208;
 
+	private static enum Speed {
+		B5 (10),
+		B4 (25),
+		B3 (33),
+		B2 (50),
+		B1 (66),
+		NORMAL (100),
+		P1 (120),
+		P2 (150),
+		P3 (200);
+
+		final int val;
+		final double mult;
+
+		Speed(int v) {
+			val = v;
+			mult = (100D / v);
+		}
+
+	}
+
+	private final static Speed[] SPEEDS = Speed.values();
+
 	// maximums
-	private static final int MAXSPEED = 5; // maximum speed magnitude
-	private static final int MAXZOOM = 5; // maximum zoom level
+	private static final int MAX_SPEED_N = SPEEDS.length - 1; // maximum speed index
+	private static final int MIN_SPEED_N = 0; // minimum speed index
+	private static final Speed MAX_SPEED = SPEEDS[MAX_SPEED_N];
+	private static final Speed MIN_SPEED = SPEEDS[MIN_SPEED_N];
+	private static final int MAX_ZOOM = 5;
 
 	// locals
-	private int speed; // speed; 0 = normal; positive = faster; negative = slower
+	private Speed speed = Speed.NORMAL; // speed
 	private int step; // animation step (not 0 indexed)
 	private int maxStep; // highest animation step (not 0 indexed)
 	private int zoom = 3; // default zoom
@@ -82,22 +108,14 @@ public class SpriteAnimator extends JComponent {
 	public SpriteAnimator() {
 		this.setFocusable(true);
 		anime = Animation.STAND;
-		speed = 0;
+		speed = Speed.NORMAL;
 		step = 0;
 		maxStep = 0;
 		mode = AnimationMode.PLAY;
 		tick = new Timer();
 		setRunning();
 		addMouse();
-	}
-
-	/**
-	 * Multiplier that determines exactly how much faster animations move
-	 */
-	private double speedFactor() {
-		double m = Math.pow(1.5, speed * -1);
-		return m;
-	}
+	} 
 
 	public String getSpriteName() {
 		return spriteName;
@@ -270,13 +288,6 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Reset speed to 0
-	 */
-	private void resetSpeed() {
-		setSpeed(0);
-	}
-
-	/**
 	 * Resets step to 0
 	 */
 	private void resetStep() {
@@ -314,14 +325,14 @@ public class SpriteAnimator extends JComponent {
 	 * Increments step speed by 1
 	 */
 	public void faster() {
-		setSpeed(speed+1);
+		setSpeed(+1);
 	}
 
 	/**
 	 * Decrements step speed by 1
 	 */
 	public void slower() {
-		setSpeed(speed-1);
+		setSpeed(-1);
 	}
 
 	/**
@@ -329,22 +340,31 @@ public class SpriteAnimator extends JComponent {
 	 * @param s
 	 */
 	private void setSpeed(int s) {
-		if (s == speed) {
-			// do nothing
-		} else if (s < speed) {
+		int curSpeed = speed.ordinal();
+		int newSpeed = curSpeed + s;
+
+		if (newSpeed < MIN_SPEED_N) {
+			newSpeed = MIN_SPEED_N;
+		} else if (newSpeed > MAX_SPEED_N) {
+			newSpeed = MAX_SPEED_N;
+		}
+
+		if (curSpeed == newSpeed) {
+			//return;
+		} else if (newSpeed < curSpeed) {
 			if (atMinSpeed()) {
-				// do nothing
+				//return;
 			} else {
-				speed = s;
+				speed = SPEEDS[newSpeed];
 			}
-		} else if (s > speed) {
+		} else if (newSpeed > curSpeed) {
 			if (atMaxSpeed()) {
-				// do nothing
+				//return;
 			} else {
-				speed = s;
+				speed = SPEEDS[newSpeed];
 			}
 		} else { // should never hit this
-			speed = 0; // but if we do, reset the speed
+			speed = Speed.NORMAL; // but if we do, reset the speed
 		}
 		fireSpeedEvent();
 	}
@@ -353,23 +373,21 @@ public class SpriteAnimator extends JComponent {
 	 * Get the speed multiplier as a percentage
 	 */
 	public String getSpeedPercent() {
-		double speedM = speedFactor();
-		int s = (int) (100 / speedM);
-		return s + "%";
+		return speed.val + "%";
 	}
 
 	/**
 	 * Compares current step speed to maximum speed allowed
 	 */
 	public boolean atMaxSpeed() {
-		return speed == MAXSPEED;
+		return speed == MAX_SPEED;
 	}
 
 	/**
 	 * Compares current step speed to minimum speed allowed
 	 */
 	public boolean atMinSpeed() {
-		return (speed * -1) == MAXSPEED;
+		return speed == MIN_SPEED;
 	}
 
 	/**
@@ -423,7 +441,7 @@ public class SpriteAnimator extends JComponent {
 	 * Is Link too big?!
 	 */
 	public boolean tooBig() {
-		return zoom >= MAXZOOM;
+		return zoom >= MAX_ZOOM;
 	}
 
 	/**
@@ -442,8 +460,7 @@ public class SpriteAnimator extends JComponent {
 			return;
 		}
 		try {
-			double speedM = speedFactor();
-			long wait = steps[step].nextTick(speedM);
+			long wait = steps[step].nextTick(speed.mult);
 			next = new SpriteTask(this);
 			tick.schedule(next, wait);
 		} catch (Exception e) {
