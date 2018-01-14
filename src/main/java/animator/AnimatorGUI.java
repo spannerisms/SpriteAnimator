@@ -219,9 +219,9 @@ public class AnimatorGUI {
 
 		// animation button
 		final PrettyButton animListBtn = new PrettyButton("As list"); // button for popup window here
-		c.gridwidth = 1;
+		c.gridwidth = 2;
 		c.gridy++;
-		c.gridx = 2;
+		c.gridx = 1;
 		controls.add(animListBtn, c);
 		c.gridwidth = 1;
 

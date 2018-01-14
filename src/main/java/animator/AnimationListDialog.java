@@ -1,7 +1,5 @@
 package animator;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,7 +40,7 @@ public class AnimationListDialog extends JDialog {
 			catPanels[i] = new AnimPanel(v[i], doThing);
 		}
 
-		JComboBox<AnimPanel> catList = new JComboBox<AnimPanel>(catPanels);
+		PrettyBox<AnimPanel> catList = new PrettyBox<AnimPanel>(catPanels);
 		JPanel listWrap = new JPanel();
 		JScrollPane wrap = new JScrollPane(listWrap);
 
@@ -108,12 +106,12 @@ public class AnimationListDialog extends JDialog {
 	}
 
 	@SuppressWarnings("serial")
-	static class AnimButton extends JButton {
+	static class AnimButton extends PrettyButton {
 		final Animation anim;
 
 		public AnimButton(String text, Animation a, ActionListener l) {
 			super(text);
-			this.setVerticalAlignment(JButton.EAST);
+			this.setVerticalAlignment(PrettyButton.EAST);
 			anim = a;
 			this.addActionListener(l);
 		}

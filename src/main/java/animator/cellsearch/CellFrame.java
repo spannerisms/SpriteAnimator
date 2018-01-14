@@ -5,13 +5,14 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+
+import animator.PrettyBox;
 
 import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
 import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
@@ -63,7 +64,7 @@ public class CellFrame extends JDialog {
 		this.add(listScroll);
 
 		// image shown
-		JComboBox<SheetOption> sheet = new JComboBox<SheetOption>(SheetOption.values());
+		PrettyBox<SheetOption> sheet = new PrettyBox<SheetOption>(SheetOption.values());
 		l.putConstraint(NORTH, sheet, 5, NORTH, this);
 		l.putConstraint(EAST, sheet, -15, EAST, this);
 		this.add(sheet);
