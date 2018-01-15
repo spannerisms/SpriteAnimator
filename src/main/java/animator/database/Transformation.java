@@ -5,20 +5,25 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public enum Transformation {
-	Y_FLIP ( img -> {
+	Y_FLIP ( "Y",
+		img -> {
 			return flip(img, false);
 		}),
-	X_FLIP ( img -> {
+	X_FLIP ( "X",
+		img -> {
 			return flip(img, true);
 		}),
-	XY_FLIP ( img -> {
+	XY_FLIP ( "XY",
+		img -> {
 			return flip(flip(img, true), false);
 		});
 
 	// operation
+	public final String token;
 	private final Transform T;
 
-	private Transformation (Transform T) {
+	private Transformation (String token, Transform T) {
+		this.token = token;
 		this.T = T;
 	}
 

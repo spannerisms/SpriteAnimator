@@ -44,7 +44,7 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.14";
+	public static final String VERSION = "v1.15";
 
 	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
 			ZSPRFile.EXTENSION,
@@ -681,18 +681,6 @@ public class AnimatorGUI {
 		final JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
 
-		// reverse lookup
-		CellFrame looker = new CellFrame(frame);
-		final JMenuItem lookUp = new JMenuItem("Sprite lookup");
-		ImageIcon net = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/net.png"));
-		looker.setIconImage(net.getImage());
-		lookUp.setIcon(net);
-		fileMenu.add(lookUp);
-		lookUp.addActionListener(arg0 -> looker.setVisible(true));
-
-		// separator
-		fileMenu.addSeparator();
-
 		// animated gifs
 		final JMenuItem giffer = new JMenuItem("Make GIF");
 		ImageIcon cane = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/cane.png"));
@@ -722,6 +710,21 @@ public class AnimatorGUI {
 		exit.addActionListener(arg0 -> System.exit(0));
 
 		// end file menu
+
+		// tools menu
+		final JMenu toolsMenu = new JMenu("Tools");
+		menu.add(toolsMenu);
+
+		// reverse lookup
+		CellFrame looker = new CellFrame(frame);
+		final JMenuItem lookUp = new JMenuItem("Sheet Trawler");
+		ImageIcon net = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/net.png"));
+		looker.setIconImage(net.getImage());
+		lookUp.setIcon(net);
+		toolsMenu.add(lookUp);
+		lookUp.addActionListener(arg0 -> looker.setVisible(true));
+
+		// end tools menu
 
 		// help menu
 		final JMenu helpMenu = new JMenu("Help");

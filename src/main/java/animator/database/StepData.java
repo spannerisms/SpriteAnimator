@@ -13,12 +13,15 @@ public class StepData {
 	// used for each shield in a step, replacing generic shield later
 	private final SpriteData[] shields = new SpriteData[4];
 
+	private String asList;
+
 	// makes a step from sprite objects
 	private StepData(ArrayList<SpriteData> s, int length) {
 		this.l = length;
 		for (SpriteData e : s) {
 			sprites.add(e);
 		}
+		setAsList();
 	}
 
 	// make a step from json data
@@ -55,6 +58,7 @@ public class StepData {
 		}
 
 		l = jo.getInt("length");
+		setAsList();
 	}
 
 	public int countSprites() {
@@ -179,5 +183,30 @@ public class StepData {
 			ret.add(new StepData(curPose, curLength));
 		} // end merging
 		return ret;
+	}
+
+	/**
+	 * Sets the {@code String} used for {@link #asList()}
+	 */
+	private final void setAsList() {
+		ArrayList<String> temp = new ArrayList<String>();
+
+		for (SpriteData s : sprites) {
+			if (!s.isLinkPart() || s.isEmpty()) { continue; }
+			temp.add(s.toList());
+		}
+
+		if (temp.isEmpty()) {
+			asList = "Empty step";
+		} else {
+			asList = String.join("; ", temp);
+		}
+	}
+
+	/**
+	 * Lists all Link parts in a simple format
+	 */
+	public String asList() {
+		return asList;
 	}
 }

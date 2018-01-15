@@ -296,6 +296,7 @@ public enum SpriteCell {
 	public final DrawSize d;
 	public final boolean isUsed;
 	public final ArrayList<StepList> usedBy;
+	public final ArrayList<Animation> usedIn;
 	public final String HTMLret;
 
 	private SpriteCell(SheetRow s, int column, DrawSize drawSize, boolean used) {
@@ -306,6 +307,7 @@ public enum SpriteCell {
 		d = drawSize;
 		isUsed = used;
 		usedBy = new ArrayList<StepList>();
+		usedIn = new ArrayList<Animation>();
 		findAnimationFrames();
 
 		if (used) {
@@ -321,18 +323,33 @@ public enum SpriteCell {
 				String allNums = String.join("; ", listAgain);
 				list[i] = String.join("",
 						new String[] {
-								"<div>",
+								"<div style=\"border:2px outset;",
+								"padding-left:3px;",
+								"font-weight:bold;",
+								"background: #D8D8D8;\">",
 								use.animName,
 								"</div>",
-								"<div style=\"margin-left:10px;\">",
+								"<div style=\"margin-left:10px;",
+								"font-family:consolas;",
+								"margin-bottom: 5px;",
+								"width: 200px;\">",
 								allNums,
 								"</div>"
 							}
 						);
 			}
-			HTMLret = String.join("<br />", list);
+			HTMLret = String.join("", list);
 		} else {
-			HTMLret = "Unused";
+			HTMLret = String.join("",
+					new String[] {
+					"<div style=\"border:2px outset;",
+					"padding-left:3px;",
+					"font-weight:bold;",
+					"background: #D8D8D8;\">",
+					"Unused",
+					"</div>"
+				}
+			);
 		}
 	}
 
@@ -346,8 +363,9 @@ public enum SpriteCell {
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		String animName;
 		int stepCount;
-
+		boolean usedHere = false;
 		for (Animation a : Animation.values()) {
+			usedHere = false;
 			counter.clear();
 			stepCount = 0;
 			animName = a.toString();
@@ -357,6 +375,10 @@ public enum SpriteCell {
 				for (SpriteData s : f.getSprites()) {
 					if (s.equalsIndex(this)) {
 						counter.add(stepCount);
+						if (!usedHere) {
+							usedHere = true;
+							usedIn.add(a);
+						}
 						break spriteSearch;
 					}
 				} // end sprite loop
@@ -367,6 +389,15 @@ public enum SpriteCell {
 				usedBy.add(new StepList(animName, counter));
 			}
 		} // end animation loop
+	}
+
+	public boolean isUsedInAnimation(Animation e) {
+		for (Animation a : usedIn) {
+			if (a == e) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String toString() {

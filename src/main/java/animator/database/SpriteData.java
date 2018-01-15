@@ -20,6 +20,7 @@ public class SpriteData {
 	public final boolean isEquipment;
 	public final boolean isZap;
 	public final Transformation t;
+	public final String listString;
 
 	public SpriteData(JSONObject jo) {
 		this(jo, 0);
@@ -62,6 +63,24 @@ public class SpriteData {
 		}
 
 		t = t1;
+
+		String ret = String.format("%s%s", this.row.name(), this.col);
+
+		boolean showSize = !(d == DrawSize.FULL || d == DrawSize.EMPTY);
+		if (showSize) {
+			ret = String.format("%s:%s", ret, d.token);
+		}
+
+		boolean showTrans = t1 != null;
+		if (showTrans) {
+			ret = String.format("%s:%s", ret, t.token);
+		}
+
+		if (isZap) {
+			ret = String.format("%s:Z", ret);
+		}
+
+		listString = ret;
 	}
 
 	// compares all data points
@@ -84,5 +103,17 @@ public class SpriteData {
 				this.col == cell.c &&
 				this.d == cell.d);
 				
+	}
+
+	public boolean isEmpty() {
+		return d == DrawSize.EMPTY;
+	}
+
+	public boolean isLinkPart() {
+		return row.isLinkPart;
+	}
+
+	public String toList() {
+		return listString;
 	}
 }

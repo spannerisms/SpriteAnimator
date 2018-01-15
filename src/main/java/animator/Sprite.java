@@ -37,7 +37,7 @@ public class Sprite {
 		}
 
 		// make info
-		if (!s.row.isLinkPart) {
+		if (!s.isLinkPart()) {
 			return; // just stop if not part of link
 		} else if (d == DrawSize.EMPTY) {
 			info = new String[] { "Empty step", "", "" }; // unique thing for empty steps

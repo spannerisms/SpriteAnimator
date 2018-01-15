@@ -9,15 +9,33 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 
+import animator.database.Animation;
+
 import static animator.cellsearch.CellFrame.ZOOM;
 
 public class SpriteBlock extends JComponent {
 	private static final long serialVersionUID = 2627372484710178104L;
 
-	static final Color UNUSED_BLACK = new Color(0, 0, 0, 255);
-	static final Color HOVER_YELLOW = new Color(255, 255, 0, 200);
-	static final Color SELECTED_BLUE = new Color(0, 0, 255, 255);
+	static final Color UNUSED_COLOR =
+			new Color(0, 0, 0, 200);
+	static final Color UNUSED_BORDER =
+			new Color(UNUSED_COLOR.getRed(), UNUSED_COLOR.getGreen(), UNUSED_COLOR.getBlue(), 255);
 
+	static final Color HOVER_COLOR =
+			new Color(255, 255, 0, 120);
+	static final Color HOVER_BORDER =
+			new Color(HOVER_COLOR.getRed(), HOVER_COLOR.getGreen(), HOVER_COLOR.getBlue(), 255);
+
+	static final Color SELECTED_COLOR =
+			new Color(0, 200, 255, 100);
+	static final Color SELECTED_BORDER =
+			new Color(SELECTED_COLOR.getRed(), SELECTED_COLOR.getGreen(), SELECTED_COLOR.getBlue(), 255);
+
+	static final Color IN_ANIM_COLOR = new Color(0, 255, 120, 130);
+	static final Color IN_ANIM_BORDER =
+			new Color(IN_ANIM_COLOR.getRed(), IN_ANIM_COLOR.getGreen(), IN_ANIM_COLOR.getBlue(), 255);
+
+	// locals
 	public final int x;
 	public final int y;
 	public final int w;
@@ -26,6 +44,8 @@ public class SpriteBlock extends JComponent {
 	public boolean hovered = false;
 	public boolean selected = false;
 	public boolean hideUnused = false;
+	public boolean listed = false;
+	public boolean showListed = false;
 	private final boolean unused;
 
 	public final ActionEvent CLICK = new ActionEvent(this, 1, "click");
@@ -40,10 +60,10 @@ public class SpriteBlock extends JComponent {
 		x = s.c * 16 + s.d.x;
 		y = s.row.val  * 16 + s.d.y;
 
-		w = s.d.w;
-		h = s.d.h;
+		w = s.d.w - 1;
+		h = s.d.h - 1;
 
-		this.setBounds(x * ZOOM + 1, y * ZOOM + 1, w * ZOOM, h * ZOOM);
+		this.setBounds(x * ZOOM, y * ZOOM, (w + 1) * ZOOM, (h + 1) * ZOOM);
 
 		addMouse();
 	}
@@ -52,25 +72,49 @@ public class SpriteBlock extends JComponent {
 		hideUnused = b;
 	}
 
+	public void paintBottom(Graphics g) {
+		if (listed && showListed) {
+			g.setColor(IN_ANIM_COLOR);
+			g.fillRect(x, y, w, h);
+			g.setColor(IN_ANIM_BORDER);
+			g.drawRect(x, y, w, h);
+		}
+	}
+
 	public void paint(Graphics g) {
 		if (hideUnused && unused) {
-			g.setColor(UNUSED_BLACK);
+			g.setColor(UNUSED_COLOR);
 			g.fillRect(x, y, w, h);
+			g.setColor(UNUSED_BORDER);
+			g.drawRect(x, y, w, h);
 		}
 
 		if (hovered) {
-			g.setColor(HOVER_YELLOW);
+			g.setColor(HOVER_COLOR);
 			g.fillRect(x, y, w, h);
+			g.setColor(HOVER_BORDER);
+			g.drawRect(x, y, w, h);
 		}
 
 		if (selected) {
-			g.setColor(SELECTED_BLUE);
+			g.setColor(SELECTED_COLOR);
+			g.fillRect(x, y, w, h);
+			g.setColor(SELECTED_BORDER);
 			g.drawRect(x, y, w, h);
 		}
 	}
 
 	public void setSelected(boolean b) {
 		selected = b;
+	}
+
+	public void setShowListed(boolean b) {
+		showListed = b;
+	}
+
+	public void setUsedInAnimation(Animation a) {
+		listed = cell.isUsedInAnimation(a);
+		repaint();
 	}
 
 	private final void addMouse() {

@@ -11,6 +11,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
+import animator.database.Animation;
+
 import static animator.cellsearch.CellFrame.ZOOM;
 import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
 import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
@@ -83,9 +85,23 @@ public class CellLister extends JComponent {
 		repaint();
 	}
 
+	public void setAnimation(Animation a) {
+		for (SpriteBlock c : list) {
+			c.setUsedInAnimation(a);
+		}
+		repaint();
+	}
+
 	public void setHideUnused(boolean b) {
 		for (SpriteBlock c : list) {
 			c.setHideUnused(b);
+		}
+		repaint();
+	}
+
+	public void setShowListed(boolean b) {
+		for (SpriteBlock c : list) {
+			c.setShowListed(b);
 		}
 		repaint();
 	}
@@ -94,7 +110,13 @@ public class CellLister extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(ZOOM, ZOOM);
 		g2.drawImage(CHECKER, 0, 0, null);
+
+		for (SpriteBlock c : list) {
+			c.paintBottom(g);
+		}
+
 		g2.drawImage(curBGImg, 0, 0, null);
+
 		for (SpriteBlock c : list) {
 			c.paint(g);
 		}
