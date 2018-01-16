@@ -20942,12 +20942,6 @@
 						"col": 0,
 						"pos": [-8,8],
 						"size": "LARGE_32X24"
-					},
-					{
-						"row": "D",
-						"col": 3,
-						"pos": [0,5],
-						"size": "FULL"
 					}
 				],
 				"length": 10000,
