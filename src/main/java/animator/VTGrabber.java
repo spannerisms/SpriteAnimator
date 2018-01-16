@@ -59,12 +59,15 @@ public class VTGrabber {
 				e.printStackTrace();
 				continue;
 			}
+			String path = AnimatorGUI.VT_DIRECTORY.getAbsolutePath() + "/" + sprName;
+			path = path.replace("/", System.getProperty("file.separator"));
+			File curSpr = new File(path);
 
-			File curSpr = new File(AnimatorGUI.VT_DIRECTORY.getAbsolutePath() + "/" + sprName);
 			try(
 				InputStream s = sprURL.openStream();
 				FileOutputStream output = new FileOutputStream(curSpr);
 			) {
+				curSpr.createNewFile();
 				int r = 0;
 				do {
 					r = s.read();

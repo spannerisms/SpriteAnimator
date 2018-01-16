@@ -105,7 +105,7 @@ public class AnimatorGUI {
 		JAR_DIRECTORY = new File(temp.getParent());
 		JAR_DIR_FOUND = temp != null;
 
-		if (JAR_DIR_FOUND) {
+		if (!JAR_DIR_FOUND) {
 			GIF_DIRECTORY = null;
 			CROSSPRODUCT_DIRECTORY = null;
 			MIKES_DIRECTORY = null;

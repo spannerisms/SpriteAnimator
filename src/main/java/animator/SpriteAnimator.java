@@ -827,15 +827,16 @@ public class SpriteAnimator extends JComponent {
 			gifDir.mkdir();
 		}
 
-		File animGif = new File(
-				String.format(
-					"%s\\%s - %s (x%s zoom; %s%% speed).gif",
-					gifDir.getPath(),
-					spriteFileName,
-					anime.toString(),
-					size,
-					100 / speed
-				));
+		String path = String.format(
+				"%s\\%s - %s (x%s zoom; %s%% speed).gif",
+				gifDir.getPath(),
+				spriteFileName,
+				anime.toString(),
+				size,
+				100 / speed
+			);
+		path = path.replace("/", System.getProperty("file.separator"));
+		File animGif = new File(path);
 
 		FileOutputStream output = new FileOutputStream(animGif);
 
@@ -997,7 +998,9 @@ public class SpriteAnimator extends JComponent {
 			Graphics2D imgg = output.createGraphics();
 			imgg.drawImage(spriteImg, 16, 16, null);
 
-			File f = new File(String.format("%s\\%s.png", dir, c.fileName));
+			String path = String.format("%s\\%s.png", dir, c.fileName);
+			path = path.replace("/", System.getProperty("file.separator"));
+			File f = new File(path);
 			System.out.println("Creating: " + f.getAbsolutePath());
 			f.createNewFile();
 
@@ -1078,7 +1081,9 @@ public class SpriteAnimator extends JComponent {
 			a.draw(g, x + offsetX, offsetY + COLLAGE_PAD);
 		}
 
-		File f = new File(String.format("%s\\%s.png", dir, anime.toString()));
+		String path = String.format("%s\\%s.png", dir, anime.toString());
+		path = path.replace("/", System.getProperty("file.separator"));
+		File f = new File(path);
 		System.out.println("Creating: " + f.getAbsolutePath());
 		f.createNewFile();
 
