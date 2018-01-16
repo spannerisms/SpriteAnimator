@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 import animator.database.Animation;
@@ -38,6 +40,8 @@ public class SpriteBlock extends JComponent {
 	// locals
 	public final int x;
 	public final int y;
+	public final int xmod;
+	public final int ymod;
 	public final int w;
 	public final int h;
 
@@ -47,6 +51,8 @@ public class SpriteBlock extends JComponent {
 	public boolean listed = false;
 	public boolean showListed = false;
 	private final boolean unused;
+	private final BufferedImage index;
+	public final ImageIcon indexIcon;
 
 	public final ActionEvent CLICK = new ActionEvent(this, 1, "click");
 	public final ActionEvent HOV = new ActionEvent(this, 2, "hover");
@@ -59,12 +65,15 @@ public class SpriteBlock extends JComponent {
 
 		x = s.c * 16 + s.d.x;
 		y = s.row.val  * 16 + s.d.y;
+		xmod = (x / 16) * 16;
+		ymod = (y / 16) * 16;
 
 		w = s.d.w - 1;
 		h = s.d.h - 1;
 
 		this.setBounds(x * ZOOM, y * ZOOM, (w + 1) * ZOOM, (h + 1) * ZOOM);
-
+		index = CellLister.INDEX_NAMES.getSubimage(xmod, ymod, 16, 16);
+		indexIcon = new ImageIcon(index);
 		addMouse();
 	}
 
@@ -90,6 +99,8 @@ public class SpriteBlock extends JComponent {
 		}
 
 		if (hovered) {
+			g.drawImage(index, xmod, ymod, null);
+
 			g.setColor(HOVER_COLOR);
 			g.fillRect(x, y, w, h);
 			g.setColor(HOVER_BORDER);

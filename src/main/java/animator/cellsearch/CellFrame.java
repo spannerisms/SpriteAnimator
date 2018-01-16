@@ -89,6 +89,7 @@ public class CellFrame extends JDialog {
 		l.putConstraint(EAST, hideUnused , 0, EAST, sheet);
 		this.add(hideUnused);
 
+		// how sprites are made
 		JLabel info = new JLabel("Step counts are with all sprites visible.");
 		l.putConstraint(SOUTH, info, 0, SOUTH, listScroll);
 		l.putConstraint(WEST, info, 15, EAST, listScroll);
@@ -118,7 +119,7 @@ public class CellFrame extends JDialog {
 		@SuppressWarnings("serial")
 		JLabel animUses = new JLabel("") {
 			public void setText(String t) {
-				super.setText("<html><div style=\"padding:0px; width:200px;\">" + t + "</div></html>");
+				super.setText("<html><div style=\"padding:0px; width:200px; font-family:consolas;\">" + t + "</div></html>");
 			}
 		};
 
@@ -133,6 +134,29 @@ public class CellFrame extends JDialog {
 		l.putConstraint(EAST, animUseList, 0, EAST, anim);
 		this.add(animUseList);
 
+		// current cell
+		@SuppressWarnings("serial")
+		JLabel curCell = new JLabel("--") {
+			public void setText(String t) {
+				super.setText(
+						String.join("", new String[] {
+							"<html><div style=\"padding:0px 5px 2px;",
+									"width: 50px;",
+									"font-family:consolas;",
+									"border:2px inset #0078F8;",
+									"border-bottom:none;",
+									"white-space:pre-wrap;",
+									"background:#B0E8F0;",
+									"font-weight:bold;\">",
+										t,
+									"</div></html>"
+						}));
+			}
+		};
+		l.putConstraint(SOUTH, curCell, 0, NORTH, list);
+		l.putConstraint(WEST, curCell, 0, WEST, list);
+		this.add(curCell);
+
 		anim.addItemListener(
 			arg0 -> {
 				Animation a = (Animation) arg0.getItem();
@@ -141,18 +165,27 @@ public class CellFrame extends JDialog {
 				int i = 1;
 
 				for (StepData s : a.getSteps()) {
-					temp.add("<div style=\"border:2px outset;");
-					temp.add("padding-left:3px;");
-					temp.add("font-weight:bold;");
-					temp.add("background: #D8D8D8;\">");
-					temp.add(Integer.toString(i++));
-					temp.add("</div>");
-					temp.add("<div style=\"margin-left:10px;");
-					temp.add("font-family:consolas;");
-					temp.add("margin-bottom: 5px;");
-					temp.add("width: 200px;\">");
-					temp.add(s.asList());
-					temp.add("</div>");
+					temp.add(String.format(
+							String.join("", new String[] {
+							"<div style=\"border:2px outset;",
+								"padding-left:5px;",
+								"padding-bottom:2px;",
+								"white-space:pre-wrap;",
+								"background: #D8D8D8;\">",
+								"<b style=\"font-size: 120%%;\">",
+									"%2s",
+								"</b>",
+								" | %sf",
+							"</div>",
+							"<div style=\"margin-left:10px;",
+								"margin-bottom: 5px;",
+								"width: 200px;\">",
+									"%s",
+							"</div>"}),
+							i++,
+							s.l < 1000 ? s.l : "--",
+							s.asList()
+						));
 				}
 				animUses.setText(String.join("",temp));
 			});
@@ -168,7 +201,10 @@ public class CellFrame extends JDialog {
 		lister.addActionListener(
 				arg0 -> {
 					SpriteBlock b = (SpriteBlock) arg0.getSource();
-					listed.setText(b.cell.HTMLret);
+					curCell.setText(b.cell.toString());
+					
+					listed.setVerticalAlignment(SwingConstants.TOP);
+					listed.setText(b.cell.toHTML());
 					repaint();
 				});
 

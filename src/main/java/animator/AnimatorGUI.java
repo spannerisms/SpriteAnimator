@@ -44,7 +44,7 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.15";
+	public static final String VERSION = "v1.16";
 
 	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
 			ZSPRFile.EXTENSION,

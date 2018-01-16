@@ -297,14 +297,20 @@ public enum SpriteCell {
 	public final boolean isUsed;
 	public final ArrayList<StepList> usedBy;
 	public final ArrayList<Animation> usedIn;
+	public final String fullName;
 	public final String HTMLret;
 
 	private SpriteCell(SheetRow s, int column, DrawSize drawSize, boolean used) {
 		row = s;
 		r = s.val;
 		c = column;
-		name = s.name() + c;
 		d = drawSize;
+		name = s.name() + c;
+		fullName = String.format("%s%s%s",
+				name,
+				d != DrawSize.FULL ? ":" : "",
+				d.token);
+
 		isUsed = used;
 		usedBy = new ArrayList<StepList>();
 		usedIn = new ArrayList<Animation>();
@@ -401,6 +407,10 @@ public enum SpriteCell {
 	}
 
 	public String toString() {
+		return fullName;
+	}
+
+	public String toHTML() {
 		return HTMLret;
 	}
 }
