@@ -815,30 +815,21 @@ public class SpriteAnimator extends JComponent {
 	public String makeGif(int size, int speed) throws Exception {
 		if (steps == null) { throw new Exception(); }
 
-		File gifDir = AnimatorGUI.GIF_DIRECTORY;
+		String dir = AnimatorGUI.GIF_DIRECTORY.getAbsolutePath();
 		String[] fNameParts = spriteName.split("[/\\\\]");
 		String spriteFileName = fNameParts[fNameParts.length-1];
+		File cDir = new File(String.format("%s\\%s", dir, spriteFileName));
 
-		if (gifDir.exists()) {
-			if (!gifDir.isDirectory()) {
-				throw new Exception("/" + gifDir.getName() + " is not a folder.");
+		if (cDir.exists()) {
+			if (cDir.isDirectory()) {
+				dir = cDir.getPath();
+			} else {
+				throw new Exception("/" + cDir.getName() + " is not a folder.");
 			}
 		} else {
-			gifDir.mkdir();
+			cDir.mkdirs();
+			dir = cDir.getPath();
 		}
-
-		String path = String.format(
-				"%s\\%s - %s (x%s zoom; %s%% speed).gif",
-				gifDir.getPath(),
-				spriteFileName,
-				anime.toString(),
-				size,
-				100 / speed
-			);
-		path = path.replace("/", System.getProperty("file.separator"));
-		File animGif = new File(path);
-
-		FileOutputStream output = new FileOutputStream(animGif);
 
 		BufferedImage cur;
 		Graphics2D g;
@@ -919,9 +910,23 @@ public class SpriteAnimator extends JComponent {
 			frames[i] = new AnimatedGIFWriter.GIFFrame(cur, l * FPS * speed,
 					AnimatedGIFWriter.GIFFrame.DISPOSAL_LEAVE_AS_IS);
 		}
+
+		String path = String.format(
+				"%s/%s (x%s zoom; %s%% speed).gif",
+				dir,
+				anime.toString(),
+				size,
+				100 / speed
+			);
+		path = path.replace("/", System.getProperty("file.separator"));
+		File f = new File(path);
+		System.out.println("Creating: " + f.getAbsolutePath());
+		f.createNewFile();
+		
+		FileOutputStream output = new FileOutputStream(f);
 		writer.writeAnimatedGIF(frames, output);
 
-		return animGif.getPath();
+		return f.getPath();
 	} // end gif make
 
 	// Crossproduct tracker images
