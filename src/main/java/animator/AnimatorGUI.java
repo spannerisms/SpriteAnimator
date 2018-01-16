@@ -717,7 +717,7 @@ public class AnimatorGUI {
 
 		// reverse lookup
 		CellFrame looker = new CellFrame(frame);
-		final JMenuItem lookUp = new JMenuItem("Sheet Trawler");
+		final JMenuItem lookUp = new JMenuItem("Sheet trawler");
 		ImageIcon net = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/net.png"));
 		looker.setIconImage(net.getImage());
 		lookUp.setIcon(net);
