@@ -818,7 +818,7 @@ public class SpriteAnimator extends JComponent {
 		String dir = AnimatorGUI.GIF_DIRECTORY.getAbsolutePath();
 		String[] fNameParts = spriteName.split("[/\\\\]");
 		String spriteFileName = fNameParts[fNameParts.length-1];
-		File cDir = new File(String.format("%s\\%s", dir, spriteFileName));
+		File cDir = new File(String.format("%s/%s", dir, spriteFileName));
 
 		if (cDir.exists()) {
 			if (cDir.isDirectory()) {
@@ -961,7 +961,7 @@ public class SpriteAnimator extends JComponent {
 		String dir = AnimatorGUI.CROSSPRODUCT_DIRECTORY.getAbsolutePath();
 		String[] fNameParts = spriteName.split("[/\\\\]");
 		String spriteFileName = fNameParts[fNameParts.length-1];
-		File cDir = new File(String.format("%s\\%s (%s)", dir, spriteFileName, time));
+		File cDir = new File(String.format("%s/%s (%s)", dir, spriteFileName, time));
 
 		if (cDir.exists()) {
 			if (cDir.isDirectory()) {
@@ -1003,7 +1003,7 @@ public class SpriteAnimator extends JComponent {
 			Graphics2D imgg = output.createGraphics();
 			imgg.drawImage(spriteImg, 16, 16, null);
 
-			String path = String.format("%s\\%s.png", dir, c.fileName);
+			String path = String.format("%s/%s.png", dir, c.fileName);
 			path = path.replace("/", System.getProperty("file.separator"));
 			File f = new File(path);
 			System.out.println("Creating: " + f.getAbsolutePath());
@@ -1027,7 +1027,7 @@ public class SpriteAnimator extends JComponent {
 		String dir = AnimatorGUI.MIKES_DIRECTORY.getAbsolutePath();
 		String[] fNameParts = spriteName.split("[/\\\\]");
 		String spriteFileName = fNameParts[fNameParts.length-1];
-		File cDir = new File(String.format("%s\\%s", dir, spriteFileName));
+		File cDir = new File(String.format("%s/%s", dir, spriteFileName));
 
 		if (cDir.exists()) {
 			if (cDir.isDirectory()) {
@@ -1086,7 +1086,7 @@ public class SpriteAnimator extends JComponent {
 			a.draw(g, x + offsetX, offsetY + COLLAGE_PAD);
 		}
 
-		String path = String.format("%s\\%s.png", dir, anime.toString());
+		String path = String.format("%s/%s.png", dir, anime.toString());
 		path = path.replace("/", System.getProperty("file.separator"));
 		File f = new File(path);
 		System.out.println("Creating: " + f.getAbsolutePath());
