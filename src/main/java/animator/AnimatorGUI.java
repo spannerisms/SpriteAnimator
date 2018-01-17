@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.awt.TextArea;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -112,10 +114,14 @@ public class AnimatorGUI {
 			VT_DIRECTORY = null;
 		} else {
 			final String folderPath = JAR_DIRECTORY.getAbsolutePath();
-			GIF_DIRECTORY = new File(folderPath + "/gifs");
-			CROSSPRODUCT_DIRECTORY = new File(folderPath + "/CPTrackerImages");
-			MIKES_DIRECTORY = new File(folderPath + "/collages");
-			VT_DIRECTORY = new File(folderPath + "/VT");
+			GIF_DIRECTORY = new File(
+					String.format("%s%s%s", folderPath, System.getProperty("file.separator"), "/gifs"));
+			CROSSPRODUCT_DIRECTORY = new File(
+					String.format("%s%s%s", folderPath, System.getProperty("file.separator"), "/CPTrackerImages"));
+			MIKES_DIRECTORY = new File(
+					String.format("%s%s%s", folderPath, System.getProperty("file.separator"), "/collages"));
+			VT_DIRECTORY = new File(
+					String.format("%s%s%s", folderPath, System.getProperty("file.separator"), "/VT"));
 		}
 	}
 
