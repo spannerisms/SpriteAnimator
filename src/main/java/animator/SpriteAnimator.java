@@ -115,7 +115,7 @@ public class SpriteAnimator extends JComponent {
 		tick = new Timer();
 		setRunning();
 		addMouse();
-	} 
+	}
 
 	public String getSpriteName() {
 		return spriteName;
@@ -197,7 +197,7 @@ public class SpriteAnimator extends JComponent {
 	 * <li>{@code 1} - step-by-step</li>
 	 * <li>{@code 2} - all steps</li>
 	 * </ul>
-	 * @param m - mode 
+	 * @param m - mode
 	 */
 	public void setMode(AnimationMode m) {
 		mode = m;
@@ -922,7 +922,7 @@ public class SpriteAnimator extends JComponent {
 		File f = new File(path);
 		System.out.println("Creating: " + f.getAbsolutePath());
 		f.createNewFile();
-		
+
 		FileOutputStream output = new FileOutputStream(f);
 		writer.writeAnimatedGIF(frames, output);
 

@@ -102,7 +102,7 @@ public class SpriteData {
 		return (this.row == cell.row &&
 				this.col == cell.c &&
 				this.d == cell.d);
-				
+
 	}
 
 	public boolean isEmpty() {

@@ -818,11 +818,9 @@ public class AnimatorGUI {
 		// listen for speed changes
 		animated.addSpeedListener(
 			arg0 -> {
-				
 					fasterBtn.setEnabled(!animated.atMaxSpeed());
 					slowerBtn.setEnabled(!animated.atMinSpeed());
 					speedLevel.setText(animated.getSpeedPercent());
-				
 			});
 
 		// listen for mode changes

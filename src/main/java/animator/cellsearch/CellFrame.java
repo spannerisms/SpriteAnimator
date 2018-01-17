@@ -190,7 +190,7 @@ public class CellFrame extends JDialog {
 				animUses.setText(String.join("",temp));
 			});
 
-		anim.setSelectedIndex(4); // set index then set it back 
+		anim.setSelectedIndex(4); // set index then set it back
 		anim.setSelectedIndex(0); // to force an event
 
 		sheet.addItemListener(
@@ -202,7 +202,7 @@ public class CellFrame extends JDialog {
 				arg0 -> {
 					SpriteBlock b = (SpriteBlock) arg0.getSource();
 					curCell.setText(b.cell.toString());
-					
+
 					listed.setVerticalAlignment(SwingConstants.TOP);
 					listed.setText(b.cell.toHTML());
 					repaint();

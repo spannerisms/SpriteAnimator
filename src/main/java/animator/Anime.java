@@ -45,7 +45,7 @@ public class Anime {
 	/**
 	 * Send length of current frame
 	 * @param m - speed multiplier
-	 */	
+	 */
 	public long nextTick(double m) {
 		return (long) (length * m * SpriteAnimator.FPS);
 	}

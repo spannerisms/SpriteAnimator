@@ -122,7 +122,7 @@ public class StepData {
 		// catch neutral poses
 		boolean isNeutral = true;
 		String neutralPose = "";
-		try { 
+		try {
 			neutralPose = jo.getString("neutralPose");
 		} catch (JSONException e) { // catch an error for no value
 			isNeutral = false; // that means we're not a neutral step
