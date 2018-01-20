@@ -1,4 +1,4 @@
-package animator.cellsearch;
+package animator.gui.cellsearch;
 
 import animator.database.Animation;
 import animator.database.DrawSize;

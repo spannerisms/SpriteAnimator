@@ -1,4 +1,4 @@
-package animator.cellsearch;
+package animator.gui.cellsearch;
 
 import java.awt.image.BufferedImage;
 

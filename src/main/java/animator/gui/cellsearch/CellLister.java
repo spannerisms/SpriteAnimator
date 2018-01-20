@@ -1,4 +1,4 @@
-package animator.cellsearch;
+package animator.gui.cellsearch;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,7 +13,7 @@ import javax.swing.JComponent;
 
 import animator.database.Animation;
 
-import static animator.cellsearch.CellFrame.ZOOM;
+import static animator.gui.cellsearch.CellFrame.ZOOM;
 import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_HEIGHT;
 import static spritemanipulator.SpriteManipulator.SPRITE_SHEET_WIDTH;
 

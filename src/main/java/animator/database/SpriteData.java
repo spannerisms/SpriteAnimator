@@ -2,7 +2,7 @@ package animator.database;
 
 import org.json.*;
 
-import animator.cellsearch.SpriteCell;
+import animator.gui.cellsearch.SpriteCell;
 
 public class SpriteData {
 	// class constants

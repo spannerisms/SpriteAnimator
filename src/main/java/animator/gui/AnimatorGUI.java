@@ -42,7 +42,7 @@ import animator.AnimationMode;
 import animator.AnimatorListener;
 import animator.Background;
 import animator.SpriteAnimator;
-import animator.cellsearch.CellFrame;
+import animator.gui.cellsearch.CellFrame;
 import animator.database.*;
 
 import static javax.swing.SpringLayout.*;
