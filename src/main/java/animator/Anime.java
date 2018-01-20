@@ -1,16 +1,34 @@
 package animator;
 
+import java.awt.Container;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import animator.database.StepData;
 
 public class Anime {
-	private int length; // duration
-	private Sprite[] list; // list of sprites in frame
+	private final int length; // duration
+	private final Sprite[] list; // list of sprites in frame
+	private final Container printer; // graphical list
 
 	public Anime(StepData step, Sprite[] spriteList) {
 		list = spriteList;
 		length = step.l;
+		printer = new Container();
+		printer.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 0;
+		c.gridx = 0;
+		for (int i = list.length - 1; i >= 0; i--) {
+			Sprite s = list[i];
+			if (!s.getData().isLinkPart()) {
+				continue;
+			}
+			printer.add(new CellRow(s), c);
+			c.gridy++;
+		}
 	}
 
 	public void draw(Graphics2D g, int offsetX, int offsetY) {
@@ -19,23 +37,8 @@ public class Anime {
 		}
 	}
 
-	public String printAll() {
-		String ret = "<html>" +
-				"<b>Sprite indices used:</b>" +
-				"<table style=\"width: 150px;\">";
-		for (int i = list.length - 1; i >= 0; i--) {
-			String[] spriteInfo = list[i].getInfo();
-			if (spriteInfo != null) {
-				ret += "<tr>" +
-						"<td style=\"width: 20%; text-align: right;\">" + spriteInfo[0] + "</td>" +
-						"<td style=\"width: 40%;\">" + spriteInfo[1] + "</td>" +
-						"<td style=\"width: 40%;\">" + spriteInfo[2] + "</td>" +
-						"</tr>";
-			}
-		}
-
-		ret += "</table></html>";
-		return ret;
+	public Container printAll() {
+		return printer;
 	}
 
 	public int getLength() {

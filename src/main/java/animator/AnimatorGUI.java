@@ -44,7 +44,7 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.16";
+	public static final String VERSION = "v1.17";
 
 	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
 			ZSPRFile.EXTENSION,
@@ -148,7 +148,7 @@ public class AnimatorGUI {
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
-		final Dimension d = new Dimension(1000, 700);
+		final Dimension d = new Dimension(1000, 750);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 		Dimension textDimension = new Dimension(50, 20);
@@ -600,7 +600,7 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// sprite info
-		final JLabel spriteInfo = new JLabel("");
+		JPanel spriteInfo = new JPanel();
 		c.gridwidth = 3;
 		c.gridy++;
 		c.gridx = 0;
@@ -808,7 +808,10 @@ public class AnimatorGUI {
 		AnimatorListener spriteInfoWatcher =
 			arg0 -> {
 				try {
-					spriteInfo.setText(animated.getSpriteInfo());
+					spriteInfo.removeAll();
+					spriteInfo.add(animated.getSpriteInfo());
+					spriteInfo.revalidate();
+					spriteInfo.repaint();
 				} catch (Exception e) {
 					e.printStackTrace();
 					// nothing
@@ -818,9 +821,9 @@ public class AnimatorGUI {
 		// listen for speed changes
 		animated.addSpeedListener(
 			arg0 -> {
-					fasterBtn.setEnabled(!animated.atMaxSpeed());
-					slowerBtn.setEnabled(!animated.atMinSpeed());
-					speedLevel.setText(animated.getSpeedPercent());
+				fasterBtn.setEnabled(!animated.atMaxSpeed());
+				slowerBtn.setEnabled(!animated.atMinSpeed());
+				speedLevel.setText(animated.getSpeedPercent());
 			});
 
 		// listen for mode changes
@@ -830,6 +833,7 @@ public class AnimatorGUI {
 
 				String stepWord;
 				switch (mode) {
+					default:
 					case PLAY :
 						stepWord = "Pause";
 						animated.removeStepListener(spriteInfoWatcher);
@@ -841,20 +845,22 @@ public class AnimatorGUI {
 						playBtn.setEnabled(true);
 						break;
 					case STEP :
-					default :
 						stepWord = "Step";
 						animated.addStepListener(spriteInfoWatcher);
 						playBtn.setEnabled(true);
 						break;
 				}
 
-				stepBtn.setText(stepWord);
-
 				try {
-					spriteInfo.setText(animated.getSpriteInfo());
+					spriteInfo.removeAll();
+					spriteInfo.add(animated.getSpriteInfo());
+					spriteInfo.revalidate();
+					spriteInfo.repaint();
 				} catch (Exception e) {
 					// nothing
 				}
+
+				stepBtn.setText(stepWord);
 			});
 
 		// listen for zoom changes
@@ -868,6 +874,7 @@ public class AnimatorGUI {
 		// listen for display changes
 		animated.addRebuildListener(
 			arg0 -> {
+				spriteInfo.removeAll();
 				try {
 					animated.hardReset();
 				} catch (Exception e) {

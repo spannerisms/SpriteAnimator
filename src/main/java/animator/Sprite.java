@@ -15,9 +15,11 @@ public class Sprite {
 	private int x;
 	private int y;
 	private BufferedImage img;
-	private String[] info;
+	private BufferedImage rawimg;
+	private final SpriteData data;
 
 	public Sprite(BufferedImage i, SpriteData s) {
+		data = s;
 		x = s.x;
 		y = s.y;
 		DrawSize d = s.d;
@@ -30,44 +32,20 @@ public class Sprite {
 				int r = s.row.val * CELL_SIZE;
 				int c = s.col * CELL_SIZE;
 				img = i.getSubimage(c + d.x, r + d.y, d.w, d.h);
+				rawimg = i.getSubimage(c + d.x, r + d.y, d.w, d.h);
 				if (t != null) {
 					img = t.trans(img);
 				}
 				break;
 		}
-
-		// make info
-		if (!s.isLinkPart()) {
-			return; // just stop if not part of link
-		} else if (d == DrawSize.EMPTY) {
-			info = new String[] { "Empty step", "", "" }; // unique thing for empty steps
-			return; // and then quit here
-		}
-		char[] size;
-		if (d == DrawSize.FULL) {
-			size = new char[0]; // don't show "full", as it is an implicit default
-		} else {
-			size = d.name().toLowerCase().replace("_", "-").toCharArray();
-			size[0] = Character.toUpperCase(size[0]);
-		}
-
-		char[] trans;
-		if (t == null) {
-			trans = new char[0]; // don't show "none", as it is an implicit default
-		} else {
-			trans= s.t.name().toLowerCase().replace("_", "-").toCharArray();
-			trans[0] = Character.toUpperCase(trans[0]);
-		}
-
-		info = new String[] {
-				s.row.name() + s.col,
-				String.valueOf(size),
-				String.valueOf(trans)
-		};
 	}
 
-	public String[] getInfo() {
-		return info;
+	public BufferedImage getRawImage() {
+		return rawimg;
+	}
+
+	public SpriteData getData() {
+		return data;
 	}
 
 	/**

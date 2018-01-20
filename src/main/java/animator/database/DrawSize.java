@@ -29,4 +29,8 @@ public enum DrawSize {
 		this.w = w;
 		this.h = h;
 	}
+
+	public String toString() {
+		return this.name().replace("_", "-").toLowerCase();
+	}
 }

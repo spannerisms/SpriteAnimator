@@ -20,6 +20,7 @@ public class SpriteData {
 	public final boolean isEquipment;
 	public final boolean isZap;
 	public final Transformation t;
+	public final String indexString;
 	public final String listString;
 
 	public SpriteData(JSONObject jo) {
@@ -80,6 +81,7 @@ public class SpriteData {
 			ret = String.format("%s:Z", ret);
 		}
 
+		indexString = row + "" + col;
 		listString = ret;
 	}
 
@@ -111,6 +113,10 @@ public class SpriteData {
 
 	public boolean isLinkPart() {
 		return row.isLinkPart;
+	}
+
+	public String toIndexString() {
+		return indexString;
 	}
 
 	public String toList() {

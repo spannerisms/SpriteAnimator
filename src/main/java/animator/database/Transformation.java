@@ -22,13 +22,17 @@ public enum Transformation {
 	public final String token;
 	private final Transform T;
 
-	private Transformation (String token, Transform T) {
+	private Transformation(String token, Transform T) {
 		this.token = token;
 		this.T = T;
 	}
 
 	public final BufferedImage trans(BufferedImage img) {
 		return T.transform(img);
+	}
+
+	public String toString() {
+		return token + "-flip";
 	}
 
 	/**

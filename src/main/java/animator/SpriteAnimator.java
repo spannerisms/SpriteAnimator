@@ -1,5 +1,6 @@
 package animator;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -17,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 import animator.database.Animation;
 import animator.database.SpriteData;
@@ -39,6 +41,9 @@ public class SpriteAnimator extends JComponent {
 		}
 		EQUIPMENT = temp;
 	};
+
+	// frame info disabled object
+	private static final JLabel NO_DISP = new JLabel("Sprite information disabled in this mode.");
 
 	// Almost the length of a frame at 60 FPS
 	// 1/60 approx. 16.66666...
@@ -80,8 +85,8 @@ public class SpriteAnimator extends JComponent {
 
 	// locals
 	private Speed speed = Speed.NORMAL;
-	private int step; // animation step (not 0 indexed)
-	private int maxStep; // highest animation step (not 0 indexed)
+	private int step; // animation step
+	private int maxStep; // highest animation step
 	private int zoom = 3; // default zoom
 	private boolean running; // self-running status
 	private String spriteName;
@@ -131,12 +136,12 @@ public class SpriteAnimator extends JComponent {
 	/**
 	 * Current step's sprite list
 	 */
-	public String getSpriteInfo() {
-		String ret = "";
+	public Component getSpriteInfo() {
+		Component ret = null;
 		switch (mode) {
 			case PLAY :
 			case ONCE :
-				ret = "Sprite information disabled in this mode.";
+				ret = NO_DISP;
 				break;
 			case STEP :
 				ret = steps[step].printAll();
