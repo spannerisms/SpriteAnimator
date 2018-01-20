@@ -35,8 +35,7 @@ public class SpriteAnimator extends JComponent {
 	static {
 		BufferedImage temp;
 		try {
-			temp = ImageIO.read(SpriteAnimator.class.getResourceAsStream(
-					"/images/equipment.png"));
+			temp = ImageIO.read(SpriteAnimator.class.getResourceAsStream("/images/equipment.png"));
 		} catch (IOException e) {
 			temp = new BufferedImage(192, 448, BufferedImage.TYPE_4BYTE_ABGR);
 		}

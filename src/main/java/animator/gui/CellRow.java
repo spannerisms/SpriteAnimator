@@ -6,7 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -20,8 +22,19 @@ import animator.database.Transformation;
 public class CellRow extends JComponent {
 	private static final long serialVersionUID = -2029866876659740341L;
 
-	private static final Dimension L_SIZE = new Dimension(40, 32);
-	private static final Dimension BIG_SIZE = new Dimension(70, 32);
+	private static final Dimension L_SIZE = new Dimension(40, 36);
+	private static final Dimension BIG_SIZE = new Dimension(70, 36);
+
+	private static final BufferedImage CHECKER;
+	static {
+		BufferedImage temp;
+		try {
+			temp = ImageIO.read(CellRow.class.getResourceAsStream("/images/meta/checker-small.png"));
+		} catch (IOException e) {
+			temp = new BufferedImage(192, 448, BufferedImage.TYPE_4BYTE_ABGR);
+		}
+		CHECKER = temp;
+	};
 
 	private final BufferedImage icon;
 	private final String cell;
@@ -46,7 +59,6 @@ public class CellRow extends JComponent {
 			default:
 				x = 0;
 				break;
-			
 		}
 
 		switch (d) {
@@ -83,10 +95,11 @@ public class CellRow extends JComponent {
 		}
 
 		BufferedImage temp = s.getRawImage();
-		icon = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
+		icon = new BufferedImage(36, 36, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g = icon.createGraphics();
 		g.scale(2, 2);
-		g.drawImage(temp, x, y, null);
+		g.drawImage(CHECKER, 0, 0, null);
+		g.drawImage(temp, x + 1, y + 1, null);
 		g.dispose();
 
 		initialize();

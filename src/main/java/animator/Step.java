@@ -16,13 +16,16 @@ public class Step {
 	public Step(StepData step, Sprite[] spriteList) {
 		list = spriteList;
 		length = step.l;
+
 		printer = new Container();
 		printer.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
+		c.ipady = 2;
 		c.gridy = 0;
 		c.gridx = 0;
-		for (int i = list.length - 1; i >= 0; i--) {
+
+		for (int i = list.length - 1; i >= 0; i--) { // in reverse for z-order
 			Sprite s = list[i];
 			if (!s.getData().isLinkPart()) {
 				continue;

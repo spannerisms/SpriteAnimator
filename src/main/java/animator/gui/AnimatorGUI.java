@@ -556,7 +556,7 @@ public class AnimatorGUI {
 
 		// blank
 		c.gridy++;
-		c.ipady = 20;
+		c.ipady = BLANK_HEIGHT * 2;
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
@@ -599,7 +599,7 @@ public class AnimatorGUI {
 
 		// blank
 		c.gridy++;
-		c.ipady = 20;
+		c.ipady = BLANK_HEIGHT;
 		controls.add(new JLabel(), c);
 		c.ipady = 0;
 
@@ -637,7 +637,6 @@ public class AnimatorGUI {
 		// acknowledgements
 		ImageIcon mapIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/map.png"));
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
-
 		aboutFrame.setIconImage(mapIcon.getImage());
 
 		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
