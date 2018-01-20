@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import animator.PrettyBox;
+import animator.gui.PrettyBox;
 import animator.database.Animation;
 import animator.database.StepData;
 

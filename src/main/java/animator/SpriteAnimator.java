@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import animator.database.Animation;
 import animator.database.SpriteData;
 import animator.database.StepData;
+import animator.gui.AnimatorGUI;
 import spritemanipulator.SpriteManipulator;
 
 public class SpriteAnimator extends JComponent {

@@ -1,4 +1,4 @@
-package animator;
+package animator.gui;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -38,6 +38,10 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import spritemanipulator.*;
+import animator.AnimationMode;
+import animator.AnimatorListener;
+import animator.Background;
+import animator.SpriteAnimator;
 import animator.cellsearch.CellFrame;
 import animator.database.*;
 

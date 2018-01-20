@@ -1,4 +1,4 @@
-package animator;
+package animator.gui;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;

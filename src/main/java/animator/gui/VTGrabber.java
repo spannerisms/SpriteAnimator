@@ -1,4 +1,4 @@
-package animator;
+package animator.gui;
 
 import java.io.BufferedReader;
 import java.io.File;
