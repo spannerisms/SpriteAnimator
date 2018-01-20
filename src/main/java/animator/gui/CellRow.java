@@ -1,4 +1,4 @@
-package animator;
+package animator.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import animator.Sprite;
 import animator.database.DrawSize;
 import animator.database.SpriteData;
 import animator.database.Transformation;

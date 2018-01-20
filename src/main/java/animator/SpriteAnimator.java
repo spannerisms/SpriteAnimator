@@ -93,7 +93,7 @@ public class SpriteAnimator extends JComponent {
 	private String spriteName;
 	private Animation anime; // current animation
 	private AnimationMode mode;
-	private Anime[] steps = null; // each step of animation, as an object
+	private Step[] steps = null; // each step of animation, as an object
 	private BufferedImage[][] mailImages = null; // sprite sheet
 	private Timer tick; // runs for steps
 	private TimerTask next; // controls steps
@@ -609,7 +609,7 @@ public class SpriteAnimator extends JComponent {
 
 		// catch other errors
 		try {
-			Anime t = steps[step];
+			Step t = steps[step];
 			t.draw(g2, posX, posY);
 		} catch (Exception e) {
 			e.printStackTrace(); // thread conflicts cause errors? idk
@@ -729,7 +729,7 @@ public class SpriteAnimator extends JComponent {
 		BufferedImage sheet;
 		ArrayList<StepData> config = anime.customizeMergeAndFinalize(
 				swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
-		steps = new Anime[config.size()];
+		steps = new Step[config.size()];
 		maxStep = config.size();
 
 		for (int i = 0; i < steps.length; i++) { // for each animation step
@@ -754,7 +754,7 @@ public class SpriteAnimator extends JComponent {
 				list[sprCount-j-1] = newSpr; // put it in backwards to preserve z-order
 			}
 
-			steps[i] = new Anime(stepX, list);
+			steps[i] = new Step(stepX, list);
 		}
 	} // end makeAnimation
 
@@ -853,7 +853,7 @@ public class SpriteAnimator extends JComponent {
 		// draw images
 		BufferedImage[] images = new BufferedImage[steps.length];
 		for (int i = 0; i < steps.length; i++) {
-			Anime a = steps[i];
+			Step a = steps[i];
 			cur = new BufferedImage(BG_WIDTH, BG_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 
 			g = cur.createGraphics();
@@ -997,7 +997,7 @@ public class SpriteAnimator extends JComponent {
 				list[sprCount-j-1] = newSpr; // put it in backwards to preserve z-order
 			}
 
-			Anime pose = new Anime(stepX, list); // we only care about this first step
+			Step pose = new Step(stepX, list); // we only care about this first step
 			// end of copied code
 
 			BufferedImage spriteImg = new BufferedImage(CP_MAX, CP_MAX, BufferedImage.TYPE_4BYTE_ABGR);
@@ -1087,7 +1087,7 @@ public class SpriteAnimator extends JComponent {
 		// create animation steps
 		Graphics2D g = (Graphics2D) collageImg.getGraphics();
 		for (int i = 0; i < maxStep; i++) {
-			Anime a = steps[i];
+			Step a = steps[i];
 			int x = COLLAGE_PAD + (i * (drawX + COLLAGE_PAD));
 			a.draw(g, x + offsetX, offsetY + COLLAGE_PAD);
 		}

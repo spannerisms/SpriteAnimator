@@ -6,13 +6,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import animator.database.StepData;
+import animator.gui.CellRow;
 
-public class Anime {
+public class Step {
 	private final int length; // duration
 	private final Sprite[] list; // list of sprites in frame
 	private final Container printer; // graphical list
 
-	public Anime(StepData step, Sprite[] spriteList) {
+	public Step(StepData step, Sprite[] spriteList) {
 		list = spriteList;
 		length = step.l;
 		printer = new Container();
