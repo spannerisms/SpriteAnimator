@@ -6302,13 +6302,13 @@
 					{
 						"row": "J",
 						"col": 6,
-						"pos": [1,8],
+						"pos": [0,8],
 						"size": "RIGHT_HALF"
 					},
 					{
 						"row": "J",
 						"col": 7,
-						"pos": [9,8],
+						"pos": [8,8],
 						"size": "FULL"
 					}
 				],
