@@ -3,6 +3,7 @@ package animator.gui;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -48,7 +51,10 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.17";
+	public static final String VERSION = "v1.18";
+
+	private static final String WIKI_LINK = "https://github.com/fatmanspanda/ALttPNG/wiki";
+	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/ALttPNG/releases";
 
 	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
 			ZSPRFile.EXTENSION,
@@ -743,6 +749,44 @@ public class AnimatorGUI {
 		vtRefresh.setIcon(quack);
 		helpMenu.add(vtRefresh);
 
+		// link to wiki
+		final JMenuItem wikiLink = new JMenuItem("ALttPNG wiki");
+		ImageIcon shovel = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/shovel.png"));
+		wikiLink.setIcon(shovel);
+		helpMenu.add(wikiLink);
+
+		wikiLink.addActionListener(
+			arg0 -> {
+				try {
+					openLink(WIKI_LINK);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(frame,
+							"It didn't work",
+							"How to internet",
+							JOptionPane.WARNING_MESSAGE);
+					e.printStackTrace();
+				}
+			});
+
+		// look for updates
+		final JMenuItem updates = new JMenuItem("Check for updates");
+		ImageIcon hammer = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/hammer.png"));
+		updates.setIcon(hammer);
+		helpMenu.add(updates);
+
+		updates.addActionListener(
+			arg0 -> {
+				try {
+					openLink(UPDATES_LINK);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(frame,
+							"uhhh...",
+							"How to internet",
+							JOptionPane.WARNING_MESSAGE);
+					e.printStackTrace();
+				}
+			});
+
 		// acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
 		peeps.setIcon(mapIcon);
@@ -1334,6 +1378,15 @@ public class AnimatorGUI {
 		byte[][][] ebe = SpriteManipulator.makeSpr8x8(spriteData);
 		BufferedImage[][] mails = SpriteManipulator.makeAllMails(ebe, palData, glovesData);
 		a.setSprite(spriteName, mails);
+	}
+
+	private static void openLink(String url) throws IOException, URISyntaxException {
+		URL aa;
+		aa = new URL(url);
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			desktop.browse(aa.toURI());
+		}
 	}
 
 	private static interface GearChange {
