@@ -92,6 +92,7 @@ Definitions:
 * Key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/SheetRow.java)
 * Key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/DrawSize.java)
 * Key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/Transformation.java)
+* Key `shadow` in `steps` objects: [/Database/Shadow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/Shadow.java)
 
 Resources:
 * Item sprites: [/resources/images/equipment.png](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/images/equipment.png)
