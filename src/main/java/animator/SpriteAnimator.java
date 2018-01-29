@@ -817,7 +817,10 @@ public class SpriteAnimator extends JComponent {
 		repaint();
 	}
 
-	public String makeGif(int size, int speed) throws Exception {
+	// gif making
+	private static final int GIF_PAD = 5;
+
+	public String makeGif(int size, int speed, boolean crop) throws Exception {
 		if (steps == null) { throw new Exception(); }
 
 		String dir = AnimatorGUI.GIF_DIRECTORY.getAbsolutePath();
@@ -851,14 +854,36 @@ public class SpriteAnimator extends JComponent {
 
 		// draw images
 		BufferedImage[] images = new BufferedImage[steps.length];
-		for (int i = 0; i < steps.length; i++) {
-			Step a = steps[i];
-			cur = new BufferedImage(BG_WIDTH, BG_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 
-			g = cur.createGraphics();
-			g.drawImage(BG, 0, 0, null);
-			a.draw(g, X, Y);
-			images[i] = cur;
+		int gifWidth = BG_WIDTH;
+		int gifHeight = BG_HEIGHT;
+
+		// draw images
+		if (crop) {
+			ImageSize is = new ImageSize(anime);
+			gifWidth = is.canvasX + (GIF_PAD * 2);
+			gifHeight = is.canvasY + (GIF_PAD * 2);
+			int offsetX = 0 - is.minX;
+			int offsetY = 0 - is.minY;
+
+			for (int i = 0; i < steps.length; i++) {
+				Step a = steps[i];
+				cur = new BufferedImage(gifWidth, gifHeight, BufferedImage.TYPE_4BYTE_ABGR);
+				g = cur.createGraphics();
+				g.drawImage(BG, -X + GIF_PAD + offsetX, -Y + GIF_PAD + offsetY, null);
+				a.draw(g, offsetX + GIF_PAD, offsetY + GIF_PAD);
+				images[i] = cur;
+			}
+		} else {
+			for (int i = 0; i < steps.length; i++) {
+				Step a = steps[i];
+				cur = new BufferedImage(BG_WIDTH, BG_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
+
+				g = cur.createGraphics();
+				g.drawImage(BG, 0, 0, null);
+				a.draw(g, X, Y);
+				images[i] = cur;
+			}
 		}
 
 		// combine remove pixels that are the same, starting backwards
@@ -884,8 +909,8 @@ public class SpriteAnimator extends JComponent {
 			}
 
 			// set image
-			cur = new BufferedImage(BG_WIDTH, BG_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
-			int[] rgb = new int[BG_WIDTH * BG_HEIGHT];
+			cur = new BufferedImage(gifWidth, gifHeight, BufferedImage.TYPE_4BYTE_ABGR);
+			int[] rgb = new int[gifWidth * gifHeight];
 
 			for (int v = 0, j = 0; v < rgb.length; v++) {
 				int a1 = curRaster[j++] & 0xFF;
@@ -895,7 +920,7 @@ public class SpriteAnimator extends JComponent {
 				rgb[v] = (a1 << 24) | (r1 << 16) | (g1 << 8) | b1;
 			}
 
-			cur.setRGB(0, 0, BG_WIDTH, BG_HEIGHT, rgb, 0, BG_WIDTH);
+			cur.setRGB(0, 0, gifWidth, gifHeight, rgb, 0, gifWidth);
 			newImages[i] = cur;
 		}
 
@@ -906,7 +931,7 @@ public class SpriteAnimator extends JComponent {
 		for (int i = 0; i < steps.length; i++) {
 			BufferedImage a = newImages[i];
 			int l = steps[i].getLength();
-			cur = new BufferedImage(BG_WIDTH * size, BG_HEIGHT * size, BufferedImage.TYPE_4BYTE_ABGR);
+			cur = new BufferedImage(gifWidth * size, gifHeight * size, BufferedImage.TYPE_4BYTE_ABGR);
 
 			g = cur.createGraphics();
 			g.scale(size, size);
@@ -1045,38 +1070,16 @@ public class SpriteAnimator extends JComponent {
 			dir = cDir.getPath();
 		}
 
-		// recreate the config info so we can find min and max draw points
-		ArrayList<StepData> config = anime.customizeMergeAndFinalize(
-				swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
-		int minDX, minDY, maxDX, maxDY;
-		minDX = minDY = 999;
-		maxDX = maxDY = -999;
-		for (StepData sd : config) {
-			for (SpriteData spd : sd.getSprites()) {
-				int curX = spd.x;
-				int curY = spd.y;
-				if (curX > maxDX) {
-					maxDX = curX;
-				}
-				if (curX < minDX) {
-					minDX = curX;
-				}
-				if (curY > maxDY) {
-					maxDY = curY;
-				}
-				if (curY < minDY) {
-					minDY = curY;
-				}
-			}
-		}
+		// get mins and maxes
+		ImageSize is = new ImageSize(anime);
 
 		// calculate size of draw area sans padding
-		int drawX = maxDX - minDX + 16;
-		int drawY = maxDY - minDY + 16;
+		int drawX = is.canvasX;
+		int drawY = is.canvasY;
 
 		// calculate drawing offset
-		int offsetX = 0 - minDX;
-		int offsetY = 0 - minDY;
+		int offsetX = 0 - is.minX;
+		int offsetY = 0 - is.minY;
 
 		// calculate size of collage
 		int imageX = (drawX + 2 * COLLAGE_PAD) * maxStep;
@@ -1104,4 +1107,43 @@ public class SpriteAnimator extends JComponent {
 
 		return f.getAbsolutePath();
 	} // end collage
+
+	private class ImageSize {
+		final int minX, maxX;
+		final int minY, maxY;
+		final int canvasX, canvasY;
+
+		ImageSize(Animation a) {
+			// recreate the config info so we can find min and max draw points
+			ArrayList<StepData> config = a.customizeMergeAndFinalize(
+					swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
+			int minDX, minDY, maxDX, maxDY;
+			minDX = minDY = 999;
+			maxDX = maxDY = -999;
+			for (StepData sd : config) {
+				for (SpriteData spd : sd.getSprites()) {
+					int curX = spd.x;
+					int curY = spd.y;
+					if (curX > maxDX) {
+						maxDX = curX;
+					}
+					if (curX < minDX) {
+						minDX = curX;
+					}
+					if (curY > maxDY) {
+						maxDY = curY;
+					}
+					if (curY < minDY) {
+						minDY = curY;
+					}
+				} // end sprite data
+			} // end step data
+			minX = minDX;
+			maxX = maxDX;
+			minY = minDY;
+			maxY = maxDY;
+			canvasX = maxX - minX + 16;
+			canvasY = maxY - minY + 16;
+		}
+	}
 }

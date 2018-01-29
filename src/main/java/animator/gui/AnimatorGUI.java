@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -1094,7 +1095,7 @@ public class AnimatorGUI {
 		/*
 		 * Animated GIF controls
 		 */
-		final Dimension gifD = new Dimension(300, 150);
+		final Dimension gifD = new Dimension(300, 170);
 		JDialog gifGuy = new JDialog(frame, "Make a GIF");
 		gifGuy.setIconImage(cane.getImage());
 		gifGuy.setPreferredSize(gifD);
@@ -1169,6 +1170,15 @@ public class AnimatorGUI {
 			});
 
 		// create button
+		final JCheckBox crop = new JCheckBox("Crop image");
+		crop.setHorizontalAlignment(SwingConstants.RIGHT);
+		x.gridy++;
+		x.gridx = 1;
+		x.gridwidth = 2;
+		gifControls.add(crop, x);
+		x.gridwidth = 1;
+
+		// create button
 		final PrettyButton makeGif = new PrettyButton("Create");
 		x.gridy++;
 		x.gridx = 1;
@@ -1183,7 +1193,11 @@ public class AnimatorGUI {
 
 				String loc;
 				try {
-					loc = animated.makeGif(gifZoomLevel.getValue(), (maxSpeed + 1 - gifSpeedLevel.getValue()));
+					loc = animated.makeGif(
+							gifZoomLevel.getValue(),
+							(maxSpeed + 1 - gifSpeedLevel.getValue()),
+							crop.isSelected()
+						);
 				} catch (Exception e) {
 					e.printStackTrace();
 					plsWait.setVisible(false);
