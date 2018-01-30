@@ -1,5 +1,6 @@
 package animator.gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
@@ -12,10 +13,15 @@ import java.util.ArrayList;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -53,9 +59,19 @@ import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
 	public static final String VERSION = "v2.0";
+	private static final String VERSION_URL = "https://raw.githubusercontent.com/fatmanspanda/SpriteAnimator/master/version";
+	private static final boolean VERSION_GOOD;
+
+	static {
+		System.out.println("Current version: " + VERSION);
+		VERSION_GOOD = amIUpToDate();
+		System.out.println("Up to date: " + VERSION_GOOD);
+		
+	}
 
 	private static final String WIKI_LINK = "https://github.com/fatmanspanda/ALttPNG/wiki";
 	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/ALttPNG/releases";
+
 
 	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
 			ZSPRFile.EXTENSION,
@@ -777,7 +793,6 @@ public class AnimatorGUI {
 		final JMenuItem updates = new JMenuItem("Check for updates");
 		ImageIcon hammer = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/hammer.png"));
 		updates.setIcon(hammer);
-		updates.setToolTipText("Checks for the latest version.");
 		helpMenu.add(updates);
 
 		updates.addActionListener(
@@ -792,6 +807,18 @@ public class AnimatorGUI {
 					e.printStackTrace();
 				}
 			});
+
+		if (!VERSION_GOOD) {
+			updates.setOpaque(true);
+			updates.setBackground(Color.RED);
+			updates.setForeground(Color.WHITE);
+			updates.setText("Updates are available.");
+
+			helpMenu.setOpaque(true);
+			helpMenu.setBackground(Color.RED);
+			helpMenu.setForeground(Color.WHITE);
+			helpMenu.setIcon(hammer);
+		}
 
 		// acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
@@ -1415,5 +1442,31 @@ public class AnimatorGUI {
 
 	private static interface MiscChange {
 		void go(boolean b);
+	}
+
+	private static boolean amIUpToDate() {
+		boolean ret = true;
+		URL vURL;
+		try {
+			vURL = new URL(VERSION_URL);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		try (
+			InputStream s = vURL.openStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(s, StandardCharsets.UTF_8));
+		) {
+			String line = br.readLine();
+			System.out.println("Discovered version: " + line);
+			if (!line.equalsIgnoreCase(VERSION)) {
+				ret = false;
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 }
