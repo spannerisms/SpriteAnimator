@@ -766,14 +766,12 @@ public class AnimatorGUI {
 		final JMenuItem vtRefresh = new JMenuItem("Refresh live sprites");
 		ImageIcon quack = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/vtduck.png"));
 		vtRefresh.setIcon(quack);
-		vtRefresh.setToolTipText("Refresh your /VT folder with the current live sprites.");
 		helpMenu.add(vtRefresh);
 
 		// link to wiki
 		final JMenuItem wikiLink = new JMenuItem("ALttPNG wiki");
 		ImageIcon shovel = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/shovel.png"));
 		wikiLink.setIcon(shovel);
-		wikiLink.setToolTipText("Opens ALttPNG wiki home page in browser.");
 		helpMenu.add(wikiLink);
 
 		wikiLink.addActionListener(
