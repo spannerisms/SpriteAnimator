@@ -110,7 +110,7 @@ public enum Animation {
 	private final String name;
 	private final String vague;
 	private final String disambig;
-	private final Category ctg;
+	private final Category[] ctg;
 
 	private Animation(String n) {
 		steps = new ArrayList<StepData>();
@@ -131,8 +131,14 @@ public enum Animation {
 			this.disambig = this.name;
 		}
 
-		this.ctg = Category.valueOf(data.getString("category"));
-		ctg.addToList(this);
+		JSONArray ctgs = data.getJSONArray("category");
+		int ctgCount = ctgs.length();
+		this.ctg = new Category[ctgCount];
+		for (int i = 0; i < ctgCount; i++) {
+			String c = ctgs.getString(i);
+			ctg[i] = Category.valueOf(c);
+			ctg[i].addToList(this);
+		}
 		Category.ALL.addToList(this);
 	}
 
@@ -177,7 +183,10 @@ public enum Animation {
 		COMBAT ("Combat animations"),
 		INTERACTIONS ("Basic interactions"),
 		ITEMS ("Item-use animations"),
-		BUNNY ("Bunny sprite");
+		BUNNY ("Bunny sprite"),
+		SWORD ("Uses sword"),
+		SHIELD ("Uses shield"),
+		;
 
 		public final String name;
 		private final ArrayList<Animation> list;

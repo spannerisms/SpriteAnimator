@@ -25,6 +25,9 @@ public class PrettyButton extends JButton {
 	private static final Color BG_ON = new Color(192, 224, 192);
 	private static final Color BG_OFF = new Color(224, 224, 224);
 
+	private CompoundBorder curBorder;
+	private boolean selected = false;
+
 	public PrettyButton(String s) {
 		super(s);
 		this.setVerticalAlignment(SwingConstants.CENTER);
@@ -37,18 +40,26 @@ public class PrettyButton extends JButton {
 		this.setFocusable(false);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+		curBorder = BORDER_OFF;
+
 		this.addMouseListener(new MouseListener() {
 			public void mousePressed(MouseEvent e) {
 				setBorder(BORDER_ON);
 			}
 
 			public void mouseReleased(MouseEvent e) {
-				setBorder(BORDER_OFF);
+				setBorder(curBorder);
 			}
 
 			public void mouseClicked(MouseEvent e) {}
 			public void mouseEntered(MouseEvent e) {}
 			public void mouseExited(MouseEvent e) {}
 		});
+	}
+
+	public void setSelected(boolean e) {
+		selected = e;
+		curBorder = selected ? BORDER_ON : BORDER_OFF;
+		setBorder(curBorder);
 	}
 }

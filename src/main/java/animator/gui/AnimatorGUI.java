@@ -929,6 +929,7 @@ public class AnimatorGUI {
 					// do nothing
 				}
 				stepMax.setText("/ " + animated.maxStep());
+				animList.setAnimation(animated.getAnimation());
 			});
 
 		// update GUI

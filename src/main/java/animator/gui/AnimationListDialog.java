@@ -9,7 +9,9 @@ import javax.swing.SpringLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import animator.database.Animation;
 import static animator.database.Animation.Category;
@@ -20,11 +22,14 @@ public class AnimationListDialog extends JDialog {
 	private static final Dimension D = new Dimension(450, 500);
 
 	private final ActionListener doThing;
+	private final ArrayList<AnimButton> allButtons = new ArrayList<AnimButton>();
+	private Animation selected;
 
 	public AnimationListDialog(JFrame frame, ActionListener a) {
 		super(frame, "Animation list");
 		doThing = a;
 		initialize();
+		selected = Animation.STAND;
 	}
 
 	private final void initialize() {
@@ -67,8 +72,21 @@ public class AnimationListDialog extends JDialog {
 		listWrap.add(catPanels[0]);
 	}
 
+	public void setAnimation(Animation a) {
+		for (AnimButton b : allButtons) {
+			if (a == b.anim) {
+				b.setSelected(true);
+			} else if (selected == b.anim) {
+				b.setSelected(false);
+			}
+		}
+		selected = a;
+		revalidate();
+		repaint();
+	}
+
 	@SuppressWarnings("serial")
-	private static class AnimPanel extends JPanel {
+	private class AnimPanel extends JPanel {
 		final String name;
 		AnimPanel(Category ctg, ActionListener al) {
 			super();
@@ -76,6 +94,7 @@ public class AnimationListDialog extends JDialog {
 
 			this.setLayout(new GridBagLayout());
 			GridBagConstraints c = new GridBagConstraints();
+			c.insets = new Insets(0, 0, 1, 1);
 			c.gridy = -1;
 			c.gridx = -1;
 			c.fill = GridBagConstraints.BOTH;
@@ -106,7 +125,7 @@ public class AnimationListDialog extends JDialog {
 	}
 
 	@SuppressWarnings("serial")
-	static class AnimButton extends PrettyButton {
+	class AnimButton extends PrettyButton {
 		final Animation anim;
 
 		public AnimButton(String text, Animation a, ActionListener l) {
@@ -114,6 +133,7 @@ public class AnimationListDialog extends JDialog {
 			this.setVerticalAlignment(PrettyButton.EAST);
 			anim = a;
 			this.addActionListener(l);
+			allButtons.add(this);
 		}
 	}
 }

@@ -2,7 +2,9 @@
 	"neutralRight": {
 		"name": "Neutral (right)",
 		"vague": "Neutral",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -33,7 +35,9 @@
 	"neutralLeft": {
 		"name": "Neutral (left)",
 		"vague": "Neutral",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -67,7 +71,9 @@
 	"neutralUp": {
 		"name": "Neutral (up)",
 		"vague": "Neutral",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -98,7 +104,9 @@
 	"neutralDown": {
 		"name": "Neutral (down)",
 		"vague": "Neutral",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -129,7 +137,10 @@
 	"stand": {
 		"name": "Stand",
 		"vague": "Stand",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -160,7 +171,10 @@
 	"standUp": {
 		"name": "Stand (up)",
 		"vague": "Stand",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -191,7 +205,10 @@
 	"standDown": {
 		"name": "Stand (down)",
 		"vague": "Stand",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -222,7 +239,10 @@
 	"walk": {
 		"name": "Walk",
 		"vague": "Walk",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -421,7 +441,10 @@
 	"walkUp": {
 		"name": "Walk (up)",
 		"vague": "Walk",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -620,7 +643,10 @@
 	"walkDown": {
 		"name": "Walk (down)",
 		"vague": "Walk",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -824,7 +850,9 @@
 	"swim": {
 		"name": "Swim",
 		"vague": "Swim",
-		"category": "SWIMMING",
+		"category": [
+				"SWIMMING"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -923,7 +951,9 @@
 	"swimUp": {
 		"name": "Swim (up)",
 		"vague": "Swim",
-		"category": "SWIMMING",
+		"category": [
+				"SWIMMING"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -1045,7 +1075,9 @@
 	"swimDown": {
 		"name": "Swim (down)",
 		"vague": "Swim",
-		"category": "SWIMMING",
+		"category": [
+				"SWIMMING"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -1165,7 +1197,9 @@
 	"treadingWater": {
 		"name": "Treading water",
 		"vague": "Treading water",
-		"category": "SWIMMING",
+		"category": [
+				"SWIMMING"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -1209,7 +1243,9 @@
 	"treadingWaterUp": {
 		"name": "Treading water (up)",
 		"vague": "Treading water",
-		"category": "SWIMMING",
+		"category": [
+				"SWIMMING"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -1253,7 +1289,9 @@
 	"treadingWaterDown": {
 		"name": "Treading water (down)",
 		"vague": "Treading water",
-		"category": "SWIMMING",
+		"category": [
+				"SWIMMING"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -1297,7 +1335,10 @@
 	"attack": {
 		"name": "Attack",
 		"vague": "Attack",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -1544,7 +1585,11 @@
 	"attackUp": {
 		"name": "Attack (up)",
 		"vague": "Attack",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -1827,7 +1872,11 @@
 	"attackDown": {
 		"name": "Attack (down)",
 		"vague": "Attack",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -2125,7 +2174,10 @@
 	"spinAttack": {
 		"name": "Spin attack",
 		"vague": "Spin attack",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -2434,7 +2486,10 @@
 	"spinAttackLeft": {
 		"name": "Spin attack (left)",
 		"vague": "Spin attack",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -2746,7 +2801,10 @@
 	"spinAttackUp": {
 		"name": "Spin attack (up)",
 		"vague": "Spin attack",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -3060,7 +3118,10 @@
 	"spinAttackDown": {
 		"name": "Spin attack (down)",
 		"vague": "Spin attack",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -3371,7 +3432,10 @@
 	"dashSpinup": {
 		"name": "Dash spinup",
 		"vague": "Dash spinup",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -3861,7 +3925,10 @@
 	"dashSpinupUp": {
 		"name": "Dash spinup (up)",
 		"vague": "Dash spinup",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -4423,7 +4490,10 @@
 	"dashSpinupDown": {
 		"name": "Dash spinup (down)",
 		"vague": "Dash spinup",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -4974,7 +5044,10 @@
 	"dashRelease": {
 		"name": "Dash release",
 		"vague": "Dash release",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SWORD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -5053,7 +5126,11 @@
 	"dashReleaseUp": {
 		"name": "Dash release (up)",
 		"vague": "Dash release",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -5242,7 +5319,11 @@
 	"dashReleaseDown": {
 		"name": "Dash release (down)",
 		"vague": "Dash release",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -5441,7 +5522,11 @@
 	"bonk": {
 		"name": "Bonk",
 		"vague": "Bonk",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -5479,7 +5564,11 @@
 	"bonkUp": {
 		"name": "Bonk (up)",
 		"vague": "Bonk",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -5517,7 +5606,11 @@
 	"bonkDown": {
 		"name": "Bonk (down)",
 		"vague": "Bonk",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -5554,7 +5647,9 @@
 	"fall": {
 		"name": "Fall",
 		"vague": "Damage",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -5663,7 +5758,9 @@
 	"zap": {
 		"name": "Zap",
 		"vague": "Damage",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -6049,7 +6146,9 @@
 	"deathSpin": {
 		"name": "Death spin",
 		"vague": "Damage",
-		"category": "COMBAT",
+		"category": [
+				"COMBAT"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -6320,7 +6419,9 @@
 	"grab": {
 		"name": "Grab",
 		"vague": "Grab",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -6413,7 +6514,9 @@
 	"grabUp": {
 		"name": "Grab (up)",
 		"vague": "Grab",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -6520,7 +6623,9 @@
 	"grabDown": {
 		"name": "Grab (down)",
 		"vague": "Grab",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -6625,7 +6730,9 @@
 	"lift": {
 		"name": "Lift",
 		"vague": "Lift",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -6826,7 +6933,9 @@
 	"liftUp": {
 		"name": "Lift (up)",
 		"vague": "Lift",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -7048,7 +7157,9 @@
 	"liftDown": {
 		"name": "Lift (down)",
 		"vague": "Lift",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -7240,7 +7351,9 @@
 	"carry": {
 		"name": "Carry",
 		"vague": "Carry",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -7319,7 +7432,9 @@
 	"carryUp": {
 		"name": "Carry (up)",
 		"vague": "Carry",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -7472,7 +7587,9 @@
 	"carryDown": {
 		"name": "Carry (down)",
 		"vague": "Carry",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -7625,7 +7742,9 @@
 	"throw": {
 		"name": "Throw",
 		"vague": "Throw",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -7986,7 +8105,9 @@
 	"throwUp": {
 		"name": "Throw (up)",
 		"vague": "Throw",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -8347,7 +8468,9 @@
 	"throwDown": {
 		"name": "Throw (down)",
 		"vague": "Throw",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -8708,7 +8831,9 @@
 	"push": {
 		"name": "Push",
 		"vague": "Push",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -8859,7 +8984,9 @@
 	"pushUp": {
 		"name": "Push (up)",
 		"vague": "Push",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -9011,7 +9138,9 @@
 	"pushDown": {
 		"name": "Push (down)",
 		"vague": "Push",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -9163,7 +9292,9 @@
 	"treePull": {
 		"name": "Tree pull",
 		"vague": "Tree pull",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -9354,7 +9485,10 @@
 	"itemGet": {
 		"name": "Item get",
 		"vague": "Get",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -9392,7 +9526,9 @@
 	"crystalGet": {
 		"name": "Crystal get",
 		"vague": "Get",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -9423,7 +9559,10 @@
 	"salute": {
 		"name": "Salute",
 		"vague": "Get",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL",
+				"SWORD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -9455,7 +9594,9 @@
 	"bow": {
 		"name": "Bow",
 		"vague": "Bow",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -9555,7 +9696,9 @@
 	"bowUp": {
 		"name": "Bow (up)",
 		"vague": "Bow",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -9656,7 +9799,9 @@
 	"bowDown": {
 		"name": "Bow (down)",
 		"vague": "Bow",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -9758,7 +9903,10 @@
 	"boomerang": {
 		"name": "Boomerang",
 		"vague": "Boomerang",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -10284,7 +10432,10 @@
 	"boomerangUp": {
 		"name": "Boomerang (up)",
 		"vague": "Boomerang",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -10717,7 +10868,10 @@
 	"boomerangDown": {
 		"name": "Boomerang (down)",
 		"vague": "Boomerang",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -11250,7 +11404,9 @@
 	"hookshot": {
 		"name": "Hookshot",
 		"vague": "Hookshot",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -11610,7 +11766,10 @@
 	"hookshotUp": {
 		"name": "Hookshot (up)",
 		"vague": "Hookshot",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -12029,7 +12188,10 @@
 	"hookshotDown": {
 		"name": "Hookshot (down)",
 		"vague": "Hookshot",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -12393,7 +12555,10 @@
 	"powder": {
 		"name": "Powder",
 		"vague": "Powder",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -12499,7 +12664,10 @@
 	"powderUp": {
 		"name": "Powder (up)",
 		"vague": "Powder",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -12605,7 +12773,10 @@
 	"powderDown": {
 		"name": "Powder (down)",
 		"vague": "Powder",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -12713,7 +12884,10 @@
 	"rod": {
 		"name": "Rod",
 		"vague": "Rod",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -12825,7 +12999,10 @@
 	"rodUp": {
 		"name": "Rod (up)",
 		"vague": "Rod",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -12937,7 +13114,10 @@
 	"rodDown": {
 		"name": "Rod (down)",
 		"vague": "Rod",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -13053,7 +13233,11 @@
 	"bombos": {
 		"name": "Bombos",
 		"vague": "Medallion",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -13597,7 +13781,11 @@
 	"ether": {
 		"name": "Ether",
 		"vague": "Medallion",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -15104,7 +15292,11 @@
 	"quake": {
 		"name": "Quake",
 		"vague": "Medallion",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -16451,7 +16643,10 @@
 	"hammer": {
 		"name": "Hammer",
 		"vague": "Hammer",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -16563,7 +16758,10 @@
 	"hammerUp": {
 		"name": "Hammer (up)",
 		"vague": "Hammer",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -16675,7 +16873,10 @@
 	"hammerDown": {
 		"name": "Hammer (down)",
 		"vague": "Hammer",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -16791,7 +16992,9 @@
 	"shovel": {
 		"name": "Shovel",
 		"vague": "Flute",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -16873,7 +17076,9 @@
 	"swagDuck": {
 		"name": "Swag duck",
 		"vague": "Flute",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -16928,7 +17133,9 @@
 	"bugNet": {
 		"name": "Bug net",
 		"vague": "Bug net",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -17184,7 +17391,9 @@
 	"readBook": {
 		"name": "Read book",
 		"vague": "Book",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17215,7 +17424,9 @@
 	"prayer": {
 		"name": "Prayer",
 		"vague": "Book",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17294,7 +17505,9 @@
 	"cane": {
 		"name": "Cane",
 		"vague": "Cane",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "RIGHT"
@@ -17379,7 +17592,9 @@
 	"caneUp": {
 		"name": "Cane (up)",
 		"vague": "Cane",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -17465,7 +17680,9 @@
 	"caneDown": {
 		"name": "Cane (down)",
 		"vague": "Cane",
-		"category": "ITEMS",
+		"category": [
+				"ITEMS"
+			],
 		"steps": [
 			{
 				"neutralPose": "DOWN"
@@ -17551,7 +17768,9 @@
 	"bunnyStand": {
 		"name": "Bunny stand",
 		"vague": "Bunny stand",
-		"category": "BUNNY",
+		"category": [
+				"BUNNY"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17576,7 +17795,9 @@
 	"bunnyStandUp": {
 		"name": "Bunny stand (up)",
 		"vague": "Bunny stand",
-		"category": "BUNNY",
+		"category": [
+				"BUNNY"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17601,7 +17822,9 @@
 	"bunnyStandDown": {
 		"name": "Bunny stand (down)",
 		"vague": "Bunny stand",
-		"category": "BUNNY",
+		"category": [
+				"BUNNY"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17626,7 +17849,9 @@
 	"bunnyWalk": {
 		"name": "Bunny walk",
 		"vague": "Bunny walk",
-		"category": "BUNNY",
+		"category": [
+				"BUNNY"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17813,7 +18038,9 @@
 	"bunnyWalkUp": {
 		"name": "Bunny walk (up)",
 		"vague": "Bunny walk",
-		"category": "BUNNY",
+		"category": [
+				"BUNNY"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17893,7 +18120,9 @@
 	"bunnyWalkDown": {
 		"name": "Bunny walk (down)",
 		"vague": "Bunny walk",
-		"category": "BUNNY",
+		"category": [
+				"BUNNY"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -17973,7 +18202,10 @@
 	"walkUpstairs1F": {
 		"name": "Walk upstairs (1F)",
 		"vague": "Walk upstairs",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -18513,7 +18745,10 @@
 	"walkUpstairs2F": {
 		"name": "Walk upstairs (2F)",
 		"vague": "Walk upstairs",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -18964,7 +19199,10 @@
 	"walkDownstairs2F": {
 		"name": "Walk downstairs (2F)",
 		"vague": "Walk downstairs",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"neutralPose": "UP"
@@ -19679,7 +19917,10 @@
 	"walkDownstairs1F": {
 		"name": "Walk downstairs (1F)",
 		"vague": "Walk downstairs",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20106,7 +20347,11 @@
 	"poke": {
 		"name": "Poke",
 		"vague": "Poke",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20203,7 +20448,11 @@
 	"pokeUp": {
 		"name": "Poke (up)",
 		"vague": "Poke",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20300,7 +20549,11 @@
 	"pokeDown": {
 		"name": "Poke (down)",
 		"vague": "Poke",
-		"category": "INTERACTIONS",
+		"category": [
+				"INTERACTIONS",
+				"SWORD",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20403,7 +20656,10 @@
 	"tallGrass": {
 		"name": "Tall grass",
 		"vague": "Tall grass",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20500,7 +20756,10 @@
 	"tallGrassUp": {
 		"name": "Tall grass (up)",
 		"vague": "Tall grass",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20688,7 +20947,10 @@
 	"tallGrassDown": {
 		"name": "Tall grass (down)",
 		"vague": "Tall grass",
-		"category": "MOVEMENT",
+		"category": [
+				"MOVEMENT",
+				"SHIELD"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20877,7 +21139,9 @@
 	"mapDungeon": {
 		"name": "Map dungeon",
 		"vague": "Map",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20896,7 +21160,9 @@
 	"mapWorld": {
 		"name": "Map world",
 		"vague": "Map",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20927,7 +21193,9 @@
 	"sleep": {
 		"name": "Sleep",
 		"vague": "Bed",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [
@@ -20952,7 +21220,9 @@
 	"awake": {
 		"name": "Awake",
 		"vague": "Bed",
-		"category": "NEUTRAL",
+		"category": [
+				"NEUTRAL"
+			],
 		"steps": [
 			{
 				"sprites": [

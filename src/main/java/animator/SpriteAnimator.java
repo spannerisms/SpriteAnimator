@@ -188,6 +188,10 @@ public class SpriteAnimator extends JComponent {
 		reset();
 	}
 
+	public Animation getAnimation() {
+		return anime;
+	}
+
 	/**
 	 * Get animation mode ID#
 	 */
