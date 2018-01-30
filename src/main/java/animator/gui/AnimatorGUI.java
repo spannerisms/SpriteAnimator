@@ -52,7 +52,7 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v1.18";
+	public static final String VERSION = "v2.0";
 
 	private static final String WIKI_LINK = "https://github.com/fatmanspanda/ALttPNG/wiki";
 	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/ALttPNG/releases";

@@ -57,6 +57,7 @@ Some terms we need to use are overloaded (they can mean multiple things). To avo
 * For end-user control, consecutive identical animation steps are merged. For example: when neutral poses are off, attack right has 9 steps with a sword and 7 steps without. This is because in step pairs [1,2] and [8,9], Link does not change his pose, but the sword still moves.
 * The character sprite in the zap animation disappears every other frame. This is to emulate Link's invincibility flicker, which the animation is never seen without.
 * Ether is a very long animation because there are palette swaps every 4 frames in Link's final pose.
+* For categorization, neutral poses are not considered.
 
 ## Animation oddities that are not errors
 The following apparent errors are problems directly with the game itself, and not this program. They are best seen with the vanilla Link sprite. Unless otherwise stated, animation steps referenced have no equipment displayed and no neutral poses (Sword level: Off; Shield level: Off; Misc. sprites: Off; Neutral: Off).
