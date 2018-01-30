@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -120,6 +122,7 @@ public class SpriteAnimator extends JComponent {
 		tick = new Timer();
 		setRunning();
 		addMouse();
+		addKeys();
 	}
 
 	public String getSpriteName() {
@@ -130,7 +133,7 @@ public class SpriteAnimator extends JComponent {
 	 * Current step of current animation, not 0-indexed
 	 */
 	public String getStep() {
-		return "" + (step + 1);
+		return Integer.toString(step + 1);
 	}
 
 	/**
@@ -188,6 +191,9 @@ public class SpriteAnimator extends JComponent {
 		reset();
 	}
 
+	/**
+	 * Current animation
+	 */
 	public Animation getAnimation() {
 		return anime;
 	}
@@ -201,11 +207,6 @@ public class SpriteAnimator extends JComponent {
 
 	/**
 	 * Set image mode and reset
-	 * <ul style="list-style:none">
-	 * <li>{@code 0} - normal animation</li>
-	 * <li>{@code 1} - step-by-step</li>
-	 * <li>{@code 2} - all steps</li>
-	 * </ul>
 	 * @param m - mode
 	 */
 	public void setMode(AnimationMode m) {
@@ -218,7 +219,7 @@ public class SpriteAnimator extends JComponent {
 	/**
 	 * Step forward 1 animation step.
 	 * Resets step to 0 if we reach the end in modes that loop.
-	 * Stops running if we reach the end of the animation in "All steps" mode.
+	 * Stops running if we reach the end of the animation in "play once" mode.
 	 */
 	public void step() {
 		step++;
@@ -261,7 +262,7 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Set mode to 1, allowing stepwise animation
+	 * Set mode to 1, allowing step-by-step animation
 	 */
 	public void pause() {
 		setMode(AnimationMode.STEP);
@@ -359,16 +360,16 @@ public class SpriteAnimator extends JComponent {
 		}
 
 		if (curSpeed == newSpeed) {
-			//return;
+			// do nothing
 		} else if (newSpeed < curSpeed) {
 			if (atMinSpeed()) {
-				//return;
+				// do nothing
 			} else {
 				speed = SPEEDS[newSpeed];
 			}
 		} else if (newSpeed > curSpeed) {
 			if (atMaxSpeed()) {
-				//return;
+				// do nothing
 			} else {
 				speed = SPEEDS[newSpeed];
 			}
@@ -474,7 +475,7 @@ public class SpriteAnimator extends JComponent {
 			tick.schedule(next, wait);
 		} catch (Exception e) {
 			// do nothing
-			// most errors seem to just let it keep going
+			// errors seem to just let it keep going
 		}
 	}
 
@@ -762,7 +763,7 @@ public class SpriteAnimator extends JComponent {
 	} // end makeAnimation
 
 	/**
-	 * Used to add mouse listeners
+	 * Add mouse for movement
 	 */
 	private final void addMouse() {
 		this.addMouseListener(new MouseListener() {
@@ -800,22 +801,67 @@ public class SpriteAnimator extends JComponent {
 	} // end addMouse
 
 	/**
+	 * Add keys for precise movement
+	 */
+	private final void addKeys() {
+		this.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {}
+
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+				int movement = e.isShiftDown() ? 5 : 1;
+
+				switch (key) {
+					case KeyEvent.VK_UP :
+						posY -= movement;
+						adjustPosition();
+						break;
+					case KeyEvent.VK_DOWN :
+						posY += movement;
+						adjustPosition();
+						break;
+					case KeyEvent.VK_RIGHT :
+						posX += movement;
+						adjustPosition();
+						break;
+					case KeyEvent.VK_LEFT :
+						posX -= movement;
+						adjustPosition();
+						break;
+				}
+			} //end keyPressed
+		});
+	} // end addKeys
+
+	/**
 	 * Moves to a point
 	 */
 	private void moveToPoint(Point p) {
 		posX = (p.x / zoom) - 8 - offset(posX); // subtract 8 to use the middle of sprite
 		posY = (p.y / zoom) - 8 - offset(posY);
 
-		if (posX > BG_WIDTH - 18) { // try to pad a little
-			posX = BG_WIDTH - 18;
-		} else if (posX < 4) {
-			posX = 4;
+		adjustPosition();
+	}
+
+	/**
+	 * Adjust position to within valid bounds and repaint
+	 */
+	private static final int ORIGIN_PADDED = 4;
+	private static final int POS_X_PAD = 18;
+	private static final int POS_Y_PAD = 24;
+
+	private void adjustPosition() {
+		if (posX > BG_WIDTH - POS_X_PAD) { // try to pad a little
+			posX = BG_WIDTH - POS_X_PAD;
+		} else if (posX < ORIGIN_PADDED) {
+			posX = ORIGIN_PADDED;
 		}
 
-		if (posY > BG_HEIGHT - 24) { // try to pad a little
-			posY = BG_HEIGHT - 24;
-		} else if (posY < 4) {
-			posY = 4;
+		if (posY > BG_HEIGHT - POS_Y_PAD) { // try to pad a little
+			posY = BG_HEIGHT - POS_Y_PAD;
+		} else if (posY < ORIGIN_PADDED) {
+			posY = ORIGIN_PADDED;
 		}
 
 		repaint();
@@ -1113,8 +1159,7 @@ public class SpriteAnimator extends JComponent {
 	} // end collage
 
 	private class ImageSize {
-		final int minX, maxX;
-		final int minY, maxY;
+		final int minX, maxX, minY, maxY;
 		final int canvasX, canvasY;
 
 		ImageSize(Animation a) {

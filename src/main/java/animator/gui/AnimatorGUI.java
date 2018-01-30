@@ -92,6 +92,7 @@ public class AnimatorGUI {
 			"Titan's mitt"
 		};
 
+	private static final int GAP = 5;
 	private static final int BLANK_HEIGHT = 10;
 
 	// Animator's folder
@@ -160,7 +161,7 @@ public class AnimatorGUI {
 
 		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
 		final Dimension d = new Dimension(1000, 750);
-		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, 5);
+		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, GAP);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 		Dimension textDimension = new Dimension(50, 20);
 
@@ -174,18 +175,19 @@ public class AnimatorGUI {
 		controls.setBorder(fullPad);
 		GridBagConstraints c = new GridBagConstraints();
 
-		l.putConstraint(EAST, controls, -5, EAST, fullWrap);
+		l.putConstraint(EAST, controls, -GAP, EAST, fullWrap);
 		l.putConstraint(WEST, controls, -250, EAST, fullWrap);
-		l.putConstraint(NORTH, controls, 5, NORTH, frame);
+		l.putConstraint(NORTH, controls, GAP, NORTH, frame);
 		frame.add(controls);
 
 		// animation panel
 		final SpriteAnimator animated = new SpriteAnimator();
 		animated.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-		l.putConstraint(WEST, animated, 5, WEST, fullWrap);
-		l.putConstraint(EAST, animated, -5, WEST, controls);
-		l.putConstraint(NORTH, animated, 5, NORTH, fullWrap);
-		l.putConstraint(SOUTH, animated, -5, SOUTH, fullWrap);
+		l.putConstraint(WEST, animated, GAP, WEST, fullWrap);
+		l.putConstraint(EAST, animated, -GAP, WEST, controls);
+		l.putConstraint(NORTH, animated, GAP, NORTH, fullWrap);
+		l.putConstraint(SOUTH, animated, -GAP, SOUTH, fullWrap);
+		l.putConstraint(SOUTH, animated, -GAP, SOUTH, fullWrap);
 		fullWrap.add(animated);
 
 		// controls formatting
@@ -748,12 +750,14 @@ public class AnimatorGUI {
 		final JMenuItem vtRefresh = new JMenuItem("Refresh live sprites");
 		ImageIcon quack = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/vtduck.png"));
 		vtRefresh.setIcon(quack);
+		vtRefresh.setToolTipText("Refresh your /VT folder with the current live sprites.");
 		helpMenu.add(vtRefresh);
 
 		// link to wiki
 		final JMenuItem wikiLink = new JMenuItem("ALttPNG wiki");
 		ImageIcon shovel = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/shovel.png"));
 		wikiLink.setIcon(shovel);
+		wikiLink.setToolTipText("Opens ALttPNG wiki home page in browser.");
 		helpMenu.add(wikiLink);
 
 		wikiLink.addActionListener(
@@ -773,6 +777,7 @@ public class AnimatorGUI {
 		final JMenuItem updates = new JMenuItem("Check for updates");
 		ImageIcon hammer = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/hammer.png"));
 		updates.setIcon(hammer);
+		updates.setToolTipText("Checks for the latest version.");
 		helpMenu.add(updates);
 
 		updates.addActionListener(
@@ -905,7 +910,7 @@ public class AnimatorGUI {
 					spriteInfo.revalidate();
 					spriteInfo.repaint();
 				} catch (Exception e) {
-					// nothing
+					// do nothing
 				}
 
 				stepBtn.setText(stepWord);
@@ -1107,7 +1112,7 @@ public class AnimatorGUI {
 		JPanel gifControls = new JPanel();
 		gifControls.setLayout(new GridBagLayout());
 		GridBagConstraints x = new GridBagConstraints();
-		gifControls.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		gifControls.setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
 		gifGuy.add(gifControls);
 
 		x.fill = GridBagConstraints.HORIZONTAL;

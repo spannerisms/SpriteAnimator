@@ -5524,6 +5524,7 @@
 		"vague": "Bonk",
 		"category": [
 				"COMBAT",
+				"INTERACTIONS",
 				"SWORD",
 				"SHIELD"
 			],
@@ -5566,6 +5567,7 @@
 		"vague": "Bonk",
 		"category": [
 				"COMBAT",
+				"INTERACTIONS",
 				"SWORD",
 				"SHIELD"
 			],
@@ -5608,6 +5610,7 @@
 		"vague": "Bonk",
 		"category": [
 				"COMBAT",
+				"INTERACTIONS",
 				"SWORD",
 				"SHIELD"
 			],
@@ -17769,6 +17772,7 @@
 		"name": "Bunny stand",
 		"vague": "Bunny stand",
 		"category": [
+				"NEUTRAL",
 				"BUNNY"
 			],
 		"steps": [
@@ -17796,6 +17800,7 @@
 		"name": "Bunny stand (up)",
 		"vague": "Bunny stand",
 		"category": [
+				"NEUTRAL",
 				"BUNNY"
 			],
 		"steps": [
@@ -17823,6 +17828,7 @@
 		"name": "Bunny stand (down)",
 		"vague": "Bunny stand",
 		"category": [
+				"NEUTRAL",
 				"BUNNY"
 			],
 		"steps": [
@@ -17850,6 +17856,7 @@
 		"name": "Bunny walk",
 		"vague": "Bunny walk",
 		"category": [
+				"MOVEMENT",
 				"BUNNY"
 			],
 		"steps": [
@@ -18039,6 +18046,7 @@
 		"name": "Bunny walk (up)",
 		"vague": "Bunny walk",
 		"category": [
+				"MOVEMENT",
 				"BUNNY"
 			],
 		"steps": [
@@ -18121,6 +18129,7 @@
 		"name": "Bunny walk (down)",
 		"vague": "Bunny walk",
 		"category": [
+				"MOVEMENT",
 				"BUNNY"
 			],
 		"steps": [
