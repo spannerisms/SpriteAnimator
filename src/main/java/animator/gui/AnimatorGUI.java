@@ -66,11 +66,10 @@ public class AnimatorGUI {
 		System.out.println("Current version: " + VERSION);
 		VERSION_GOOD = amIUpToDate();
 		System.out.println("Up to date: " + VERSION_GOOD);
-		
 	}
 
 	private static final String WIKI_LINK = "https://github.com/fatmanspanda/ALttPNG/wiki";
-	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/ALttPNG/releases";
+	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/ALttPNG/releases/latest";
 
 
 	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
