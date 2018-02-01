@@ -73,7 +73,6 @@ public class AnimatorGUI {
 				);
 			) {
 				line = br.readLine();
-				br.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -85,7 +84,6 @@ public class AnimatorGUI {
 
 	private static final String WIKI_LINK = "https://github.com/fatmanspanda/ALttPNG/wiki";
 	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/ALttPNG/releases/latest";
-
 
 	private static final String[] ACCEPTED_FILE_TYPES = new String[] {
 			ZSPRFile.EXTENSION,
