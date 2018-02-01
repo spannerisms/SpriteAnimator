@@ -58,11 +58,26 @@ import animator.database.*;
 import static javax.swing.SpringLayout.*;
 
 public class AnimatorGUI {
-	public static final String VERSION = "v2.0";
+	public static final String VERSION;
+
+	private static final String VERSION_PATH = "/version";
 	private static final String VERSION_URL = "https://raw.githubusercontent.com/fatmanspanda/SpriteAnimator/master/version";
 	private static final boolean VERSION_GOOD;
 
 	static {
+		String line = "v0.0";
+		try (
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						AnimatorGUI.class.getResourceAsStream(VERSION_PATH),
+						StandardCharsets.UTF_8)
+				);
+			) {
+				line = br.readLine();
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		VERSION = line;
 		System.out.println("Current version: " + VERSION);
 		VERSION_GOOD = amIUpToDate();
 		System.out.println("Up to date: " + VERSION_GOOD);

@@ -69,7 +69,7 @@ The following apparent errors are problems directly with the game itself, and no
 * Quake does not have the smoothest movement in the jump and fall.
 * The sword on the final step (43) of quake is cut off. This was probably done in vanilla to make it appear to be in the ground.
 * The sprites for the shovel are very small.
-* Index `AB7`, a normally blank cell, appears on steps 5 and 10 of tree pull. 
+* Index `AB7`, a normally blank cell, appears on steps 5 and 10 of tree pull.
 * Link's head becomes detached from his body (empty space visible) in the following animations:
   * Attack (step 3)
   * Swim (step 4)
