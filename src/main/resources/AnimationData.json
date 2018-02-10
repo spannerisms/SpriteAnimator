@@ -9559,8 +9559,8 @@
 			}
 		]
 	},
-	"salute": {
-		"name": "Salute",
+	"saluteBoss": {
+		"name": "Boss kill",
 		"vague": "Get",
 		"category": [
 				"NEUTRAL",
@@ -9591,6 +9591,48 @@
 				],
 				"length": 10000,
 				"shadow": "NORM"
+			}
+		]
+	},
+	"saluteSave": {
+		"name": "File select",
+		"vague": "Menu",
+		"category": [
+				"NEUTRAL",
+				"SWORD",
+				"SHIELD",
+			],
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "SWORD",
+						"col": 0,
+						"pos": [12,-7],
+						"size": "RIGHT_HALF"
+					},
+					{
+						"row": "SHIELD",
+						"col": 0,
+						"pos": [-5,9],
+						"size": "FULL"
+					},
+					{
+						"row": "A",
+						"col": 3,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "P",
+						"col": 4,
+						"pos": [0,8],
+						"size": "FULL",
+						"trans": "Y_FLIP"
+					}
+				],
+				"length": 10000,
+				"shadow": "NONE"
 			}
 		]
 	},
@@ -21146,8 +21188,8 @@
 		]
 	},
 	"mapDungeon": {
-		"name": "Map dungeon",
-		"vague": "Map",
+		"name": "Dungeon map",
+		"vague": "Menu",
 		"category": [
 				"NEUTRAL"
 			],
@@ -21167,8 +21209,8 @@
 		]
 	},
 	"mapWorld": {
-		"name": "Map world",
-		"vague": "Map",
+		"name": "World map",
+		"vague": "Menu",
 		"category": [
 				"NEUTRAL"
 			],

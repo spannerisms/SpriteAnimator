@@ -73,7 +73,7 @@ public class AnimatorGUI {
 				);
 			) {
 				line = br.readLine();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		VERSION = line;
@@ -613,25 +613,31 @@ public class AnimatorGUI {
 		c.gridx = 2;
 		controls.add(stepMax, c);
 
-		// play step reset
+		// playing
 		final PrettyButton playBtn = new PrettyButton("Play");
 		final PrettyButton playOnceBtn = new PrettyButton("Play once");
-		final PrettyButton stepBtn = new PrettyButton("--");
+		final PrettyButton resetBtn = new PrettyButton("Reset");
 
 		c.gridy++;
 		c.gridx = 0;
 		controls.add(playBtn, c);
 		c.gridx = 1;
-		controls.add(stepBtn, c);
-		c.gridx = 2;
 		controls.add(playOnceBtn, c);
+		c.gridx = 2;
+		controls.add(resetBtn, c);
 
-		// reset
-		final PrettyButton resetBtn = new PrettyButton("Reset");
+		// stepwise
+		final PrettyButton stepBackBtn = new PrettyButton("<<Step");
+		final PrettyButton pauseBtn = new PrettyButton("Pause");
+		final PrettyButton stepBtn = new PrettyButton("Step>>");
+
 		c.gridy++;
 		c.gridx = 0;
-		c.gridwidth = 3;
-		controls.add(resetBtn, c);
+		controls.add(stepBackBtn, c);
+		c.gridx = 1;
+		controls.add(pauseBtn, c);
+		c.gridx = 2;
+		controls.add(stepBtn, c);
 		c.gridwidth = 1;
 
 		// blank
@@ -822,7 +828,7 @@ public class AnimatorGUI {
 			updates.setOpaque(true);
 			updates.setBackground(Color.RED);
 			updates.setForeground(Color.WHITE);
-			updates.setText("Updates are available.");
+			updates.setText("Update available");
 
 			helpMenu.setOpaque(true);
 			helpMenu.setBackground(Color.RED);
@@ -921,21 +927,17 @@ public class AnimatorGUI {
 			arg0 -> {
 				AnimationMode mode = animated.getMode();
 
-				String stepWord;
 				switch (mode) {
 					default:
 					case PLAY :
-						stepWord = "Pause";
 						animated.removeStepListener(spriteInfoWatcher);
 						playBtn.setEnabled(true);
 						break;
 					case ONCE :
-						stepWord = "Pause";
 						animated.removeStepListener(spriteInfoWatcher);
 						playBtn.setEnabled(true);
 						break;
 					case STEP :
-						stepWord = "Step";
 						animated.addStepListener(spriteInfoWatcher);
 						playBtn.setEnabled(true);
 						break;
@@ -950,7 +952,6 @@ public class AnimatorGUI {
 					// do nothing
 				}
 
-				stepBtn.setText(stepWord);
 			});
 
 		// listen for zoom changes
@@ -1090,7 +1091,10 @@ public class AnimatorGUI {
 				animated.setMode(AnimationMode.ONCE);
 			});
 
-		// step button
+		// pause button
+		pauseBtn.addActionListener(arg0 -> animated.pause());
+
+		// step buttons
 		stepBtn.addActionListener(
 			arg0 -> {
 				switch (animated.getMode()) {
@@ -1100,6 +1104,19 @@ public class AnimatorGUI {
 						break;
 					case STEP :
 						animated.step();
+						break;
+				}
+			});
+
+		stepBackBtn.addActionListener(
+			arg0 -> {
+				switch (animated.getMode()) {
+					case PLAY :
+					case ONCE :
+						animated.pause();
+						break;
+					case STEP :
+						animated.stepBack();
 						break;
 				}
 			});

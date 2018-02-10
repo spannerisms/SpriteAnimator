@@ -19,7 +19,7 @@ import static javax.swing.SpringLayout.*;
 
 public class AnimationListDialog extends JDialog {
 	private static final long serialVersionUID = 4660210877407374764L;
-	private static final Dimension D = new Dimension(450, 500);
+	private static final Dimension D = new Dimension(470, 500);
 
 	private final ActionListener doThing;
 	private final ArrayList<AnimButton> allButtons = new ArrayList<AnimButton>();

@@ -218,11 +218,22 @@ public class SpriteAnimator extends JComponent {
 
 	/**
 	 * Step forward 1 animation step.
-	 * Resets step to 0 if we reach the end in modes that loop.
-	 * Stops running if we reach the end of the animation in "play once" mode.
 	 */
 	public void step() {
 		step++;
+		commitStep();
+	}
+
+	public void stepBack() {
+		step--;
+		commitStep();
+	}
+
+	/**
+	 * Resets step to 0 if we reach the end in modes that loop.
+	 * Stops running if we reach the end of the animation in "play once" mode.
+	 */
+	private void commitStep() {
 		if (step >= maxStep) {
 			if (mode == AnimationMode.ONCE) {
 				step = maxStep-1;
@@ -230,7 +241,10 @@ public class SpriteAnimator extends JComponent {
 			} else {
 				step = 0;
 			}
+		} else if (step < 0) {
+			step = maxStep-1;
 		}
+
 		repaint();
 		fireStepEvent();
 		adjustTimer();
@@ -301,9 +315,8 @@ public class SpriteAnimator extends JComponent {
 	 * Resets step to 0
 	 */
 	private void resetStep() {
-		// forcing a step to get to 0 will fire step events and run animation functions
-		step = -1;
-		step();
+		step = 0;
+		commitStep();
 	}
 
 	/**
@@ -735,6 +748,11 @@ public class SpriteAnimator extends JComponent {
 				swordLevel, shieldLevel, showShadow, showEquipment, showNeutral);
 		steps = new Step[config.size()];
 		maxStep = config.size();
+		int gloveTemp = gloveLevel;
+
+		if (anime == Animation.MAP_WORLD) { // accounts for the minor glitch where Link does not get glove colors on the map
+			gloveTemp = 0;
+		}
 
 		for (int i = 0; i < steps.length; i++) { // for each animation step
 			StepData stepX = config.get(i);
@@ -747,8 +765,9 @@ public class SpriteAnimator extends JComponent {
 				if (curSprite.row.isLinkPart) { // find image to use
 					if (curSprite.isZap) {
 						sheet = mailImages[4][0];
+						gloveTemp = 0; // accounts for minor glitch where Link loses glove colors after zap palette
 					} else {
-						sheet = mailImages[mailLevel][gloveLevel];
+						sheet = mailImages[mailLevel][gloveTemp];
 					}
 				} else {
 					sheet = EQUIPMENT;
@@ -1016,9 +1035,9 @@ public class SpriteAnimator extends JComponent {
 	private static final int CP_Y = 0;
 
 	private static enum CP_FILE {
-		G_SALUT ("tunic1", Animation.SALUTE, 0),
-		B_SALUT ("tunic2", Animation.SALUTE, 1),
-		R_SALUT ("tunic3", Animation.SALUTE, 2),
+		G_SALUT ("tunic1", Animation.SALUTE_SAVE, 0),
+		B_SALUT ("tunic2", Animation.SALUTE_SAVE, 1),
+		R_SALUT ("tunic3", Animation.SALUTE_SAVE, 2),
 		BUNNY_G ("tunicbunny1", Animation.BUNNY_STAND_DOWN, 3),
 		BUNNY_B ("tunicbunny2", Animation.BUNNY_STAND_DOWN, 1),
 		BUNNY_R ("tunicbunny3", Animation.BUNNY_STAND_DOWN, 2);
