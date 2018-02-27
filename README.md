@@ -46,6 +46,13 @@ Along with animating sprites, SpriteAnimator also includes various features to c
 | `=` | Reset |
 | `Space` | Toggle play/pause |
 
+### With focus on the drawing area
+| Input | Action |
+| ----- | ------ |
+| Arrow keys | Move sprite |
+| `Shift` | Move by 8 pixels |
+| `Control` | Double movement speed |
+
 ## Terminology used in this project
 Some terms we need to use are overloaded (they can mean multiple things). To avoid confusion, here's a brief glossary of what means what when we say it. Not everything is perfectly written, so feel free to ask questions if something doesn't seem to mean what you think.
 * **Frame** - A repaint cycle of the SNES.
