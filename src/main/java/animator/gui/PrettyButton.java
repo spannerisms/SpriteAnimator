@@ -37,6 +37,9 @@ public class PrettyButton extends JButton {
 		this.setBorder(BORDER_OFF);
 		this.setBackground(BG_OFF);
 
+		this.setHorizontalTextPosition(SwingConstants.LEFT);
+		this.setIconTextGap(1);
+
 		this.setFocusable(false);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 

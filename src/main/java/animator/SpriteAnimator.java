@@ -184,7 +184,7 @@ public class SpriteAnimator extends JComponent {
 	 * @param id
 	 */
 	public void setAnimation(Animation a) {
-		if (mailImages == null) { return; }
+		if (mailImages == null || a == null) { return; }
 		anime = a;
 		makeAnimation();
 		fireRebuildEvent();
@@ -276,10 +276,17 @@ public class SpriteAnimator extends JComponent {
 	}
 
 	/**
-	 * Set mode to 1, allowing step-by-step animation
+	 * Set mode to step-by-step animation
 	 */
 	public void pause() {
 		setMode(AnimationMode.STEP);
+	}
+
+	/**
+	 * Set mode to play
+	 */
+	public void play() {
+		setMode(AnimationMode.PLAY);
 	}
 
 	/**
@@ -829,7 +836,8 @@ public class SpriteAnimator extends JComponent {
 
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
-				int movement = e.isShiftDown() ? 5 : 1;
+				int movement = e.isShiftDown() ? 8 : 1;
+				movement *= e.isControlDown() ? 2 : 1;
 
 				switch (key) {
 					case KeyEvent.VK_UP :

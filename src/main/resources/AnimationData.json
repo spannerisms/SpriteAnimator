@@ -13622,6 +13622,38 @@
 						"trans": "Y_FLIP"
 					},
 					{
+						"row": "SWORD",
+						"col": 0,
+						"pos": [8,-7],
+						"size": "RIGHT_HALF",
+						"trans": "Y_FLIP"
+					}
+				],
+				"length": 4,
+				"shadow": "NORM"
+			},
+			{
+				"sprites": [
+					{
+						"row": "SHIELD",
+						"col": 0,
+						"pos": [-5,8],
+						"size": "FULL"
+					},
+					{
+						"row": "A",
+						"col": 1,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "P",
+						"col": 4,
+						"pos": [0,8],
+						"size": "FULL",
+						"trans": "Y_FLIP"
+					},
+					{
 						"row": "G",
 						"col": 4,
 						"pos": [4,-8],

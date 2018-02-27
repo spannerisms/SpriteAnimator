@@ -35,6 +35,17 @@ Along with animating sprites, SpriteAnimator also includes various features to c
 * Tracker images export for [Crossproduct's tracker](https://github.com/crossproduct42/alttprandohelper/releases)
 * Collage export, showing every animation step once.
 
+## Keyboard control
+
+| Input | Action |
+| ----- | ------ |
+| `[` | Step backwards |
+| `]` | Step forwards |
+| `>` | Cycle animation forwards |
+| `<` | Cycle animation backwads |
+| `=` | Reset |
+| `Space` | Toggle play/pause |
+
 ## Terminology used in this project
 Some terms we need to use are overloaded (they can mean multiple things). To avoid confusion, here's a brief glossary of what means what when we say it. Not everything is perfectly written, so feel free to ask questions if something doesn't seem to mean what you think.
 * **Frame** - A repaint cycle of the SNES.
@@ -57,6 +68,7 @@ Some terms we need to use are overloaded (they can mean multiple things). To avo
 * For end-user control, consecutive identical animation steps are merged. For example: when neutral poses are off, attack right has 9 steps with a sword and 7 steps without. This is because in step pairs [1,2] and [8,9], Link does not change his pose, but the sword still moves.
 * The character sprite in the zap animation disappears every other frame. This is to emulate Link's invincibility flicker, which the animation is never seen without.
 * Ether is a very long animation because there are palette swaps every 4 frames in Link's final pose.
+* Some sword sprites are incorrect. Swords suck.
 * For categorization, neutral poses are not considered.
 
 ## Animation oddities that are not errors

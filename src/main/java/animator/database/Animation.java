@@ -107,6 +107,10 @@ public enum Animation {
 	BUNNY_WALK_DOWN ("bunnyWalkDown"),
 	;
 
+	// for easy access
+	private static final Animation[] VALUES = Animation.values();
+	private static final int COUNT = VALUES.length;
+
 	// local vars
 	private final ArrayList<StepData> steps;
 	private final String name;
@@ -175,6 +179,30 @@ public enum Animation {
 			return false;
 		}
 		return this.vague.equalsIgnoreCase(e.vague);
+	}
+
+	/**
+	 * Returns the animation at relative index.
+	 * @param d - offset
+	 * @return An {@code Animation} or {@code null} if requested index is out of bounds
+	 */
+	public Animation getAnimationInDirection(int d) {
+		Animation ret = null;
+
+		int i = this.ordinal();
+		i += d;
+
+		if (i < COUNT && i >= 0) {
+			ret = VALUES[i];
+		} else { // allow wrapping
+			if (d == 1) { // overflow to start
+				ret = VALUES[0];
+			} else if (d == -1) { // underflow to end
+				ret = VALUES[COUNT-1];
+			}
+		}
+
+		return ret;
 	}
 
 	public static enum Category {

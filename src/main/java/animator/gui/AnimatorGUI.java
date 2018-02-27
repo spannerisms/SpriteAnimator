@@ -2,7 +2,6 @@ package animator.gui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -24,9 +23,12 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -56,6 +58,7 @@ import animator.gui.cellsearch.CellFrame;
 import animator.database.*;
 
 import static javax.swing.SpringLayout.*;
+import static animator.gui.ButtonAction.*;
 
 public class AnimatorGUI {
 	public static final String VERSION;
@@ -120,6 +123,8 @@ public class AnimatorGUI {
 			"Titan's mitt"
 		};
 
+	private static final Animation[] ALL_ANIMATIONS = Animation.values();
+
 	private static final int GAP = 5;
 	private static final int BLANK_HEIGHT = 10;
 
@@ -176,6 +181,7 @@ public class AnimatorGUI {
 	}
 
 	// use func
+	@SuppressWarnings("serial")
 	private static void printGUI() throws IOException {
 		// try to set LaF
 		try {
@@ -194,9 +200,13 @@ public class AnimatorGUI {
 		Dimension textDimension = new Dimension(50, 20);
 
 		// layout
-		final Container fullWrap = frame.getContentPane();
+		final JPanel fullWrap = (JPanel) frame.getContentPane();
 		SpringLayout l = new SpringLayout();
 		fullWrap.setLayout(l);
+
+		// keyboard controls
+		InputMap keysss = fullWrap.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+		ActionMap doThings = fullWrap.getActionMap();
 
 		// control panel
 		final JPanel controls = new JPanel(new GridBagLayout());
@@ -250,7 +260,7 @@ public class AnimatorGUI {
 
 		// animation playing
 		final JLabel animationLabel = new JLabel("Animation:", SwingConstants.RIGHT);
-		final PrettyBox<Animation> animOptions = new PrettyBox<Animation>(Animation.values());
+		final PrettyBox<Animation> animOptions = new PrettyBox<Animation>(ALL_ANIMATIONS);
 		animationLabel.setBorder(rightPad);
 		c.gridheight = 2;
 		c.gridy++;
@@ -562,11 +572,15 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// zoom
-		final JLabel zoomLevel = new JLabel("x-", SwingConstants.RIGHT);
-		final PrettyButton bigBtn = new PrettyButton("Zoom+");
+		final JLabel zoomLevel = new JLabel("×-", SwingConstants.RIGHT);
 		final PrettyButton lilBtn = new PrettyButton("Zoom-");
+		final PrettyButton bigBtn = new PrettyButton("Zoom+");
 		setAllSizes(zoomLevel, textDimension);
+
 		zoomLevel.setBorder(rightPad);
+		zoomLevel.setHorizontalTextPosition(SwingConstants.LEFT);
+		ImageIcon zoomIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/zoom.png"));
+		zoomLevel.setIcon(zoomIco);
 
 		c.gridy++;
 		c.gridx = 0;
@@ -581,7 +595,11 @@ public class AnimatorGUI {
 		final PrettyButton slowerBtn = new PrettyButton("Speed-");
 		final JLabel speedLevel = new JLabel("--%", SwingConstants.RIGHT);
 		setAllSizes(speedLevel, textDimension);
+
 		speedLevel.setBorder(rightPad);
+		speedLevel.setHorizontalTextPosition(SwingConstants.LEFT);
+		ImageIcon speedIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/speed.png"));
+		speedLevel.setIcon(speedIco);
 
 		c.gridy++;
 		c.gridx = 0;
@@ -590,6 +608,51 @@ public class AnimatorGUI {
 		controls.add(slowerBtn, c);
 		c.gridx = 2;
 		controls.add(fasterBtn, c);
+
+		// playing
+		final PrettyButton playBtn = new PrettyButton("Play");
+		final PrettyButton playOnceBtn = new PrettyButton("Play 1");
+		final PrettyButton resetBtn = new PrettyButton("Reset");
+
+		ImageIcon playIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/play.png"));
+		ImageIcon playOnceIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/play-once.png"));
+		ImageIcon resetIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/reset.png"));
+
+		playBtn.setIcon(playIco);
+		playOnceBtn.setIcon(playOnceIco);
+		resetBtn.setIcon(resetIco);
+
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(playBtn, c);
+		c.gridx = 1;
+		controls.add(playOnceBtn, c);
+		c.gridx = 2;
+		controls.add(resetBtn, c);
+
+		// stepwise
+		final PrettyButton stepBackBtn = new PrettyButton("Step");
+		final PrettyButton pauseBtn = new PrettyButton("Pause");
+		final PrettyButton stepBtn = new PrettyButton("Step");
+
+		ImageIcon stepBackIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/step-back.png"));
+		ImageIcon stepForwardIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/step-forward.png"));
+		ImageIcon pauseIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/pause.png"));
+
+		stepBackBtn.setIcon(stepBackIco);
+		stepBackBtn.setHorizontalTextPosition(SwingConstants.RIGHT);
+
+		pauseBtn.setIcon(pauseIco);
+		stepBtn.setIcon(stepForwardIco);
+
+		c.gridy++;
+		c.gridx = 0;
+		controls.add(stepBackBtn, c);
+		c.gridx = 1;
+		controls.add(pauseBtn, c);
+		c.gridx = 2;
+		controls.add(stepBtn, c);
+		c.gridwidth = 1;
 
 		// blank
 		c.gridy++;
@@ -613,39 +676,6 @@ public class AnimatorGUI {
 		c.gridx = 2;
 		controls.add(stepMax, c);
 
-		// playing
-		final PrettyButton playBtn = new PrettyButton("Play");
-		final PrettyButton playOnceBtn = new PrettyButton("Play once");
-		final PrettyButton resetBtn = new PrettyButton("Reset");
-
-		c.gridy++;
-		c.gridx = 0;
-		controls.add(playBtn, c);
-		c.gridx = 1;
-		controls.add(playOnceBtn, c);
-		c.gridx = 2;
-		controls.add(resetBtn, c);
-
-		// stepwise
-		final PrettyButton stepBackBtn = new PrettyButton("<<Step");
-		final PrettyButton pauseBtn = new PrettyButton("Pause");
-		final PrettyButton stepBtn = new PrettyButton("Step>>");
-
-		c.gridy++;
-		c.gridx = 0;
-		controls.add(stepBackBtn, c);
-		c.gridx = 1;
-		controls.add(pauseBtn, c);
-		c.gridx = 2;
-		controls.add(stepBtn, c);
-		c.gridwidth = 1;
-
-		// blank
-		c.gridy++;
-		c.ipady = BLANK_HEIGHT;
-		controls.add(new JLabel(), c);
-		c.ipady = 0;
-
 		// sprite info
 		JPanel spriteInfo = new JPanel();
 		c.gridwidth = 3;
@@ -664,7 +694,6 @@ public class AnimatorGUI {
 						AnimationListDialog.AnimButton b = (AnimationListDialog.AnimButton) o;
 						Animation a = b.anim;
 						animated.setAnimation(a);
-						animOptions.setSelectedItem(a);
 					});
 
 		animListBtn.addActionListener(
@@ -693,7 +722,6 @@ public class AnimatorGUI {
 				new String[]{
 						"MikeTrethewey", // it's mike
 						"TWRoxas", // helped mike with his site
-						"RyuTech"
 				}));
 		peepsList.append("\n\nCode contribution:\n");
 		peepsList.append(String.join(", ",
@@ -910,7 +938,6 @@ public class AnimatorGUI {
 					spriteInfo.repaint();
 				} catch (Exception e) {
 					e.printStackTrace();
-					// nothing
 				}
 			};
 
@@ -949,7 +976,7 @@ public class AnimatorGUI {
 					spriteInfo.revalidate();
 					spriteInfo.repaint();
 				} catch (Exception e) {
-					// do nothing
+					e.printStackTrace();
 				}
 
 			});
@@ -959,7 +986,7 @@ public class AnimatorGUI {
 			arg0 -> {
 				bigBtn.setEnabled(!animated.tooBig());
 				lilBtn.setEnabled(!animated.vanillaSize());
-				zoomLevel.setText("x" + animated.getZoom());
+				zoomLevel.setText("×" + animated.getZoom());
 			});
 
 		// listen for display changes
@@ -969,10 +996,12 @@ public class AnimatorGUI {
 				try {
 					animated.hardReset();
 				} catch (Exception e) {
-					// do nothing
+					e.printStackTrace();
 				}
 				stepMax.setText("/ " + animated.maxStep());
-				animList.setAnimation(animated.getAnimation());
+				Animation a = animated.getAnimation();
+				animList.setAnimation(a);
+				animOptions.setSelectedItem(a);
 			});
 
 		// update GUI
@@ -1094,9 +1123,22 @@ public class AnimatorGUI {
 		// pause button
 		pauseBtn.addActionListener(arg0 -> animated.pause());
 
-		// step buttons
-		stepBtn.addActionListener(
-			arg0 -> {
+		AbstractAction playPause = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				if (animated.isRunning()) {
+					animated.pause();
+				} else {
+					animated.play();
+				}
+			}
+		};
+
+		keysss.put(PLAY_PAUSE.press, PLAY_PAUSE);
+		doThings.put(PLAY_PAUSE, playPause);
+
+		// step
+		AbstractAction step = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
 				switch (animated.getMode()) {
 					case PLAY :
 					case ONCE :
@@ -1106,10 +1148,17 @@ public class AnimatorGUI {
 						animated.step();
 						break;
 				}
-			});
+			}
+		};
 
-		stepBackBtn.addActionListener(
-			arg0 -> {
+		
+		stepBtn.addActionListener(step);
+		keysss.put(STEP.press, STEP);
+		doThings.put(STEP, step);
+
+		// step back
+		AbstractAction stepBack = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
 				switch (animated.getMode()) {
 					case PLAY :
 					case ONCE :
@@ -1119,18 +1168,49 @@ public class AnimatorGUI {
 						animated.stepBack();
 						break;
 				}
-			});
+			}
+		};
 
-		// reset button
-		resetBtn.addActionListener(
-			arg0 -> {
+		stepBackBtn.addActionListener(stepBack);
+		keysss.put(STEP_BACK.press, STEP_BACK);
+		doThings.put(STEP_BACK, stepBack);
+
+		// reset
+		AbstractAction reset = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					animated.repaint();
 					animated.reset();
-				} catch (Exception e) {
+				} catch (Exception v) {
 					// do nothing
 				}
-			});
+			}
+		};
+
+		resetBtn.addActionListener(reset);
+		keysss.put(RESET.press, RESET);
+		doThings.put(RESET, reset);
+
+		// animation cycling
+		AbstractAction nextAnimation = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				Animation a = animated.getAnimation().getAnimationInDirection(1);
+				animated.setAnimation(a);
+			}
+		};
+
+		keysss.put(NEXT_ANIM.press, NEXT_ANIM);
+		doThings.put(NEXT_ANIM, nextAnimation);
+
+		AbstractAction prevAnimation = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				Animation a = animated.getAnimation().getAnimationInDirection(-1);
+				animated.setAnimation(a);
+			}
+		};
+
+		keysss.put(PREV_ANIM.press, PREV_ANIM);
+		doThings.put(PREV_ANIM, prevAnimation);
 
 		// background display
 		bgDisp.addActionListener(
