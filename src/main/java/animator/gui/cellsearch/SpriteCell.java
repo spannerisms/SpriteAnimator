@@ -373,7 +373,7 @@ public enum SpriteCell {
 		for (Animation a : Animation.values()) {
 			usedHere = false;
 			counter.clear();
-			stepCount = 0;
+			stepCount = 1;
 			animName = a.toString();
 
 			for (StepData f : a.getSteps()) {

@@ -51,6 +51,9 @@ public class SpriteAnimator extends JComponent {
 	// 1/60 approx. 16.66666...
 	public static final int FPS = 17;
 
+	// background step length
+	public static final int BG_PERIOD = 9;
+
 	// background size
 	private static final int BG_WIDTH = 224;
 	private static final int BG_HEIGHT = 208;
@@ -101,6 +104,7 @@ public class SpriteAnimator extends JComponent {
 
 	// display
 	private Background bg = Background.EMPTY;
+	private boolean animateBG = false;
 	private int posX = 40;
 	private int posY = 40;
 	private int mailLevel = 0;
@@ -111,6 +115,7 @@ public class SpriteAnimator extends JComponent {
 	private boolean showEquipment = true;
 	private boolean showNeutral = true;
 
+	private Timer bgTick; // runs for steps
 	// default initialization
 	public SpriteAnimator() {
 		this.setFocusable(true);
@@ -594,7 +599,28 @@ public class SpriteAnimator extends JComponent {
 	 */
 	public void setBackground(Background b) {
 		bg = b;
+		bg.resetFrame();
 		repaint(); // shouldn't need a new event
+	}
+
+	public void setBackgroundAnimated(boolean b) {
+		if (animateBG == b) { return; }
+		animateBG = b;
+		if (animateBG) {
+			bgTick = new Timer();
+			bgTick.scheduleAtFixedRate(
+					new TimerTask() {
+						public void run() {
+							bg.step();
+							SpriteAnimator.this.repaint();
+						}
+					}
+					, 0, BG_PERIOD * FPS);
+		} else {
+			bgTick.cancel();
+			bg.resetFrame();
+			repaint();
+		}
 	}
 
 	/**
@@ -921,61 +947,77 @@ public class SpriteAnimator extends JComponent {
 
 		final int X = posX;
 		final int Y = posY;
-		final BufferedImage BG;
+		final Background BG;
 
 		if (bg == Background.EMPTY) {
-			BG = Background.WHITE.getImage();
+			BG = Background.WHITE;
 		} else {
-			BG = bg.getImage();
+			BG = bg;
 		}
 
-		// draw images
-		BufferedImage[] images = new BufferedImage[steps.length];
-
-		int gifWidth = BG_WIDTH;
-		int gifHeight = BG_HEIGHT;
+		BG.resetFrame();
+		int frameTotal = 0;
 
 		// draw images
+		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+
+		int gifWidth = BG_WIDTH, gifHeight = BG_HEIGHT;
+		int offsetX = 0, offsetY = 0, bgOffsetX = 0, bgOffsetY = 0;
+		int sprOffsetX = X, sprOffsetY = Y;
+
+		// crop
 		if (crop) {
 			ImageSize is = new ImageSize(anime);
 			gifWidth = is.canvasX + (GIF_PAD * 2);
 			gifHeight = is.canvasY + (GIF_PAD * 2);
-			int offsetX = 0 - is.minX;
-			int offsetY = 0 - is.minY;
+			offsetX = 0 - is.minX;
+			offsetY = 0 - is.minY;
+			bgOffsetX = -X + GIF_PAD + offsetX;
+			bgOffsetY = -Y + GIF_PAD + offsetY;
+			sprOffsetX = offsetX + GIF_PAD;
+			sprOffsetY = offsetY + GIF_PAD;
+		}
 
-			for (int i = 0; i < steps.length; i++) {
-				Step a = steps[i];
-				cur = new BufferedImage(gifWidth, gifHeight, BufferedImage.TYPE_4BYTE_ABGR);
-				g = cur.createGraphics();
-				g.drawImage(BG, -X + GIF_PAD + offsetX, -Y + GIF_PAD + offsetY, null);
-				a.draw(g, offsetX + GIF_PAD, offsetY + GIF_PAD);
-				images[i] = cur;
+		// draw images
+		for (int i = 0; i < steps.length; i++) {
+			Step a = steps[i];
+			int adjustedLength =  a.getLength();
+			if (adjustedLength > 1000) {
+				adjustedLength = BG_PERIOD * bg.getMaxFrame();
 			}
-		} else {
-			for (int i = 0; i < steps.length; i++) {
-				Step a = steps[i];
-				cur = new BufferedImage(BG_WIDTH, BG_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 
+			for (int j = 0; j < adjustedLength; j++) {
+				cur = new BufferedImage(gifWidth, gifHeight, BufferedImage.TYPE_4BYTE_ABGR);
+				if ((frameTotal++ % BG_PERIOD) == 0) {
+					BG.step();
+				}
 				g = cur.createGraphics();
-				g.drawImage(BG, 0, 0, null);
-				a.draw(g, X, Y);
-				images[i] = cur;
+				g.drawImage(BG.getImage(), bgOffsetX, bgOffsetY, null);
+				a.draw(g, sprOffsetX, sprOffsetY);
+				images.add(cur);
 			}
 		}
 
-		// combine remove pixels that are the same, starting backwards
-		BufferedImage[] newImages = new BufferedImage[steps.length];
-		newImages[0] = images[0]; // background stays the same
+		System.out.println("Total frame count: " + frameTotal);
 
-		for (int i = steps.length - 1; i > 0; i--) {
-			byte[] curRaster = SpriteManipulator.getImageRaster(images[i]);
-			byte[] nextRaster = SpriteManipulator.getImageRaster(images[i-1]);
+		int imgCount = images.size();
+		boolean[] sameAsPrev = new boolean[imgCount];
+
+		// combine remove pixels that are the same, starting backwards
+		ArrayList<BufferedImage> newImages = new ArrayList<BufferedImage>();
+		newImages.add(images.get(0));
+
+		for (int i = imgCount - 1; i > 0; i--) {
+			byte[] curRaster = SpriteManipulator.getImageRaster(images.get(i));
+			byte[] nextRaster = SpriteManipulator.getImageRaster(images.get(i-1));
+
+			sameAsPrev[i] = true;
 
 			pixelCompare :
 			for (int j = 0; j < curRaster.length; j += 4) {
-
 				for (int k = 0; k < 4; k++) { // check each pixel
 					if (curRaster[j+k] != nextRaster[j+k]) {
+						sameAsPrev[i] = false;
 						continue pixelCompare;
 					}
 				}
@@ -998,24 +1040,37 @@ public class SpriteAnimator extends JComponent {
 			}
 
 			cur.setRGB(0, 0, gifWidth, gifHeight, rgb, 0, gifWidth);
-			newImages[i] = cur;
+			newImages.add(1, cur);
 		}
 
 		// images to frames
 		AnimatedGIFWriter writer = new AnimatedGIFWriter(false);
-		AnimatedGIFWriter.GIFFrame[] frames = new AnimatedGIFWriter.GIFFrame[steps.length];
+		ArrayList<AnimatedGIFWriter.GIFFrame> frames = new ArrayList<AnimatedGIFWriter.GIFFrame>();
 
-		for (int i = 0; i < steps.length; i++) {
-			BufferedImage a = newImages[i];
-			int l = steps[i].getLength();
-			cur = new BufferedImage(gifWidth * size, gifHeight * size, BufferedImage.TYPE_4BYTE_ABGR);
+		for (int i = 0; i < imgCount; i++) {
+			BufferedImage a = newImages.get(i);
+			int l = 1;
+			BufferedImage cur2 = new BufferedImage(gifWidth * size, gifHeight * size, BufferedImage.TYPE_4BYTE_ABGR);
 
-			g = cur.createGraphics();
+			g = cur2.createGraphics();
 			g.scale(size, size);
 			g.drawImage(a, 0, 0, null);
 
-			frames[i] = new AnimatedGIFWriter.GIFFrame(cur, l * FPS * speed,
-					AnimatedGIFWriter.GIFFrame.DISPOSAL_LEAVE_AS_IS);
+			for (int j = i + 1; j < imgCount; j++) {
+				if (sameAsPrev[j]) {
+					l++;
+					i++;
+				} else {
+					break;
+				}
+			}
+
+			frames.add(
+					new AnimatedGIFWriter.GIFFrame(cur2, l * FPS * speed,
+					AnimatedGIFWriter.GIFFrame.DISPOSAL_LEAVE_AS_IS)
+				);
+			g.dispose();
+			cur2.flush();
 		}
 
 		String path = String.format(

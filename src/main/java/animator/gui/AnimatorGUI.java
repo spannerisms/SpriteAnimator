@@ -296,7 +296,18 @@ public class AnimatorGUI {
 		c.gridwidth = 2;
 		c.gridx = 1;
 		controls.add(bgDisp, c);
+
+		final JCheckBox animatedBG = new JCheckBox("Animate");
+		c.gridy++;
+		c.gridx = 2;
 		c.gridwidth = 1;
+		controls.add(animatedBG, c);
+
+		animatedBG.addChangeListener(
+			arg0 -> {
+				animated.setBackgroundAnimated(animatedBG.isSelected());
+			});
+		animatedBG.setSelected(true);
 
 		// blank
 		c.gridy++;
@@ -1262,8 +1273,9 @@ public class AnimatorGUI {
 		x.gridwidth = 1;
 
 		// gif zoom
+		final int maxZoom = 3;
 		final JLabel gifZoomLabel = new JLabel("Zoom", SwingConstants.RIGHT);
-		final JSlider gifZoomLevel = new JSlider(JSlider.HORIZONTAL, 1, 5, 1);
+		final JSlider gifZoomLevel = new JSlider(JSlider.HORIZONTAL, 1, maxZoom, 1);
 		gifZoomLevel.setPaintTicks(true);
 		gifZoomLevel.setMajorTickSpacing(1);
 		gifZoomLevel.setSnapToTicks(true);

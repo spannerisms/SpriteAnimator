@@ -199,25 +199,25 @@ public class CellFrame extends JDialog {
 			});
 
 		lister.addActionListener(
-				arg0 -> {
-					SpriteBlock b = (SpriteBlock) arg0.getSource();
-					curCell.setText(b.cell.toString());
+			arg0 -> {
+				SpriteBlock b = (SpriteBlock) arg0.getSource();
+				curCell.setText(b.cell.toString());
 
-					listed.setVerticalAlignment(SwingConstants.TOP);
-					listed.setText(b.cell.toHTML());
-					repaint();
-				});
+				listed.setVerticalAlignment(SwingConstants.TOP);
+				listed.setText(b.cell.toHTML());
+				repaint();
+			});
 
 		hideUnused.addChangeListener(
-				arg0 -> {
-					lister.setHideUnused(hideUnused.isSelected());
-				});
+			arg0 -> {
+				lister.setHideUnused(hideUnused.isSelected());
+			});
 		hideUnused.setSelected(true);
 
 		markUsed.addChangeListener(
-				arg0 -> {
-					lister.setShowListed(markUsed.isSelected());
-				});
+			arg0 -> {
+				lister.setShowListed(markUsed.isSelected());
+			});
 		markUsed.setSelected(true);
 	}
 
