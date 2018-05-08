@@ -156,7 +156,7 @@ public class AnimatorGUI {
 			MIKES_DIRECTORY = null;
 			VT_DIRECTORY = null;
 		} else {
-			final String folderPath = JAR_DIRECTORY.getAbsolutePath();
+			String folderPath = JAR_DIRECTORY.getAbsolutePath();
 			GIF_DIRECTORY = new File(
 					String.format("%s%s%s", folderPath, System.getProperty("file.separator"), "/gifs"));
 			CROSSPRODUCT_DIRECTORY = new File(
@@ -193,14 +193,14 @@ public class AnimatorGUI {
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 
-		final JFrame frame = new JFrame("Sprite Animator " + VERSION);
-		final Dimension d = new Dimension(1000, 750);
+		JFrame frame = new JFrame("Sprite Animator " + VERSION);
+		Dimension d = new Dimension(1000, 750);
 		Border rightPad = BorderFactory.createEmptyBorder(0, 0, 0, GAP);
 		Border fullPad = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 		Dimension textDimension = new Dimension(50, 20);
 
 		// layout
-		final JPanel fullWrap = (JPanel) frame.getContentPane();
+		JPanel fullWrap = (JPanel) frame.getContentPane();
 		SpringLayout l = new SpringLayout();
 		fullWrap.setLayout(l);
 
@@ -209,7 +209,7 @@ public class AnimatorGUI {
 		ActionMap doThings = fullWrap.getActionMap();
 
 		// control panel
-		final JPanel controls = new JPanel(new GridBagLayout());
+		JPanel controls = new JPanel(new GridBagLayout());
 		controls.setBorder(fullPad);
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -219,7 +219,7 @@ public class AnimatorGUI {
 		frame.add(controls);
 
 		// animation panel
-		final SpriteAnimator animated = new SpriteAnimator();
+		SpriteAnimator animated = new SpriteAnimator();
 		animated.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		l.putConstraint(WEST, animated, GAP, WEST, fullWrap);
 		l.putConstraint(EAST, animated, -GAP, WEST, controls);
@@ -235,15 +235,15 @@ public class AnimatorGUI {
 		c.fill = GridBagConstraints.BOTH;
 
 		// image loading
-		final JTextField fileName = new JTextField("");
+		JTextField fileName = new JTextField("");
 		c.gridy++;
 		c.gridx = 0;
 		c.gridwidth = 3;
 		controls.add(fileName, c);
 
 		// load buttons
-		final PrettyButton loadBtn = new PrettyButton("Load sprite");
-		final PrettyButton reloadBtn = new PrettyButton("Reload");
+		PrettyButton loadBtn = new PrettyButton("Load sprite");
+		PrettyButton reloadBtn = new PrettyButton("Reload");
 		c.gridy++;
 		c.gridx = 1;
 		c.gridwidth = 1;
@@ -259,8 +259,8 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// animation playing
-		final JLabel animationLabel = new JLabel("Animation:", SwingConstants.RIGHT);
-		final PrettyBox<Animation> animOptions = new PrettyBox<Animation>(ALL_ANIMATIONS);
+		JLabel animationLabel = new JLabel("Animation:", SwingConstants.RIGHT);
+		PrettyBox<Animation> animOptions = new PrettyBox<Animation>(ALL_ANIMATIONS);
 		animationLabel.setBorder(rightPad);
 		c.gridheight = 2;
 		c.gridy++;
@@ -273,7 +273,7 @@ public class AnimatorGUI {
 		c.gridwidth = 1;
 
 		// animation button
-		final PrettyButton animListBtn = new PrettyButton("As list"); // button for popup window here
+		PrettyButton animListBtn = new PrettyButton("As list"); // button for popup window here
 		c.gridwidth = 2;
 		c.gridy++;
 		c.gridx = 1;
@@ -287,8 +287,8 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// background
-		final PrettyBox<Background> bgDisp = new PrettyBox<Background>(Background.values());
-		final JLabel backgroundLabel = new JLabel("Background:", SwingConstants.RIGHT);
+		PrettyBox<Background> bgDisp = new PrettyBox<Background>(Background.values());
+		JLabel backgroundLabel = new JLabel("Background:", SwingConstants.RIGHT);
 		backgroundLabel.setBorder(rightPad);
 		c.gridy++;
 		c.gridx = 0;
@@ -297,7 +297,7 @@ public class AnimatorGUI {
 		c.gridx = 1;
 		controls.add(bgDisp, c);
 
-		final JCheckBox animatedBG = new JCheckBox("Animate");
+		JCheckBox animatedBG = new JCheckBox("Animate");
 		c.gridy++;
 		c.gridx = 2;
 		c.gridwidth = 1;
@@ -308,6 +308,7 @@ public class AnimatorGUI {
 				animated.setBackgroundAnimated(animatedBG.isSelected());
 			});
 		animatedBG.setSelected(true);
+		animatedBG.setFocusable(false);
 
 		// blank
 		c.gridy++;
@@ -316,7 +317,7 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// gear label
-		final JLabel gearLabel = new JLabel("<html><b>Display:</b></html>", SwingConstants.RIGHT);
+		JLabel gearLabel = new JLabel("<html><b>Display:</b></html>", SwingConstants.RIGHT);
 		gearLabel.setVerticalAlignment(SwingConstants.TOP);
 		gearLabel.setBorder(rightPad);
 		setToolTip(gearLabel,
@@ -328,7 +329,7 @@ public class AnimatorGUI {
 		controls.add(gearLabel, c);
 
 		// gear
-		final JPanel gearControls = new JPanel(new GridBagLayout());
+		JPanel gearControls = new JPanel(new GridBagLayout());
 		GridBagConstraints g = new GridBagConstraints();
 		Image clearGear = ImageIO.read(AnimatorGUI.class.getResource("/images/meta/no-thing.png"));
 		g.fill = GridBagConstraints.HORIZONTAL;
@@ -338,7 +339,7 @@ public class AnimatorGUI {
 
 		// mails
 		ButtonGroup mailChoice = new ButtonGroup();
-		final JLabel mailLabel = new JLabel("Mail:", SwingConstants.RIGHT);
+		JLabel mailLabel = new JLabel("Mail:", SwingConstants.RIGHT);
 		mailLabel.setBorder(rightPad);
 
 		GearChange mailChange = (i) -> {
@@ -367,7 +368,7 @@ public class AnimatorGUI {
 
 		// swords
 		ButtonGroup swordChoice = new ButtonGroup();
-		final JLabel swordLabel = new JLabel("Sword:", SwingConstants.RIGHT);
+		JLabel swordLabel = new JLabel("Sword:", SwingConstants.RIGHT);
 		swordLabel.setBorder(rightPad);
 
 		IconButton noSword = new IconButton(clearGear);
@@ -400,7 +401,7 @@ public class AnimatorGUI {
 
 		// shields
 		ButtonGroup shieldChoice = new ButtonGroup();
-		final JLabel shieldLabel = new JLabel("Shield:", SwingConstants.RIGHT);
+		JLabel shieldLabel = new JLabel("Shield:", SwingConstants.RIGHT);
 		shieldLabel.setBorder(rightPad);
 
 		IconButton noShield = new IconButton(clearGear);
@@ -433,7 +434,7 @@ public class AnimatorGUI {
 
 		// gloves
 		ButtonGroup glovesChoice = new ButtonGroup();
-		final JLabel glovesLabel = new JLabel("Glove:", SwingConstants.RIGHT);
+		JLabel glovesLabel = new JLabel("Glove:", SwingConstants.RIGHT);
 		glovesLabel.setBorder(rightPad);
 
 		IconButton noGloves = new IconButton(clearGear);
@@ -476,7 +477,7 @@ public class AnimatorGUI {
 		g.ipady = 0;
 
 		// misc
-		final JLabel thePhraseMiscellaneousSpritesWithAColon = new JLabel("Misc. sprites:", SwingConstants.RIGHT);
+		JLabel thePhraseMiscellaneousSpritesWithAColon = new JLabel("Misc. sprites:", SwingConstants.RIGHT);
 		thePhraseMiscellaneousSpritesWithAColon.setBorder(rightPad);
 		setToolTip(thePhraseMiscellaneousSpritesWithAColon,
 				"When <b>miscellaneous sprites</b> are on, " +
@@ -508,7 +509,7 @@ public class AnimatorGUI {
 		gearControls.add(yesMisc, g);
 
 		// shadow
-		final JLabel shadowLabel = new JLabel("Shadows:", SwingConstants.RIGHT);
+		JLabel shadowLabel = new JLabel("Shadows:", SwingConstants.RIGHT);
 		shadowLabel.setBorder(rightPad);
 		setToolTip(shadowLabel,
 				"When <b>shadows</b> are on, " +
@@ -539,7 +540,7 @@ public class AnimatorGUI {
 		gearControls.add(yesShadow, g);
 
 		// neutral
-		final JLabel neutralLabel = new JLabel("Neutral poses:", SwingConstants.RIGHT);
+		JLabel neutralLabel = new JLabel("Neutral poses:", SwingConstants.RIGHT);
 		neutralLabel.setBorder(rightPad);
 		setToolTip(neutralLabel,
 				"When <b>neutral poses</b> are on, " +
@@ -583,9 +584,9 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// zoom
-		final JLabel zoomLevel = new JLabel("×-", SwingConstants.RIGHT);
-		final PrettyButton lilBtn = new PrettyButton("Zoom-");
-		final PrettyButton bigBtn = new PrettyButton("Zoom+");
+		JLabel zoomLevel = new JLabel("×-", SwingConstants.RIGHT);
+		PrettyButton lilBtn = new PrettyButton("Zoom-");
+		PrettyButton bigBtn = new PrettyButton("Zoom+");
 		setAllSizes(zoomLevel, textDimension);
 
 		zoomLevel.setBorder(rightPad);
@@ -602,9 +603,9 @@ public class AnimatorGUI {
 		controls.add(bigBtn, c);
 
 		// speed
-		final PrettyButton fasterBtn = new PrettyButton("Speed+");
-		final PrettyButton slowerBtn = new PrettyButton("Speed-");
-		final JLabel speedLevel = new JLabel("--%", SwingConstants.RIGHT);
+		PrettyButton fasterBtn = new PrettyButton("Speed+");
+		PrettyButton slowerBtn = new PrettyButton("Speed-");
+		JLabel speedLevel = new JLabel("--%", SwingConstants.RIGHT);
 		setAllSizes(speedLevel, textDimension);
 
 		speedLevel.setBorder(rightPad);
@@ -621,9 +622,9 @@ public class AnimatorGUI {
 		controls.add(fasterBtn, c);
 
 		// playing
-		final PrettyButton playBtn = new PrettyButton("Play");
-		final PrettyButton playOnceBtn = new PrettyButton("Play 1");
-		final PrettyButton resetBtn = new PrettyButton("Reset");
+		PrettyButton playBtn = new PrettyButton("Play");
+		PrettyButton playOnceBtn = new PrettyButton("Play 1");
+		PrettyButton resetBtn = new PrettyButton("Reset");
 
 		ImageIcon playIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/play.png"));
 		ImageIcon playOnceIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/play-once.png"));
@@ -642,9 +643,9 @@ public class AnimatorGUI {
 		controls.add(resetBtn, c);
 
 		// stepwise
-		final PrettyButton stepBackBtn = new PrettyButton("Step");
-		final PrettyButton pauseBtn = new PrettyButton("Pause");
-		final PrettyButton stepBtn = new PrettyButton("Step");
+		PrettyButton stepBackBtn = new PrettyButton("Step");
+		PrettyButton pauseBtn = new PrettyButton("Pause");
+		PrettyButton stepBtn = new PrettyButton("Step");
 
 		ImageIcon stepBackIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/step-back.png"));
 		ImageIcon stepForwardIco = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/step-forward.png"));
@@ -672,9 +673,9 @@ public class AnimatorGUI {
 		c.ipady = 0;
 
 		// step counter
-		final JLabel stepLabel = new JLabel("Step:", SwingConstants.RIGHT);
-		final JLabel stepCur = new JLabel("-", SwingConstants.RIGHT);
-		final JLabel stepMax = new JLabel("/ -");
+		JLabel stepLabel = new JLabel("Step:", SwingConstants.RIGHT);
+		JLabel stepCur = new JLabel("-", SwingConstants.RIGHT);
+		JLabel stepMax = new JLabel("/ -");
 		stepCur.setBorder(rightPad);
 		stepMax.setBorder(rightPad);
 		setAllSizes(stepCur, textDimension);
@@ -697,7 +698,7 @@ public class AnimatorGUI {
 		// control panel done
 
 		// animations as buttons
-		final AnimationListDialog animList =
+		AnimationListDialog animList =
 				new AnimationListDialog(frame,
 					arg0 -> {
 						Object o = arg0.getSource();
@@ -719,10 +720,10 @@ public class AnimatorGUI {
 
 		// acknowledgements
 		ImageIcon mapIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/map.png"));
-		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
+		JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 		aboutFrame.setIconImage(mapIcon.getImage());
 
-		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
 		peepsList.append(String.format("Sprite Animator version %s\n", VERSION));
 		peepsList.append(String.format("ALttPNG version %s\n\n", SpriteManipulator.ALTTPNG_VERSION));
@@ -763,27 +764,27 @@ public class AnimatorGUI {
 		// end credits
 
 		// menu
-		final JMenuBar menu = new JMenuBar();
+		JMenuBar menu = new JMenuBar();
 		frame.setJMenuBar(menu);
 
 		// file menu
-		final JMenu fileMenu = new JMenu("File");
+		JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
 
 		// animated gifs
-		final JMenuItem giffer = new JMenuItem("Make GIF");
+		JMenuItem giffer = new JMenuItem("Make GIF");
 		ImageIcon cane = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/cane.png"));
 		giffer.setIcon(cane);
 		fileMenu.add(giffer);
 
 		// crossproduct tracker images
-		final JMenuItem cross = new JMenuItem("Make tracker images");
+		JMenuItem cross = new JMenuItem("Make tracker images");
 		ImageIcon crossProductsFace = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/cross.png"));
 		cross.setIcon(crossProductsFace);
 		fileMenu.add(cross);
 
 		// collages
-		final JMenuItem collage = new JMenuItem("Make collage");
+		JMenuItem collage = new JMenuItem("Make collage");
 		ImageIcon openBook = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/openbook.png"));
 		collage.setIcon(openBook);
 		fileMenu.add(collage);
@@ -792,7 +793,7 @@ public class AnimatorGUI {
 		fileMenu.addSeparator();
 
 		// exit
-		final JMenuItem exit = new JMenuItem("Exit");
+		JMenuItem exit = new JMenuItem("Exit");
 		ImageIcon mirror = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/mirror.png"));
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
@@ -801,12 +802,12 @@ public class AnimatorGUI {
 		// end file menu
 
 		// tools menu
-		final JMenu toolsMenu = new JMenu("Tools");
+		JMenu toolsMenu = new JMenu("Tools");
 		menu.add(toolsMenu);
 
 		// reverse lookup
 		CellFrame looker = new CellFrame(frame);
-		final JMenuItem lookUp = new JMenuItem("Sheet trawler");
+		JMenuItem lookUp = new JMenuItem("Sheet trawler");
 		ImageIcon net = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/net.png"));
 		looker.setIconImage(net.getImage());
 		lookUp.setIcon(net);
@@ -816,17 +817,17 @@ public class AnimatorGUI {
 		// end tools menu
 
 		// help menu
-		final JMenu helpMenu = new JMenu("Help");
+		JMenu helpMenu = new JMenu("Help");
 		menu.add(helpMenu);
 
 		// refresh VT sprites fold
-		final JMenuItem vtRefresh = new JMenuItem("Refresh live sprites");
+		JMenuItem vtRefresh = new JMenuItem("Refresh live sprites");
 		ImageIcon quack = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/vtduck.png"));
 		vtRefresh.setIcon(quack);
 		helpMenu.add(vtRefresh);
 
 		// link to wiki
-		final JMenuItem wikiLink = new JMenuItem("ALttPNG wiki");
+		JMenuItem wikiLink = new JMenuItem("ALttPNG wiki");
 		ImageIcon shovel = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/shovel.png"));
 		wikiLink.setIcon(shovel);
 		helpMenu.add(wikiLink);
@@ -845,7 +846,7 @@ public class AnimatorGUI {
 			});
 
 		// look for updates
-		final JMenuItem updates = new JMenuItem("Check for updates");
+		JMenuItem updates = new JMenuItem("Check for updates");
 		ImageIcon hammer = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/hammer.png"));
 		updates.setIcon(hammer);
 		helpMenu.add(updates);
@@ -876,7 +877,7 @@ public class AnimatorGUI {
 		}
 
 		// acknowledgements
-		final JMenuItem peeps = new JMenuItem("About");
+		JMenuItem peeps = new JMenuItem("About");
 		peeps.setIcon(mapIcon);
 		peeps.addActionListener(
 			arg0 -> {
@@ -904,7 +905,7 @@ public class AnimatorGUI {
 		frame.setLocation(150, 150);
 
 		// file explorer
-		final BetterJFileChooser explorer = new BetterJFileChooser();
+		BetterJFileChooser explorer = new BetterJFileChooser();
 		FileNameExtensionFilter sprFilter =
 				new FileNameExtensionFilter("ALttP sprite files", new String[] { ZSPRFile.EXTENSION });
 		FileNameExtensionFilter romFilter =
@@ -918,9 +919,9 @@ public class AnimatorGUI {
 
 		explorer.setCurrentDirectory(VT_DIRECTORY);
 
-		// can't clear text due to wonky code
+		// can't clear text due to wonky libraries
 		// have to set a blank file instead
-		final File EEE = new File("");
+		File EEE = new File("");
 
 		// try to set current sprite to vanilla
 		try {
@@ -1233,7 +1234,7 @@ public class AnimatorGUI {
 		/*
 		 * Wait dialog
 		 */
-		final Dimension waitD = new Dimension(200, 30);
+		Dimension waitD = new Dimension(200, 30);
 		JDialog plsWait = new JDialog(frame, "Busy");
 
 		ImageIcon clockIcon = new ImageIcon(AnimatorGUI.class.getResource("/images/meta/clock.png"));
@@ -1246,7 +1247,7 @@ public class AnimatorGUI {
 		/*
 		 * Animated GIF controls
 		 */
-		final Dimension gifD = new Dimension(300, 170);
+		Dimension gifD = new Dimension(300, 170);
 		JDialog gifGuy = new JDialog(frame, "Make a GIF");
 		gifGuy.setIconImage(cane.getImage());
 		gifGuy.setPreferredSize(gifD);
@@ -1265,7 +1266,7 @@ public class AnimatorGUI {
 		x.weightx = 0;
 
 		// label
-		final JLabel gifLabel = new JLabel("Choose GIF settings", SwingConstants.CENTER);
+		JLabel gifLabel = new JLabel("Choose GIF settings", SwingConstants.CENTER);
 		x.gridy++;
 		x.gridx = 0;
 		x.gridwidth = 3;
@@ -1273,14 +1274,14 @@ public class AnimatorGUI {
 		x.gridwidth = 1;
 
 		// gif zoom
-		final int maxZoom = 3;
-		final JLabel gifZoomLabel = new JLabel("Zoom", SwingConstants.RIGHT);
-		final JSlider gifZoomLevel = new JSlider(JSlider.HORIZONTAL, 1, maxZoom, 1);
+		int maxZoom = 3;
+		JLabel gifZoomLabel = new JLabel("Zoom", SwingConstants.RIGHT);
+		JSlider gifZoomLevel = new JSlider(JSlider.HORIZONTAL, 1, maxZoom, 1);
 		gifZoomLevel.setPaintTicks(true);
 		gifZoomLevel.setMajorTickSpacing(1);
 		gifZoomLevel.setSnapToTicks(true);
 
-		final JLabel gifZoomText = new JLabel("x1", SwingConstants.RIGHT);
+		JLabel gifZoomText = new JLabel("x1", SwingConstants.RIGHT);
 		x.gridy++;
 		x.gridx = 0;
 		gifControls.add(gifZoomLabel, x);
@@ -1294,10 +1295,10 @@ public class AnimatorGUI {
 		gifZoomLevel.addChangeListener(arg0 -> gifZoomText.setText("x" + gifZoomLevel.getValue()));
 
 		// gif speed
-		final int maxSpeed = 4;
-		final JLabel gifSpeedLabel = new JLabel("Speed", SwingConstants.RIGHT);
-		final JSlider gifSpeedLevel = new JSlider(JSlider.HORIZONTAL, 1, maxSpeed, maxSpeed);
-		final JLabel gifSpeedText = new JLabel("100%", SwingConstants.RIGHT);
+		int maxSpeed = 4;
+		JLabel gifSpeedLabel = new JLabel("Speed", SwingConstants.RIGHT);
+		JSlider gifSpeedLevel = new JSlider(JSlider.HORIZONTAL, 1, maxSpeed, maxSpeed);
+		JLabel gifSpeedText = new JLabel("100%", SwingConstants.RIGHT);
 		setAllSizes(gifSpeedText, textDimension);
 
 		gifSpeedLevel.setPaintTicks(true);
@@ -1322,7 +1323,7 @@ public class AnimatorGUI {
 			});
 
 		// create button
-		final JCheckBox crop = new JCheckBox("Crop image");
+		JCheckBox crop = new JCheckBox("Crop image");
 		crop.setHorizontalAlignment(SwingConstants.RIGHT);
 		x.gridy++;
 		x.gridx = 1;
@@ -1331,7 +1332,7 @@ public class AnimatorGUI {
 		x.gridwidth = 1;
 
 		// create button
-		final PrettyButton makeGif = new PrettyButton("Create");
+		PrettyButton makeGif = new PrettyButton("Create");
 		x.gridy++;
 		x.gridx = 1;
 		gifControls.add(makeGif, x);
