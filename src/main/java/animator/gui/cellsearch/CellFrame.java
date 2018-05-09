@@ -164,7 +164,7 @@ public class CellFrame extends JDialog {
 				ArrayList<String> temp = new ArrayList<String>();
 				int i = 1;
 
-				for (StepData s : a.getSteps()) {
+				for (StepData s : a.customizeMergeAndFinalize(1, 1, true, true, false)) {
 					temp.add(String.format(
 							String.join("", new String[] {
 							"<div style=\"border:2px outset;",

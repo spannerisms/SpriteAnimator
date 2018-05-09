@@ -988,7 +988,7 @@ public class SpriteAnimator extends JComponent {
 
 			for (int j = 0; j < adjustedLength; j++) {
 				cur = new BufferedImage(gifWidth, gifHeight, BufferedImage.TYPE_4BYTE_ABGR);
-				if ((frameTotal++ % BG_PERIOD) == 0) {
+				if ((frameTotal++ % BG_PERIOD) == 0 && (animateBG)) {
 					BG.step();
 				}
 				g = cur.createGraphics();
@@ -1005,7 +1005,7 @@ public class SpriteAnimator extends JComponent {
 
 		// combine remove pixels that are the same, starting backwards
 		ArrayList<BufferedImage> newImages = new ArrayList<BufferedImage>();
-		newImages.add(images.get(0));
+		newImages.add(images.get(0)); // add background, which is always the same
 
 		for (int i = imgCount - 1; i > 0; i--) {
 			byte[] curRaster = SpriteManipulator.getImageRaster(images.get(i));
@@ -1056,7 +1056,7 @@ public class SpriteAnimator extends JComponent {
 			g.scale(size, size);
 			g.drawImage(a, 0, 0, null);
 
-			for (int j = i + 1; j < imgCount; j++) {
+			for (int j = i+1; j < imgCount; j++) {
 				if (sameAsPrev[j]) {
 					l++;
 					i++;

@@ -17,7 +17,7 @@ public enum Background {
 		// rooms
 		HOUSE ("House", "house"),
 		HOULIHAN ("Houlihan", "houlihan"),
-		STILL_WATER ("Still water", "stillwater"),
+		WATER ("Water", "water", true),
 		MOSAIC ("Mosaic", "mosaic", true),
 		CAVE ("Cave", "cave", true),
 		// meme rooms

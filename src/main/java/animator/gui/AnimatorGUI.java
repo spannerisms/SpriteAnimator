@@ -297,10 +297,10 @@ public class AnimatorGUI {
 		c.gridx = 1;
 		controls.add(bgDisp, c);
 
-		JCheckBox animatedBG = new JCheckBox("Animate");
+		JCheckBox animatedBG = new JCheckBox("Animate background");
 		c.gridy++;
-		c.gridx = 2;
-		c.gridwidth = 1;
+		c.gridx = 1;
+		c.gridwidth = 2;
 		controls.add(animatedBG, c);
 
 		animatedBG.addChangeListener(

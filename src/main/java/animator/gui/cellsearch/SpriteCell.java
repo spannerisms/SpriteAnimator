@@ -376,7 +376,7 @@ public enum SpriteCell {
 			stepCount = 1;
 			animName = a.toString();
 
-			for (StepData f : a.getSteps()) {
+			for (StepData f : a.customizeMergeAndFinalize(1, 1, true, true, false)) {
 				spriteSearch :
 				for (SpriteData s : f.getSprites()) {
 					if (s.equalsIndex(this)) {

@@ -1194,9 +1194,9 @@
 			}
 		]
 	},
-	"treadingWater": {
-		"name": "Treading water",
-		"vague": "Treading water",
+	"treadWater": {
+		"name": "Tread water",
+		"vague": "Tread water",
 		"category": [
 				"SWIMMING"
 			],
@@ -1240,9 +1240,9 @@
 			}
 		]
 	},
-	"treadingWaterUp": {
-		"name": "Treading water (up)",
-		"vague": "Treading water",
+	"treadWaterUp": {
+		"name": "Tread water (up)",
+		"vague": "Tread water",
 		"category": [
 				"SWIMMING"
 			],
@@ -1286,9 +1286,9 @@
 			}
 		]
 	},
-	"treadingWaterDown": {
-		"name": "Treading water (down)",
-		"vague": "Treading water",
+	"treadWaterDown": {
+		"name": "Tread water (down)",
+		"vague": "Tread water",
 		"category": [
 				"SWIMMING"
 			],
@@ -2162,6 +2162,124 @@
 					{
 						"row": "L",
 						"col": 3,
+						"pos": [0,8],
+						"size": "FULL"
+					}
+				],
+				"length": 2,
+				"shadow": "NORM"
+			}
+		]
+	},
+	"swordPrimed": {
+		"name": "Sword primed",
+		"vague": "Sword primed",
+		"category": [
+				"NEUTRAL",
+				"SWORD"
+			],
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "SWORD",
+						"col": 3,
+						"pos": [10,11],
+						"size": "BOTTOM_HALF"
+					},
+					{
+						"row": "A",
+						"col": 0,
+						"pos": [-2,-1],
+						"size": "FULL"
+					},
+					{
+						"row": "M",
+						"col": 6,
+						"pos": [-1,7],
+						"size": "FULL"
+					}
+				],
+				"length": 10000,
+				"shadow": "NORM"
+			}
+		]
+	},
+	"swordPrimedUp": {
+		"name": "Sword primed (up)",
+		"vague": "Sword primed",
+		"category": [
+				"NEUTRAL",
+				"SWORD",
+				"SHIELD"
+			],
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "A",
+						"col": 2,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "M",
+						"col": 3,
+						"pos": [0,8],
+						"size": "FULL"
+					},
+					{
+						"row": "SWORD",
+						"col": 0,
+						"pos": [0,-7],
+						"size": "RIGHT_HALF"
+					},
+					{
+						"row": "SHIELD",
+						"col": 1,
+						"pos": [15,3],
+						"size": "RIGHT_HALF"
+					}
+				],
+				"length": 2,
+				"shadow": "NORM"
+			}
+		]
+	},
+	"swordPrimedDown": {
+		"name": "Sword primed (down)",
+		"vague": "Sword primed",
+		"category": [
+				"NEUTRAL",
+				"SWORD",
+				"SHIELD"
+			],
+		"steps": [
+			{
+				"sprites": [
+					{
+						"row": "SHIELD",
+						"col": 1,
+						"pos": [-7,4],
+						"size": "RIGHT_HALF",
+						"trans": "Y_FLIP"
+					},
+					{
+						"row": "SWORD",
+						"col": 0,
+						"pos": [7,18],
+						"size": "RIGHT_HALF",
+						"trans": "XY_FLIP"
+					},
+					{
+						"row": "A",
+						"col": 1,
+						"pos": [0,0],
+						"size": "FULL"
+					},
+					{
+						"row": "M",
+						"col": 0,
 						"pos": [0,8],
 						"size": "FULL"
 					}
@@ -3429,9 +3547,9 @@
 			}
 		]
 	},
-	"dashSpinup": {
-		"name": "Dash spinup",
-		"vague": "Dash spinup",
+	"dashCharge": {
+		"name": "Dash charge",
+		"vague": "Dash charge",
 		"category": [
 				"MOVEMENT",
 				"SHIELD"
@@ -3922,9 +4040,9 @@
 			}
 		]
 	},
-	"dashSpinupUp": {
-		"name": "Dash spinup (up)",
-		"vague": "Dash spinup",
+	"dashChargeUp": {
+		"name": "Dash charge (up)",
+		"vague": "Dash charge",
 		"category": [
 				"MOVEMENT",
 				"SHIELD"
@@ -4487,9 +4605,9 @@
 			}
 		]
 	},
-	"dashSpinupDown": {
-		"name": "Dash spinup (down)",
-		"vague": "Dash spinup",
+	"dashChargeDown": {
+		"name": "Dash charge (down)",
+		"vague": "Dash charge",
 		"category": [
 				"MOVEMENT",
 				"SHIELD"
@@ -5041,9 +5159,9 @@
 			}
 		]
 	},
-	"dashRelease": {
-		"name": "Dash release",
-		"vague": "Dash release",
+	"dash": {
+		"name": "Dash",
+		"vague": "Dash",
 		"category": [
 				"MOVEMENT",
 				"SWORD"
@@ -5123,9 +5241,9 @@
 			}
 		]
 	},
-	"dashReleaseUp": {
-		"name": "Dash release (up)",
-		"vague": "Dash release",
+	"dashUp": {
+		"name": "Dash (up)",
+		"vague": "Dash",
 		"category": [
 				"MOVEMENT",
 				"SWORD",
@@ -5316,9 +5434,9 @@
 			}
 		]
 	},
-	"dashReleaseDown": {
-		"name": "Dash release (down)",
-		"vague": "Dash release",
+	"dashDown": {
+		"name": "Dash (down)",
+		"vague": "Dash",
 		"category": [
 				"MOVEMENT",
 				"SWORD",
@@ -6146,8 +6264,8 @@
 			}
 		]
 	},
-	"deathSpin": {
-		"name": "Death spin",
+	"death": {
+		"name": "Death",
 		"vague": "Damage",
 		"category": [
 				"COMBAT"
@@ -21349,8 +21467,8 @@
 			}
 		]
 	},
-	"sleep": {
-		"name": "Sleep",
+	"asleep": {
+		"name": "Asleep",
 		"vague": "Bed",
 		"category": [
 				"NEUTRAL"
