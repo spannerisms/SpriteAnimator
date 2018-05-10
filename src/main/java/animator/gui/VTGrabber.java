@@ -12,7 +12,7 @@ import java.net.URL;
 import org.json.*;
 
 public class VTGrabber {
-	private static final String VT_PATH = "http://vt.alttp.run/sprites";
+	private static final String VT_PATH = "http://alttpr.com/sprites";
 
 	public static void run() {
 		final URL vtURL;
