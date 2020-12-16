@@ -1,6 +1,6 @@
 # SpriteAnimator
 
-[SpriteAnimator](https://github.com/fatmanspanda/SpriteAnimator/wiki/Sprite-Animator) is a program designed to help debug the appearance of a sprite as it's being created. It uses information based off of Link's animations in game to recreate every animation with an imported sprite. It is downloadable as a runnable `JAR` file from [the super project's release page](https://github.com/fatmanspanda/ALttPNG/releases).
+[SpriteAnimator](https://github.com/spannerisms/SpriteAnimator/wiki/Sprite-Animator) is a program designed to help debug the appearance of a sprite as it's being created. It uses information based off of Link's animations in game to recreate every animation with an imported sprite. It is downloadable as a runnable `JAR` file from [the super project's release page](https://github.com/spannerisms/ALttPNG/releases).
 
 ## Loading sprites
 * `ZSPR` - Uses the preferred sprite format to create the necessary images.
@@ -107,17 +107,17 @@ The bulk of the groundwork for this program was researched by Mike Trethewey and
 As of v1.5, animation data is stored in a `json` format, free for anyone to use. It is only asked that you credit the research time devoted here for that data.
 
 JSON file:
-* [/resources/AnimationData.json](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/AnimationData.json)
+* [/resources/AnimationData.json](https://github.com/spannerisms/SpriteAnimator/blob/master/src/main/resources/AnimationData.json)
 
 Definitions:
-* Key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/SheetRow.java)
-* Key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/DrawSize.java)
-* Key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/Transformation.java)
-* Key `shadow` in `steps` objects: [/Database/Shadow.java](https://github.com/fatmanspanda/SpriteAnimator/tree/master/src/main/java/animator/database/Shadow.java)
+* Key `row` in `sprite` array objects: [/Database/SheetRow.java](https://github.com/spannerisms/SpriteAnimator/tree/master/src/main/java/animator/database/SheetRow.java)
+* Key `size` in `sprite` array objects: [/Database/DrawSize.java](https://github.com/spannerisms/SpriteAnimator/tree/master/src/main/java/animator/database/DrawSize.java)
+* Key `trans` in `sprite` array objects: [/Database/Transformation.java](https://github.com/spannerisms/SpriteAnimator/tree/master/src/main/java/animator/database/Transformation.java)
+* Key `shadow` in `steps` objects: [/Database/Shadow.java](https://github.com/spannerisms/SpriteAnimator/tree/master/src/main/java/animator/database/Shadow.java)
 
 Resources:
-* Item sprites: [/resources/images/equipment.png](https://github.com/fatmanspanda/SpriteAnimator/blob/master/src/main/resources/images/equipment.png)
-* Zap palette colors: `static final byte[][] ZAP_PALETTE` (signed bytes) in [SpriteManipulator/SpriteManipulator.java](https://github.com/fatmanspanda/SpriteManipulator/blob/master/src/main/java/spritemanipulator/SpriteManipulator.java)
+* Item sprites: [/resources/images/equipment.png](https://github.com/spannerisms/SpriteAnimator/blob/master/src/main/resources/images/equipment.png)
+* Zap palette colors: `static final byte[][] ZAP_PALETTE` (signed bytes) in [SpriteManipulator/SpriteManipulator.java](https://github.com/spannerisms/SpriteManipulator/blob/master/src/main/java/spritemanipulator/SpriteManipulator.java)
 
 # Dependencies
 * [Sean Leary's `org.json` library](https://github.com/stleary/JSON-java)
